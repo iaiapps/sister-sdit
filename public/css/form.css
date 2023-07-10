@@ -1,0 +1,19 @@
+#msform fieldset:not(:first-of-type) {
+  display: none;
+}
+
+.progress {
+  height: 25px;
+}
+
+.progress-bar {
+  background-color: #198754;
+}
+
+.registerlogo {
+  width: 90px;
+}
+
+.formlogo {
+  width: 150px;
+}

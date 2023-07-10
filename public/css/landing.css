@@ -1,0 +1,62 @@
+/* .landingbackground {
+    background: linear-gradient(
+            180deg,
+            rgba(7, 121, 68, 1) 15%,
+            transparent,
+            rgba(255, 255, 255, 0.8) 100%
+        ),
+        url("../img/bgedu.svg");
+} */
+
+.landingbackground {
+    background: url("../img/bgedu.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logoonly {
+    width: 38px;
+}
+#nav {
+    z-index: 1;
+}
+
+#beranda {
+    padding-top: 70px;
+}
+
+.landinglogo {
+    width: 120px;
+}
+
+.img-login {
+    width: 100px;
+}
+
+.img-menu {
+    width: 70px;
+    height: 70px;
+}
+
+@media (max-width: 600px) {
+    .textalign {
+        text-align: center;
+    }
+
+    .logo {
+        width: 190px;
+    }
+    .img-soon {
+        width: 80%;
+    }
+    .menu {
+        text-decoration: none;
+        width: 120px;
+        height: 120px;
+    }
+    .img-menu {
+        width: 65px;
+        height: 65px;
+        padding: 10px !important;
+    }
+}

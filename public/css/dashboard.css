@@ -1,0 +1,193 @@
+body {
+    /* background-color: #e8f2dd; */
+    background-color: #f1f3f3 !important;
+}
+
+/* background */
+.background {
+    background-image: url("../img/bgedu.svg");
+    height: 345px;
+    width: 100%;
+    z-index: -1;
+    background-attachment: fixed;
+}
+
+/* navbar */
+#nav {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.judull {
+    width: 240px;
+}
+.dashboardlogo {
+    width: 35px;
+}
+
+.dropdown-menu {
+    margin-top: 25px !important;
+    width: 270px !important;
+}
+
+/* css sidebar */
+#sidebar {
+    width: 240px;
+    top: 68px;
+    bottom: 0;
+}
+
+#avatar {
+    height: 120px;
+}
+
+#avatar img {
+    width: 60px;
+    height: 60px;
+}
+
+#menu {
+    display: block;
+    height: 70%;
+}
+
+.menu-icon {
+    font-size: 1.25rem;
+}
+
+.hover {
+    border: 2px solid transparent !important;
+}
+.hover:hover {
+    background-color: #198754 !important;
+    color: white !important;
+    border-radius: 10px;
+}
+.hover:focus {
+    color: #198754;
+    border: 2px solid #198754;
+}
+
+/* css page */
+#page {
+    padding-top: 84px;
+    margin-left: 256px;
+    /* background-color: #e8f2dd; */
+}
+.page-margin {
+    margin-left: 16px !important;
+}
+
+.hr {
+    margin-top: 10px;
+    display: block;
+    border-radius: 20px;
+    border: 3px solid white !important;
+    width: 50%;
+    color: white;
+    background-color: white;
+}
+
+/* logo profil */
+.profiluser {
+    width: 100px;
+}
+
+/* tab-menu */
+/* .tab {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #146e45;
+    border-top: 15px solid #13653f;
+    border-bottom: 5px solid #e8f2dd;
+}
+.tablinks {
+    color: white;
+    padding: 10px 10px;
+}
+.tablinks:hover {
+    color: #13653f;
+    background-color: white;
+}
+.activetab {
+    display: block;
+    background-color: white;
+    color: #13653f !important;
+    border-bottom: 5px solid #198754;
+}
+.img_upload {
+    width: 200px;
+} */
+
+/* css form */
+.card {
+    z-index: 0;
+    border: none;
+}
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    background-color: #198754;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* helper */
+.rounded {
+    border-radius: 7px !important;
+}
+
+@media (max-width: 600px) {
+    #sidebar {
+        width: 70px !important;
+        top: 74px;
+    }
+
+    #avatar {
+        height: 70px;
+    }
+    #avatar img {
+        width: 45px;
+        height: 45px;
+    }
+    #avatar p {
+        font-size: 1.05rem !important;
+    }
+    .menu-icon {
+        font-size: 1.5rem;
+    }
+    .hover {
+        border: 0px solid transparent !important;
+    }
+
+    /* css page */
+    #page {
+        /* margin-left: 86px; */
+        padding-top: 90px;
+        margin-left: 0px;
+    }
+    .page-margin {
+        margin-left: 86px !important;
+    }
+
+    .hr {
+        width: 100%;
+    }
+    .hr-end {
+        padding-right: 0 !important;
+    }
+
+    .img-menu {
+        width: 60px;
+        height: 60px;
+        padding: 10px !important;
+    }
+}

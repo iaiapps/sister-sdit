@@ -1,0 +1,40 @@
+.avatar {
+    width: 80px;
+    height: 80px;
+}
+/* .btnG {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+.btnG img {
+    width: 20px;
+    margin-right: 10px;
+} */
+
+.line {
+    text-align: center;
+    border-bottom: 1px solid #d0d0d0;
+    line-height: 0.1em;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.line span {
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.loginbackground {
+    /* background: rgb(7, 121, 68); */
+    background-image: url("../img/bgedu.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    width: 120px;
+}

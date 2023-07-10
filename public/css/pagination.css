@@ -1,0 +1,32 @@
+.pagination > li > a {
+    background-color: white;
+    color: #188653;
+}
+
+.pagination > li > a:focus {
+    box-shadow: 0 0 0 0.2rem #18865335;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    color: #188653;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a {
+    color: white;
+    background-color: #188653;
+    border: solid 1px #188653;
+}
+
+.pagination > .active > a:hover {
+    background-color: #188653;
+    border: solid 1px #188653;
+    color: #fff;
+}
+
+.page-link:focus {
+    color: #188653;
+}
