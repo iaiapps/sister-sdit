@@ -17,6 +17,10 @@ use App\Http\Controllers\Api\SalaryController;
 */
 
 //route login
+Route::get('/', function () {
+    return view('api.app');
+});
+
 Route::post('/login', [AuthController::class, 'login']);
 
 //Protecting Routes

@@ -35,7 +35,7 @@
         <div class="mb-3">
             <p class="fs-5 d-inline">TABEL TEMPLATE</p>
             <a class="btn btn-warning float-end" href="{{ route('salary.export', ['date' => $date]) }}">
-                Download Template Data Bulan
+                Download template data bulan ini
             </a>
         </div>
         <div class="table-responsive">
@@ -62,10 +62,10 @@
                         <th>peminjaman </th>
                         <th>dansos </th>
                         <th>bpjs </th>
-                        <th>komponen_a </th>
+                        {{-- <th>komponen_a </th>
                         <th>komponen_b </th>
                         <th>komponen_c </th>
-                        <th>total </th>
+                        <th>total </th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -110,54 +110,16 @@
                             <td>{{ $presence->peminjaman }}</td>
                             <td>{{ $presence->dansos }}</td>
                             <td>{{ $presence->bpjs }}</td>
-                            <td>{{ $presence->komponen_a }}</td>
+                            {{-- <td>{{ $presence->komponen_a }}</td>
                             <td>{{ $presence->komponen_b }}</td>
                             <td>{{ $presence->komponen_c }}</td>
-                            <td>{{ $presence->total }}</td>
+                            <td>{{ $presence->total }}</td> --}}
 
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
-
-
-        {{-- <div class="table-responsive">
-            <table id="" class="table table-striped align-middle" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col" colspan="10" class="text-center">Keterngan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($teachers as $teacher)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $teacher->full_name }}</td>
-                            <td>
-                                <form action="">
-                                    <input type="text" name="" id="">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="">
-                                    <input type="text" name="" id="">
-                                </form>
-                            </td>
-                            <td>
-                                <form action="">
-                                    <input type="text" name="" id="">
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div> --}}
-
     </div>
 @endsection
 @push('css')

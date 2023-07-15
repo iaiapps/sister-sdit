@@ -100,27 +100,27 @@
                         <tr>
                             <td>1</td>
                             <td>Ekskul</td>
-                            <td class="text-end">@currency($salary->tambahan_1)</td>
+                            <td class="text-end">@currency($salary->ekskul)</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Istri & Anak</td>
-                            <td class="text-end">@currency($salary->tambahan_2)</td>
+                            <td class="text-end">@currency($salary->istri_anak)</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Sukses UN/Khotib</td>
-                            <td class="text-end">@currency($salary->tambahan_3)</td>
+                            <td class="text-end">@currency($salary->sukses_un_khotib)</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Fee</td>
-                            <td class="text-end">@currency($salary->tambahan_4)</td>
+                            <td class="text-end">@currency($salary->fee)</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Hari Raya</td>
-                            <td class="text-end">@currency($salary->tambahan_5)</td>
+                            <td class="text-end">@currency($salary->hari_raya)</td>
                         </tr>
 
                     </tbody>
@@ -133,27 +133,27 @@
                         <tr>
                             <td>1</td>
                             <td>DPP</td>
-                            <td class="text-end">@currency($salary->pengurangan_1)</td>
+                            <td class="text-end">@currency($salary->dpp)</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Koperasi</td>
-                            <td class="text-end">@currency($salary->pengurangan_2)</td>
+                            <td class="text-end">@currency($salary->koperasi)</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Peminjaman</td>
-                            <td class="text-end">@currency($salary->pengurangan_3)</td>
+                            <td class="text-end">@currency($salary->peminjaman)</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Dansos</td>
-                            <td class="text-end">@currency($salary->pengurangan_4)</td>
+                            <td class="text-end">@currency($salary->dansos)</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>BPJS</td>
-                            <td class="text-end">@currency($salary->pengurangan_5)</td>
+                            <td class="text-end">@currency($salary->bpjs)</td>
                         </tr>
                     </tbody>
                 </table>

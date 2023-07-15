@@ -21,10 +21,6 @@
             <th>peminjaman </th>
             <th>dansos </th>
             <th>bpjs </th>
-            <th>komponen_a </th>
-            <th>komponen_b </th>
-            <th>komponen_c </th>
-            <th>total </th>
         </tr>
     </thead>
     <tbody>
@@ -69,11 +65,6 @@
                 <td>{{ $presence->peminjaman }}</td>
                 <td>{{ $presence->dansos }}</td>
                 <td>{{ $presence->bpjs }}</td>
-                <td>{{ $presence->komponen_a }}</td>
-                <td>{{ $presence->komponen_b }}</td>
-                <td>{{ $presence->komponen_c }}</td>
-                <td>{{ $presence->total }}</td>
-
             </tr>
         @endforeach
     </tbody>

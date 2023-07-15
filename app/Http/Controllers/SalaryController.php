@@ -61,10 +61,11 @@ class SalaryController extends Controller
         return $presences;
     }
 
-    //fungsi panggil setting potongan
+    //fungsi panggil setting presence
     public function _settingValue($for)
     {
-        return PresenceSetting::where('name', $for)->first()->value;
+        $presenceSetting = PresenceSetting::where('name', '=', $for)->first()->value;
+        return $presenceSetting;
     }
 
     /**
@@ -203,14 +204,14 @@ class SalaryController extends Controller
     public function salaryexport(Request $request)
     {
         $date = $request->date;
-        // dd($date);
-        return Excel::download(new SalaryExport($date), 'salary.xlsx');
+        $month = Carbon::parse($request->date)->isoFormat('MMMM');
+        return Excel::download(new SalaryExport($date),  'template-gaji' . '-' . $month . '.xlsx');
     }
 
     public function salaryimport()
     {
         Excel::import(new SalaryImport, request()->file('file'));
-        return back();
+        return redirect()->route('listmassal');
     }
 
     public function listmassal(Request $request)

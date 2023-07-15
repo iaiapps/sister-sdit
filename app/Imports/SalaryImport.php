@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Salary;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
 
 class SalaryImport implements ToModel, WithHeadingRow
@@ -36,10 +37,10 @@ class SalaryImport implements ToModel, WithHeadingRow
             'peminjaman' => $row['peminjaman'],
             'dansos' => $row['dansos'],
             'bpjs' => $row['bpjs'],
-            'komponen_a' => $row['komponen_a'],
-            'komponen_b' => $row['komponen_b'],
-            'komponen_c' => $row['komponen_c'],
-            'total' => $row['total'],
+            'komponen_a' => $komponen_a = $row['gaji_pokok'] + $row['gaji_fungsional'] + $row['tot_fee_kehadiran'],
+            'komponen_b' => $komponen_b = $row['ekskul'] + $row['istri_anak'] + $row['sukses_un_khotib'] + $row['fee'] + $row['hari_raya'],
+            'komponen_c' => $komponen_c = $row['dpp'] + $row['koperasi'] + $row['peminjaman'] + $row['dansos'] + $row['bpjs'],
+            'total' => $komponen_a + $komponen_b - $komponen_c,
         ]);
     }
 }
