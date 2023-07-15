@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PresenceController;
+use App\Http\Controllers\Api\SalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //akses data presensi
     Route::resource('presence', PresenceController::class);
+    Route::resource('salary', SalaryController::class);
     Route::get('jam', [PresenceController::class, 'jam']);
     //route logout
     Route::post('/logout', [AuthController::class, 'logout']);
