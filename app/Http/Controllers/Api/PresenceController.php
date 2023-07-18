@@ -26,7 +26,7 @@ class PresenceController extends Controller
     public function show($id)
     {
         $monthyear = Carbon::now();
-        $presence = Presence::where('teacher_id', $id)->whereYear('creatd_at', $monthyear)->whereMonth('created_at', $monthyear)->get();
+        $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->get();
 
         // dd($presence);
         if ($presence->count() == null) {
