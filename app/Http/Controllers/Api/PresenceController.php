@@ -51,7 +51,7 @@ class PresenceController extends Controller
 
     public function store(Request $request)
     {
-        $now = Carbon::now()->isoformat('H:m:s');
+        $now = Carbon::now()->isoFormat('H:mm:ss');
 
         if ($request->has('note')) {
             return $this->_note($request->teacher_id, $request->note, $request->description);
@@ -233,7 +233,7 @@ class PresenceController extends Controller
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
             // 'date' => date("d/m/y"),
-            'time_in' => $now->format('H:i:s'),
+            'time_in' => $now->isoFormat('H:mm:ss'),
             'time_out' => '',
             'is_late' => $is_late,
             'note' => $note
@@ -264,8 +264,8 @@ class PresenceController extends Controller
                 Presence::where('teacher_id', $request->teacher_id)
                     ->whereDate('created_at', '=', Carbon::today()
                         ->toDateString())
-                    ->update(['time_out' => Carbon::now()->isoformat('H:m:s')]);
-                return response()->json(['pesan' => 'Berhasil absen pulang', 'data' => Carbon::now()->format('H:m:s')], 200);
+                    ->update(['time_out' => Carbon::now()->isoFormat('H:mm:ss')]);
+                return response()->json(['pesan' => 'Berhasil absen pulang', 'data' => Carbon::now()->isoFormat('H:mm:ss')], 200);
             } else {
                 return response()->json(['pesan' => 'Belum saatnya pulang'], 200);
             }
@@ -273,7 +273,7 @@ class PresenceController extends Controller
     }
     public function scanLeaveOnly($request)
     {
-        $jamNow = Carbon::now()->isoformat('H:m:s');
+        $jamNow = Carbon::now()->isoFormat('H:mm:ss');
         $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'));
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
@@ -312,7 +312,7 @@ class PresenceController extends Controller
     }
     public function jam()
     {
-        $jam = Carbon::now()->format('H:i:s');
+        $jam = Carbon::now()->isoFormat('H:mm:ss');
         return response()->json([
             'pesan' => 'Berhasil mendapatkan jam',
             'data' => $jam
