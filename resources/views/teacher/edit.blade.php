@@ -51,7 +51,7 @@
                                 class="form-control @error('place_of_birth') is-invalid
                             @enderror"
                                 id="place_of_birth" name="place_of_birth" type="text" placeholder="tempat lahir"
-                                value="{{ old('place_of_birth') }}" />
+                                value="{{ old('place_of_birth', $teacher->place_of_birth) }}" />
                             @error('place_of_birth')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -66,7 +66,8 @@
                                 class="form-control @error('date_of_birth')
                             is-invalid
                             @enderror"
-                                name="date_of_birth" type="date" id="date_birth" placeholder="Bulan/Hari/Tahun" />
+                                name="date_of_birth" type="date" id="date_birth" placeholder="Bulan/Hari/Tahun"
+                                value="{{ old('date_of_birth', $teacher->date_of_birth) }}" />
                             @error('date_of_birth')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -81,7 +82,8 @@
                         class="form-control @error('last_education')
                     is-invalid
                     @enderror"
-                        type="text" id="last_education" placeholder="pendidikan terakhir" name="last_education" />
+                        type="text" id="last_education" placeholder="pendidikan terakhir" name="last_education"
+                        value="{{ old('last_education', $teacher->last_education) }}" />
                     @error('last_education')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -114,7 +116,7 @@
                                 class="form-control @error('year_enter')
                             is-invalid
                             @enderror"
-                                id="bulantahunmasuk" name="year_enter" placeholder="tahun masuk" />
+                                id="bulantahunmasuk" name="year_enter" placeholder="tahun masuk" required />
                             @error('year_enter')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -130,7 +132,8 @@
                     is-invalid
                     @enderror">No.Telephon
                         (WA aktif)</label>
-                    <input type="text" class="form-control" id="handphone" name="no_hp" placeholder="0821xxxxxx" />
+                    <input type="text" class="form-control" id="handphone" name="no_hp" placeholder="0821xxxxxx"
+                        value="{{ old('no_hp', $teacher->no_hp) }}" />
                     @error('no_hp')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -157,7 +160,7 @@
                         class="form-control @error('nik')
                     is-invalid
                     @enderror"
-                        id="nik" name="nik" placeholder="NIK" />
+                        id="nik" name="nik" placeholder="NIK" value="{{ old('nik', $teacher->nik) }}" />
                     @error('nik')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -166,7 +169,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="npwp">NPWP (jika memiliki)</label>
-                    <input class="form-control" type="number" id="npwp" name="npwp" placeholder="NPWP" />
+                    <input class="form-control" type="number" id="npwp" name="npwp" placeholder="NPWP"
+                        value="{{ old('npwp', $teacher->npwp) }}" />
 
                 </div>
                 <div class="mb-3">
@@ -175,7 +179,8 @@
                         class="form-control @error('address')
                     is-invalid
                     @enderror"
-                        type="text" id="alamatjalan" name="address" placeholder="alamat" />
+                        type="text" id="alamatjalan" name="address" placeholder="alamat"
+                        value="{{ old('address', $teacher->address) }}" />
                     @error('address')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -190,7 +195,8 @@
                             class="form-control @error('rt')
                         is-invalid
                         @enderror"
-                            type="number" id="rt" name="rt" placeholder="RT" />
+                            type="number" id="rt" name="rt" placeholder="RT"
+                            value="{{ old('rt', $teacher->rt) }}" />
                         @error('rt')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -203,7 +209,8 @@
                             class="form-control @error('rw')
                         is-invalid
                         @enderror"
-                            type="number" id="rw" name="rw" placeholder="RW" />
+                            type="number" id="rw" name="rw" placeholder="RW"
+                            value="{{ old('rw', $teacher->rw) }}" />
                         @error('rw')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -217,7 +224,8 @@
                             class="form-control @error('village')
                         is-invalid
                         @enderror"
-                            type="text" id="desa/kelurahan" name="village" placeholder="village" />
+                            type="text" id="desa/kelurahan" name="village" placeholder="village"
+                            value="{{ old('village', $teacher->village) }}" />
                         @error('village')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -230,7 +238,8 @@
                             class="form-control  @error('subdistrict')
                         is-invalid
                         @enderror"
-                            type="text" id="kecamatan" name="subdistrict" placeholder="subdistrict" />
+                            type="text" id="kecamatan" name="subdistrict" placeholder="subdistrict"
+                            value="{{ old('subdistrict', $teacher->subdistrict) }}" />
                         @error('subdistrict')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -243,7 +252,8 @@
                             class="form-control @error('city')
                         is-invalid
                         @enderror"
-                            type="text" id="kabupaten/kota" name="city" placeholder="city" />
+                            type="text" id="kabupaten/kota" name="city" placeholder="city"
+                            value="{{ old('city', $teacher->city) }}" />
                         @error('city')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -256,7 +266,8 @@
                             class="form-control @error('province')
                         is-invalid
                         @enderror"
-                            type="text" id="province" name="province" placeholder="province" />
+                            type="text" id="province" name="province" placeholder="province"
+                            value="{{ old('province', $teacher->province) }}" />
                         @error('province')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -270,7 +281,8 @@
                         class="form-control @error('postal_code')
                     is-invalid
                     @enderror"
-                        type="number" id="kodepos" name="postal_code" placeholder="kode pos" />
+                        type="number" id="kodepos" name="postal_code" placeholder="kode pos"
+                        value="{{ old('postal_code', $teacher->postal_code) }}" />
                     @error('postal_code')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -295,7 +307,8 @@
                         class="form-control @error('partner_name')
                     is-invalid
                     @enderror"
-                        type="text" id="namasuami/istri" name="partner_name" placeholder="nama suami/istri" />
+                        type="text" id="namasuami/istri" name="partner_name" placeholder="nama suami/istri"
+                        value="{{ old('partner_name', $teacher->partner_name) }}" />
                     @error('partner_name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -310,8 +323,8 @@
                         class="form-control @error('partner_job')
                     is-invalid
                     @enderror"
-                        type="text" id="pekerjaansuami/istri" name="partner_job"
-                        placeholder="pekerjaan suami/istri" />
+                        type="text" id="pekerjaansuami/istri" name="partner_job" placeholder="pekerjaan suami/istri"
+                        value="{{ old('partner_job', $teacher->partner_job) }}" />
                     @error('partner_job')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -319,13 +332,14 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label class="form-label " for="pekerjaansuami/istri">Jumlah Anak
+                    <label class="form-label " for="jumlah_anak">Jumlah Anak
                     </label>
                     <input
                         class="form-control @error('children_number')
                     is-invalid
                     @enderror"
-                        type="number" id="pekerjaansuami/istri" name="children_number" placeholder="xx" />
+                        type="number" id="jumlah_anak" name="children_number" placeholder="xx"
+                        value="{{ old('children_number', $teacher->children_number) }}" />
                     @error('children_number')
                         <div class="invalid-feedback">
                             {{ $message }}

@@ -97,29 +97,4 @@ class TeacherController extends Controller
         // dd($user);
         return view('teacher.show', compact('teacher', 'id'));
     }
-
-    // public function editProfile(Teacher $teacher)
-    // {
-    //     return view('teacher.profile.edit', compact('teacher'));
-    // }
-
-    // public function updateProfile(Request $request, Teacher $teacher)
-    // {
-    //     $request->validate([
-    //         'full_name' => 'required',
-    //         'gender' => 'required',
-    //         'place_of_birth' => 'required',
-    //         'date_of_birth' => 'required',
-    //         'last_education' => 'required',
-    //         'month_enter' => 'required',
-    //         'year_enter' => 'required',
-    //         'no_hp' => 'required',
-    //     ]);
-
-    //     $teacher->update($request->all());
-    //     return redirect('profile');
-    // }
-
-    //education
-
 }

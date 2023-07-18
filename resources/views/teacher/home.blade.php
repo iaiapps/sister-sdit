@@ -21,25 +21,25 @@
 
     <div class="container text-center mb-3">
         <div class="row">
-            <div class="col-6 col-md-3 bg-primary p-3">
+            <div class="col-6 col-md-3 bg-primary p-2">
                 <a href="" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-person fs-2"></i>
                     <span class="d-block">Profil</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-light p-3">
+            <div class="col-6 col-md-3 bg-light p-2">
                 <a href="" class="nav-link btn btn-outline text-dark">
                     <i class="bi bi-card-image fs-2"></i>
                     <span class="d-block">Dokumen</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-danger p-3">
+            <div class="col-6 col-md-3 bg-danger p-2">
                 <a href="" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-calendar-check fs-2"></i>
                     <span class="d-block">Presensi</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-warning p-3">
+            <div class="col-6 col-md-3 bg-warning p-2">
                 <a href="" class="nav-link btn btn-outline text-white ">
                     <i class="bi bi-coin fs-2"></i>
                     <span class="d-block">Gaji</span>
@@ -70,23 +70,23 @@
                         <tbody>
                             <tr>
                                 <td class="widtht">Jabatan</td>
-                                <td>{{ $teacher->salary_basic->nama_jabatan }}</td>
+                                <td>{{ $teacher->salary_basic->nama_jabatan ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Nomor Handphone</td>
-                                <td>{{ $teacher->no_hp }}</td>
+                                <td>{{ $teacher->no_hp ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{{ $teacher->email }}</td>
+                                <td>{{ $teacher->email ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Pendidikan Terakhir</td>
-                                <td>{{ $teacher->last_education }}</td>
+                                <td>{{ $teacher->last_education ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Masuk SDIT sejak</td>
-                                <td>{{ $teacher->month_enter }} {{ $teacher->year_enter }}</td>
+                                <td>{{ $teacher->month_enter ?? 'belum ditentukan' }} {{ $teacher->year_enter }}</td>
                             </tr>
                         </tbody>
                     </table>

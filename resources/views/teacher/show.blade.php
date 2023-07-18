@@ -64,7 +64,7 @@
                                     <td>Alamat Rumah</td>
                                     <td>{{ $teacher->address }} | rt {{ $teacher->rt }} / rw {{ $teacher->rw }} |
                                         {{ $teacher->village }} | {{ $teacher->subdistrict }} |
-                                        {{ $teacher->city }} | {{ $teacher->province }} | {{ $teacher->address }}</td>
+                                        {{ $teacher->city }} | {{ $teacher->province }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kode Pos</td>
