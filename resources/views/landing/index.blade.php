@@ -36,33 +36,44 @@
             <div class="py-5">
                 <h2 class="text-center display-6 mb-3">MENU SISTER</h2>
                 <div class="row">
-                    <div class="col-12 col-md-4 p-3">
+                    <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/document.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
-                            <h3>VERVAL IJAZAH</h3>
+                            <h4>VERVAL IJAZAH</h4>
                             <p>Aplikasi verifikasi data pada Ijazah kelas 6 </p>
                             <a href="#" class="btn btn-success rounded mb-2 w-100">
                                 VERVAL
                             </a>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 p-3">
+                    <div class="col-12 col-md-3 p-3">
+                        <div class="card shadow border-0 p-3 align-items-center text-center">
+                            <img src="{{ asset('img/logofull.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
+                                alt="dbapps" />
+                            <h4>SISTER PRESENCE</h4>
+                            <p>Aplikasi presensi SDIT Harum Jember </p>
+                            <a href="{{ asset('apk/sisterPresence.apk') }}" class="btn btn-success rounded mb-2 w-100">
+                                APK
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/report.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
-                            <h3>ANITA</h3>
+                            <h4>ANITA</h4>
                             <p>Aplikasi nilai Tahfidz SDIT Harum Jember</p>
-                            <a href="#" class="btn btn-success rounded mb-2 w-100">
+                            <a href="#" class="btn btn-success rounded mb-2 w-100" download="">
                                 ANITA
                             </a>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 p-3">
+                    <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/soon.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
-                            <h3>SOON</h3>
+                            <h4>SOON</h4>
                             <p>Akan datang</p>
                             <a href="#" class="btn btn-success rounded mb-2 w-100">
                                 DB Apps
