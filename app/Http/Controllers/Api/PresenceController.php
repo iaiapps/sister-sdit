@@ -213,7 +213,7 @@ class PresenceController extends Controller
                 case ($now->between($ontime, $late_b)):
                     $is_late = 2;
                     break;
-                case ($now->between($ontime, $late_c)):
+                case ($now->between($ontime, $late_c) || $now >= $late_c):
                     $is_late = 3;
                     break;
                 default:
@@ -272,7 +272,7 @@ class PresenceController extends Controller
             // 'date' => date("d/m/y"),
             'time_in' => $end_time_come,
             'time_out' => $jamNow,
-            'is_late' => true,
+            'is_late' => 3,
             'note' => 'Telat'
         ]);
         return response()->json([
