@@ -205,30 +205,22 @@ class PresenceController extends Controller
         $late_b = Carbon::createFromTimeString($this->_settingValue('late_b'));
         $late_c = Carbon::createFromTimeString($this->_settingValue('late_c'));
 
-        // $late_guard = $this->_settingValue('late_guard');
-
-        // if ($late_guard == true) {
-        // late category
-        switch ($now) {
-            case ($now->between($ontime, $late_a)):
-                $is_late = 1;
-                break;
-            case ($now->between($ontime, $late_b)):
-                $is_late = 2;
-                break;
-            case ($now->between($ontime, $late_c)):
-                $is_late = 3;
-                break;
-
-            default:
-                $is_late = 0;
-                break;
+        if ($this->_timeline() == true) {
+            switch ($now) {
+                case ($now->between($ontime, $late_a)):
+                    $is_late = 1;
+                    break;
+                case ($now->between($ontime, $late_b)):
+                    $is_late = 2;
+                    break;
+                case ($now->between($ontime, $late_c)):
+                    $is_late = 3;
+                    break;
+                default:
+                    $is_late;
+                    break;
+            }
         }
-        // } else {
-        // $is_late == 1;
-        // }
-
-        // dd($is_late);
 
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
