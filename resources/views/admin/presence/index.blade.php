@@ -40,6 +40,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Kehadiran</th>
+                        <th scope="col">Golongan</th>
                         <th scope="col">Terlambat</th>
                         <th scope="col">Sakit</th>
                         <th scope="col">Ijin</th>
@@ -58,6 +59,9 @@
                                 <span class="m-0">telat a : {{ $presence->is_late_a }}</span>
                                 <br> <span class="m-0">telat b : {{ $presence->is_late_b }}</span>
                                 <br> <span class="m-0">telat c : {{ $presence->is_late_c }}</span>
+                            </td>
+                            <td>
+                                {{ $presence->is_late_a + $presence->is_late_b + $presence->is_late_c }}
                             </td>
                             <td>{{ $presence->total_sakit }}</td>
                             <td>{{ $presence->total_ijin }}</td>
