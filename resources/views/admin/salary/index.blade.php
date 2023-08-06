@@ -5,41 +5,35 @@
     <div class="card p-3 rounded">
 
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-md-6">
                 <p class="fs-5 mb-1">Data Guru</p>
                 <a href="{{ route('position.index') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Data Jabatan</a>
                 <a href="{{ route('pfunctional.index') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Data Fungsional</a>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 mt-3 mt-md-0">
                 <p class="fs-5 mb-1">Buat Data Gaji Secara Massal</p>
-                <form action="{{ route('bulk.create') }}" class="row">
+                <form action="{{ route('bulk.create') }}">
                     @csrf
-                    <div class="col">
-                        <label for="date" class="mt-2">Pilih bulan</label>
-                    </div>
-                    <div class="col">
+                    {{-- <label for="date" class="mt-2">Pilih bulan</label> --}}
+                    <div class="input-group">
+                        <button type="submit" class="input-group-text btn btn-success">Isi Massal Bulan</button>
                         <input type="date" name="date" class="form-control">
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-outline-success">Isi Massal</button>
-                    </div>
                 </form>
-
-                {{-- <a href="{{ route('bulk.create') }}" class="btn btn-outline-success">
-                    <i class="bi bi-plus-circle"></i> Isi Massal</a> --}}
             </div>
         </div>
 
         <hr class="mt-3">
         <div class="mb-3">
             <form action="{{ route('listmassal') }}" class="row">
-                <div class="col-3">
-                    <button type="submit" class="btn btn-outline-success">lihat massal gaji bulan</button>
-                </div>
-                <div class="col-3">
-                    <input type="date" name="date" class="form-control">
+                <div class="col-12 col-md-6">
+                    <div class="input-group">
+                        <button type="submit" class="input-group-text btn btn-outline-success">lihat massal gaji
+                            bulan</button>
+                        <input type="date" name="date" class="form-control">
+                    </div>
                 </div>
             </form>
         </div>

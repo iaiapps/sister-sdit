@@ -120,6 +120,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:Admin,Guru/Tendik,Keuangan')->group(function () {
         Route::resource('presence', PresenceController::class);
         Route::resource('salary', SalaryController::class);
-        Route::get('presence/exportExcel', [PresenceController::class, 'exportExcel'])->name('presence.excel');
+        Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
     });
 });

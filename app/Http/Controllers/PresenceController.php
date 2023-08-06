@@ -6,7 +6,9 @@ use App\Models\Teacher;
 use App\Models\Presence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Exports\PresenceExport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresenceController extends Controller
 {
@@ -125,5 +127,13 @@ class PresenceController extends Controller
         }
 
         return view('admin.presence.show', compact('presences', 'teacher'));
+    }
+
+    public function presenceexport(Request $request)
+    {
+        $date = $request->date;
+        $month = Carbon::parse($request->date)->isoFormat('MMMM Y');
+        // dd($month);
+        return Excel::download(new PresenceExport($date),  'presensi' . '-' . $month . '.xlsx');
     }
 }

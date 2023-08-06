@@ -4,28 +4,24 @@
 @section('title', 'Data Presensi')
 @section('content')
     <div class="card p-3">
-        <div class="row mb-1">
-            <div class="col-12 col-md-6">
-                <a href="{{ route('presence.excel', ['date' => $date]) }}" class="btn btn-success rounded ">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 ">
+                <a href="{{ route('presence.export', ['date' => $date]) }}" class="btn btn-success rounded ">
                     <i class="bi bi-download"></i> Download Data</a>
 
                 <h6 class="d-inline border-bottom border-success pb-2 border-3"> Bulan :
                     {{ request('date') ? $carbon::parse($date)->isoFormat('MMMM Y') : $carbon::parse($date)->isoFormat('MMMM Y') }}
                 </h6>
             </div>
-            <div class="col-12 col-md-6 text-end">
+            <div class="col-12 col-md-6 mt-3 mt-md-0 ">
                 <form action="/presence" method="GET">
                     {{-- @csrf --}}
-                    <div class="row">
-                        <div class="col">
-                            <label for="start" class="mt-2">filter bulan</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="month" id="start" name="date"
-                                value="{{ request('date') ? request('date') : $date }}" class="form-control" />
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-success">Terapkan</button>
+                    <div class="d-flex align-items-center ">
+                        <label for="start">filter bulan</label>
+                        <div class="input-group">
+                            <input type="month" id="start" name="date" class="form-control"
+                                value="{{ request('date') ? request('date') : $date }}">
+                            <button type="submit" class="input-group-text btn btn-success">Terapkan</button>
                         </div>
                     </div>
                 </form>
@@ -40,7 +36,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Kehadiran</th>
-                        <th scope="col">Golongan</th>
+                        <th scope="col">Late_type</th>
                         <th scope="col">Terlambat</th>
                         <th scope="col">Sakit</th>
                         <th scope="col">Ijin</th>
@@ -87,7 +83,9 @@
     <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                paging: false
+            });
         });
     </script>
 @endpush
