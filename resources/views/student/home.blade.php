@@ -18,7 +18,6 @@
         </p>
     </div>
 
-
     <div class="bg-white rounded container">
         <p class="fs-4 text-center pt-3">Profil Pengguna</p>
         <hr>
@@ -47,6 +46,10 @@
                                 <td>{{ $student->nis }}</td>
                             </tr>
                             <tr>
+                                <td>Tempat, Tanggal Lahir</td>
+                                <td>{{ $student->place_of_birth . ', ' . $student->date_of_birth }}</td>
+                            </tr>
+                            <tr>
                                 <td>Kelas</td>
                                 <td>{{ $student->nis }}</td>
                             </tr>
@@ -55,10 +58,6 @@
                                 <td>{{ $student->address . ' | rt ' . $student->rt . ' | ' . 'rw' . $student->rw . ' | ' . $student->village }}
                                     | {{ $student->subdistrict }} |
                                     {{ $student->city }} | {{ $student->province }}</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{{ $student->email ?? 'belum ditentukan' }}</td>
                             </tr>
 
                         </tbody>

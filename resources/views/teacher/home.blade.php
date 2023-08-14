@@ -71,10 +71,10 @@
                 <div class="table-responsive">
                     <table id="table" class="table table-striped align-middle">
                         <tbody>
-                            <tr>
+                            {{-- <tr>
                                 <td class="widtht">Jabatan</td>
                                 <td>{{ $teacher->salary_basic->nama_jabatan ?? 'belum ditentukan' }}</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>Nomor Handphone</td>
                                 <td>{{ $teacher->no_hp ?? 'belum ditentukan' }}</td>

@@ -34,6 +34,8 @@ class HomeController extends Controller
         $id = $base->id;
         $user = $base->name;
         $role_id = $base->role_id;
+
+        $nis = $base->nis;
         // dd($role_id);
 
         //get total user where role_id 2 atau 3
@@ -44,8 +46,11 @@ class HomeController extends Controller
         $teacher = Teacher::where('user_id', $id)->first();
         $student = Student::where('user_id', $id)->first();
 
-        $picture = Document::where('type', 'foto_profil')->where('teacher_id', $id)->orWhere('student_id', $id)->first();
-        // dd($picture);
+        if (empty($nis)) {
+            $picture = Document::where('type', 'foto_profil')->where('teacher_id', $teacher->id)->first();
+        } else {
+            $picture = Document::where('type', 'foto_profil')->where('student_id', $student->id)->first();
+        }
 
         //get school data
         $schools = School::get()->all();
@@ -87,7 +92,6 @@ class HomeController extends Controller
         if (!Hash::check($request->old_password, auth()->user()->password)) {
             return back()->with("error", "Old Password Doesn't match!");
         }
-
 
         #Update the new Password
         User::whereId(auth()->user()->id)->update([
