@@ -67,8 +67,20 @@
                                 <tr>
                                     <td>Alamat Rumah</td>
                                     <td>{{ $student->address }} | rt {{ $student->rt }} / rw {{ $student->rw }} |
-                                        {{ $student->village }} | {{ $student->subdistrict }} |
-                                        {{ $student->city }} | {{ $student->province }} | {{ $student->address }}</td>
+                                        {{ $student->village }} </td>
+                                </tr>
+
+                                <tr>
+                                    <td> kecamatan </td>
+                                    <td> {{ $student->subdistrict }} </td>
+                                </tr>
+                                <tr>
+                                    <td> Kabupaten/Kota </td>
+                                    <td> {{ $student->city }} </td>
+                                </tr>
+                                <tr>
+                                    <td> Kabupaten/Kota </td>
+                                    <td> {{ $student->province }} </td>
                                 </tr>
                                 <tr>
                                     <td>Kode Pos</td>

@@ -20,9 +20,9 @@
                         <a href="{{ url('profil#profil_guru') }}" class="nav-link active" data-bs-toggle="tab">Profil
                             Guru</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="#identitas_pribadi" class="nav-link" data-bs-toggle="tab">Identitas Pribadi</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="#education" class="nav-link" data-bs-toggle="tab">Riwayat Pendidikan</a>
                     </li>
@@ -63,8 +63,20 @@
                                 <tr>
                                     <td>Alamat Rumah</td>
                                     <td>{{ $teacher->address }} | rt {{ $teacher->rt }} / rw {{ $teacher->rw }} |
-                                        {{ $teacher->village }} | {{ $teacher->subdistrict }} |
-                                        {{ $teacher->city }} | {{ $teacher->province }}</td>
+                                        {{ $teacher->village }} </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Kecamatan</td>
+                                    <td>{{ $teacher->subdistrict }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Kabupaten/Kota</td>
+                                    <td>{{ $teacher->city }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Provinsi</td>
+                                    <td>{{ $teacher->province }}</td>
                                 </tr>
                                 <tr>
                                     <td>Kode Pos</td>
@@ -78,12 +90,12 @@
                                     <td>No Hp</td>
                                     <td>{{ $teacher->no_hp }}</td>
                                 </tr>
-                            </tbody>
+                                {{-- </tbody>
                         </table>
                     </div>
                     <div class="tab-pane" id="identitas_pribadi">
                         <table id="table" class="table table-striped align-middle" style="width: 100%">
-                            <tbody>
+                            <tbody> --}}
                                 <tr>
                                     <td>NIK</td>
                                     <td>{{ $teacher->nik }}</td>

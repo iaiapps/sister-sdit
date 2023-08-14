@@ -24,11 +24,11 @@
                     <td>{{ $child->gender }}</td>
                     <td>{{ $child->place_of_birth }}, {{ $child->date_of_birth }} </td>
                     <td>
-                        <a href="/child/{{ $child->id }}/edit" class="btn btn-warning btn-sm"><i
+                        <a href="{{ route('child.edit', $child->id) }}" class="btn btn-warning btn-sm"><i
                                 class="bi bi-pencil-square"></i>
                             edit</a>
                         <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                            action="/child/{{ $child->id }}" method="post" class="d-inline">
+                            action="{{ route('child.destroy', $child->id) }}" method="post" class="d-inline">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm">

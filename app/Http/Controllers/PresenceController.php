@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Exports\PresenceExport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PresenceController extends Controller
@@ -54,6 +55,7 @@ class PresenceController extends Controller
     public function show($id, Request $request)
     {
         $id = (int)$id;
+        // dd($id);
         $date = $request->date;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
@@ -135,5 +137,31 @@ class PresenceController extends Controller
         $month = Carbon::parse($request->date)->isoFormat('MMMM Y');
         // dd($month);
         return Excel::download(new PresenceExport($date),  'presensi' . '-' . $month . '.xlsx');
+    }
+
+
+    // .......................................//
+    //handle dari user
+    //presence
+
+    public function teacherPresence(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $teacher = Teacher::where('user_id', $user_id)->get()->first();
+        $teacher_id = $teacher->id;
+
+        $date = Carbon::now();
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        // $teacher = Teacher::where('id', $id)->get()->first();
+
+        // dd($teacher->id);
+
+        if ($request->start_date || $request->end_date) {
+            $presences = $this->betweenDate($teacher_id, $start_date, $end_date);
+        } else {
+            $presences  = $this->showDataByMonth($teacher_id, $date);
+        }
+        return view('admin.presence.show', compact('presences', 'teacher'));
     }
 }

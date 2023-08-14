@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use App\Models\PresenceSetting;
 use App\Models\SalaryReduction;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SalaryController extends Controller
@@ -34,6 +35,8 @@ class SalaryController extends Controller
         // dd($request);
         $id = $request->id;
         $year = $request->year;
+
+
         $salaries = Salary::whereYear('created_at', $year)->where('teacher_id', $id)->get();
         $teacher = Teacher::where('id', $id)->get()->first();
 
@@ -137,7 +140,6 @@ class SalaryController extends Controller
         $validate['nomor_slip'] = $id . $day . $month . $year;
         $validate['bulan'] = $year . '-' . $month . '-' . $day;
 
-
         Salary::create($validate);
 
         return redirect()->route('list', ['id' => $id, 'year' => $year]);
@@ -148,7 +150,10 @@ class SalaryController extends Controller
      */
     public function show(Request $request, Salary $salary)
     {
+
+
         $id = $request->id;
+        // dd($request);
         $teacher = Teacher::where('id', $id)->get()->first();
         return view('admin.salary.show', compact('salary', 'teacher'));
     }
@@ -222,5 +227,24 @@ class SalaryController extends Controller
         $salaries = Salary::whereYear('created_at', $year)->whereMonth('bulan', $month)->get();
         // dd($salaries);
         return view('admin.salary.listmassal', compact('salaries'));
+    }
+
+
+    // .......................................//
+    //handle dari user
+    //salary
+    public function teacherSalary(Request $request)
+    {
+        // dd($request);
+        $user_id = Auth::user()->id;
+        $teacher = Teacher::where('user_id', $user_id)->get()->first();
+        $teacher_id = $teacher->id;
+        $year = Carbon::now();
+
+
+        $salaries = Salary::whereYear('created_at', $year)->where('teacher_id', $teacher_id)->get();
+        // $teacher = Teacher::where('id', $id)->get()->first();
+
+        return view('admin.salary.list', compact('salaries', 'teacher', 'user_id'));
     }
 }

@@ -35,7 +35,7 @@ class ChildController extends Controller
         $child['teacher_id'] = $id;
         Child::create($child);
         // return redirect('profile#child');
-        return redirect('profile')->withInput(['tab' => 'child']);
+        return redirect()->route('profile')->withInput(['tab' => 'child']);
     }
 
     /**
@@ -60,7 +60,7 @@ class ChildController extends Controller
     public function update(Request $request, Child $child)
     {
         $child->update($request->all());
-        return redirect('profile');
+        return redirect()->route('profile')->withInput(['tab' => 'child']);
     }
 
     /**
@@ -69,6 +69,6 @@ class ChildController extends Controller
     public function destroy(Child $child)
     {
         $child->delete();
-        return redirect('profile');
+        return redirect()->route('profile')->withInput(['tab' => 'child']);
     }
 }

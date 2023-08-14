@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChildController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SettingController;
@@ -68,58 +69,66 @@ Route::middleware('auth')->group(function () {
 
     //admin dan guru
     Route::middleware('role:Admin,Guru/Tendik')->group(function () {
-        Route::prefix('pengguna')->group(function () {
-            Route::resource('teacher', TeacherController::class)->except('index');
+        Route::prefix('guru')->group(function () {
             Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
+            Route::resource('teacher', TeacherController::class)->except('index', 'destroy');
             // presence
-            Route::resource('presence', PresenceController::class)->only('show');
-            Route::resource('salary', SalaryController::class)->only('show');
+            Route::get('teacher-presence', [PresenceController::class, 'teacherPresence'])->name('teacher.presence');
             //data guru
             Route::resource('education', EducationController::class);
             Route::resource('child', ChildController::class);
             Route::resource('training', TrainingController::class);
             Route::resource('salary', SalaryController::class)->except('index');
+            //teachersalary
+            Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
         });
     });
 
     //admin dan siswa
     Route::middleware('role:Admin,Siswa')->group(function () {
         Route::prefix('siswa')->group(function () {
-            Route::resource('student', StudentController::class)->except('index');
+            Route::resource('student', StudentController::class)->except('index', 'destroy');
             Route::get('student-profile', [StudentController::class, 'profile'])->name('student.profile');
             Route::resource('student-parent', StudentParentController::class);
         });
     });
 
+    //admin,guru,siswa
+    Route::middleware('role:Admin,Guru/Tendik,Siswa')->group(function () {
+        //dokumen
+        Route::resource('document', DocumentController::class);
+    });
+
     //admin dan keuangan
     Route::middleware('role:Admin,Keuangan')->group(function () {
         Route::prefix('keuangan')->group(function () {
-            //untuk import
+            //import
             Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
             Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
-            Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
             Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
+
+            // export
+            Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
+            Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             //setting 
             Route::resource('setting', SettingController::class);
             Route::resource('presenceset', PresenceSettingController::class);
+
             //gaji
             Route::resource('salary', SalaryController::class);
             Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
             Route::resource('position', PositionController::class);
             Route::resource('pfunctional', PfunctionalController::class);
-            //data dara gaji
+
+            //data gaji
             Route::resource('basic', SalaryBasicController::class);
             Route::resource('functional', SalaryFunctionalController::class);
             Route::resource('addition', SalaryAdditionController::class);
             Route::resource('reduction', SalaryReductionController::class);
-        });
-    });
 
-    //admin, guru/tendik, keuangan
-    Route::middleware('role:Admin,Guru/Tendik,Keuangan')->group(function () {
-        Route::resource('presence', PresenceController::class);
-        Route::resource('salary', SalaryController::class);
-        Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
+            //presence
+            Route::resource('presence', PresenceController::class);
+        });
     });
 });

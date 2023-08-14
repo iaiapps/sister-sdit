@@ -5,29 +5,32 @@
 @section('content')
 
     <div class="card p-3">
+        @if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Keuangan')
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <a href="{{ route('salary.index') }}" class="btn btn-success">
+                        <i class="bi bi-arrow-left-circle"></i> kembali
+                    </a>
+                </div>
+                <div class="col-12 col-md-6">
+                    <form class="row" action="{{ route('salary.create') }}" method="GET">
+                        @csrf
+                        <input type="text" name="id" value="{{ $teacher->id }}" hidden>
+                        <div class="col">
+                            <label for="date" class="mt-2">Gaji untuk bulan</label>
+                        </div>
+                        <div class="col">
+                            <input type="date" id="date" class="form-control" name="date">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-success">Buat Slip </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
 
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <a href="{{ route('salary.index') }}" class="btn btn-success">
-                    <i class="bi bi-arrow-left-circle"></i> kembali
-                </a>
-            </div>
-            <div class="col-12 col-md-6">
-                <form class="row" action="{{ route('salary.create') }}" method="GET">
-                    @csrf
-                    <input type="text" name="id" value="{{ $teacher->id }}" hidden>
-                    <div class="col">
-                        <label for="date" class="mt-2">Gaji untuk bulan</label>
-                    </div>
-                    <div class="col">
-                        <input type="date" id="date" class="form-control" name="date">
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-success">Buat Slip </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
         <p class="text-center fs-5 mt-3">Data gaji <strong>{{ $teacher->full_name }}</strong></p>
         <hr class="mt-0">
         <div class="table-responsive">

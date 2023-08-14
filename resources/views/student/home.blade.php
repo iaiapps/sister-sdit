@@ -3,7 +3,9 @@
 @section('title', 'Dashboard')
 @section('content')
 
-    @if ($student->full_name == 'student')
+
+    {{-- @dd($student) --}}
+    @if ($student->nik == '' || $student->kk == '')
         <div class="alert alert-danger alert-dismissible fade show " role="alert">
             <p class="m-0">Identitas anda belum lengkap! <a href="/student/{{ $student->id }}/edit"
                     class="btn btn-dark btn-sm">clik
@@ -17,25 +19,27 @@
             Selamat Datang di Aplikasi Sister SDIT Harum
         </p>
     </div>
-    <div class="bg-white rounded">
-        <div class="col-12 col-md-4 float-start p-3 ">
-            <div class="p-3 text-center align-items-center border-end">
-                <img src="/img/logo.svg" class="profiluser mb-3" alt="profil">
-                <p class="fs-5 mb-1">{{ $student->full_name }}</p>
-                <p>no pegawai</p>
-                <div class="btn-group">
-                    {{-- <button>edit foto</button> --}}
-                    <button class="btn btn-outline-success">edit profil</button>
+
+
+    <div class="bg-white rounded container">
+        <p class="fs-4 text-center pt-3">Profil Pengguna</p>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-md-4 p-3 ">
+                <div class="text-center align-items-center">
+                    <i class="bi bi-person-circle display-2"></i>
+                    {{-- <img src="/img/logo.svg" class="profiluser mb-3" alt="profil"> --}}
+                    <p class="fs-5 mt-3">{{ $student->full_name }}</p>
+                    <div class="btn-group">
+                        {{-- <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a> --}}
+                        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-outline-success">edit</a>
+                    </div>
                 </div>
             </div>
 
-        </div>
-
-        <div class="">
-            <div class="col-12 col-md-8 card p-3">
+            <div class="col-md-8 col-12 p-3">
                 <div class="table-responsive">
-                    <table id="table" class="table table-striped align-middle" style="width: 100%">
-
+                    <table id="table" class="table table-striped align-middle">
                         <tbody>
                             <tr>
                                 <td>NIS</td>
@@ -47,13 +51,19 @@
                             </tr>
                             <tr>
                                 <td>Alamat Rumah</td>
-                                <td>{{ $student->address }} | rt {{ $student->rt }} / rw {{ $student->rw }} |
-                                    {{ $student->village }} | {{ $student->subdistrict }} |
-                                    {{ $student->city }} | {{ $student->province }} | {{ $student->address }}</td>
+                                <td>{{ $student->address . ' | rt ' . $student->rt . ' | ' . 'rw' . $student->rw . ' | ' . $student->village }}
+                                    | {{ $student->subdistrict }} |
+                                    {{ $student->city }} | {{ $student->province }}</td>
                             </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ $student->email ?? 'belum ditentukan' }}</td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

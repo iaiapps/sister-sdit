@@ -7,7 +7,6 @@
     // $id_teacher = Teacher::where('teacher_id', $base->id)->get();
     // $id_teacher = $teacher;
 @endphp
-{{-- @dd($teacher->id) --}}
 <aside id="sidebar" class="position-fixed mb-3 rounded bg-white d-none d-sm-block shadow m-3">
     <div id="avatar" class="text-center py-sm-2">
         <img src="{{ $avatar }}" class="my-2 border border-light border-5 rounded-circle" alt="avatar pic" />
@@ -104,26 +103,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
+                    <a href="{{ route('document.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
                         <i class="bi bi-card-image menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Dokumen </span>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{ route('presence.show', [$teacher->id, 'date' => $date]) }}"
+                    <a href="{{ route('teacher.presence') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Presensi </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('salary.show', [$teacher->id, 'date' => $date]) }}"
+                {{-- <li class="nav-item">
+                    <a href="{{ route('teacher.salary') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
                         <i class="bi bi-coin menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Gaji </span>
                     </a>
-                </li>
+                </li> --}}
             @break
 
             @case('Siswa')
@@ -141,6 +140,13 @@
                         class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start ">
                         <i class="bi bi-person menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Profil Siswa </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('document.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
+                        <i class="bi bi-card-image menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline"> Dokumen </span>
                     </a>
                 </li>
                 <li class="nav-item">

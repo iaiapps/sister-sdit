@@ -67,7 +67,7 @@ class StudentController extends Controller
         // $student->where('id', $student->id)->update($validate);
         $id =  $student->id;
         $student->update($request->all());
-        return redirect()->route('student.index');
+        return redirect()->route('student.show', $id);
         // return redirect('biodata');
     }
 

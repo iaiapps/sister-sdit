@@ -3,7 +3,7 @@
 @section('title', 'Tambah Data Anak')
 @section('content')
     <div class="card p-3">
-        <form action="/child" method="POST">
+        <form action="{{ route('child.store') }}" method="POST">
             @csrf
             <fieldset>
                 <div class="mb-3">

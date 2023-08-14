@@ -31,6 +31,9 @@
                                     <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
                                         edit</a>
+
+                                    <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
+                                        class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
                                 </td>
                             </tr>
                         @endforeach
