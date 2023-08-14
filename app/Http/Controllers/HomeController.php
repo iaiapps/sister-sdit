@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\School;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,9 @@ class HomeController extends Controller
         $teacher = Teacher::where('user_id', $id)->first();
         $student = Student::where('user_id', $id)->first();
 
+        $picture = Document::where('type', 'foto_profil')->where('teacher_id', $id)->orWhere('student_id', $id)->first();
+        // dd($picture);
+
         //get school data
         $schools = School::get()->all();
 
@@ -53,11 +57,11 @@ class HomeController extends Controller
                 break;
 
             case '2':
-                return view('teacher.home', compact('teacher', 'schools'));
+                return view('teacher.home', compact('teacher', 'schools', 'picture'));
                 break;
 
             case '3':
-                return view('student.home', compact('student'));
+                return view('student.home', compact('student', 'picture'));
                 break;
 
             default:

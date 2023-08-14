@@ -78,9 +78,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('education', EducationController::class);
             Route::resource('child', ChildController::class);
             Route::resource('training', TrainingController::class);
-            Route::resource('salary', SalaryController::class)->except('index');
+            // Route::resource('salary', SalaryController::class)->except('index');
             //teachersalary
-            Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
+            // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
         });
     });
 

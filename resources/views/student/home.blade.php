@@ -3,8 +3,6 @@
 @section('title', 'Dashboard')
 @section('content')
 
-
-    {{-- @dd($student) --}}
     @if ($student->nik == '' || $student->kk == '')
         <div class="alert alert-danger alert-dismissible fade show " role="alert">
             <p class="m-0">Identitas anda belum lengkap! <a href="/student/{{ $student->id }}/edit"
@@ -27,13 +25,16 @@
         <div class="row">
             <div class="col-12 col-md-4 p-3 ">
                 <div class="text-center align-items-center">
-                    <i class="bi bi-person-circle display-2"></i>
-                    {{-- <img src="/img/logo.svg" class="profiluser mb-3" alt="profil"> --}}
+                    @if (empty($picture->file))
+                        <i class="bi bi-person-circle display-2"></i>
+                    @else
+                        <img src="{{ asset('storage/img-document/' . $picture->file) }}" class="profiluser" alt="profil">
+                    @endif
                     <p class="fs-5 mt-3">{{ $student->full_name }}</p>
-                    <div class="btn-group">
-                        {{-- <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a> --}}
+                    {{-- <div class="btn-group">
+                        <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a>
                         <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-outline-success">edit</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 

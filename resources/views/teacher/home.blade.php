@@ -54,13 +54,16 @@
         <div class="row">
             <div class="col-12 col-md-4 p-3 ">
                 <div class="text-center align-items-center">
-                    <i class="bi bi-person-circle display-2"></i>
-                    {{-- <img src="/img/logo.svg" class="profiluser mb-3" alt="profil"> --}}
+                    @if (empty($picture->file))
+                        <i class="bi bi-person-circle display-2"></i>
+                    @else
+                        <img src="{{ asset('storage/img-document/' . $picture->file) }}" class="profiluser" alt="profil">
+                    @endif
                     <p class="fs-5 mt-3">{{ $teacher->full_name }}</p>
-                    <div class="btn-group">
-                        {{-- <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a> --}}
+                    {{-- <div class="btn-group">
+                        <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a>
                         <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-sm btn-outline-success">edit</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
