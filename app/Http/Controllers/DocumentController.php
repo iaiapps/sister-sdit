@@ -65,7 +65,7 @@ class DocumentController extends Controller
         //validate
         $imgDocument = $request->validate([
             'type' => 'required',
-            'file' => 'image|file|max:512',
+            'file' => 'mimes:jpeg,jpg,png,pdf|file|max:512',
         ]);
 
         if ($nis == '') {

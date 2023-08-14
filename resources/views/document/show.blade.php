@@ -8,16 +8,21 @@
                 kembali
             </a>
         </div>
-        <div class="text-center border rounded p-3 ">
-            <p class="fs-3 mb-3">{{ $document->type }}</p>
-            <img src="{{ asset('storage/img-document/' . $document->file) }}" class="img-doc" alt="document_image">
-        </div>
+        @if (Str::contains($document->file, 'pdf'))
+            <embed class="pdf-doc" src="{{ asset('storage/img-document/' . $document->file) }}" type="application/pdf">
+        @else
+            <div class="text-center border rounded p-3 ">
+                <p class="fs-3 mb-3">{{ $document->type }}</p>
+                <img src="{{ asset('storage/img-document/' . $document->file) }}" class="img-doc" alt="document_image">
+            </div>
+        @endif
     </div>
 @endsection
 
 @push('css')
     <style>
-        .img-doc {
+        .img-doc,
+        .pdf-doc {
             height: 570px;
         }
     </style>

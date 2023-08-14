@@ -22,7 +22,16 @@
                 <div class="col-md-3 col-6 mb-3 ">
                     <div class="text-center border rounded p-3 besar">
                         <p class="fs-6 mb-1">{{ $doc->type }}</p>
-                        <img src="{{ asset('storage/img-document/' . $doc->file) }}" class="img-doc" alt="document_image">
+
+                        @if (Str::contains($doc->file, 'pdf'))
+                            <div class="display-4 text-center text-danger pdfh">
+                                <i class="bi bi-file-earmark-pdf align-middle"></i>
+                            </div>
+                        @else
+                            <img src="{{ asset('storage/img-document/' . $doc->file) }}" class="img-doc"
+                                alt="document_image">
+                        @endif
+
                         <div class="mt-2">
                             <a href="{{ route('document.show', $doc->id) }}" class="btn btn-sm btn-success">lihat</a>
                             <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
@@ -46,7 +55,8 @@
 @endsection
 @push('css')
     <style>
-        .img-doc {
+        .img-doc,
+        .pdfh {
             height: 70px;
         }
 
