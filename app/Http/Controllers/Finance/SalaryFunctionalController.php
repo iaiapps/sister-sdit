@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Finance;
 
 use App\Models\SalaryFunctional;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SalaryFunctionalController extends Controller
 {

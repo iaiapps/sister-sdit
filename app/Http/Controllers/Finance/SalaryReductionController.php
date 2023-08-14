@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Finance;
 
 use App\Models\SalaryReduction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SalaryReductionController extends Controller
 {

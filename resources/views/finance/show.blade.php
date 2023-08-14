@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="bg-white px-3 rounded mb-3">
-        <a href="{{ route('salary.update', [$salary->id]) }}" class="btn btn-success">
+        <a href="{{ URL::previous() }}" class="btn btn-success">
             <i class="bi bi-arrow-left-circle"></i> kembali
         </a>
         <button class="mt-3 mb-3 btn btn-outline-success" onclick="print()">print slip gaji </button>

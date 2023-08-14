@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Presence;
 
 use App\Models\Teacher;
 use App\Models\Presence;
@@ -10,6 +10,7 @@ use App\Exports\PresenceExport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class PresenceController extends Controller
 {
@@ -24,7 +25,7 @@ class PresenceController extends Controller
         }
         $presences = $this->groupTeacherFilterMonth($date);
         // $lateCat = Presence::get()->late_cat
-        return view('admin.presence.index', compact('presences', 'date'));
+        return view('presence.index', compact('presences', 'date'));
     }
 
     // ini fungsi untuk grouping teacher dan
@@ -65,7 +66,7 @@ class PresenceController extends Controller
         } else {
             $presences  = $this->showDataByMonth($id, $date);
         }
-        return view('admin.presence.show', compact('presences', 'teacher'));
+        return view('presence.show', compact('presences', 'teacher'));
     }
 
     // fungsi show data by Month
@@ -95,7 +96,7 @@ class PresenceController extends Controller
     public function edit(Request $request, Presence $presence)
     {
         $date = $request->date;
-        return view('admin.presence.editjam', compact('presence', 'date'));
+        return view('presence.editjam', compact('presence', 'date'));
     }
 
     /**
@@ -109,6 +110,8 @@ class PresenceController extends Controller
         $presence->update([
             'time_in' => $time_in,
             'time_out' => $time_out,
+            'note' => $request->note,
+            'description' => $request->description
         ]);
 
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
@@ -128,7 +131,7 @@ class PresenceController extends Controller
             $presences  = $this->showDataByMonth($id, $date);
         }
 
-        return view('admin.presence.show', compact('presences', 'teacher'));
+        return view('presence.show', compact('presences', 'teacher'));
     }
 
     public function presenceexport(Request $request)
@@ -162,6 +165,6 @@ class PresenceController extends Controller
         } else {
             $presences  = $this->showDataByMonth($teacher_id, $date);
         }
-        return view('admin.presence.show', compact('presences', 'teacher'));
+        return view('presence.show', compact('presences', 'teacher'));
     }
 }

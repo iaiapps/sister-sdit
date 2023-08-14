@@ -33,7 +33,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p> Atur gaji, potongan, dan fee </p>
-                        <a href="{{ route('salaryset.index') }}" class="btn btn-success">Atur</a>
+                        <a href="" class="btn btn-success">Atur</a>
                     </div>
                 </div>
             </div>

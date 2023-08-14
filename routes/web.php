@@ -2,27 +2,35 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ChildController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\PresenceController;
-use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\PfunctionalController;
-use App\Http\Controllers\SalaryBasicController;
-use App\Http\Controllers\StudentLoginController;
-use App\Http\Controllers\StudentParentController;
-use App\Http\Controllers\SalaryAdditionController;
-use App\Http\Controllers\PresenceSettingController;
-use App\Http\Controllers\SalaryReductionController;
-use App\Http\Controllers\SalaryFunctionalController;
+
+use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\ChildController;
+use App\Http\Controllers\Teacher\TrainingController;
+use App\Http\Controllers\Teacher\EducationController;
+
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Student\StudentParentController;
+use App\Http\Controllers\Student\StudentLoginController;
+
+use App\Http\Controllers\Presence\PresenceController;
+use App\Http\Controllers\Presence\PresenceSettingController;
+
+use App\Http\Controllers\Finance\SalaryController;
+use App\Http\Controllers\Finance\PositionController;
+use App\Http\Controllers\Finance\PfunctionalController;
+use App\Http\Controllers\Finance\SalaryBasicController;
+use App\Http\Controllers\Finance\SalarySettingController;
+use App\Http\Controllers\Finance\SalaryAdditionController;
+use App\Http\Controllers\Finance\SalaryReductionController;
+use App\Http\Controllers\Finance\SalaryFunctionalController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +72,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
             Route::resource('student', StudentController::class);
+            Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
         });
     });
 
@@ -112,7 +121,7 @@ Route::middleware('auth')->group(function () {
             Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             //setting 
-            Route::resource('setting', SettingController::class);
+
             Route::resource('presenceset', PresenceSettingController::class);
 
             //gaji
@@ -129,6 +138,7 @@ Route::middleware('auth')->group(function () {
 
             //presence
             Route::resource('presence', PresenceController::class);
+            Route::resource('salaryset', SalarySettingController::class);
         });
     });
 });

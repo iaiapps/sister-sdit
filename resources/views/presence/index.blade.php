@@ -14,7 +14,7 @@
                 </h6>
             </div>
             <div class="col-12 col-md-6 mt-3 mt-md-0 ">
-                <form action="/presence" method="GET">
+                <form action="{{ route('presence.index') }}" method="GET">
                     {{-- @csrf --}}
                     <div class="d-flex align-items-center ">
                         <label for="start">filter bulan</label>

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Presence;
 
 use App\Models\PresenceSetting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PresenceSettingController extends Controller
 {

@@ -26,6 +26,21 @@
                         name="time_out" value="{{ $presence->time_out }}" step="1">
                 </div>
 
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+
+                    <select class="form-select" name="note">
+                        <option selected>pilih catatan</option>
+                        <option value="Telat">Telat</option>
+                        <option value="Tepat waktu">Tepat Waktu</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="keterangan" class="form-label">Keterangan</label>
+                    <input id="keterangan" type="text" class="form-control @error('description') is-invalid @enderror"
+                        name="description" value="{{ $presence->description }}">
+                </div>
+
                 <div class=" mb-3">
                     <button type="submit" class="btn btn-success">
                         {{ __('Simpan Data') }}

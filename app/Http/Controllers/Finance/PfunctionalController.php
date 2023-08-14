@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Finance;
 
-use App\Models\SalaryBasic;
 use App\Models\Teacher;
+use App\Models\SalaryFunctional;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class PositionController extends Controller
+class PfunctionalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class PositionController extends Controller
     public function index()
     {
         $teachers = Teacher::get()->all();
-        // $positions = SalaryBasic::get()->all();
-        return view('admin.salary.position.index', compact('teachers'));
+        return view('finance.pfunctional.index', compact('teachers'));
     }
 
     /**
@@ -31,6 +31,7 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -44,20 +45,20 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $position)
+    public function edit(Teacher $pfunctional)
     {
-        $jabatans = SalaryBasic::get()->all();
-        return view('admin.salary.position.edit', compact('position', 'jabatans'));
+        $jabatans = SalaryFunctional::get()->all();
+        return view('finance.pfunctional.edit', compact('pfunctional', 'jabatans'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Teacher $position, Request $request)
+    public function update(Teacher $pfunctional, Request $request)
     {
-        $position->update(['salary_basic_id' => $request->salary_basic_id]);
+        $pfunctional->update(['salary_functional_id' => $request->salary_functional_id]);
 
-        return redirect()->route('position.index');
+        return redirect()->route('pfunctional.index');
     }
 
     /**

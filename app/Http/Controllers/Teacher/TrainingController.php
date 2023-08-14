@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Teacher;
 
 use App\Models\Teacher;
-use App\Models\Education;
+use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
-class EducationController extends Controller
+class TrainingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // return view('teacher.education.index');
+        //
     }
 
     /**
@@ -22,8 +23,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-
-        return view('teacher.education.create');
+        return view('teacher.training.create');
     }
 
     /**
@@ -31,20 +31,17 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        // $id = Teacher::where('email', Auth::user()->email)->first()->id;
         $id = Teacher::where('user_id', Auth::user()->id)->first()->id;
-
-        // dd($id);
-        $education = $request->all();
-        $education['teacher_id'] = $id;
-        Education::create($education);
+        $training = $request->all();
+        $training['teacher_id'] = $id;
+        Training::create($training);
         return redirect('profile');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Education $education)
+    public function show(Training $training)
     {
         //
     }
@@ -52,29 +49,26 @@ class EducationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Education $education)
+    public function edit(Training $training)
     {
-        return view('teacher.education.edit', compact('education'));
+        return view('teacher.training.edit', compact('training'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Education $education)
+    public function update(Request $request, Training $training)
     {
-        // $id = $education->teacher_id;
-        // dd($id);
-        // dd($request->all());
-        $education->update($request->all());
+        $training->update($request->all());
         return redirect('profile');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Education $education)
+    public function destroy(Training $training)
     {
-        $education->delete();
+        $training->delete();
         return redirect('profile');
     }
 }

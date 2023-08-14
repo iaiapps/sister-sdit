@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Finance;
 
 use App\Models\Salary;
 use App\Models\Teacher;
@@ -16,6 +16,7 @@ use App\Models\SalaryReduction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class SalaryController extends Controller
 {
@@ -27,7 +28,7 @@ class SalaryController extends Controller
         $year = Carbon::now()->format('Y');
         $month = Carbon::now()->format('m');
         $teachers = Teacher::get()->all();
-        return view('admin.salary.index', compact('teachers', 'year', 'month'));
+        return view('finance.index', compact('teachers', 'year', 'month'));
     }
 
     public function listsalary(Request $request)
@@ -40,7 +41,7 @@ class SalaryController extends Controller
         $salaries = Salary::whereYear('created_at', $year)->where('teacher_id', $id)->get();
         $teacher = Teacher::where('id', $id)->get()->first();
 
-        return view('admin.salary.list', compact('salaries', 'teacher'));
+        return view('finance.list', compact('salaries', 'teacher'));
     }
 
     //fungsi panggil jumlah presensi
@@ -95,7 +96,7 @@ class SalaryController extends Controller
         $additions = SalaryAddition::get()->all();
         $reductions = SalaryReduction::get()->all();
 
-        return view('admin.salary.create', compact(
+        return view('finance.create', compact(
             'teacher',
             'basics',
             'additions',
@@ -150,12 +151,10 @@ class SalaryController extends Controller
      */
     public function show(Request $request, Salary $salary)
     {
-
-
         $id = $request->id;
         // dd($request);
         $teacher = Teacher::where('id', $id)->get()->first();
-        return view('admin.salary.show', compact('salary', 'teacher'));
+        return view('finance.show', compact('salary', 'teacher'));
     }
 
     /**
@@ -196,7 +195,7 @@ class SalaryController extends Controller
         //presensi
         $presences = $this->_getPresenceMonth($date);
 
-        return view('admin.salary.bulk', compact(
+        return view('finance.bulk', compact(
             'presences',
             'date',
             'fee_kehadiran',
@@ -226,7 +225,7 @@ class SalaryController extends Controller
         $month = Carbon::parse($date)->month;
         $salaries = Salary::whereYear('created_at', $year)->whereMonth('bulan', $month)->get();
         // dd($salaries);
-        return view('admin.salary.listmassal', compact('salaries'));
+        return view('finance.listmassal', compact('salaries'));
     }
 
 
@@ -245,6 +244,6 @@ class SalaryController extends Controller
         $salaries = Salary::whereYear('created_at', $year)->where('teacher_id', $teacher_id)->get();
         // $teacher = Teacher::where('id', $id)->get()->first();
 
-        return view('admin.salary.list', compact('salaries', 'teacher', 'user_id'));
+        return view('finance.list', compact('salaries', 'teacher', 'user_id'));
     }
 }
