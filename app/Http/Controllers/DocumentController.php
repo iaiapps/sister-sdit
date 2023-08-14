@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 
 class DocumentController extends Controller
 {
@@ -30,7 +28,7 @@ class DocumentController extends Controller
                 $teacher_id = $request->id;
             }
             $documents = Document::where('teacher_id', $teacher_id)->get();
-            return view('admin.document.index', compact('teacher', 'documents'));
+            return view('document.index', compact('teacher', 'documents'));
         } else {
             if ($request->id == null) {
                 $student_id = $student->id;
@@ -38,7 +36,7 @@ class DocumentController extends Controller
                 $student_id = $request->id;
             }
             $documents = Document::where('student_id', $student_id)->get();
-            return view('admin.document.index', compact('student', 'documents'));
+            return view('document.index', compact('student', 'documents'));
         }
     }
 
@@ -107,7 +105,7 @@ class DocumentController extends Controller
         // dd($document);
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->get()->first();
-        return view('admin.document.show', compact('teacher', 'document'));
+        return view('document.show', compact('teacher', 'document'));
     }
 
     /**

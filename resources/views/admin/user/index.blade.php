@@ -59,7 +59,9 @@
     <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                "pageLength": 50
+            });
         });
     </script>
 @endpush

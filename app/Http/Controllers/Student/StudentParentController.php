@@ -32,6 +32,7 @@ class StudentParentController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $id = Student::where('user_id', Auth::user()->id)->first()->id;
         $parent = $request->all();
         $parent['student_id'] = $id;

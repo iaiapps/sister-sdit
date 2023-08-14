@@ -13,8 +13,9 @@
                     <th scope="col">Penyelenggara</th>
                     <th scope="col">Tahun</th>
                     <th scope="col">Peran</th>
-                    <th scope="col">Actions</th>
-
+                    @if ($teacher->user_id == $id)
+                        <th scope="col">Actions</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -27,17 +28,19 @@
                         <td>{{ $training->year }}</td>
                         <td>{{ $training->training_role }}</td>
                         <td>
-                            <a href="/training/{{ $training->id }}/edit" class="btn btn-warning btn-sm"><i
-                                    class="bi bi-pencil-square"></i>
-                                edit</a>
-                            <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                action="training/{{ $training->id }}" method="post" class="d-inline">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash3"></i> del
-                                </button>
-                            </form>
+                            @if ($teacher->user_id == $id)
+                                <a href="/training/{{ $training->id }}/edit" class="btn btn-warning btn-sm"><i
+                                        class="bi bi-pencil-square"></i>
+                                    edit</a>
+                                <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                    action="training/{{ $training->id }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3"></i> del
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty

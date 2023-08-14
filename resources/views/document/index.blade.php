@@ -2,7 +2,12 @@
 
 @section('title', 'Data Document')
 @section('content')
+
     <div class="card p-3 rounded">
+        <div class="mb-3">
+            <a href="{{ URL::previous() }}" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i>
+                Kembali</a>
+        </div>
 
         @if (Auth::user()->role->name == 'Guru/Tendik' || Auth::user()->role->name == 'Siswa')
             <div class="mb-3">
@@ -37,7 +42,7 @@
         </div>
     </div>
 
-    @include('admin.document.create')
+    @include('document.create')
 @endsection
 @push('css')
     <style>

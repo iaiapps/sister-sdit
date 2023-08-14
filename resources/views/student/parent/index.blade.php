@@ -2,9 +2,10 @@
     @if ($student->parent == null)
         <div class="alert alert-success text-center" role="alert">
             <p class="fs-5">Belum Ada Data Orang Tua</p>
-
-            <a href="{{ route('student-parent.create') }}" class="btn btn-success mb-3">
-                Buat Data</a>
+            @if ($student->user_id == $id)
+                <a href="{{ route('student-parent.create') }}" class="btn btn-success mb-3">
+                    Buat Data</a>
+            @endif
         </div>
     @else
         @if ($student->user_id == $id)

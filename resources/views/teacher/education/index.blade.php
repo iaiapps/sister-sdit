@@ -14,7 +14,9 @@
                 <th scope="col">Fakultas/Jurusan</th>
                 <th scope="col">Tahun Masuk</th>
                 <th scope="col">Tahun Lulus</th>
-                <th scope="col">Actions</th>
+                @if ($teacher->user_id == $id)
+                    <th scope="col">Actions</th>
+                @endif
 
             </tr>
         </thead>
@@ -28,17 +30,19 @@
                     <td>{{ $education->enter_year }}</td>
                     <td>{{ $education->graduation_year }}</td>
                     <td>
-                        <a href="/education/{{ $teacher->id }}/edit" class="btn btn-warning btn-sm"><i
-                                class="bi bi-pencil-square"></i>
-                            edit</a>
-                        <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                            action="education/{{ $education->id }}" method="post" class="d-inline">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash3"></i> del
-                            </button>
-                        </form>
+                        @if ($teacher->user_id == $id)
+                            <a href="/education/{{ $teacher->id }}/edit" class="btn btn-warning btn-sm"><i
+                                    class="bi bi-pencil-square"></i>
+                                edit</a>
+                            <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                action="education/{{ $education->id }}" method="post" class="d-inline">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash3"></i> del
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @empty

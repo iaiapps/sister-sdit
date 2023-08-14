@@ -4,9 +4,9 @@
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <a href="#" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i> Download Data</a>
-            </div>
+            </div> --}}
             <div class="table-responsive">
                 <table id="table" class="table table-striped align-middle" style="width: 100%">
                     <thead>
@@ -50,7 +50,9 @@
     <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                "pageLength": 50
+            });
         });
     </script>
 @endpush
