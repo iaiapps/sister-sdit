@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 @section('content')
 
-    @if ($student->nik == null || $student->kk == null)
+    @if (empty($student->nik) || empty($student->kk))
         <div class="alert alert-danger alert-dismissible fade show " role="alert">
             <p class="m-0">Identitas anda belum lengkap! <a href="/student/{{ $student->id }}/edit"
                     class="btn btn-dark btn-sm">clik
