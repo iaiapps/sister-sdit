@@ -5,11 +5,10 @@
 
     {{-- @dd(Auth::user()->role->name) --}}
     @if ($teacher->gender == null)
-        <div class="alert alert-danger alert-dismissible fade show " role="alert">
+        <div class="alert alert-danger alert-dismissible fade show py-2 " role="alert">
             <span class="m-0">Identitas anda belum lengkap!</span>
             <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-dark btn-sm">clik
                 untuk mengisi</a>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
@@ -21,30 +20,30 @@
 
     <div class="container text-center mb-3">
         <div class="row">
-            <div class="col-6 col-md-3 bg-primary p-2">
-                <a href="" class="nav-link btn btn-outline text-white">
+            <div class="col-12 col-md-4 bg-primary p-2">
+                <a href="{{ route('profile') }}" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-person fs-2"></i>
                     <span class="d-block">Profil</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-light p-2">
-                <a href="" class="nav-link btn btn-outline text-dark">
+            <div class="col-12 col-md-4 bg-light p-2">
+                <a href="{{ route('document.index') }}" class="nav-link btn btn-outline text-dark">
                     <i class="bi bi-card-image fs-2"></i>
                     <span class="d-block">Dokumen</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-danger p-2">
-                <a href="" class="nav-link btn btn-outline text-white">
+            <div class="col-12 col-md-4 bg-danger p-2">
+                <a href="{{ route('teacher.presence') }}" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-calendar-check fs-2"></i>
                     <span class="d-block">Presensi</span>
                 </a>
             </div>
-            <div class="col-6 col-md-3 bg-warning p-2">
+            {{-- <div class="col-6 col-md-3 bg-warning p-2">
                 <a href="" class="nav-link btn btn-outline text-white ">
                     <i class="bi bi-coin fs-2"></i>
                     <span class="d-block">Gaji</span>
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -59,7 +58,7 @@
                     @else
                         <img src="{{ asset('storage/img-document/' . $picture->file) }}" class="profiluser" alt="profil">
                     @endif
-                    <p class="fs-5 mt-3">{{ $teacher->full_name }}</p>
+                    <p class="fs-5">{{ $teacher->full_name }}</p>
                     {{-- <div class="btn-group">
                         <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a>
                         <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-sm btn-outline-success">edit</a>

@@ -29,7 +29,7 @@
                     @else
                         <img src="{{ asset('storage/img-document/' . $picture->file) }}" class="profiluser" alt="profil">
                     @endif
-                    <p class="fs-5 mt-3">{{ $student->full_name ?? 'belum ditentukan' }}</p>
+                    <p class="fs-5">{{ $student->full_name ?? 'belum ditentukan' }}</p>
                     {{-- <div class="btn-group">
                         <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a>
                         <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-outline-success">edit</a>

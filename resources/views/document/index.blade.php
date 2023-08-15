@@ -46,7 +46,13 @@
                     </div>
                 </div>
             @empty
-                <p class="text-center fs-5">belum ada data tersimpan</p>
+                <div class="card text-center">
+                    <div class="alert alert-success m-0" role="alert">
+                        <p class="fw-light fs-4 m-0">
+                            Belum ada data yang tersimpan ...
+                        </p>
+                    </div>
+                </div>
             @endforelse
         </div>
     </div>

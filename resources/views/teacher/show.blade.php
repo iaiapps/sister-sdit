@@ -5,11 +5,12 @@
 
     @if ($teacher->gender == null)
         <div class="bg-white rounded p-3 text-center">
-            <h4 class="fw-light mb-4">
-                Identitas anda tidak lengkap, mohon isi terlebih dahulu
-            </h4>
-            {{-- <a href="/teacher/{{ $teacher->id }}/edit" class="btn btn-success">isi identitas</a> --}}
-            <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-success">isi identitas</a>
+            <div class="alert alert-success m-0" role="alert">
+                <p class="fw-light fs-4">
+                    Identitas anda tidak lengkap, mohon isi terlebih dahulu
+                </p>
+                <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-success">isi identitas</a>
+            </div>
         </div>
     @else
         <div class="card p-3">
@@ -19,7 +20,7 @@
             </div> --}}
 
             {{-- tab menu --}}
-            <ul class="nav nav-pills mb-3" id="myTab">
+            <ul class="nav nav-pills" id="myTab">
                 <li class="nav-item">
                     <a href="{{ url('profil#profil_guru') }}" class="nav-link active" data-bs-toggle="tab">Profil
                         Guru</a>

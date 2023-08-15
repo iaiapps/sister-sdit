@@ -5,11 +5,13 @@
 @section('content')
     <div id="printarea" class="p-3 bg-white rounded">
         @if ($presences->count() == 0)
-            <div class="p-4 text-center ">
-                <h2 class="fw-light">
-                    Maaf belum ada data yang tersimpan ...
-                </h2>
-                <a href="{{ URL::previous() }}" class="btn btn-success mt-3">Kembali</a>
+            <div class="text-center">
+                <div class="alert alert-success m-0" role="alert">
+                    <p class="fw-light fs-4">
+                        Belum ada data yang tersimpan ...
+                    </p>
+                    <a href="{{ URL::previous() }}" class="btn btn-success">Kembali</a>
+                </div>
             </div>
         @else
             <button id="printbutton" class="btn btn-light rounded" onclick="print()">
