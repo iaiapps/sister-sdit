@@ -46,10 +46,13 @@ class HomeController extends Controller
         $teacher = Teacher::where('user_id', $id)->first();
         $student = Student::where('user_id', $id)->first();
 
-        if (empty($nis)) {
-            $picture = Document::where('type', 'foto_profil')->where('teacher_id', $teacher->id)->first();
-        } else {
-            $picture = Document::where('type', 'foto_profil')->where('student_id', $student->id)->first();
+        //tampilkan foto profil
+        if (!empty($teacher->id) || !empty($student->id)) {
+            if (empty($nis)) {
+                $picture = Document::where('type', 'foto_profil')->where('teacher_id', $teacher->id)->first();
+            } else {
+                $picture = Document::where('type', 'foto_profil')->where('student_id', $student->id)->first();
+            }
         }
 
         //get school data
