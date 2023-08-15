@@ -71,7 +71,11 @@ class HomeController extends Controller
                 break;
 
             case '3':
-                return view('student.home', compact('student', 'picture'));
+                if (empty($student->id)) {
+                    return redirect()->route('student.create');
+                } else {
+                    return view('student.home', compact('student', 'picture'));
+                }
                 break;
 
             default:

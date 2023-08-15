@@ -128,7 +128,6 @@
             @case('Siswa')
                 {{-- menu guru --}}
                 <li class="nav-item">
-                    <p class="text-center">siswa</p>
                     <a href="{{ route('home') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start d-block">
                         <i class="bi bi-activity menu-icon"></i>

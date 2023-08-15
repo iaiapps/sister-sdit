@@ -8,9 +8,8 @@
 
     <div class="card rounded p-3">
         <p class="fs-4 text-center m-0">
-            Selamat Datang <span class="fw-bold text-uppercase">"{{ $user }}"</span> di Aplikasi Database SDIT
-            Harapan
-            Umat Jember
+            Selamat Datang <span class="fw-bold text-uppercase">"{{ $user }}"</span> di Sistem Informasi Terpadu SDIT
+            Harapan Umat Jember
         </p>
     </div>
     <div id="info" class="row gx-3">

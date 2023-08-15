@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -23,7 +24,12 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+
+        // dd(Auth::user()->id);
+        $id = Auth::user()->id;
+
+        $data = User::where('id', $id)->get()->first();
+        return view('student.create', compact('data'));
     }
 
     /**
@@ -31,7 +37,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Student::create($request->all());
+        return redirect()->route('home');
     }
 
     /**

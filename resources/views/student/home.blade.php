@@ -3,18 +3,18 @@
 @section('title', 'Dashboard')
 @section('content')
 
-    @if (empty($student->nik) || empty($student->kk))
+    {{-- @if (empty($student->nik) || empty($student->kk))
         <div class="alert alert-danger alert-dismissible fade show " role="alert">
-            <p class="m-0">Identitas anda belum lengkap! <a href="{{ route('student.edit', $student->id) }}"
+            <p class="m-0">Identitas anda belum lengkap! <a href="{{ route('student.edit', $student->id ?? '#') }}"
                     class="btn btn-dark btn-sm">clik
                     untuk mengisi</a></p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+    @endif --}}
 
     <div class="card rounded p-3 mb-3">
-        <p class="fs-3 text-center m-0">
-            Selamat Datang di Aplikasi Sister SDIT Harum
+        <p class="fs-4 text-center m-0">
+            Selamat Datang di Aplikasi Sistem Informasi Terpadu SDIT Harum
         </p>
     </div>
 

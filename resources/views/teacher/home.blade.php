@@ -15,7 +15,7 @@
 
     <div class="card rounded p-3 mb-3">
         <p class="fs-4 text-center m-0">
-            Selamat Datang di Aplikasi Sister SDIT Harum
+            Selamat Datang di Aplikasi Sistem Informasi Terpadu SDIT Harum
         </p>
     </div>
 
