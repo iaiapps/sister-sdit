@@ -16,28 +16,45 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
+
+        $role = Auth::user()->role->name;
         $nis = Auth::user()->nis;
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->get()->first();
         $student = Student::where('user_id', $id)->get()->first();
 
-        if ($nis == null) {
-            if ($request->id == null) {
-                $teacher_id = $teacher->id;
-            } else {
-                $teacher_id = $request->id;
-            }
+        // dd($role);
+        if ($role == 'Admin') {
+            $id = $request->id;
+            $documents = Document::where('teacher_id', $id)->orWhere('student_id', $id)->get();
+            return view('document.index', compact('documents'));
+        } elseif ($role == 'Guru/Tendik') {
+            $teacher_id = $teacher->id;
             $documents = Document::where('teacher_id', $teacher_id)->get();
             return view('document.index', compact('teacher', 'documents'));
-        } else {
-            if ($request->id == null) {
-                $student_id = $student->id;
-            } else {
-                $student_id = $request->id;
-            }
+        } elseif ($role == 'Siswa') {
+            $student_id = $student->id;
             $documents = Document::where('student_id', $student_id)->get();
             return view('document.index', compact('student', 'documents'));
         }
+
+        // if ($nis == null) {
+        //     if ($request->id == null) {
+        //         $teacher_id = $teacher->id;
+        //     } else {
+        //         $teacher_id = $request->id;
+        //     }
+        //     $documents = Document::where('teacher_id', $teacher_id)->get();
+        //     return view('document.index', compact('teacher', 'documents'));
+        // } else {
+        //     if ($request->id == null) {
+        //         $student_id = $student->id;
+        //     } else {
+        //         $student_id = $request->id;
+        //     }
+        //     $documents = Document::where('student_id', $student_id)->get();
+        //     return view('document.index', compact('student', 'documents'));
+        // }
     }
 
     /**
@@ -60,7 +77,6 @@ class DocumentController extends Controller
         } else {
             $student_id = Student::where('user_id', $id)->get()->first()->id;
         }
-
 
         //validate
         $imgDocument = $request->validate([
