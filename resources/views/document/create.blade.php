@@ -11,17 +11,30 @@
                     <div class="mb-3">
                         <label class="form-label" for="jenisprestasi">Jenis Dokumen
                         </label>
-                        <select class="form-select" id="jenisprestasi" required name="type">
-                            <option selected disabled>Pilih</option>
-                            <option value="kartu_keluarga">Kartu Keluarga</option>
-                            <option value="akta_kelahiran">Akta Kelahiran</option>
-                            <option value="ijazah">Ijazah</option>
-                            <option value="piagam_sertifikat">Piagam/Sertifikat</option>
-                            <option value="ktp">KTP</option>
-                            <option value="npwp">NPWP</option>
-                            <option value="foto_profil">Foto Profil</option>
-                            <option value="sk_yayasan">SK Yayasan</option>
-                        </select>
+                        @if (Auth::user()->role->name == 'Guru/Tendik')
+                            <select class="form-select" id="jenisprestasi" required name="type">
+                                <option selected disabled>Pilih</option>
+                                <option value="kartu_keluarga">Kartu Keluarga</option>
+                                <option value="akta_kelahiran">Akta Kelahiran</option>
+                                <option value="ijazah">Ijazah</option>
+                                <option value="piagam_sertifikat">Piagam/Sertifikat</option>
+                                <option value="ktp">KTP</option>
+                                <option value="npwp">NPWP</option>
+                                <option value="foto_profil">Foto Profil</option>
+                                <option value="sk_yayasan">SK Yayasan</option>
+                            </select>
+                        @elseif (Auth::user()->role->name == 'Siswa')
+                            <select class="form-select" id="jenisprestasi" required name="type">
+                                <option selected disabled>Pilih</option>
+                                <option value="kartu_keluarga">Kartu Keluarga</option>
+                                <option value="akta_kelahiran">Akta Kelahiran</option>
+                                <option value="piagam_sertifikat">Piagam/Sertifikat</option>
+                                <option value="foto_profil">Foto Profil</option>
+                            </select>
+                        @endif
+
+
+
                     </div>
                     <input class="form-control" type="file" name="file" class="pt-2">
                     <button type="submit" class="btn btn-primary mt-3 float-end">Upload Dokumen</button>
