@@ -5,9 +5,9 @@
 
     @if (empty($student->nik) || empty($student->kk))
         <div class="alert alert-danger alert-dismissible fade show " role="alert">
-            <p class="m-0">Identitas anda belum lengkap! <a href="/student/{{ $student->id }}/edit"
+            {{-- <p class="m-0">Identitas anda belum lengkap! <a href="{{ route('student.edit', $student->id) }}"
                     class="btn btn-dark btn-sm">clik
-                    untuk mengisi</a></p>
+                    untuk mengisi</a></p> --}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -29,7 +29,7 @@
                     @else
                         <img src="{{ asset('storage/img-document/' . $picture->file) }}" class="profiluser" alt="profil">
                     @endif
-                    <p class="fs-5 mt-3">{{ $student->full_name }}</p>
+                    <p class="fs-5 mt-3">{{ $student->full_name ?? 'belum ditentukan' }}</p>
                     {{-- <div class="btn-group">
                         <a href="{{ route('profile.index') }}" class="btn btn-sm btn-success">detail</a>
                         <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-outline-success">edit</a>
@@ -43,22 +43,23 @@
                         <tbody>
                             <tr>
                                 <td>NIS</td>
-                                <td>{{ $student->nis }}</td>
+                                <td>{{ $student->nis ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Tempat, Tanggal Lahir</td>
-                                <td>{{ $student->place_of_birth . ', ' . $student->date_of_birth }}</td>
+                                <td>{{ ($student->place_of_birth ?? ' ') . ($student->date_of_birth ?? 'belum ditentukan') }}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Kelas</td>
-                                <td>{{ $student->nis }}</td>
+                                <td>{{ $student->nis ?? 'belum ditentukan' }}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>Alamat Rumah</td>
                                 <td>{{ $student->address . ' | rt ' . $student->rt . ' | ' . 'rw' . $student->rw . ' | ' . $student->village }}
                                     | {{ $student->subdistrict }} |
                                     {{ $student->city }} | {{ $student->province }}</td>
-                            </tr>
+                            </tr> --}}
 
                         </tbody>
                     </table>
