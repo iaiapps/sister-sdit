@@ -53,6 +53,8 @@ class HomeController extends Controller
             } else {
                 $picture = Document::where('type', 'foto_profil')->where('student_id', $student->id)->first();
             }
+        } else {
+            $picture = null;
         }
 
         //get school data
