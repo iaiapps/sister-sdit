@@ -14,7 +14,6 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <form class="row" action="{{ route('salary.create') }}" method="GET">
-                        @csrf
                         <input type="text" name="id" value="{{ $teacher->id }}" hidden>
                         <div class="col">
                             <label for="date" class="mt-2">Gaji untuk bulan</label>

@@ -73,20 +73,16 @@
                         @php
                             // presensi
                             $kehadiran = $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin;
-                            $telat_a = $presence->is_late_a;
-                            $telat_b = $presence->is_late_b;
-                            $telat_c = $presence->is_late_c;
+                            $telat = $presence->is_late;
                             
-                            $total_tepat = $kehadiran - $telat_a - $telat_b - $telat_c;
-                            $total_telat = $telat_a + $telat_b + $telat_c;
+                            $total_tepat = $kehadiran - $telat;
+                            $total_telat = $telat;
                             
                             //fee
                             $tot_kehadiran = $kehadiran * $fee_kehadiran;
-                            $fee_telat_a = $telat_a * $potongan_late_a;
-                            $fee_telat_b = $telat_b * $potongan_late_b;
-                            $fee_telat_c = $telat_c * $potongan_late_c;
+                            $fee_telat = $telat * $potongan_late;
                             
-                            $total_fee_kehadiran = $tot_kehadiran - $fee_telat_a - $fee_telat_b - $fee_telat_c;
+                            $total_fee_kehadiran = $tot_kehadiran - $fee_telat;
                         @endphp
                         {{-- @dd($total_fee_kehadiran) --}}
                         <tr>

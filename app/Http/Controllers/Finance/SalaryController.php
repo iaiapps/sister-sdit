@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Presence\PresenceController;
+
 
 class SalaryController extends Controller
 {
@@ -36,34 +38,30 @@ class SalaryController extends Controller
         // dd($request);
         $id = $request->id;
         $year = $request->year;
-
-
         $salaries = Salary::whereYear('created_at', $year)->where('teacher_id', $id)->get();
         $teacher = Teacher::where('id', $id)->get()->first();
 
         return view('finance.list', compact('salaries', 'teacher'));
     }
 
-    //fungsi panggil jumlah presensi
-    public function _getPresenceMonth($date)
-    {
-        $year = Carbon::parse($date)->year;
-        $month = Carbon::parse($date)->month;
-        $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)
-            ->select(
-                'teacher_id',
-                DB::raw("COUNT(*) as total_data_presensi"),
-                // DB::raw("SUM(note = 'Tepat waktu') as total_tepat_waktu"),
-                DB::raw("SUM(is_late = 1) as is_late_a"),
-                DB::raw("SUM(is_late = 2) as is_late_b"),
-                DB::raw("SUM(is_late = 3) as is_late_c"),
-                DB::raw("SUM(note = 'Sakit') as total_sakit"),
-                DB::raw("SUM(note = 'Ijin') as total_ijin"),
-            )
-            ->groupBy('teacher_id')->get();
+    // fungsi panggil jumlah presensi
+    // public function _getPresenceMonth($date)
+    // {
+    //     $year = Carbon::parse($date)->year;
+    //     $month = Carbon::parse($date)->month;
+    //     $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)
+    //         ->select(
+    //             'teacher_id',
+    //             DB::raw("COUNT(*) as total_data_presensi"),
+    //             DB::raw("SUM(is_late = 1) as is_late_a"),
+    //             DB::raw("SUM(is_late = 2) as is_late_b"),
+    //             DB::raw("SUM(is_late = 3) as is_late_c"),
+    //             DB::raw("SUM(note = 'Sakit') as total_sakit"),
+    //             DB::raw("SUM(note = 'Ijin') as total_ijin"),
+    //         )->groupBy('teacher_id')->get();
 
-        return $presences;
-    }
+    //     return $presences;
+    // }
 
     //fungsi panggil setting presence
     public function _settingValue($for)
@@ -75,21 +73,31 @@ class SalaryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    // buat gaji individual
     public function create(Request $request)
     {
         $date = $request->date;
         $id = $request->id;
 
+        // ini ambil function dari PresenceController 
+        $data = new PresenceController();
+        $presence = $data->groupTeacherFilterMonth($date)->where('teacher_id', $id)->first();
+        // $data = $presence->where('teacher_id', 3)->first();
+        // dd($presence);
+
         //presensi
-        $presence = $this->_getPresenceMonth($date)->first();
+        // $presence = $this->_getPresenceMonth($date)->first();
+        // $data = $presence->where('teacher_id', 3)->first();
+        // dd($presence);
 
         //fee tepat waktu
         $fee_kehadiran = $this->_settingValue('fee_kehadiran');
 
         //potongan
-        $potongan_late_a = $this->_settingValue('potongan_late_a');
-        $potongan_late_b = $this->_settingValue('potongan_late_b');
-        $potongan_late_c = $this->_settingValue('potongan_late_c');
+        $potongan_late = $this->_settingValue('potongan_late');
+        // $potongan_late_a = $this->_settingValue('potongan_late_a');
+        // $potongan_late_b = $this->_settingValue('potongan_late_b');
+        // $potongan_late_c = $this->_settingValue('potongan_late_c');
 
         $teacher = Teacher::where('id', $id)->get()->first();
         $basics = SalaryBasic::get()->all();
@@ -103,9 +111,10 @@ class SalaryController extends Controller
             'reductions',
             'presence',
             'fee_kehadiran',
-            'potongan_late_a',
-            'potongan_late_b',
-            'potongan_late_c',
+            'potongan_late',
+            // 'potongan_late_a',
+            // 'potongan_late_b',
+            // 'potongan_late_c',
             'date'
         ));
     }
@@ -115,12 +124,8 @@ class SalaryController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         // validasi
         $validate = $request->validate([
-            // 'teacher_id' => 'required',
-            // 'nomor_slip' => 'required',
-            'bulan' => 'required',
             'tot_fee_kehadiran' => 'required',
             'gaji_pokok' => 'required',
             'komponen_a' => 'required',
@@ -137,9 +142,10 @@ class SalaryController extends Controller
         $year = Carbon::parse($request->bulan)->year;
         $id = $request->id;
 
+        $validate['bulan'] = $year . '-' . $month . '-' . $day;
         $validate['teacher_id'] = $id;
         $validate['nomor_slip'] = $id . $day . $month . $year;
-        $validate['bulan'] = $year . '-' . $month . '-' . $day;
+        // dd($validate);
 
         Salary::create($validate);
 
@@ -189,19 +195,17 @@ class SalaryController extends Controller
         //fee tepat waktu
         $fee_kehadiran = $this->_settingValue('fee_kehadiran');
         //potongan
-        $potongan_late_a = $this->_settingValue('potongan_late_a');
-        $potongan_late_b = $this->_settingValue('potongan_late_b');
-        $potongan_late_c = $this->_settingValue('potongan_late_c');
-        //presensi
-        $presences = $this->_getPresenceMonth($date);
+        $potongan_late = $this->_settingValue('potongan_late');
+
+        //presensi ambil dari Presence Controller
+        $data = new PresenceController();
+        $presences = $data->groupTeacherFilterMonth($date);
 
         return view('finance.bulk', compact(
             'presences',
             'date',
             'fee_kehadiran',
-            'potongan_late_a',
-            'potongan_late_b',
-            'potongan_late_c',
+            'potongan_late',
         ));
     }
 

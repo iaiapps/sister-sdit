@@ -47,7 +47,7 @@
             </table>
         </div>
     </div>
-    @include('admin.salary.functional.create')
+    @include('finance.functional.create')
 
 @endsection
 @push('css')

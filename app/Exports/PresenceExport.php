@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Models\Presence;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use App\Http\Controllers\PresenceController;
+use App\Http\Controllers\Presence\PresenceController;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PresenceExport implements FromView

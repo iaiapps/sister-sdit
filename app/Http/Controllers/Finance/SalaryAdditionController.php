@@ -14,7 +14,7 @@ class SalaryAdditionController extends Controller
     public function index()
     {
         $additions = SalaryAddition::get()->all();
-        return view('admin.salary.addition.index', compact('additions'));
+        return view('finance.addition.index', compact('additions'));
     }
 
     /**

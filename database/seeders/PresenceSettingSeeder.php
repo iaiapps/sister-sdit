@@ -17,7 +17,7 @@ class PresenceSettingSeeder extends Seeder
         //seeder presensi
         PresenceSetting::create([
             'name' => 'ontime_until',
-            'value' => '07:15',
+            'value' => '07:16',
             'desc' => 'Jam masuk'
         ]);
         PresenceSetting::create([
@@ -37,7 +37,7 @@ class PresenceSettingSeeder extends Seeder
         ]);
         PresenceSetting::create([
             'name' => 'end_time_leave',
-            'value' => '16:30',
+            'value' => '17:00',
             'desc' => 'Akhir presensi jam pulang'
         ]);
         PresenceSetting::create([
@@ -47,21 +47,21 @@ class PresenceSettingSeeder extends Seeder
         ]);
 
         //seeder waktu telat
-        PresenceSetting::create([
-            'name' => 'late_a',
-            'value' => '07:21',
-            'desc' => 'kategori terlambat 1 (0-5 menit pertama)'
-        ]);
-        PresenceSetting::create([
-            'name' => 'late_b',
-            'value' => '07:46',
-            'desc' => 'kategori terlambat 2 (dari 10 menit kedua)'
-        ]);
-        PresenceSetting::create([
-            'name' => 'late_c',
-            'value' => '08:00',
-            'desc' => 'kategori terlambat 3 (15 menit ketiga)'
-        ]);
+        // PresenceSetting::create([
+        //     'name' => 'late_a',
+        //     'value' => '07:21',
+        //     'desc' => 'kategori terlambat 1 (0-5 menit pertama)'
+        // ]);
+        // PresenceSetting::create([
+        //     'name' => 'late_b',
+        //     'value' => '07:46',
+        //     'desc' => 'kategori terlambat 2 (dari 10 menit kedua)'
+        // ]);
+        // PresenceSetting::create([
+        //     'name' => 'late_c',
+        //     'value' => '08:00',
+        //     'desc' => 'kategori terlambat 3 (15 menit ketiga)'
+        // ]);
 
         //seeder fee dan potongan
         PresenceSetting::create([
@@ -70,20 +70,20 @@ class PresenceSettingSeeder extends Seeder
             'desc' => 'tepat waktu',
         ]);
         PresenceSetting::create([
-            'name' => 'potongan_late_a',
+            'name' => 'potongan_late',
             'value' => 0,
-            'desc' => 'potongan terlambat a',
+            'desc' => 'potongan terlambat',
         ]);
-        PresenceSetting::create([
-            'name' => 'potongan_late_b',
-            'value' => 3000,
-            'desc' => 'potongan terlambat b',
-        ]);
-        PresenceSetting::create([
-            'name' => 'potongan_late_c',
-            'value' => 6000,
-            'desc' => 'potongan terlambat c',
-        ]);
+        // PresenceSetting::create([
+        //     'name' => 'potongan_late_b',
+        //     'value' => 3000,
+        //     'desc' => 'potongan terlambat b',
+        // ]);
+        // PresenceSetting::create([
+        //     'name' => 'potongan_late_c',
+        //     'value' => 6000,
+        //     'desc' => 'potongan terlambat c',
+        // ]);
 
         //seeder qrcode
         PresenceSetting::create([

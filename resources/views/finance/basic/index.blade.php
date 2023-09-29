@@ -47,7 +47,7 @@
             </table>
         </div>
     </div>
-    @include('admin.salary.basic.create')
+    @include('finance.basic.create')
 
 @endsection
 @push('css')

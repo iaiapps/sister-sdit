@@ -72,7 +72,13 @@ Route::middleware('auth')->group(function () {
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
             Route::resource('student', StudentController::class);
+
+            // setting
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+
+            // presence
+            Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
+            Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
         });
     });
 
@@ -121,7 +127,6 @@ Route::middleware('auth')->group(function () {
             Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             //setting 
-
             Route::resource('presenceset', PresenceSettingController::class);
 
             //gaji

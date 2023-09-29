@@ -14,7 +14,7 @@ class SalaryReductionController extends Controller
     public function index()
     {
         $reductions = SalaryReduction::get()->all();
-        return view('admin.salary.reduction.index', compact('reductions'));
+        return view('finance.reduction.index', compact('reductions'));
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Gaji Pokok')
+@section('title', 'Data Penambahan')
 @section('content')
     <div class="card p-3 rounded">
         <div class="mb-3">
@@ -46,7 +46,7 @@
             </table>
         </div>
     </div>
-    @include('admin.salary.addition.create')
+    @include('finance.addition.create')
 
 @endsection
 @push('css')

@@ -14,7 +14,7 @@ class SalaryFunctionalController extends Controller
     public function index()
     {
         $functionals = SalaryFunctional::get()->all();
-        return view('admin.salary.functional.index', compact('functionals'));
+        return view('finance.functional.index', compact('functionals'));
     }
 
     /**

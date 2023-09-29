@@ -190,6 +190,7 @@ class PresenceController extends Controller
         }
     }
 
+    // fungsi save data cek terlambat
     public function saveData($request, $is_late)
     {
         if ($is_late == false) {
@@ -200,27 +201,30 @@ class PresenceController extends Controller
 
         $now = Carbon::now();
 
-        $ontime = Carbon::createFromTimeString($this->_settingValue('ontime_until'));
-        $late_a = Carbon::createFromTimeString($this->_settingValue('late_a'));
-        $late_b = Carbon::createFromTimeString($this->_settingValue('late_b'));
-        $late_c = Carbon::createFromTimeString($this->_settingValue('late_c'));
 
-        if ($this->_timeline() == true) {
-            switch ($now) {
-                case ($now->between($ontime, $late_a)):
-                    $is_late = 1;
-                    break;
-                case ($now->between($ontime, $late_b)):
-                    $is_late = 2;
-                    break;
-                case ($now->between($ontime, $late_c) || $now >= $late_c):
-                    $is_late = 3;
-                    break;
-                default:
-                    $is_late;
-                    break;
-            }
-        }
+        // comment dulu belum digunakan
+
+        // $ontime = Carbon::createFromTimeString($this->_settingValue('ontime_until'));
+        // $late_a = Carbon::createFromTimeString($this->_settingValue('late_a'));
+        // $late_b = Carbon::createFromTimeString($this->_settingValue('late_b'));
+        // $late_c = Carbon::createFromTimeString($this->_settingValue('late_c'));
+
+        // if ($this->_timeline() == true) {
+        //     switch ($now) {
+        //         case ($now->between($ontime, $late_a)):
+        //             $is_late = 1;
+        //             break;
+        //         case ($now->between($ontime, $late_b)):
+        //             $is_late = 2;
+        //             break;
+        //         case ($now->between($ontime, $late_c) || $now >= $late_c):
+        //             $is_late = 3;
+        //             break;
+        //         default:
+        //             $is_late;
+        //             break;
+        //     }
+        // }
 
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,

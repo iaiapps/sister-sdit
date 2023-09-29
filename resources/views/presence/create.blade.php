@@ -1,108 +1,67 @@
 @extends('layouts.app')
 
-@section('title', 'Register User Baru')
+@section('title', 'Buat Data Presensi')
 
 @section('content')
 
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body mt-3">
-            <form method="POST" action="/user">
+            <form method="POST" action="{{ route('store.presence') }}">
                 @csrf
-
-                <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Alamat Email') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                            name="password" required autocomplete="new-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="password-confirm"
-                        class="col-md-4 col-form-label text-md-end">{{ __('Ulangi Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            required autocomplete="new-password">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-form-label text-md-end" for="role">Role</label>
-                    <div class="col-md-6">
-                        <select class="form-select" id="role" name="role_id">
-                            <option>---</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Guru</option>
-                            <option value="3">Siswa</option>
-                            <option value="4">Keuangan</option>
-                            <option value="5">Sarpras</option>
-                            <option value="6">Pustaka</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="row mb-3" id="nis">
-                    <label for="nis" class="col-md-4 col-form-label text-md-end">{{ __('NIS') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="nis" type="text" class="form-control @error('nis') is-invalid @enderror"
-                            name="nis" value="{{ old('nis') }}" autofocus>
-
-                        @error('nis')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-success">
-                            {{ __('Tambah User Baru') }}
-                        </button>
-                    </div>
-                </div>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td> <input id="name" type="date" class="form-control" name="date" required </td>
+                        </tr>
+                        <td>Nama Guru</td>
+                        <td> <select class="form-select" id="role" name="teacher_id">
+                                <option selected disabled>---</option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Datang</td>
+                            <td> <input id="name" type="time" class="form-control" name="time_in" required
+                                    step="1"> </td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Pulang</td>
+                            <td> <input id="name" type="time" class="form-control" name="time_out" required
+                                    step="1"> </td>
+                        </tr>
+                        <tr>
+                            <td>Terlambat?</td>
+                            <td><select class="form-select" id="role" name="is_late">
+                                    <option selected disabled>---</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Catatan</td>
+                            <td><select class="form-select" id="role" name="note">
+                                    <option selected disabled>---</option>
+                                    <option value="Tepat waktu">Tepat waktu</option>
+                                    <option value="Telat">Telat</option>
+                                    <option value="Tugas kedinasan">Tugas kedinasan</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Deskripsi ( jika "Tugas Kedinasan" )</td>
+                            <td> <input id="name" type="text" class="form-control" name="description">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-success w-50"> tambah data </button>
             </form>
         </div>
     </div>

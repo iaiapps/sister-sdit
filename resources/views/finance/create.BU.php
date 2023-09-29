@@ -4,7 +4,6 @@
 @section('title', 'Tambah Data Gaji')
 @section('content')
 
-    {{-- @dd($presence) --}}
     @if (empty($presence->total_data_presensi))
         <div class="bg-white rounded p-3 text-center">
             <p class="fs-4">Data presensi bulan dan tahun yang anda masukkan belum ada </p>
@@ -24,7 +23,17 @@
                             </p>
 
                         </div>
-
+                        {{-- <div class="col-6 ">
+                            <div class="row align-items-center ">
+                                <div class="col-4">
+                                    <label class="col-form-label" for="bulan">Tanggal Penggajian </label>
+                                </div>
+                                <div class="col-8">
+                                    <input class="form-control" type="date" id="bulan" name="bulan"
+                                        placeholder="bulan" />
+                                </div>
+                            </div>
+                        </div> --}}
                     </div>
                     <hr>
 
@@ -55,14 +64,21 @@
                     @php
                         // presensi
                         $kehadiran = $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin;
-                        $total_telat = $presence->is_late;
-                        $total_tepat = $kehadiran - $total_telat;
+                        $telat_a = $presence->is_late_a;
+                        $telat_b = $presence->is_late_b;
+                        $telat_c = $presence->is_late_c;
+                        
+                        //
+                        $total_tepat = $kehadiran - $telat_a - $telat_b - $telat_c;
+                        $total_telat = $telat_a + $telat_b + $telat_c;
                         
                         //fee
                         $tot_kehadiran = $kehadiran * $fee_kehadiran;
-                        $fee_telat = $total_telat * $potongan_late;
+                        $fee_telat_a = $telat_a * $potongan_late_a;
+                        $fee_telat_b = $telat_b * $potongan_late_b;
+                        $fee_telat_c = $telat_c * $potongan_late_c;
                         
-                        $total_fee_kehadiran = $tot_kehadiran - $fee_telat;
+                        $total_fee_kehadiran = $tot_kehadiran - $fee_telat_a - $fee_telat_b - $fee_telat_c;
                     @endphp
                     <hr>
                     <p class="fs-5 m-0">Presensi bulan <span
@@ -76,12 +92,10 @@
                                     <tr>
                                         <td class="twidth">Kehadiran </td>
                                         <td>
-                                            <input class="form-control text-end" type="text" id="kehadiran"
-                                                name="hadir" placeholder="kehadiran" value="{{ $kehadiran }}"
-                                                readonly />
-                                            <input class="form-control text-end" type="text" id="tepat"
-                                                name="tepat" placeholder="tepat" value="{{ $total_tepat }}" readonly
-                                                hidden />
+                                            <input class="form-control" type="text" id="kehadiran" name="hadir"
+                                                placeholder="kehadiran" value="{{ $kehadiran }}" readonly />
+                                            <input class="form-control" type="text" id="tepat" name="tepat"
+                                                placeholder="tepat" value="{{ $total_tepat }}" readonly hidden />
                                         </td>
                                         <td>
                                             <input class="form-control" type="text" id="fee_kehadiran"
@@ -91,15 +105,32 @@
                                     </tr>
 
                                     <tr>
-                                        <td class="twidth">Telat </td>
-                                        <td>
-                                            <input class="form-control text-end" type="text" id="telat"
-                                                name="telat" placeholder="telat" value="{{ $total_telat }}" readonly />
+                                        <td class="twidth">Telat = {{ $total_telat }}</td>
+                                        <td class="d-none">
+                                            <input class="form-control" type="text" id="telat" name="telat"
+                                                placeholder="telat" value="{{ $total_telat }}" readonly />
                                         </td>
                                         <td>
-                                            <input class="form-control" type="text" id="potongan_telat"
-                                                name="potongan_telat" placeholder="potongan_telat"
-                                                value="x {{ $potongan_late }}" readonly disabled />
+                                            <input class="form-control" type="text" id="telat_a" name="telat_a"
+                                                placeholder="telat_a" value="telat a = {{ $telat_a }}" readonly
+                                                disabled />
+                                            <input class="form-control" type="text" id="telat_b" name="telat_b"
+                                                placeholder="telat_b" value="telat b = {{ $telat_b }}" readonly
+                                                disabled />
+                                            <input class="form-control" type="text" id="telat_c" name="telat_c"
+                                                placeholder="telat_c" value="telat c = {{ $telat_c }}" readonly
+                                                disabled />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" id="potongan_telat_a"
+                                                name="potongan_telat_a" placeholder="potongan_telat_a"
+                                                value="x = {{ $potongan_late_a }}" readonly disabled />
+                                            <input class="form-control" type="text" id="potongan_telat_b"
+                                                name="potongan_telat_b" placeholder="potongan_telat_b"
+                                                value="x = {{ $potongan_late_b }}" readonly disabled />
+                                            <input class="form-control" type="text" id="potongan_telat_c"
+                                                name="potongan_telat_c" placeholder="potongan_telat_c"
+                                                value="x = {{ $potongan_late_c }}" readonly disabled />
                                         </td>
                                     </tr>
 
@@ -113,25 +144,30 @@
                                         <tr>
                                             <td class="twidth"></td>
                                             <td>
-                                                <input class="form-control text-end" type="text" id="kehadiran"
-                                                    name="kehadiran" placeholder="kehadiran" value="{{ $tot_kehadiran }}"
-                                                    readonly disabled />
+                                                <input class="form-control" type="text" id="kehadiran"
+                                                    name="kehadiran" placeholder="kehadiran"
+                                                    value="{{ $tot_kehadiran }}" readonly disabled />
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td class="twidth"></td>
                                             <td>
-                                                <input class="form-control text-end" type="text" id="fee_telat_a"
+                                                <input class="form-control" type="text" id="fee_telat_a"
                                                     name="fee_telat_a" placeholder="fee_telat_a"
-                                                    value="- {{ $fee_telat }}" readonly disabled />
-
+                                                    value="{{ $fee_telat_a }}" readonly disabled />
+                                                <input class="form-control" type="text" id="fee_telat_b"
+                                                    name="fee_telat_b" placeholder="fee_telat_b"
+                                                    value="{{ $fee_telat_b }}" readonly disabled />
+                                                <input class="form-control" type="text" id="fee_telat_c"
+                                                    name="fee_telat_c" placeholder="fee_telat_c"
+                                                    value="{{ $fee_telat_c }}" readonly disabled />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Total Fee Kehadiran</td>
                                             <td>
-                                                <input class="form-control text-end" type="text" id="total_fee_kehadiran"
+                                                <input class="form-control" type="text" id="total_fee_kehadiran"
                                                     name="tot_fee_kehadiran" placeholder="kehadiran"
                                                     value="{{ $total_fee_kehadiran }}" readonly />
                                             </td>

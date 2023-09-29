@@ -14,7 +14,7 @@ class SalaryBasicController extends Controller
     public function index()
     {
         $basics = SalaryBasic::get()->all();
-        return view('admin.salary.basic.index', compact('basics'));
+        return view('finance.basic.index', compact('basics'));
     }
 
     /**
@@ -52,7 +52,7 @@ class SalaryBasicController extends Controller
      */
     public function edit(SalaryBasic $basic)
     {
-        return view('admin.salary.basic.edit', compact('basic'));
+        return view('finance.basic.edit', compact('basic'));
     }
 
     /**

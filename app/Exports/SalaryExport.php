@@ -6,7 +6,8 @@ use App\Models\Salary;
 use App\Models\Presence;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\Finance\SalaryController;
+use App\Http\Controllers\Presence\PresenceController;
 
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -39,24 +40,23 @@ class SalaryExport implements FromView
     public function view(): View
     {
         $tanggal = $this->date;
-        $data = new SalaryController();
+        $datae = new PresenceController();
+        $presences = $datae->groupTeacherFilterMonth($tanggal);
 
-        $presences = $data->_getPresenceMonth($tanggal);
+        $data = new SalaryController();
 
         //fee tepat waktu
         $fee_kehadiran = $data->_settingValue('fee_kehadiran');
         //potongan
-        $potongan_late_a = $data->_settingValue('potongan_late_a');
-        $potongan_late_b = $data->_settingValue('potongan_late_b');
-        $potongan_late_c = $data->_settingValue('potongan_late_c');
+        $potongan_late = $data->_settingValue('potongan_late');
 
-        return view('admin.salary.export', [
+
+        return view('finance.export', [
             'presences' => $presences,
             'date' => $tanggal,
             'fee_kehadiran' => $fee_kehadiran,
-            'potongan_late_a' => $potongan_late_a,
-            'potongan_late_b' => $potongan_late_b,
-            'potongan_late_c' => $potongan_late_c,
+            'potongan_late' => $potongan_late,
+
         ]);
     }
 }
