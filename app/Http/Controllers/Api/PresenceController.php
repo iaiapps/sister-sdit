@@ -276,7 +276,7 @@ class PresenceController extends Controller
             // 'date' => date("d/m/y"),
             'time_in' => $end_time_come,
             'time_out' => $jamNow,
-            'is_late' => 3,
+            'is_late' => 1,
             'note' => 'Telat'
         ]);
         return response()->json([
