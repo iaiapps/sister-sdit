@@ -40,12 +40,13 @@
                 </form>
             </div>
 
-            <div class="text-center header"><img class="img-header" src="{{ asset('img/koptengah.svg') }}" alt="">
+            <div class="text-center header">
+                <img class="img-header" src="{{ asset('img/koptengah.svg') }}" alt="">
             </div>
             <hr>
-            <p class="text-center fs-5 mb-0">Detail Presensi <strong> {{ $presences->first()->teacher->full_name }}</strong>
+            <p class="text-center fs-5 mb-0">Presensi <strong> {{ $presences->first()->teacher->full_name }}</strong>, Bulan
+                <strong>{{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</strong>
             </p>
-            <p class="text-center ">Presensi bulan {{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</p>
             <hr>
             <div id="table" class="table-responsive">
                 <table class="table align-middle" id="datatable">
@@ -107,7 +108,7 @@
 
         .img-header {
             text-align: center;
-            width: 90%;
+            width: 85%;
         }
 
         @media print {
