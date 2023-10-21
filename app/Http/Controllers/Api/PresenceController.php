@@ -270,7 +270,7 @@ class PresenceController extends Controller
     public function scanLeaveOnly($request)
     {
         $jamNow = Carbon::now()->isoFormat('HH:mm:ss');
-        $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'));
+        $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'))->isoFormat('HH:mm:ss');
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
             // 'date' => date("d/m/y"),
