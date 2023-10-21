@@ -71,8 +71,8 @@ class PresenceSettingSeeder extends Seeder
         ]);
         PresenceSetting::create([
             'name' => 'potongan_late',
-            'value' => 0,
-            'desc' => 'potongan terlambat',
+            'value' => 6000,
+            'desc' => 'potongan keterlambatan',
         ]);
         // PresenceSetting::create([
         //     'name' => 'potongan_late_b',
