@@ -97,7 +97,7 @@ class PresenceController extends Controller
     public function edit(Request $request, Presence $presence)
     {
         $date = $request->date;
-        return view('presence.editjam', compact('presence', 'date'));
+        return view('presence.edit', compact('presence', 'date'));
     }
 
     /**

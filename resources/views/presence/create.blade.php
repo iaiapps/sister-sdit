@@ -12,18 +12,18 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                        <tr>
                             <td>Tanggal</td>
                             <td> <input id="name" type="date" class="form-control" name="date" required </td>
                         </tr>
-                        <td>Nama Guru</td>
-                        <td> <select class="form-select" id="role" name="teacher_id">
-                                <option selected disabled>---</option>
-                                @foreach ($teachers as $teacher)
-                                    <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
+                        <tr>
+                            <td>Nama Guru</td>
+                            <td> <select class="form-select" id="role" name="teacher_id">
+                                    <option selected disabled>---</option>
+                                    @foreach ($teachers as $teacher)
+                                        <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Waktu Datang</td>
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td>Terlambat?</td>
-                            <td><select class="form-select" id="role" name="is_late">
+                            <td><select class="form-select" id="is_late" name="is_late">
                                     <option selected disabled>---</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -46,7 +46,7 @@
                         </tr>
                         <tr>
                             <td>Catatan</td>
-                            <td><select class="form-select" id="role" name="note">
+                            <td><select class="form-select" id="note" name="note">
                                     <option selected disabled>---</option>
                                     <option value="Tepat waktu">Tepat waktu</option>
                                     <option value="Telat">Telat</option>
@@ -61,7 +61,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-success w-50"> tambah data </button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success w-50"> tambah data </button>
+                </div>
             </form>
         </div>
     </div>
