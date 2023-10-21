@@ -40,12 +40,13 @@
                 </form>
             </div>
 
+            <div class="text-center header"><img class="img-header" src="{{ asset('img/koptengah.svg') }}" alt="">
+            </div>
             <hr>
-            <p class="text-center fs-5">Detail Presensi <strong> {{ $presences->first()->teacher->full_name }}</strong>
+            <p class="text-center fs-5 mb-0">Detail Presensi <strong> {{ $presences->first()->teacher->full_name }}</strong>
             </p>
-            {{-- <p class="text-center ">Detail Presensi <strong>
-                    {{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</strong></p> --}}
-
+            <p class="text-center ">Presensi bulan {{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</p>
+            <hr>
             <div id="table" class="table-responsive">
                 <table class="table align-middle" id="datatable">
                     <thead>
@@ -57,7 +58,7 @@
                             <th>Catatan</th>
                             <th>Keterangan</th>
                             @if (Auth::user()->role_id == 1)
-                                <th>Edit</th>
+                                <th id="edit">Edit</th>
                             @endif
                         </tr>
                     </thead>
@@ -75,7 +76,7 @@
                                 {{-- @dd(request(date)) --}}
 
                                 @if (Auth::user()->role_id == 1)
-                                    <td>
+                                    <td id="edit">
                                         <a href="{{ route('presence.edit', [$presence->id, 'date' => request('date')]) }}"
                                             data-toggle="modal" data-id="{!! $presence->id !!}"
                                             class="btn btn-sm btn-success editModalBtn"><i
@@ -89,7 +90,6 @@
             </div>
         @endif
     </div>
-
 @endsection
 
 @push('css')
@@ -98,11 +98,19 @@
             position: absolute;
             top: 100px;
             right: 16px;
+        }
 
+        .header {
+            text-align: center;
+            display: none;
+        }
+
+        .img-header {
+            text-align: center;
+            width: 90%;
         }
 
         @media print {
-
             body {
                 visibility: hidden;
                 background-color: white !important
@@ -113,12 +121,12 @@
             }
 
             #printarea {
-
                 visibility: visible !important;
                 position: absolute !important;
                 left: 0;
                 right: 0;
                 top: 0;
+                /* border: 2px solid rgb(95, 222, 148); */
             }
 
             #filter {
@@ -132,6 +140,14 @@
 
             #table {
                 margin-top: -10px;
+            }
+
+            #edit {
+                display: none;
+            }
+
+            .header {
+                display: block;
             }
         }
     </style>
