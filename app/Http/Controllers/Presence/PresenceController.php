@@ -135,6 +135,7 @@ class PresenceController extends Controller
         return view('presence.show', compact('presences', 'teacher'));
     }
 
+    //export presence
     public function presenceexport(Request $request)
     {
         $date = $request->date;
