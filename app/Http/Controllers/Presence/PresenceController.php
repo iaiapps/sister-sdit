@@ -97,7 +97,9 @@ class PresenceController extends Controller
     public function edit(Request $request, Presence $presence)
     {
         $date = $request->date;
-        return view('presence.edit', compact('presence', 'date'));
+        $tgl = Carbon::parse($presence->created_at)->isoFormat('YYYY-M-DD');
+        // dd($tgl);
+        return view('presence.edit', compact('presence', 'date', 'tgl'));
     }
 
     /**
@@ -112,9 +114,11 @@ class PresenceController extends Controller
             'time_in' => $time_in,
             'time_out' => $time_out,
             'note' => $request->note,
-            'description' => $request->description
+            'description' => $request->description,
+            'created_at' => $request->date . $request->time_in,
+            'updated_at' => $request->date . $request->time_in,
         ]);
-
+        // dd($presence);
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 

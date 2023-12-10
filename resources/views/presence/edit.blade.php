@@ -12,6 +12,17 @@
 
                 <table class="table table-bordered">
                     <tbody class="align-middle">
+                        {{-- @dd($tgl) --}}
+                        <tr>
+                            <td>
+                                <label for="tanggal" class="form-label">Tanggal</label>
+                            </td>
+                            <td>
+                                <input id="tanggal" type="date"
+                                    class="form-control @error('time_in') is-invalid @enderror" name="date"
+                                    value="{{ $tgl }}">
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <label for="jam_datang" class="form-label">{{ __('Jam Datang') }}</label>
