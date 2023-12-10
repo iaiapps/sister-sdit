@@ -12,7 +12,6 @@
 
                 <table class="table table-bordered">
                     <tbody class="align-middle">
-                        {{-- @dd($tgl) --}}
                         <tr>
                             <td>
                                 <label for="tanggal" class="form-label">Tanggal</label>
