@@ -9,7 +9,6 @@
             <form method="POST" action="{{ route('presence.update', [$presence->id, 'date' => $date]) }}">
                 @csrf
                 @method('put')
-
                 <table class="table table-bordered">
                     <tbody class="align-middle">
                         <tr>

@@ -118,7 +118,6 @@ class PresenceController extends Controller
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
         ]);
-        // dd($presence);
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 
