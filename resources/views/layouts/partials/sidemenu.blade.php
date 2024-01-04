@@ -57,6 +57,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('presencekaryawan.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
+                        <i class="bi bi-calendar-check menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline">Presensi Karyawan </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('salary.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
                         <i class="bi bi-coin menu-icon"></i>
@@ -158,7 +166,8 @@
 
             @case('Keuangan')
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
+                    <a href="{{ route('home') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start">
                         <i class="bi bi-house-door menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Home </span>
                     </a>

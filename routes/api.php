@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\PresenceController;
 use App\Http\Controllers\Api\SalaryController;
+use App\Http\Controllers\Api\PresenceController;
+use App\Http\Controllers\Api\PresencekaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +26,15 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    // Route::get('/user', function (Request $request) {
-    //     return auth()->user();
-    // });
 
     //akses data presensi
     Route::resource('presence', PresenceController::class);
     Route::resource('salary', SalaryController::class);
     Route::get('jam', [PresenceController::class, 'jam']);
+
+    //presence karyawan
+    Route::resource('presencekaryawan', PresencekaryawanController::class);
+
     //route logout
     Route::post('/logout', [AuthController::class, 'logout']);
 });
