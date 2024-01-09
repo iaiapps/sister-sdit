@@ -55,10 +55,14 @@
                             <h4>SISTER PRESENCE</h4>
                             <p>Aplikasi presensi SDIT Harum Jember </p>
                             <a href="{{ asset('apk/sisterPresence.apk') }}" class="btn btn-success rounded mb-2 w-100">
-                                APK
+                                APK Guru
+                            </a>
+                            <a href="{{ asset('apk/sisterPresenceK.apk') }}" class="btn btn-success rounded mb-2 w-100">
+                                APK Karyawan
                             </a>
                         </div>
                     </div>
+                    
                     <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/report.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
