@@ -4,7 +4,6 @@
 @section('content')
     <div class="card p-3">
         <div class="table-responsive">
-
             <table class="table align-middle">
                 <thead>
                     <tr>

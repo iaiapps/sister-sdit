@@ -1,5 +1,5 @@
 <nav id="nav" class="position-fixed">
-    <div class="d-flex mx-3 py-md-0 py-3 bg-white rounded align-items-center shadow">
+    <div class="d-flex mx-3 py-md-0 py-2 bg-white rounded align-items-center shadow">
         <div class="judull rounded text-uppercase d-sm-flex py-3 px-3 bg-light d-none">
             <img src="{{ asset('img/logo.svg') }}" class="dashboardlogo" alt="logo" />
             <h3 class="ms-3 mb-0 d-none d-sm-block">sister sdit</h3>

@@ -15,42 +15,58 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // User
-        User::create([
+        $admin =  User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
-            'role_id' => 1
         ]);
-        User::create([
-            'name' => 'teacher',
-            'email' => 'teacher@gmail.com',
+        $admin->assignRole('admin');
+
+        $operator = User::create([
+            'name' => 'operator',
+            'email' => 'operator@gmail.com',
             'password' => Hash::make('password'),
-            'role_id' => 2
         ]);
-        User::create([
-            'name' => 'student',
-            'email' => 'student@gmail.com',
+        $operator->assignRole('operator');
+
+        $guru = User::create([
+            'name' => 'guru',
+            'email' => 'guru@gmail.com',
             'password' => Hash::make('password'),
-            'nis' => '1234',
-            'role_id' => 3
         ]);
-        User::create([
-            'name' => 'keuangan',
-            'email' => 'keuangan@gmail.com',
+        $guru->assignRole('guru');
+
+        $tendik = User::create([
+            'name' => 'tendik',
+            'email' => 'tendik@gmail.com',
             'password' => Hash::make('password'),
-            'role_id' => 4
         ]);
-        User::create([
-            'name' => 'sarpras',
-            'email' => 'sarpras@gmail.com',
-            'password' => Hash::make('password'),
-            'role_id' => 5
-        ]);
-        User::create([
-            'name' => 'pustaka',
-            'email' => 'pustaka@gmail.com',
-            'password' => Hash::make('password'),
-            'role_id' => 6
-        ]);
+        $tendik->assignRole('tendik');
+
+        // User::create([
+        //     'name' => 'student',
+        //     'email' => 'student@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'nis' => '1234',
+        //     'role_id' => 3
+        // ]);
+        // User::create([
+        //     'name' => 'keuangan',
+        //     'email' => 'keuangan@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'role_id' => 4
+        // ]);
+        // User::create([
+        //     'name' => 'sarpras',
+        //     'email' => 'sarpras@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'role_id' => 5
+        // ]);
+        // User::create([
+        //     'name' => 'pustaka',
+        //     'email' => 'pustaka@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'role_id' => 6
+        // ]);
     }
 }

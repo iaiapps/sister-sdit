@@ -4,11 +4,9 @@
 
 @section('content')
 
-    {{-- @dd(Auth::user()) --}}
-
     <div class="card rounded p-3">
         <p class="fs-4 text-center m-0">
-            Selamat Datang <span class="fw-bold text-uppercase">"{{ $user }}"</span> di Sistem Informasi Terpadu SDIT
+            Selamat Datang <span class="fw-bold text-uppercase">"{{ $name }}"</span> di Sistem Informasi Terpadu SDIT
             Harapan Umat Jember
         </p>
     </div>
@@ -19,9 +17,9 @@
                     <span class="fs-4 py-0 px-2 btn btn-outline-success">
                         <i class="bi bi-person-check"></i>
                     </span>
-                    <span class="ms-2 fs-5 "> Total Guru & Tendik </span>
+                    <span class="ms-2 fs-5 "> Total Guru </span>
                 </div>
-                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumteacher }}</button>
+                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumguru }}</button>
             </div>
         </div>
 
@@ -31,12 +29,11 @@
                     <span class="fs-4 py-0 px-2 btn btn-outline-success">
                         <i class="bi bi-person-check"></i>
                     </span>
-                    <span class="ms-2 fs-5 "> Total Siswa </span>
+                    <span class="ms-2 fs-5 "> Total Tendik </span>
                 </div>
-                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumstudent }}</button>
+                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumtendik }}</button>
             </div>
         </div>
-
     </div>
     <div class="card mt-3 rounded p-3">
         <div class="table-responsive">
@@ -68,6 +65,4 @@
             </table>
         </div>
     </div>
-
-
 @endsection

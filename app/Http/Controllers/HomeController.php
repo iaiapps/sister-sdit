@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,29 +31,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $base  = Auth::user();
-        $id = $base->id;
-        $user = $base->name;
-        $role_id = $base->role_id;
+        /** @var \App\Models\User */
+        $user  = Auth::user();
+        $id = $user->id;
+        $name = $user->name;
 
-        $nis = $base->nis;
-        // dd($role_id);
-
-        //get total user where role_id 2 atau 3
-        $sumteacher = User::where('role_id', 2)->count();
-        $sumstudent = User::where('role_id', 3)->count();
-
-        //get user id
         $teacher = Teacher::where('user_id', $id)->first();
-        $student = Student::where('user_id', $id)->first();
 
-        //tampilkan foto profil
-        if (!empty($teacher->id) || !empty($student->id)) {
-            if (empty($nis)) {
-                $picture = Document::where('type', 'foto_profil')->where('teacher_id', $teacher->id)->first();
-            } else {
-                $picture = Document::where('type', 'foto_profil')->where('student_id', $student->id)->first();
-            }
+        // dd($id);
+        // get foto profil
+        if (!empty($teacher->id)) {
+            $picture = Document::where('type', 'foto_profil')->where('teacher_id', $teacher->id)->first();
         } else {
             $picture = null;
         }
@@ -60,29 +49,32 @@ class HomeController extends Controller
         //get school data
         $schools = School::get()->all();
 
-        // dd($role_id);
-        switch ($role_id) {
-            case '1':
-                return view('admin.home', compact('user', 'sumteacher', 'sumstudent', 'schools'));
+        //get role names
+        $role = $user->getRoleNames()->first();
+
+        //get total user
+        $sumguru = User::with('role')->where('name', '=', 'guru')->count();
+        $sumtendik = User::with('role')->where('name', '=', 'tendik')->count();
+
+        switch ($role) {
+            case 'admin':
+                return view('admin.home', compact('name', 'sumguru', 'sumtendik', 'schools'));
                 break;
 
-            case '2':
+            case 'guru':
                 return view('teacher.home', compact('teacher', 'schools', 'picture'));
                 break;
 
-            case '3':
-                if (empty($student->id)) {
-                    return redirect()->route('student.create');
-                } else {
-                    return view('student.home', compact('student', 'picture'));
-                }
+            case 'tendik':
+                return view('teacher.home', compact('teacher', 'schools', 'picture'));
                 break;
 
             default:
-                return view('admin.home', compact('user', 'sumteacher', 'sumstudent', 'schools'));
+                return view('admin.home', compact('user', 'schools'));
         }
     }
 
+    // ganti password
     public function changePassword()
     {
         return view('auth.change');

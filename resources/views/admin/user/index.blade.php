@@ -5,9 +5,13 @@
     <div class="card p-3 rounded">
         <div class="table-responsive">
             <div class="mb-3">
-                <a href="{{ route('user.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Tambah Data</a>
-                <a href="#" class="btn btn-success"><i class="bi bi-plus-circle"></i> Import Data Guru</a>
-                <a href="#" class="btn btn-success"><i class="bi bi-plus-circle"></i> Import Data Siswa</a>
+                <div class="btn-group">
+                    <a href="{{ route('user.create') }}" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i>
+                        Tambah Data</a>
+                    <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import Guru</a>
+                    <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import
+                        Siswa</a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table id="table" class="table table-striped align-middle" style="width: 100%">
@@ -17,7 +21,8 @@
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
-                            <th scope="col">actions</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
 
                         </tr>
                     </thead>
@@ -27,13 +32,15 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td> {{ $user->roles->first()->name }}</td>
+                                <td> {{ $user->active == 1 ? 'aktif' : 'tidak aktif' }}</td>
                                 <td>
-                                    {{ $user->role->name }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
+                                    {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
-                                        edit</a>
+                                        edit</a> --}}
+                                    {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
+                                            class="bi bi-pencil-square"></i>
+                                        status</a> --}}
                                     <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                         action="{{ route('user.destroy', $user->id) }}" method="post" class="d-inline">
                                         @csrf

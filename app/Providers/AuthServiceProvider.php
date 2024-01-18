@@ -26,8 +26,8 @@ class AuthServiceProvider extends ServiceProvider
         //$user adalah user yang login
         //teacher diambil dari parameter controller TeacherController
         Gate::define('teacher', function ($user, $teacher) {
-            // dd($user->role_id);
-            return $user->id == $teacher->user_id || $user->role_id == 1;
+            // dd($user->roles->first()->name);
+            return $user->id == $teacher->user_id || $user->roles->first()->name == 'admin';
         });
 
         //student diambil dari parameter controller StudentController

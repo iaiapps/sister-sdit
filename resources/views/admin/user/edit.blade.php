@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Register User Baru')
+@section('title', 'Edit Data User')
 
 @section('content')
 
@@ -15,7 +15,7 @@
 
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
 
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email">
+                            name="email" value="{{ old('email', $user->email) }}" required autocomplete="email">
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -43,19 +43,27 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-form-label text-md-end" for="role">Role</label>
                     <div class="col-md-6">
-                        <select class="form-select" id="role" name="role_id">
+                        <select class="form-select" id="role" name="role">
                             <option>---</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Guru</option>
-                            <option value="3">Siswa</option>
-                            <option value="4">Keuangan</option>
-                            <option value="5">Sarpras</option>
-                            <option value="6">Pustaka</option>
+                            @foreach ($role as $r)
+                                <option value="{{ $r->name }}">{{ $r->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
 
-                <div class="row mb-3" id="nis">
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label text-md-end" for="status">Status</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="status" name="active">
+                            <option>---</option>
+                            <option value="0">tidak aktif</option>
+                            <option value="1">aktif</option>
+
+                        </select>
+                    </div>
+                </div>
+                {{-- <div class="row mb-3" id="nis">
                     <label for="nis" class="col-md-4 col-form-label text-md-end">{{ __('NIS') }}</label>
 
                     <div class="col-md-6">
@@ -68,7 +76,7 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
@@ -82,7 +90,7 @@
     </div>
 @endsection
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         const el = document.getElementById('role');
         const box = document.getElementById('nis');
@@ -101,4 +109,4 @@
             }
         });
     </script>
-@endpush
+@endpush --}}

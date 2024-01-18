@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $role = Role::All();
+        return view('admin.user.create', compact('role'));
     }
 
     /**
@@ -38,27 +39,28 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required|confirmed',
-            'role_id' => 'required',
+            'active' => 'required',
+            'role' => 'required',
         ]);
         //masukkan hash password
         $validate['password'] = Hash::make($validate['password']);
-        $validate['nis'] = $request->input('nis');
 
         //buat user baru
+        $user = User::create($validate);
+
+        //tetap role setela user dibuat
+        $user->assignRole($request->role);
+
         //ambil id dari user untuk dimasukkan ke user id
-        $id = User::create($validate)->id;
+        $id = $user->id;
 
-        $role = Role::where('id', $request->role_id)->first()->name;
-
-        // dd($role);
-        if ($role == 'Guru/Tendik') {
-            //buat teacher baru bersadarkan user yang baru mendaftar
-            Teacher::create([
-                'user_id' => $id,
-                'full_name' => $request->name,
-                'email' => $request->email
-            ]);
-        }
+        //buat teacher baru bersadarkan user yang baru mendaftar
+        Teacher::create([
+            'user_id' => $id,
+            'full_name' => $request->name,
+            'email' => $request->email
+        ]);
+        // }
 
         return redirect()->route('user.index');
     }
@@ -76,7 +78,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $role = Role::All();
+        return view('admin.user.edit', compact('user', 'role'));
     }
 
     /**
@@ -92,7 +95,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-
         $user->delete();
         return redirect('user');
     }

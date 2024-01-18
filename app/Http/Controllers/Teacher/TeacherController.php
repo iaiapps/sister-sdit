@@ -18,7 +18,7 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = Teacher::get()->all();
-        return view('teacher.index', compact('teachers'));
+        return view('admin.teacher.index', compact('teachers'));
     }
 
     /**

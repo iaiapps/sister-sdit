@@ -11,10 +11,9 @@
                 <h2 class="display-4 d-inline-block fw-bold text-white">
                     SISTER SDIT
                 </h2>
-                <div class="card p-3">
+                <div class="card p-3 my-3">
                     <p class="mb-0 fs-4 fw-light">
-                        Sistem Informasi Terpadu SDIT Harapan Umat Jember
-                    </p>
+                        Sistem Informasi Terpadu SDIT Harapan Umat Jember </p>
                 </div>
                 <div class="row mt-3 pt-2">
                     <div class="col-md-6 col-12 mx-auto">
@@ -22,11 +21,11 @@
                             LOGIN GURU/TENDIK
                         </a>
                     </div>
-                    <div class="col-md-6 col-12 mx-auto">
+                    {{-- <div class="col-md-6 col-12 mx-auto">
                         <a href="/student-login" class="btn btn-lg btn-light mb-3 w-100">
                             LOGIN SISWA
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
@@ -35,7 +34,7 @@
     <div id="menu" class="bg-light">
         <div class="container">
             <div class="py-5">
-                <h2 class="text-center display-6 mb-3">MENU SISTER</h2>
+                <h2 class="text-center display-6 mb-3">MENU SISTER LAINNYA</h2>
                 <div class="row">
                     <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
@@ -62,7 +61,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-3 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/report.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"

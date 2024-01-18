@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
 
         //panggil class seeder
         $this->call([
+            RoleSeeder::class,
             UserSeeder::class,
             TeacherSeeder::class,
             StudentSeeder::class,
-            RoleSeeder::class,
             SchoolSeeder::class,
             PresenceSettingSeeder::class,
         ]);

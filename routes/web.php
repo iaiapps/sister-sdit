@@ -53,10 +53,10 @@ Route::get('/', function () {
 Auth::routes(['reset' => false]);
 
 //login-siswa
-route::middleware('guest')->group(function () {
-    Route::get('student-login', [StudentLoginController::class, 'indexLogin']);
-    Route::post('student-login', [StudentLoginController::class, 'authenticate']);
-});
+// route::middleware('guest')->group(function () {
+//     Route::get('student-login', [StudentLoginController::class, 'indexLogin']);
+//     Route::post('student-login', [StudentLoginController::class, 'authenticate']);
+// });
 
 Route::middleware('auth')->group(function () {
 
@@ -66,13 +66,13 @@ Route::middleware('auth')->group(function () {
     Route::post('change-password', [HomeController::class, 'storeChangePassword']);
 
     //hanya admin
-    Route::middleware('role:Admin')->group(function () {
+    Route::middleware('role:admin')->group(function () {
         Route::prefix('admin')->group(function () {
             //data user
             Route::resource('user', UserController::class);
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
-            Route::resource('student', StudentController::class);
+            // Route::resource('student', StudentController::class);
 
             // setting
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
@@ -87,41 +87,9 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    //admin dan guru
-    Route::middleware('role:Admin,Guru/Tendik')->group(function () {
-        Route::prefix('guru')->group(function () {
-            Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
-            Route::resource('teacher', TeacherController::class)->except('index', 'destroy');
-            // presence
-            Route::get('teacher-presence', [PresenceController::class, 'teacherPresence'])->name('teacher.presence');
-            //data guru
-            Route::resource('education', EducationController::class);
-            Route::resource('child', ChildController::class);
-            Route::resource('training', TrainingController::class);
-            // Route::resource('salary', SalaryController::class)->except('index');
-            //teachersalary
-            // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
-        });
-    });
-
-    //admin dan siswa
-    Route::middleware('role:Admin,Siswa')->group(function () {
-        Route::prefix('siswa')->group(function () {
-            Route::resource('student', StudentController::class)->except('index', 'destroy');
-            Route::get('student-profile', [StudentController::class, 'profile'])->name('student.profile');
-            Route::resource('student-parent', StudentParentController::class);
-        });
-    });
-
-    //admin,guru,siswa
-    Route::middleware('role:Admin,Guru/Tendik,Siswa')->group(function () {
-        //dokumen
-        Route::resource('document', DocumentController::class);
-    });
-
-    //admin dan keuangan
-    Route::middleware('role:Admin,Keuangan')->group(function () {
-        Route::prefix('keuangan')->group(function () {
+    //admin dan operator
+    Route::middleware('role:admin|operator')->group(function () {
+        Route::prefix('operator')->group(function () {
             //import
             Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
             Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
@@ -154,5 +122,37 @@ Route::middleware('auth')->group(function () {
             Route::resource('presencekaryawan', PresencekaryawanController::class);
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
         });
+    });
+
+    //guru
+    Route::middleware('role:guru')->group(function () {
+        Route::prefix('guru')->group(function () {
+            Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
+            // Route::resource('teacher', TeacherController::class)->except('index', 'destroy');
+            // presence
+            Route::get('teacher-presence', [PresenceController::class, 'teacherPresence'])->name('teacher.presence');
+            //data guru
+            Route::resource('education', EducationController::class);
+            Route::resource('child', ChildController::class);
+            Route::resource('training', TrainingController::class);
+            // Route::resource('salary', SalaryController::class)->except('index');
+            //teachersalary
+            // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
+        });
+    });
+
+    //admin dan siswa
+    Route::middleware('role:Admin,Siswa')->group(function () {
+        Route::prefix('siswa')->group(function () {
+            Route::resource('student', StudentController::class)->except('index', 'destroy');
+            Route::get('student-profile', [StudentController::class, 'profile'])->name('student.profile');
+            Route::resource('student-parent', StudentParentController::class);
+        });
+    });
+
+    // admin,guru,siswa
+    Route::middleware('role:admin|guru|tendik')->group(function () {
+        //dokumen
+        Route::resource('document', DocumentController::class);
     });
 });
