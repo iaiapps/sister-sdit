@@ -80,7 +80,7 @@
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{{ $teacher->email ?? 'belum ditentukan' }}</td>
+                                <td>{{ $teacher->user->email ?? 'belum ditentukan' }}</td>
                             </tr>
                             <tr>
                                 <td>Pendidikan Terakhir</td>

@@ -42,7 +42,7 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        $this->authorize('teacher', $teacher);
+        // $this->authorize('teacher', $teacher);
         $id = Auth::user()->id;
         return view('admin.teacher.show', compact('teacher', 'id'));
     }

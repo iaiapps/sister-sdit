@@ -1,10 +1,14 @@
 @php
     $user = Auth::user();
 
-    if ($user->teacher->full_name == 'user') {
+    if ($user->hasRole('admin')) {
         $name = $user->name;
     } else {
-        $name = $user->teacher->full_name;
+        if ($user->teacher->full_name == 'user') {
+            $name = $user->name;
+        } else {
+            $name = $user->teacher->full_name;
+        }
     }
 
     $role = $user->getRoleNames()->first();
