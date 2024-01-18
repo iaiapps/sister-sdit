@@ -5,7 +5,7 @@
     <div class="card p-3">
 
         {{-- @dd($child) --}}
-        <form action="{{ route('child.update', $child->id) }}" method="POST">
+        <form action="{{ route('guru.child.update', $child->id) }}" method="POST">
             @csrf
             @method('put')
 

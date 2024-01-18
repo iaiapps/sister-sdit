@@ -30,8 +30,7 @@ use App\Http\Controllers\Finance\SalaryReductionController;
 use App\Http\Controllers\Finance\SalaryFunctionalController;
 use App\Http\Controllers\Presence\PresenceSettingController;
 use App\Http\Controllers\Presencekar\PresencekaryawanController;
-
-
+use App\Http\Controllers\Tendik\TendikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,11 +66,13 @@ Route::middleware('auth')->group(function () {
 
     //hanya admin
     Route::middleware('role:admin')->group(function () {
-        Route::prefix('admin')->group(function () {
+        // untuk menggunakan prefix admin di url tambahkan name diakhiri dengan '.' (titik)
+        Route::prefix('admin')->name('admin.')->group(function () {
             //data user
             Route::resource('user', UserController::class);
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
+            Route::resource('tendik', TendikController::class);
             // Route::resource('student', StudentController::class);
 
             // setting
@@ -126,11 +127,16 @@ Route::middleware('auth')->group(function () {
 
     //guru
     Route::middleware('role:guru')->group(function () {
-        Route::prefix('guru')->group(function () {
+        Route::prefix('guru')->name('guru.')->group(function () {
             Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
-            // Route::resource('teacher', TeacherController::class)->except('index', 'destroy');
+
+            //edit guru
+            Route::get('teacher-edit/{teacher}', [TeacherController::class, 'editTeacher'])->name('editTeacher');
+            Route::put('teacher-store/{teacher}', [TeacherController::class, 'storeTeacher'])->name('storeTeacher');
+
             // presence
             Route::get('teacher-presence', [PresenceController::class, 'teacherPresence'])->name('teacher.presence');
+
             //data guru
             Route::resource('education', EducationController::class);
             Route::resource('child', ChildController::class);
@@ -142,15 +148,15 @@ Route::middleware('auth')->group(function () {
     });
 
     //admin dan siswa
-    Route::middleware('role:Admin,Siswa')->group(function () {
-        Route::prefix('siswa')->group(function () {
-            Route::resource('student', StudentController::class)->except('index', 'destroy');
-            Route::get('student-profile', [StudentController::class, 'profile'])->name('student.profile');
-            Route::resource('student-parent', StudentParentController::class);
-        });
-    });
+    // Route::middleware('role:Admin,Siswa')->group(function () {
+    //     Route::prefix('siswa')->group(function () {
+    //         Route::resource('student', StudentController::class)->except('index', 'destroy');
+    //         Route::get('student-profile', [StudentController::class, 'profile'])->name('student.profile');
+    //         Route::resource('student-parent', StudentParentController::class);
+    //     });
+    // });
 
-    // admin,guru,siswa
+    // admin,guru,tendik
     Route::middleware('role:admin|guru|tendik')->group(function () {
         //dokumen
         Route::resource('document', DocumentController::class);

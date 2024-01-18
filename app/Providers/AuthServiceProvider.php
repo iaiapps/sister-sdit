@@ -23,17 +23,17 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //$user adalah user yang login
-        //teacher diambil dari parameter controller TeacherController
-        Gate::define('teacher', function ($user, $teacher) {
-            // dd($user->roles->first()->name);
-            return $user->id == $teacher->user_id || $user->roles->first()->name == 'admin';
-        });
+        // //$user adalah user yang login
+        // //teacher diambil dari parameter controller TeacherController
+        // Gate::define('teacher', function ($user, $teacher) {
+        //     // dd($user->roles->first()->name);
+        //     return $user->id == $teacher->user_id || $user->roles->first()->name == 'admin';
+        // });
 
-        //student diambil dari parameter controller StudentController
-        Gate::define('student', function ($user, $student) {
-            // dd($user->role_id);
-            return $user->id == $student->user_id || $user->role_id == 1;
-        });
+        // //student diambil dari parameter controller StudentController
+        // Gate::define('student', function ($user, $student) {
+        //     // dd($user->role_id);
+        //     return $user->id == $student->user_id || $user->role_id == 1;
+        // });
     }
 }

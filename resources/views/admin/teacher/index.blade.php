@@ -14,28 +14,39 @@
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Role</th>
                             <th scope="col">actions</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($teachers as $teacher)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $teacher->full_name }}</td>
-                                <td>{{ $teacher->email }}</td>
-                                <td>
-                                    <a href="{{ route('teacher.show', $teacher->id) }}" class="btn btn-success btn-sm"><i
-                                            class="bi bi-info-circle"></i>
-                                        info</a>
-                                    <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-warning btn-sm"><i
-                                            class="bi bi-pencil-square"></i>
-                                        edit</a>
+                            @if (empty($teacher->full_name))
+                                <tr>
+                                    <td colspan="4" class="text-center">data belum ada</td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
+                                    <td style="display: none;"></td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $teacher->full_name }}</td>
+                                    <td>{{ $teacher->user->email }}</td>
+                                    <td>{{ $teacher->user->roles->first()->name }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.teacher.show', $teacher->id) }}"
+                                            class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
+                                            info</a>
+                                        <a href="{{ route('admin.teacher.edit', $teacher->id) }}"
+                                            class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
+                                            edit</a>
 
-                                    <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
-                                        class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
-                                </td>
-                            </tr>
+                                        <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
+                                            class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

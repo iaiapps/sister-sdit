@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => '2'
+            'active' => 0
         ]);
 
         //get id from user 
@@ -80,7 +80,7 @@ class RegisterController extends Controller
         $makeTeacher = [
             'user_id' => $id,
             'full_name' => 'user',
-            'email' => $data['email'],
+            // 'email' => $data['email'],
         ];
         Teacher::create($makeTeacher);
 

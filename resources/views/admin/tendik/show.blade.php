@@ -9,7 +9,7 @@
                 <p class="fw-light fs-4">
                     Identitas anda tidak lengkap, mohon isi terlebih dahulu
                 </p>
-                <a href="{{ route('admin.teacher.edit', $teacher->id) }}" class="btn btn-success">isi identitas</a>
+                <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-success">isi identitas</a>
             </div>
         </div>
     @else
@@ -50,7 +50,7 @@
                                 class="bi bi-pencil-square"></i>
                             edit data</a>
                     @endif
-                    <table id="table" class="table align-middle" style="width: 100%">
+                    <table id="table" class="table table-striped align-middle" style="width: 100%">
                         <tbody>
                             <tr>
                                 <td>Nama</td>
@@ -87,10 +87,10 @@
                                 <td>Kode Pos</td>
                                 <td>{{ $teacher->postal_code }}</td>
                             </tr>
-                            {{-- <tr>
+                            <tr>
                                 <td>Email</td>
                                 <td>{{ $teacher->email }}</td>
-                            </tr> --}}
+                            </tr>
                             <tr>
                                 <td>No Hp</td>
                                 <td>{{ $teacher->no_hp }}</td>

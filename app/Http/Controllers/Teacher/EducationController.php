@@ -40,7 +40,7 @@ class EducationController extends Controller
         $education = $request->all();
         $education['teacher_id'] = $id;
         Education::create($education);
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'education']);
     }
 
     /**
@@ -68,7 +68,7 @@ class EducationController extends Controller
         // dd($id);
         // dd($request->all());
         $education->update($request->all());
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'education']);
     }
 
     /**
@@ -77,6 +77,6 @@ class EducationController extends Controller
     public function destroy(Education $education)
     {
         $education->delete();
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'education']);
     }
 }

@@ -6,7 +6,8 @@
         <div class="table-responsive">
             <div class="mb-3">
                 <div class="btn-group">
-                    <a href="{{ route('user.create') }}" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i>
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-outline-success"><i
+                            class="bi bi-plus-circle"></i>
                         Tambah Data</a>
                     <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import Guru</a>
                     <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import
@@ -32,17 +33,18 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td> {{ $user->roles->first()->name }}</td>
+                                <td> {{ $user->roles->first()->name ?? 'belum ditentukan' }}</td>
                                 <td> {{ $user->active == 1 ? 'aktif' : 'tidak aktif' }}</td>
                                 <td>
-                                    {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
+                                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
-                                        edit</a> --}}
+                                        edit</a>
                                     {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
                                         status</a> --}}
                                     <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                        action="{{ route('user.destroy', $user->id) }}" method="post" class="d-inline">
+                                        action="{{ route('admin.user.destroy', $user->id) }}" method="post"
+                                        class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger btn-sm">

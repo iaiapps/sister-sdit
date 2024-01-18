@@ -21,7 +21,7 @@
     <div class="container text-center mb-3">
         <div class="row">
             <div class="col-12 col-md-4 bg-primary p-2">
-                <a href="{{ route('profile') }}" class="nav-link btn btn-outline text-white">
+                <a href="{{ route('guru.profile') }}" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-person fs-2"></i>
                     <span class="d-block">Profil</span>
                 </a>
@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="col-12 col-md-4 bg-danger p-2">
-                <a href="{{ route('teacher.presence') }}" class="nav-link btn btn-outline text-white">
+                <a href="{{ route('guru.teacher.presence') }}" class="nav-link btn btn-outline text-white">
                     <i class="bi bi-calendar-check fs-2"></i>
                     <span class="d-block">Presensi</span>
                 </a>

@@ -1,7 +1,7 @@
 <div class="tab-pane " id="education">
 
     @if ($teacher->user_id == $id)
-        <a href="{{ route('education.create') }}" class="btn btn-success mb-3"><i class="bi bi-plus-circle"></i>
+        <a href="{{ route('guru.education.create') }}" class="btn btn-success mb-3"><i class="bi bi-plus-circle"></i>
             Tambah Data</a>
     @endif
 
@@ -31,11 +31,12 @@
                     <td>{{ $education->graduation_year }}</td>
                     <td>
                         @if ($teacher->user_id == $id)
-                            <a href="/education/{{ $teacher->id }}/edit" class="btn btn-warning btn-sm"><i
-                                    class="bi bi-pencil-square"></i>
+                            <a href="{{ route('guru.education.edit', $education->id) }}"
+                                class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
                                 edit</a>
                             <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                action="education/{{ $education->id }}" method="post" class="d-inline">
+                                action="{{ route('guru.education.destroy', $education->id) }}" method="post"
+                                class="d-inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm">
@@ -46,9 +47,9 @@
                     </td>
                 </tr>
             @empty
-                <div class="alert alert-success" role="alert">
-                    <p class="text-center m-0">Belum Ada Data</p>
-                </div>
+                <tr class="alert alert-light mt-3" role="alert">
+                    <td colspan="7" class="text-center fs-5">Belum Ada Data</td>
+                </tr>
             @endforelse
         </tbody>
     </table>

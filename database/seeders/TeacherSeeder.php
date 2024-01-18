@@ -17,7 +17,7 @@ class TeacherSeeder extends Seeder
         Teacher::create([
             'user_id' => 2,
             'full_name' => 'teacher',
-            'email' => 'teacher@gmail.com'
+            // 'email' => 'teacher@gmail.com'
         ]);
     }
 }

@@ -3,7 +3,7 @@
 @section('title', 'Tambah Data Riwayat Pendidikan')
 @section('content')
     <div class="card p-3">
-        <form action="/education/{{ $education->id }}" method="POST">
+        <form action="{{ route('guru.education.update', $education->id) }}" method="POST">
             @csrf
             @method('put')
             <fieldset>

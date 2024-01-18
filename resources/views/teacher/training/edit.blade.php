@@ -3,7 +3,7 @@
 @section('title', 'Edit Data Pelatihan')
 @section('content')
     <div class="card p-3">
-        <form action="/training/{{ $training->id }}" method="POST">
+        <form action="{{ route('guru.training.update', $training->id) }}" method="POST">
             @csrf
             @method('put')
             <fieldset>

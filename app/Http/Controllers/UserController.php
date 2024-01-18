@@ -48,7 +48,7 @@ class UserController extends Controller
         //buat user baru
         $user = User::create($validate);
 
-        //tetap role setela user dibuat
+        //tetapkan role setelah user dibuat
         $user->assignRole($request->role);
 
         //ambil id dari user untuk dimasukkan ke user id
@@ -87,7 +87,22 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // validasi data masuk
+        $validate = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'active' => 'required',
+            'role' => 'required',
+        ]);
+
+        // update user
+        $user->update($validate);
+
+        //tetapkan role setelah user dibuat
+        $user->assignRole($request->role);
+
+        // return ke halaman user
+        return redirect()->route('user.index');
     }
 
     /**

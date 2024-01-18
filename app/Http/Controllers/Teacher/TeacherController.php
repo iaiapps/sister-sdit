@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Models\User;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +14,10 @@ class TeacherController extends Controller
      */
 
     //  handle dari admin
-    public function index()
+    public function index(Teacher $teacher)
     {
-        $teachers = Teacher::get()->all();
+        // $this->authorize('teacher', $teacher);
+        $teachers = Teacher::all();
         return view('admin.teacher.index', compact('teachers'));
     }
 
@@ -44,7 +44,7 @@ class TeacherController extends Controller
     {
         $this->authorize('teacher', $teacher);
         $id = Auth::user()->id;
-        return view('teacher.show', compact('teacher', 'id'));
+        return view('admin.teacher.show', compact('teacher', 'id'));
     }
 
     /**
@@ -52,8 +52,7 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        $this->authorize('teacher', $teacher);
-        return view('teacher.edit', compact('teacher'));
+        return view('admin.teacher.edit', compact('teacher'));
     }
 
     /**
@@ -72,10 +71,12 @@ class TeacherController extends Controller
             'no_hp' => 'required',
         ]);
 
+        dd($request->all());
         // $teacher->where('id', $teacher->id)->update($validate);
         $id =  $teacher->id;
         $teacher->update($request->all());
-        return redirect()->route('teacher.show', $id);
+
+        return redirect()->route('guru.teacher.show', $id);
     }
 
     /**
@@ -95,5 +96,33 @@ class TeacherController extends Controller
         $id = Auth::user()->id;
         // dd($user);
         return view('teacher.show', compact('teacher', 'id'));
+    }
+
+    // edit teacher
+    public function editTeacher(Teacher $teacher)
+    {
+        // dd($teacherid);
+        return view('teacher.edit', compact('teacher'));
+    }
+
+    public function storeTeacher(Request $request, Teacher $teacher)
+    {
+        $request->validate([
+            'full_name' => 'required',
+            'gender' => 'required',
+            'place_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'last_education' => 'required',
+            'month_enter' => 'required',
+            'year_enter' => 'required',
+            'no_hp' => 'required',
+        ]);
+
+        // dd($request->all());
+        // $teacher->where('id', $teacher->id)->update($validate);
+        $id =  $teacher->id;
+        $teacher->update($request->all());
+
+        return redirect()->route('guru.profile', $id);
     }
 }

@@ -19,29 +19,33 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
+            'active' => 1,
         ]);
         $admin->assignRole('admin');
 
-        $operator = User::create([
-            'name' => 'operator',
-            'email' => 'operator@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
-        $operator->assignRole('operator');
+        // $operator = User::create([
+        //     'name' => 'operator',
+        //     'email' => 'operator@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'active' => 1,
+        // ]);
+        // $operator->assignRole('operator');
 
         $guru = User::create([
             'name' => 'guru',
             'email' => 'guru@gmail.com',
             'password' => Hash::make('password'),
+            'active' => 1,
         ]);
         $guru->assignRole('guru');
 
-        $tendik = User::create([
-            'name' => 'tendik',
-            'email' => 'tendik@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
-        $tendik->assignRole('tendik');
+        // $tendik = User::create([
+        //     'name' => 'tendik',
+        //     'email' => 'tendik@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'active' => 1,
+        // ]);
+        // $tendik->assignRole('tendik');
 
         // User::create([
         //     'name' => 'student',

@@ -7,9 +7,9 @@
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body mt-3">
-            <form method="POST" action="/user">
+            <form method="POST" action="{{ route('user.update', $user->id) }}">
                 @csrf
-
+                @method('PUT')
                 <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
 

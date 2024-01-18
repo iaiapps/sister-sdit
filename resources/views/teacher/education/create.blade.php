@@ -3,7 +3,7 @@
 @section('title', 'Tambah Data Riwayat Pendidikan')
 @section('content')
     <div class="card p-3">
-        <form action="/education" method="POST">
+        <form action="{{ route('guru.education.store') }}" method="POST">
             @csrf
             <fieldset>
                 <div class="mb-3">

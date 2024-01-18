@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('month_enter')->nullable();
             $table->string('year_enter')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('email');
+            // $table->string('email');
 
             //second
             $table->string('nik')->nullable();

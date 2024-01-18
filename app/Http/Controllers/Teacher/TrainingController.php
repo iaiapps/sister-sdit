@@ -35,7 +35,7 @@ class TrainingController extends Controller
         $training = $request->all();
         $training['teacher_id'] = $id;
         Training::create($training);
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'training']);
     }
 
     /**
@@ -60,7 +60,7 @@ class TrainingController extends Controller
     public function update(Request $request, Training $training)
     {
         $training->update($request->all());
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'training']);
     }
 
     /**
@@ -69,6 +69,6 @@ class TrainingController extends Controller
     public function destroy(Training $training)
     {
         $training->delete();
-        return redirect('profile');
+        return redirect()->route('guru.profile')->withInput(['tab' => 'training']);
     }
 }

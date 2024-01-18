@@ -20,29 +20,36 @@
             @case('admin')
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'active' : '' }} ">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} ">
                         <i class="bi bi-house-door menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Home </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('teacher.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }}">
+                    <a href="{{ route('admin.teacher.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'admin.teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data Guru</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.tendik.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'tendik.index' ? 'activee' : '' }}">
+                        <i class="bi bi-person-check menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
                     </a>
                 </li>
 
                 {{-- <li class="nav-item">
                     <a href="{{ route('student.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-people menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data siswa </span>
                     </a>
                 </li> --}}
                 {{-- <li class="nav-item">
                     <a href="#"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-ui-checks-grid menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Kelola Kelas </span>
                     </a>
@@ -50,7 +57,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('presence.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presence.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presence.index' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Presensi </span>
                     </a>
@@ -58,7 +65,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('presencekaryawan.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presencekaryawan.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presencekaryawan.index' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Presensi Tendik </span>
                     </a>
@@ -66,28 +73,28 @@
 
                 <li class="nav-item">
                     <a href="{{ route('salary.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'salary.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'salary.index' ? 'activee' : '' }}">
                         <i class="bi bi-coin menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Rekap Gaji </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('user.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'user.index' ? 'active' : '' }}">
+                    <a href="{{ route('admin.user.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'user.index' ? 'activee' : '' }}">
                         <i class="bi bi-person menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Master User </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('school.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'school.index' ? 'active' : '' }}">
+                    <a href="{{ route('admin.school.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'school.index' ? 'activee' : '' }}">
                         <i class="bi bi-buildings menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">School</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('setting.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'setting.index' ? 'active' : '' }}">
+                    <a href="{{ route('admin.setting.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'setting.index' ? 'activee' : '' }}">
                         <i class="bi bi-gear menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Setting Aplikasi </span>
                     </a>
@@ -98,35 +105,35 @@
                 {{-- menu guru --}}
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'active' : '' }} d-block">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} d-block">
                         <i class="bi bi-activity menu-icon"></i>
                         <span class="ms-md-2 d-none d-sm-inline"> Home </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('profile') }}"
-                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'profile' ? 'active' : '' }} ">
+                    <a href="{{ route('guru.profile') }}"
+                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'profile' ? 'activee' : '' }} ">
                         <i class="bi bi-person menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Profil </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('document.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'document.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'document.index' ? 'activee' : '' }}">
                         <i class="bi bi-card-image menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Dokumen </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('teacher.presence') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.presence' ? 'active' : '' }}">
+                    <a href="{{ route('guru.teacher.presence') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.presence' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Presensi </span>
                     </a>
                 </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('teacher.salary') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-coin menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Gaji </span>
                     </a>
@@ -136,68 +143,68 @@
             {{-- @case('siswa')
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }} d-block">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }} d-block">
                         <i class="bi bi-activity menu-icon"></i>
                         <span class="ms-md-2 d-none d-sm-inline"> Home </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('student.profile') }}"
-                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }} ">
+                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }} ">
                         <i class="bi bi-person menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Profil Siswa </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('document.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-card-image menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Dokumen </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#"
-                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'active' : '' }} ">
+                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }} ">
                         <i class="bi bi-123 menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Data SPP </span>
                     </a>
                 </li>
             @break --}}
-            @case('Keuangan')
+            {{-- @case('Keuangan')
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }}">
                         <i class="bi bi-house-door menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Home </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('presence.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presence.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presence.index' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Presensi </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('salary.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'salary.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'salary.index' ? 'activee' : '' }}">
                         <i class="bi bi-coin menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Rekap Gaji </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('setting.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'setting.index' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'setting.index' ? 'activee' : '' }}">
                         <i class="bi bi-gear menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Setting Aplikasi </span>
                     </a>
                 </li>
-            @break
+            @break --}}
 
             @default
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }}">
                         <i class="bi bi-house-door menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> home </span>
                     </a>

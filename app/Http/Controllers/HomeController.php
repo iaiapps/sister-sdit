@@ -58,19 +58,19 @@ class HomeController extends Controller
 
         switch ($role) {
             case 'admin':
-                return view('admin.home', compact('name', 'sumguru', 'sumtendik', 'schools'));
+                return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools'));
                 break;
 
             case 'guru':
-                return view('teacher.home', compact('teacher', 'schools', 'picture'));
+                return view('home.ghome', compact('teacher', 'schools', 'picture'));
                 break;
 
             case 'tendik':
-                return view('teacher.home', compact('teacher', 'schools', 'picture'));
+                return view('home.ghome', compact('teacher', 'schools', 'picture'));
                 break;
 
             default:
-                return view('admin.home', compact('user', 'schools'));
+                return view('home.nahome', compact('name'));
         }
     }
 
