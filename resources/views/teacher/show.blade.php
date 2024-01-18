@@ -9,7 +9,7 @@
                 <p class="fw-light fs-4">
                     Identitas anda tidak lengkap, mohon isi terlebih dahulu
                 </p>
-                <a href="{{ route('guru.teacher.edit', $teacher->id) }}" class="btn btn-success">isi identitas</a>
+                <a href="{{ route('guru.editTeacher', $teacher->id) }}" class="btn btn-success">isi identitas</a>
             </div>
         </div>
     @else

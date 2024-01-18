@@ -30,7 +30,7 @@ use App\Http\Controllers\Finance\SalaryReductionController;
 use App\Http\Controllers\Finance\SalaryFunctionalController;
 use App\Http\Controllers\Presence\PresenceSettingController;
 use App\Http\Controllers\Presencekar\PresencekaryawanController;
-use App\Http\Controllers\Tendik\TendikController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +72,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('user', UserController::class);
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
-            Route::resource('tendik', TendikController::class);
             // Route::resource('student', StudentController::class);
 
             // setting
@@ -126,7 +125,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //guru
-    Route::middleware('role:guru')->group(function () {
+    Route::middleware('role:guru|tendik')->group(function () {
         Route::prefix('guru')->name('guru.')->group(function () {
             Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
 

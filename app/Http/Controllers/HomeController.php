@@ -61,11 +61,7 @@ class HomeController extends Controller
                 return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools'));
                 break;
 
-            case 'guru':
-                return view('home.ghome', compact('teacher', 'schools', 'picture'));
-                break;
-
-            case 'tendik':
+            case 'guru' || 'tendik':
                 return view('home.ghome', compact('teacher', 'schools', 'picture'));
                 break;
 

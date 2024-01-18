@@ -4,10 +4,10 @@
 @section('content')
 
     {{-- @dd(Auth::user()->role->name) --}}
-    @if ($teacher->gender == null)
+    @if ($teacher->full_name == 'user')
         <div class="alert alert-danger alert-dismissible fade show py-2 " role="alert">
             <span class="m-0">Identitas anda belum lengkap!</span>
-            <a href="{{ route('teacher.edit', $teacher->id) }}" class="btn btn-dark btn-sm">clik
+            <a href="{{ route('guru.editTeacher', $teacher->id) }}" class="btn btn-dark btn-sm ms-1">clik
                 untuk mengisi</a>
         </div>
     @endif

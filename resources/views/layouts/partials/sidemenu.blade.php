@@ -1,6 +1,12 @@
 @php
     $user = Auth::user();
-    $name = $user->name;
+
+    if ($user->teacher->full_name == 'user') {
+        $name = $user->name;
+    } else {
+        $name = $user->teacher->full_name;
+    }
+
     $role = $user->getRoleNames()->first();
     $avatar = Avatar::create(Str::upper($name))->toBase64();
     $date = \Carbon\Carbon::now()->format('d-m-Y');
@@ -32,13 +38,13 @@
                         <span class="ms-2 d-none d-sm-inline">Data Guru</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.tendik.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'tendik.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-item">
                     <a href="{{ route('student.index') }}"
@@ -101,8 +107,8 @@
                 </li>
             @break
 
-            @case('guru')
-                {{-- menu guru --}}
+            @case('guru' or 'tendik')
+                {{-- menu guru dan tendik --}}
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} d-block">

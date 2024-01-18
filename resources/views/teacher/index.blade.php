@@ -4,9 +4,6 @@
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">
-            {{-- <div class="mb-3">
-                <a href="http://" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i> Download Data</a>
-            </div> --}}
             <div class="table-responsive">
                 <table id="table" class="table table-striped align-middle" style="width: 100%">
                     <thead>

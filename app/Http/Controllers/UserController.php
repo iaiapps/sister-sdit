@@ -102,7 +102,7 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         // return ke halaman user
-        return redirect()->route('user.index');
+        return redirect()->route('admin.user.index');
     }
 
     /**

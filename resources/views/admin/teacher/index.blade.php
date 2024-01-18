@@ -33,7 +33,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $teacher->full_name }}</td>
                                     <td>{{ $teacher->user->email }}</td>
-                                    <td>{{ $teacher->user->roles->first()->name }}</td>
+                                    <td>{{ $teacher->user->roles->first()->name ?? 'belum ditentukan' }}</td>
                                     <td>
                                         <a href="{{ route('admin.teacher.show', $teacher->id) }}"
                                             class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
