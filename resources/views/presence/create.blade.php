@@ -7,17 +7,18 @@
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body mt-3">
-            <form method="POST" action="{{ route('store.presence') }}">
+            <form method="POST" action="{{ route('admin.store.presence') }}">
                 @csrf
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
                             <td>Tanggal</td>
-                            <td> <input id="name" type="date" class="form-control" name="date" required </td>
+                            <td> <input id="name" type="date" class="form-control" name="date" required> </td>
                         </tr>
                         <tr>
                             <td>Nama Guru</td>
-                            <td> <select class="form-select" id="role" name="teacher_id">
+                            <td>
+                                <select class="form-select" style="width: 100%" id="teacher" name="teacher_id">
                                     <option selected disabled>---</option>
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
@@ -61,6 +62,7 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <div class="text-center">
                     <button type="submit" class="btn btn-success w-50"> tambah data </button>
                 </div>
@@ -69,15 +71,12 @@
     </div>
 @endsection
 
+@include('layouts.partials.allscripts')
+
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#nis').hide();
-        });
-        $("#role").change(function(event) {
-            if (event.target.value === '3') {
-                $('#nis').show()
-            }
+        $('#teacher').select2({
+            theme: 'bootstrap-5',
         });
     </script>
 @endpush

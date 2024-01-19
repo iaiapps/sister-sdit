@@ -118,7 +118,7 @@ class PresenceController extends Controller
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
         ]);
-        return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
+        return redirect()->route('admin.presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 
     public function teacherShow(Request $request)
@@ -160,8 +160,6 @@ class PresenceController extends Controller
         $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
         $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
         $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . " " . $time_in;
-        // dd($date);
-
         Presence::create([
             'teacher_id' => $id,
             'time_in' => $time_in,
@@ -172,7 +170,7 @@ class PresenceController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
         ]);
-        return redirect()->route('presence.index');
+        return redirect()->route('admin.presence.index');
     }
 
     // .......................................//

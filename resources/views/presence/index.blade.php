@@ -6,7 +6,7 @@
     <div class="card p-3">
         <div class="row align-items-center">
             <div class="col-12 col-md-6 ">
-                <a href="{{ route('presence.export', ['date' => $date]) }}" class="btn btn-success rounded ">
+                <a href="{{ route('admin.presence.export', ['date' => $date]) }}" class="btn btn-success rounded ">
                     <i class="bi bi-download"></i> Download Data</a>
 
                 <h6 class="d-inline border-bottom border-success pb-2 border-3"> Bulan :
@@ -14,7 +14,7 @@
                 </h6>
             </div>
             <div class="col-12 col-md-6 mt-3 mt-md-0 ">
-                <form action="{{ route('presence.index') }}" method="GET">
+                <form action="{{ route('admin.presence.index') }}" method="GET">
                     {{-- @csrf --}}
                     <div class="d-flex align-items-center ">
                         <label for="start">filter bulan</label>
@@ -30,7 +30,7 @@
 
         <hr>
         <div class="d-inline-block">
-            <a href="{{ route('add.presence') }}" class="btn btn-warning">tambah data presensi</a>
+            <a href="{{ route('admin.add.presence') }}" class="btn btn-warning">tambah data presensi</a>
         </div>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
@@ -65,7 +65,7 @@
                             <td>{{ $presence->total_sakit }}</td>
                             <td>{{ $presence->total_ijin }}</td>
                             <td>
-                                <a href="{{ route('presence.show', [$presence->teacher->id, 'date' => $date]) }}"
+                                <a href="{{ route('admin.presence.show', [$presence->teacher->id, 'date' => $date]) }}"
                                     class="btn btn-success btn-sm">
                                     <i class="bi bi-info-circle"></i> detail</a>
                             </td>
@@ -78,12 +78,9 @@
 
     </div>
 @endsection
-@push('css')
-    <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
-@endpush
+
+@include('layouts.partials.allscripts')
 @push('scripts')
-    <script src="{{ asset('assets/datatables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable({

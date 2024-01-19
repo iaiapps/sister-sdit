@@ -80,10 +80,16 @@ Route::middleware('auth')->group(function () {
             // presence
             Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
             Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
+            Route::resource('presence', PresenceController::class);
+            Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
+            //presenceset
+            Route::resource('presenceset', PresenceSettingController::class);
 
             //presence karyawan
             Route::get('addpresencekar', [PresencekaryawanController::class, 'addpresence'])->name('add.presencekar');
             Route::post('storepresencekar', [PresencekaryawanController::class, 'storepresence'])->name('store.presencekar');
+            Route::resource('presencekaryawan', PresencekaryawanController::class);
+            Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
         });
     });
 
@@ -96,11 +102,10 @@ Route::middleware('auth')->group(function () {
             Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
 
             // export
-            Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
             Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             //setting 
-            Route::resource('presenceset', PresenceSettingController::class);
+            Route::resource('salaryset', SalarySettingController::class);
 
             //gaji
             Route::resource('salary', SalaryController::class);
@@ -113,20 +118,13 @@ Route::middleware('auth')->group(function () {
             Route::resource('functional', SalaryFunctionalController::class);
             Route::resource('addition', SalaryAdditionController::class);
             Route::resource('reduction', SalaryReductionController::class);
-
-            //presence
-            Route::resource('presence', PresenceController::class);
-            Route::resource('salaryset', SalarySettingController::class);
-
-            //presence karyawan
-            Route::resource('presencekaryawan', PresencekaryawanController::class);
-            Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
         });
     });
 
     //guru
     Route::middleware('role:guru|tendik')->group(function () {
         Route::prefix('guru')->name('guru.')->group(function () {
+            //profile
             Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
 
             //edit guru
