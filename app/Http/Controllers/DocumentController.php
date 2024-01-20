@@ -16,45 +16,22 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
+        /** @var \App\Models\User */
+        $user  = Auth::user();
+        $role = $user->getRoleNames()->first();
 
-        $role = Auth::user()->role->name;
-        $nis = Auth::user()->nis;
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->get()->first();
-        $student = Student::where('user_id', $id)->get()->first();
 
-        // dd($role);
-        if ($role == 'Admin') {
+        if ($role == 'admin') {
             $id = $request->id;
-            $documents = Document::where('teacher_id', $id)->orWhere('student_id', $id)->get();
+            $documents = Document::where('teacher_id', $id)->get();
             return view('document.index', compact('documents'));
-        } elseif ($role == 'Guru/Tendik') {
+        } elseif ($role == 'guru' || $role == 'tendik') {
             $teacher_id = $teacher->id;
             $documents = Document::where('teacher_id', $teacher_id)->get();
             return view('document.index', compact('teacher', 'documents'));
-        } elseif ($role == 'Siswa') {
-            $student_id = $student->id;
-            $documents = Document::where('student_id', $student_id)->get();
-            return view('document.index', compact('student', 'documents'));
         }
-
-        // if ($nis == null) {
-        //     if ($request->id == null) {
-        //         $teacher_id = $teacher->id;
-        //     } else {
-        //         $teacher_id = $request->id;
-        //     }
-        //     $documents = Document::where('teacher_id', $teacher_id)->get();
-        //     return view('document.index', compact('teacher', 'documents'));
-        // } else {
-        //     if ($request->id == null) {
-        //         $student_id = $student->id;
-        //     } else {
-        //         $student_id = $request->id;
-        //     }
-        //     $documents = Document::where('student_id', $student_id)->get();
-        //     return view('document.index', compact('student', 'documents'));
-        // }
     }
 
     /**
@@ -71,12 +48,7 @@ class DocumentController extends Controller
     {
         //cek id
         $id = Auth::user()->id;
-        $nis = Auth::user()->nis;
-        if ($nis == '') {
-            $teacher_id = Teacher::where('user_id', $id)->get()->first()->id;
-        } else {
-            $student_id = Student::where('user_id', $id)->get()->first()->id;
-        }
+        $teacher_id = Teacher::where('user_id', $id)->get()->first()->id;
 
         //validate
         $imgDocument = $request->validate([
@@ -84,14 +56,11 @@ class DocumentController extends Controller
             'file' => 'mimes:jpeg,jpg,png,pdf|file|max:512',
         ]);
 
-        if ($nis == '') {
-            //beri nama
-            $file = $request->file('file');
-            $file_name = $teacher_id . '-teacher' . '-' . time() . '-' . $file->getClientOriginalName();
-        } else {
-            $file = $request->file('file');
-            $file_name = $student_id . '-student' . '-' . time() . '-' . $file->getClientOriginalName();
-        }
+        //beri nama
+
+        $file = $request->file('file');
+        $file_name = $teacher_id . '-teacher' . '-' . time() . '-' . $file->getClientOriginalName();
+
         //simpan ke folder
         // ini di folder public
         // $request->file('file')->move(public_path('img-document'), $file_name); 
@@ -100,16 +69,10 @@ class DocumentController extends Controller
 
         //masukkan ke array validate
         $imgDocument['file'] = $file_name;
-
-        if ($nis == '') {
-            $imgDocument['teacher_id'] = $teacher_id;
-        } else {
-            $imgDocument['student_id'] = $student_id;
-        }
+        $imgDocument['teacher_id'] = $teacher_id;
 
         //simpan ke database
         Document::create($imgDocument);
-
         return redirect()->route('document.index')->with('success', 'Data telah ditambah');
     }
 
@@ -145,14 +108,6 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-
-        // if (Storage::exists('public/img-document/' . $document->file)) {
-        //     dd('ada');
-        // } else {
-        //     dd('File does not exists.');
-        // }
-
-        // dd('/storage/img-document/' . $document->file);
         Storage::delete('/public/img-document/' . $document->file);
         $document->delete();
 

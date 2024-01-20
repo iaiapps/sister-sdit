@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            // $table->integer('teacher_id')->unsigned()->nullable();
-            // $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->foreignId('teacher_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('student_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreignId('student_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('file');
             $table->string('type');
             $table->timestamps();

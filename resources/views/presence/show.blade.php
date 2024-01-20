@@ -97,7 +97,7 @@
     <style>
         #printbutton {
             position: absolute;
-            top: 100px;
+            top: 80px;
             right: 16px;
         }
 

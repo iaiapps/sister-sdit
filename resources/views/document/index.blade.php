@@ -9,7 +9,7 @@
                 Kembali</a>
         </div>
 
-        @if (Auth::user()->role->name == 'Guru/Tendik' || Auth::user()->role->name == 'Siswa')
+        @if (Auth::user()->hasRole('guru'))
             <div class="mb-3">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#document">
                     Tambah Dokumen

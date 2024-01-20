@@ -11,7 +11,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="jenisprestasi">Jenis Dokumen
                         </label>
-                        @if (Auth::user()->role->name == 'Guru/Tendik')
+                        @if (Auth::user()->hasRole('guru'))
                             <select class="form-select" id="jenisprestasi" required name="type">
                                 <option selected disabled>Pilih</option>
                                 <option value="kartu_keluarga">Kartu Keluarga</option>
@@ -23,17 +23,15 @@
                                 <option value="foto_profil">Foto Profil</option>
                                 <option value="sk_yayasan">SK Yayasan</option>
                             </select>
-                        @elseif (Auth::user()->role->name == 'Siswa')
+                            {{-- @elseif (Auth::user()->role->name == 'Siswa')
                             <select class="form-select" id="jenisprestasi" required name="type">
                                 <option selected disabled>Pilih</option>
                                 <option value="kartu_keluarga">Kartu Keluarga</option>
                                 <option value="akta_kelahiran">Akta Kelahiran</option>
                                 <option value="piagam_sertifikat">Piagam/Sertifikat</option>
                                 <option value="foto_profil">Foto Profil</option>
-                            </select>
+                            </select> --}}
                         @endif
-
-
 
                     </div>
                     <input class="form-control" type="file" name="file" class="pt-2">
