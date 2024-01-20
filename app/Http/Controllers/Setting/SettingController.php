@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Finance;
+namespace App\Http\Controllers\Setting;
 
-use App\Models\SalaryBasic;
-use App\Models\Teacher;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PositionController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $teachers = Teacher::get()->all();
-        // $positions = SalaryBasic::get()->all();
-        return view('finance.position.index', compact('teachers'));
+        return view('admin.setting.index');
     }
 
     /**
@@ -32,12 +29,13 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Setting $setting)
     {
         //
     }
@@ -45,26 +43,23 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $position)
+    public function edit(Setting $setting)
     {
-        $jabatans = SalaryBasic::get()->all();
-        return view('finance.position.edit', compact('position', 'jabatans'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Teacher $position, Request $request)
+    public function update(Request $request, Setting $setting)
     {
-        $position->update(['salary_basic_id' => $request->salary_basic_id]);
-
-        return redirect()->route('position.index');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Setting $setting)
     {
         //
     }

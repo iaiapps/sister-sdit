@@ -6,7 +6,7 @@
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body p-md-4 px-3">
-            <form method="POST" action="{{ route('user.store') }}">
+            <form method="POST" action="{{ route('admin.user.store') }}">
                 @csrf
                 <div class="row">
 

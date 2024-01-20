@@ -27,7 +27,7 @@
 
                     </div>
                     <hr>
-
+                    @dd($teacher->salary_position)
                     {{-- identitas --}}
                     <p class="fs-5 m-0">Identitas</p>
                     <div class="row">
@@ -57,11 +57,11 @@
                         $kehadiran = $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin;
                         $total_telat = $presence->is_late;
                         $total_tepat = $kehadiran - $total_telat;
-                        
+
                         //fee
                         $tot_kehadiran = $kehadiran * $fee_kehadiran;
                         $fee_telat = $total_telat * $potongan_late;
-                        
+
                         $total_fee_kehadiran = $tot_kehadiran - $fee_telat;
                     @endphp
                     <hr>

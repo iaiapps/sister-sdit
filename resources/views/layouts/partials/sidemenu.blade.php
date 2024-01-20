@@ -95,13 +95,13 @@
                         <span class="ms-2 d-none d-sm-inline">Master User </span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.school.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'school.index' ? 'activee' : '' }}">
                         <i class="bi bi-buildings menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">School</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('admin.setting.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'setting.index' ? 'activee' : '' }}">

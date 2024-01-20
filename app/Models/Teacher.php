@@ -41,13 +41,8 @@ class Teacher extends Model
         return $this->hasMany(Salary::class);
     }
 
-    public function salary_basic()
+    public function salary_position()
     {
-        return $this->belongsTo(SalaryBasic::class);
-    }
-
-    public function salary_functional()
-    {
-        return $this->belongsTo(SalaryFunctional::class);
+        return $this->hasOne(SalaryPosition::class);
     }
 }

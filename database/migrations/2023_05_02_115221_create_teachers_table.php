@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('salary_basic_id')->nullable();
-            $table->integer('salary_functional_id')->nullable();
+            // $table->integer('salary_basic_id')->nullable();
+            // $table->integer('salary_functional_id')->nullable();
             $table->string('full_name');
             $table->string('gender')->nullable();
             $table->string('place_of_birth')->nullable();

@@ -6,11 +6,9 @@
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <p class="fs-5 mb-1">Data Guru</p>
+                <p class="fs-5 mb-1">Data Poisi Gaji Guru</p>
                 <a href="{{ route('position.index') }}" class="btn btn-success">
-                    <i class="bi bi-plus-circle"></i> Data Jabatan</a>
-                <a href="{{ route('pfunctional.index') }}" class="btn btn-success">
-                    <i class="bi bi-plus-circle"></i> Data Fungsional</a>
+                    <i class="bi bi-plus-circle"></i> Lihat</a>
             </div>
             <div class="col-12 col-md-6 mt-3 mt-md-0">
                 <p class="fs-5 mb-1">Buat Data Gaji Secara Massal</p>
@@ -43,7 +41,7 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">L/P</th>
                         {{-- <th scope="col">Tambah slip</th> --}}
                         <th scope="col">Lihat gaji</th>
                     </tr>
@@ -53,7 +51,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $teacher->full_name }}</td>
-                            <td>{{ $teacher->email }}</td>
+                            <td>{{ $teacher->gender }}</td>
                             {{-- <td>
                                 <a href="{{ route('salary.create', ['id' => $teacher->id]) }}"
                                     class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i>

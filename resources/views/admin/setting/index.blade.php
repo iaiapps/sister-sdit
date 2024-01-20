@@ -3,6 +3,31 @@
 @section('title', 'Setting Aplikasi')
 @section('content')
     <div class="card p-3">
+
+        <div class="row g-3">
+            <div class="col-12 col-md-6 ">
+                <div class="card border">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calendar-check fs-2 "></i>
+                        <p class="mb-0">Setting Presensi</p>
+                    </div>
+                    <div class="card-footer"><a href="{{ route('admin.presenceset.index') }}"
+                            class="btn btn-success w-100">Lihat</a></div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 ">
+                <div class="card border">
+                    <div class="card-body text-center">
+                        <i class="bi bi-buildings fs-2"></i>
+                        <p class="mb-0">Setting Sekolah</p>
+                    </div>
+                    <div class="card-footer"><a href="{{ route('admin.school.index') }}"
+                            class="btn btn-success w-100">Lihat</a></div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="table-responsive">
             <table class="table align-middle">
                 <thead>
@@ -12,48 +37,35 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Presensi</td>
-                        <td>Pengaturan presensi</td>
-                        <td><a href="{{ route('presenceset.index') }}" class="btn btn-success btn-sm">Lihat</a></td>
-                    </tr>
-                    <tr>
-                        <td>Pokok</td>
-                        <td>Pengaturan Gaji Pokok </td>
-                        <td>
-                            <a href="{{ route('basic.index') }}" class="btn btn-success btn-sm">lihat</a>
-                        </td>
-                    </tr>
-                    <tr>
+
+                <tr>
+                    <td>Type</td>
+                    <td>Pengaturan Type Gaji </td>
+                    <td>
+                        <a href="{{ route('type.index') }}" class="btn btn-success btn-sm">lihat</a>
+                    </td>
+                </tr>
+                {{-- <tr>
                         <td>Fungsional</td>
                         <td>Pengaturan Gaji Fungsional </td>
                         <td>
                             <a href="{{ route('functional.index') }}" class="btn btn-success btn-sm">lihat</a>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Penambahan</td>
-                        <td>Pengaturan Penambahan/Tunjangan </td>
-                        <td>
-                            <a href="{{ route('addition.index') }}" class="btn btn-success btn-sm">lihat</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Pengurangan</td>
-                        <td>Pengaturan Pengurangan/Tagihan </td>
-                        <td>
-                            <a href="{{ route('reduction.index') }}" class="btn btn-success btn-sm">lihat</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Kontak</td>
-                        <td>Pusat Informasi</td>
-                        <td>
-                            <a href="#" class="btn btn-success btn-sm">lihat</a>
-                        </td>
-                    </tr>
+                    </tr> --}}
+                {{-- <tr>
+                    <td>Penambahan/Pengurangan</td>
+                    <td>Pengaturan Penambahan dan Pengurangan </td>
+                    <td>
+                        <a href="{{ route('plusmin.index') }}" class="btn btn-success btn-sm">lihat</a>
+                    </td>
+                </tr> --}}
+                <tr>
+                    <td>Kontak</td>
+                    <td>Pusat Informasi</td>
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm">lihat</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

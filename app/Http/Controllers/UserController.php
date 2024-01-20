@@ -62,7 +62,7 @@ class UserController extends Controller
         ]);
         // }
 
-        return redirect()->route('user.index');
+        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -111,6 +111,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('user');
+        return redirect()->route('admin.user.index');
     }
 }

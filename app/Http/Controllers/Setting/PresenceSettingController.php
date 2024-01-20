@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Presence;
+namespace App\Http\Controllers\Setting;
 
 use App\Models\PresenceSetting;
 use Illuminate\Http\Request;

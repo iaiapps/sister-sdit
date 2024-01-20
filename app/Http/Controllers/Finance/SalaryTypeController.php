@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Finance;
 
-use App\Models\SalaryAddition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\SalaryType;
 
-class SalaryAdditionController extends Controller
+class SalaryTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $additions = SalaryAddition::get()->all();
-        return view('finance.addition.index', compact('additions'));
+        $types = SalaryType::get()->all();
+        return view('finance.type.index', compact('types'));
     }
 
     /**
@@ -30,19 +30,21 @@ class SalaryAdditionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validate = $request->validate([
-            "nama_penambahan" => "required",
+            "type" => "required",
+            "nama" => "required",
             "besarnya" => "required"
         ]);
-        SalaryAddition::create($validate);
+        SalaryType::create($validate);
 
-        return redirect()->route('addition.index');
+        return redirect()->route('type.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SalaryAddition $addition)
+    public function show(SalaryType $type)
     {
         //
     }
@@ -50,26 +52,26 @@ class SalaryAdditionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SalaryAddition $addition)
+    public function edit(SalaryType $type)
     {
-        return view('admin.salary.addition.edit', compact('addition'));
+        return view('finance.type.edit', compact('type'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SalaryAddition $addition)
+    public function update(Request $request, SalaryType $type)
     {
-        $addition->update($request->all());
-        return redirect()->route('addition.index');
+        $type->update($request->all());
+        return redirect()->route('type.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SalaryAddition $addition)
+    public function destroy(SalaryType $type)
     {
-        $addition->delete();
-        return redirect()->route('addition.index');
+        $type->delete();
+        return redirect()->route('basic.index');
     }
 }

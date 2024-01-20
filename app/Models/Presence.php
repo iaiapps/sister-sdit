@@ -17,9 +17,4 @@ class Presence extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
-
-    public function late()
-    {
-        return $this->hasOne(Late::class);
-    }
 }

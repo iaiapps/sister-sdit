@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="card p-3">
-        @if (Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Keuangan')
+        @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('operator'))
             <div class="row">
                 <div class="col-12 col-md-6">
                     <a href="{{ route('salary.index') }}" class="btn btn-success">
@@ -28,7 +28,6 @@
                 </div>
             </div>
         @endif
-
 
         <p class="text-center fs-5 mt-3">Data gaji <strong>{{ $teacher->full_name }}</strong></p>
         <hr class="mt-0">

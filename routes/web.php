@@ -1,35 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\DocumentController;
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Teacher\ChildController;
 use App\Http\Controllers\Finance\SalaryController;
+use App\Http\Controllers\Setting\SettingController;
+
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
 
 use App\Http\Controllers\Finance\PositionController;
 use App\Http\Controllers\Teacher\TrainingController;
+
 use App\Http\Controllers\Presence\PresenceController;
-
 use App\Http\Controllers\Teacher\EducationController;
-use App\Http\Controllers\Finance\PfunctionalController;
+use App\Http\Controllers\Finance\SalaryTypeController;
 
-use App\Http\Controllers\Finance\SalaryBasicController;
 use App\Http\Controllers\Student\StudentLoginController;
-use App\Http\Controllers\Finance\SalarySettingController;
 use App\Http\Controllers\Student\StudentParentController;
-use App\Http\Controllers\Finance\SalaryAdditionController;
-use App\Http\Controllers\Finance\SalaryReductionController;
-use App\Http\Controllers\Finance\SalaryFunctionalController;
-use App\Http\Controllers\Presence\PresenceSettingController;
+use App\Http\Controllers\Finance\SalaryPositionController;
+use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Presencekar\PresencekaryawanController;
+
+
 
 
 /*
@@ -76,14 +75,14 @@ Route::middleware('auth')->group(function () {
 
             // setting
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+            //presenceset
+            Route::resource('presenceset', PresenceSettingController::class);
 
             // presence
             Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
             Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
             Route::resource('presence', PresenceController::class);
             Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
-            //presenceset
-            Route::resource('presenceset', PresenceSettingController::class);
 
             //presence karyawan
             Route::get('addpresencekar', [PresencekaryawanController::class, 'addpresence'])->name('add.presencekar');
@@ -104,20 +103,16 @@ Route::middleware('auth')->group(function () {
             // export
             Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
-            //setting 
-            Route::resource('salaryset', SalarySettingController::class);
+            // //setting 
+            // Route::resource('salaryset', SalarySettingController::class);
 
             //gaji
             Route::resource('salary', SalaryController::class);
             Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
-            Route::resource('position', PositionController::class);
-            Route::resource('pfunctional', PfunctionalController::class);
 
             //data gaji
-            Route::resource('basic', SalaryBasicController::class);
-            Route::resource('functional', SalaryFunctionalController::class);
-            Route::resource('addition', SalaryAdditionController::class);
-            Route::resource('reduction', SalaryReductionController::class);
+            Route::resource('type', SalaryTypeController::class);
+            Route::resource('position', SalaryPositionController::class);
         });
     });
 

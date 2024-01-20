@@ -27,8 +27,8 @@
                             <td>{{ $setting->desc }}</td>
 
                             <td>
-                                <a href="{{ route('presenceset.edit', $setting->id) }}" class="btn btn-warning btn-sm"><i
-                                        class="bi bi-pencil-square"></i>
+                                <a href="{{ route('admin.presenceset.edit', $setting->id) }}"
+                                    class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
                                     edit</a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                     action="setting/{{ $setting->id }}" method="post" class="d-inline">
@@ -70,7 +70,7 @@
                         <td>{{ $qrcode->value }}</td>
                         <td>{{ $qrcode->desc }}</td>
                         <td>
-                            <a href="{{ route('presenceset.edit', $qrcode->id) }}" class="btn btn-warning btn-sm"><i
+                            <a href="{{ route('admin.presenceset.edit', $qrcode->id) }}" class="btn btn-warning btn-sm"><i
                                     class="bi bi-pencil-square"></i>
                                 edit</a>
 

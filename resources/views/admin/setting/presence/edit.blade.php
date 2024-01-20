@@ -3,7 +3,7 @@
 @section('title', 'Edit Setting Presensi')
 @section('content')
     <div class="card p-3">
-        <form action="{{ route('presenceset.update', $presenceset->id) }}" method="POST">
+        <form action="{{ route('admin.presenceset.update', $presenceset->id) }}" method="POST">
             @csrf
             @method('put')
             <fieldset>

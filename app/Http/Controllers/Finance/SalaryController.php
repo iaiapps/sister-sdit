@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Presence\PresenceController;
-
+use App\Models\SalaryType;
 
 class SalaryController extends Controller
 {
@@ -100,15 +100,15 @@ class SalaryController extends Controller
         // $potongan_late_c = $this->_settingValue('potongan_late_c');
 
         $teacher = Teacher::where('id', $id)->get()->first();
-        $basics = SalaryBasic::get()->all();
-        $additions = SalaryAddition::get()->all();
-        $reductions = SalaryReduction::get()->all();
+        $basics = SalaryType::get()->all();
+        // $additions = SalaryAddition::get()->all();
+        // $reductions = SalaryReduction::get()->all();
 
         return view('finance.create', compact(
             'teacher',
             'basics',
-            'additions',
-            'reductions',
+            // 'additions',
+            // 'reductions',
             'presence',
             'fee_kehadiran',
             'potongan_late',

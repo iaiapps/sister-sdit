@@ -13,7 +13,7 @@ class SchoolController extends Controller
     public function index()
     {
         $schools = School::get()->all();
-        return view('admin.school.index', compact('schools'));
+        return view('admin.setting.school.index', compact('schools'));
     }
 
     /**
