@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('presencekaryawan.index') }}"
+                    <a href="{{ route('admin.presencekaryawan.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presencekaryawan.index' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Presensi Tendik </span>

@@ -105,7 +105,7 @@ class PresencekaryawanController extends Controller
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
         ]);
-        return redirect()->route('presencekaryawan.show', [$presencekaryawan->teacher_id, 'date' => $date]);
+        return redirect()->route('admin.presencekaryawan.show', [$presencekaryawan->teacher_id, 'date' => $date]);
     }
 
     public function teacherShow(Request $request)
@@ -159,7 +159,7 @@ class PresencekaryawanController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
         ]);
-        return redirect()->route('presencekaryawan.index');
+        return redirect()->route('admin.presencekaryawan.index');
     }
 
     // .......................................//

@@ -7,7 +7,7 @@
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body mt-3">
-            <form method="POST" action="{{ route('store.presencekar') }}">
+            <form method="POST" action="{{ route('admin.store.presencekar') }}">
                 @csrf
                 <table class="table table-bordered">
                     <tbody>
@@ -68,16 +68,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#nis').hide();
-        });
-        $("#role").change(function(event) {
-            if (event.target.value === '3') {
-                $('#nis').show()
-            }
-        });
-    </script>
-@endpush

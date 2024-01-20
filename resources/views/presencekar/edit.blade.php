@@ -6,7 +6,8 @@
 
     <div class="card">
         <div class="card-body mt-3">
-            <form method="POST" action="{{ route('presencekaryawan.update', [$presencekaryawan->id, 'date' => $date]) }}">
+            <form method="POST"
+                action="{{ route('admin.presencekaryawan.update', [$presencekaryawan->id, 'date' => $date]) }}">
                 @csrf
                 @method('put')
                 <table class="table table-bordered">
