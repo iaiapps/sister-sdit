@@ -27,7 +27,7 @@
 
                     </div>
                     <hr>
-                    @dd($teacher->salary_position)
+                    {{-- @dd($teacher->salary_position) --}}
                     {{-- identitas --}}
                     <p class="fs-5 m-0">Identitas</p>
                     <div class="row">
@@ -43,8 +43,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="jabatan">Jabatan </label>
                                 <input class="form-control" type="text" id="jabatan" name="jabatan"
-                                    placeholder="jabatan" value="{{ $teacher->salary_basic->nama_jabatan }}" readonly
-                                    disabled />
+                                    placeholder="jabatan" value="{{ $teacher->salary_position->salary_pokok->nama }}"
+                                    readonly disabled />
                             </div>
                         </div>
                     </div>
@@ -149,16 +149,17 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label" for="gaji_pokok">1. Gaji Pokok </label>
-                                <input class="form-control" type="text" id="gaji_pokok" name="gaji_pokok"
-                                    placeholder="gaji pokok" value="{{ $teacher->salary_basic->gaji_pokok }}" readonly />
+                                <input class="form-control bg-light" type="text" id="gaji_pokok" name="gaji_pokok"
+                                    placeholder="gaji pokok"
+                                    value="{{ $teacher->salary_position->salary_pokok->besarnya }}" readonly />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label" for="gaji_fungsional">2. Gaji Fungsional </label>
-                                <input class="form-control" type="text" id="gaji_fungsional" name="gaji_fungsional"
-                                    placeholder="gaji fungsional"
-                                    value="{{ $teacher->salary_functional->gaji_fungsional }}" readonly />
+                                <input class="form-control bg-light" type="text" id="gaji_fungsional"
+                                    name="gaji_fungsional" placeholder="gaji fungsional"
+                                    value="{{ $teacher->salary_position->salary_fungsional->besarnya }}" readonly />
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($additions as $addition)
                                                 <option value="{{ $addition->besarnya }}">
-                                                    {{ $addition->nama_penambahan }} :
+                                                    {{ $addition->nama }} :
                                                     {{ $addition->besarnya }}</option>
                                             @endforeach
                                         </select>
@@ -190,7 +191,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($additions as $addition)
                                                 <option value="{{ $addition->besarnya }}">
-                                                    {{ $addition->nama_penambahan }} :
+                                                    {{ $addition->nama }} :
                                                     {{ $addition->besarnya }}</option>
                                             @endforeach
                                         </select>
@@ -204,7 +205,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($additions as $addition)
                                                 <option value="{{ $addition->besarnya }}">
-                                                    {{ $addition->nama_penambahan }} :
+                                                    {{ $addition->nama }} :
                                                     {{ $addition->besarnya }}</option>
                                             @endforeach
                                         </select>
@@ -217,7 +218,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($additions as $addition)
                                                 <option value="{{ $addition->besarnya }}">
-                                                    {{ $addition->nama_penambahan }} :
+                                                    {{ $addition->nama }} :
                                                     {{ $addition->besarnya }}</option>
                                             @endforeach
                                         </select>
@@ -230,7 +231,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($additions as $addition)
                                                 <option value="{{ $addition->besarnya }}">
-                                                    {{ $addition->nama_penambahan }} :
+                                                    {{ $addition->nama }} :
                                                     {{ $addition->besarnya }}</option>
                                             @endforeach
                                         </select>
@@ -249,7 +250,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($reductions as $reduction)
                                                 <option value="{{ $reduction->besarnya }}">
-                                                    {{ $reduction->nama_pengurangan }}
+                                                    {{ $reduction->nama }}
                                                     :
                                                     {{ $reduction->besarnya }}</option>
                                             @endforeach
@@ -264,7 +265,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($reductions as $reduction)
                                                 <option value="{{ $reduction->besarnya }}">
-                                                    {{ $reduction->nama_pengurangan }}
+                                                    {{ $reduction->nama }}
                                                     :
                                                     {{ $reduction->besarnya }}</option>
                                             @endforeach
@@ -279,7 +280,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($reductions as $reduction)
                                                 <option value="{{ $reduction->besarnya }}">
-                                                    {{ $reduction->nama_pengurangan }}
+                                                    {{ $reduction->nama }}
                                                     :
                                                     {{ $reduction->besarnya }}</option>
                                             @endforeach
@@ -294,7 +295,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($reductions as $reduction)
                                                 <option value="{{ $reduction->besarnya }}">
-                                                    {{ $reduction->nama_pengurangan }}
+                                                    {{ $reduction->nama }}
                                                     :
                                                     {{ $reduction->besarnya }}</option>
                                             @endforeach
@@ -309,7 +310,7 @@
                                             <option value="0" selected>--- pilih ---</option>
                                             @foreach ($reductions as $reduction)
                                                 <option value="{{ $reduction->besarnya }}">
-                                                    {{ $reduction->nama_pengurangan }}
+                                                    {{ $reduction->nama }}
                                                     :
                                                     {{ $reduction->besarnya }}</option>
                                             @endforeach

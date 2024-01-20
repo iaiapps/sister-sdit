@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <td class="twidth">Jabatan</td>
-                            <td>: {{ $salary->teacher->salary_basic->nama_jabatan }}</td>
+                            <td>: {{ $salary->teacher->salary_position->salary_pokok->nama }}</td>
                         </tr>
 
                     </tbody>

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Presence\PresenceController;
+use App\Models\SalaryPosition;
 use App\Models\SalaryType;
 
 class SalaryController extends Controller
@@ -44,25 +45,6 @@ class SalaryController extends Controller
         return view('finance.list', compact('salaries', 'teacher'));
     }
 
-    // fungsi panggil jumlah presensi
-    // public function _getPresenceMonth($date)
-    // {
-    //     $year = Carbon::parse($date)->year;
-    //     $month = Carbon::parse($date)->month;
-    //     $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)
-    //         ->select(
-    //             'teacher_id',
-    //             DB::raw("COUNT(*) as total_data_presensi"),
-    //             DB::raw("SUM(is_late = 1) as is_late_a"),
-    //             DB::raw("SUM(is_late = 2) as is_late_b"),
-    //             DB::raw("SUM(is_late = 3) as is_late_c"),
-    //             DB::raw("SUM(note = 'Sakit') as total_sakit"),
-    //             DB::raw("SUM(note = 'Ijin') as total_ijin"),
-    //         )->groupBy('teacher_id')->get();
-
-    //     return $presences;
-    // }
-
     //fungsi panggil setting presence
     public function _settingValue($for)
     {
@@ -73,6 +55,7 @@ class SalaryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     // buat gaji individual
     public function create(Request $request)
     {
@@ -82,13 +65,6 @@ class SalaryController extends Controller
         // ini ambil function dari PresenceController 
         $data = new PresenceController();
         $presence = $data->groupTeacherFilterMonth($date)->where('teacher_id', $id)->first();
-        // $data = $presence->where('teacher_id', 3)->first();
-        // dd($presence);
-
-        //presensi
-        // $presence = $this->_getPresenceMonth($date)->first();
-        // $data = $presence->where('teacher_id', 3)->first();
-        // dd($presence);
 
         //fee tepat waktu
         $fee_kehadiran = $this->_settingValue('fee_kehadiran');
@@ -100,15 +76,15 @@ class SalaryController extends Controller
         // $potongan_late_c = $this->_settingValue('potongan_late_c');
 
         $teacher = Teacher::where('id', $id)->get()->first();
-        $basics = SalaryType::get()->all();
-        // $additions = SalaryAddition::get()->all();
-        // $reductions = SalaryReduction::get()->all();
+        $positions = SalaryPosition::get()->all();
+        $additions = SalaryType::where('type', '=', 'penambahan')->get();
+        $reductions = SalaryType::where('type', '=', 'pengurangan')->get();
 
         return view('finance.create', compact(
             'teacher',
-            'basics',
-            // 'additions',
-            // 'reductions',
+            'positions',
+            'additions',
+            'reductions',
             'presence',
             'fee_kehadiran',
             'potongan_late',
@@ -145,7 +121,6 @@ class SalaryController extends Controller
         $validate['bulan'] = $year . '-' . $month . '-' . $day;
         $validate['teacher_id'] = $id;
         $validate['nomor_slip'] = $id . $day . $month . $year;
-        // dd($validate);
 
         Salary::create($validate);
 
@@ -158,7 +133,6 @@ class SalaryController extends Controller
     public function show(Request $request, Salary $salary)
     {
         $id = $request->id;
-        // dd($request);
         $teacher = Teacher::where('id', $id)->get()->first();
         return view('finance.show', compact('salary', 'teacher'));
     }
