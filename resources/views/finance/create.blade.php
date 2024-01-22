@@ -7,7 +7,7 @@
     {{-- @dd($presence) --}}
     @if (empty($presence->total_data_presensi))
         <div class="bg-white rounded p-3 text-center">
-            <p class="fs-4">Data presensi bulan dan tahun yang anda masukkan belum ada </p>
+            <p class="fs-4">Data presensi bulan dan tahun yang anda pilih belum ada </p>
             <a href="{{ route('salary.index') }}" class="btn btn-success">
                 <i class="bi bi-arrow-left-circle"></i> kembali
             </a>

@@ -9,7 +9,7 @@
             <div class="col">
                 <p>Cara Input Massal Data Gaji</p>
                 <ul class="list-group">
-                    <li class="list-group-item">1. Download dulu tabel template data excel dibawah</li>
+                    <li class="list-group-item">1. Download terlebih dahulu template excel dibawah</li>
                     <li class="list-group-item">2. Masukkan data gaji ke excel yang sudah didownload</li>
                     <li class="list-group-item">3. Upload file yang sudah diisi </li>
                 </ul>
