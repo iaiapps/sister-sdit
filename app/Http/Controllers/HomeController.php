@@ -53,8 +53,9 @@ class HomeController extends Controller
         $role = $user->getRoleNames()->first();
 
         //get total user
-        $sumguru = User::with('role')->where('name', '=', 'guru')->count();
-        $sumtendik = User::with('role')->where('name', '=', 'tendik')->count();
+        $sumguru = User::role('guru')->count();
+        $sumtendik = User::role('tendik')->count();
+
 
         switch ($role) {
             case 'admin':

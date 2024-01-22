@@ -15,7 +15,8 @@
 
         </div>
 
-        <p class="fs-5">Data Gaji Bulan {{ $carbon::parse(request('date'))->isoFormat('MMMM Y') }} </p>
+        <p class="fs-5 text-center m-0">Data Gaji Bulan {{ $carbon::parse(request('date'))->isoFormat('MMMM Y') }} </p>
+        <hr>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle">
                 <thead>

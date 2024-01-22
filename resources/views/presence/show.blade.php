@@ -18,7 +18,7 @@
                 <i class="bi bi-printer-fill fs-3 "></i>
             </button>
             <div id="filter">
-                <form action="{{ route('presence.show', $presences->first()->teacher_id) }}">
+                <form action="{{ route('admin.presence.show', $presences->first()->teacher_id) }}">
                     @php
                         $first = new Carbon\Carbon('first day of this month');
                         $end = Carbon\Carbon::now();
@@ -58,7 +58,7 @@
                             <th>Pulang</th>
                             <th>Catatan</th>
                             <th>Keterangan</th>
-                            @if (Auth::user()->role_id == 1)
+                            @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                 <th id="edit">Edit</th>
                             @endif
                         </tr>
@@ -74,11 +74,10 @@
                                 <td>{{ $presence->time_out }}</td>
                                 <td>{{ $presence->note }}</td>
                                 <td>{{ $presence->description }}</td>
-                                {{-- @dd(request(date)) --}}
 
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                     <td id="edit">
-                                        <a href="{{ route('presence.edit', [$presence->id, 'date' => request('date')]) }}"
+                                        <a href="{{ route('admin.presence.edit', [$presence->id, 'date' => request('date')]) }}"
                                             data-toggle="modal" data-id="{!! $presence->id !!}"
                                             class="btn btn-sm btn-success editModalBtn"><i
                                                 class="bi bi-pencil-square"></i></a>

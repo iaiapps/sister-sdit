@@ -41,14 +41,15 @@ class SalaryPositionController extends Controller
      */
     public function store(Request $request)
     {
-        // $validate = $request->validate([
-        //     "type" => "required",
-        //     "nama" => "required",
-        //     "besarnya" => "required"
-        // ]);
-        SalaryPosition::create($request->all());
 
-        return redirect()->route('position.index');
+        $checker = SalaryPosition::where('teacher_id', '=', $request->teacher_id)->exists();
+        if ($checker) {
+            return redirect()->route('position.index')->with('msg', 'Data sudah ada');
+        } else {
+            SalaryPosition::create($request->all());
+        }
+
+        return redirect()->route('position.index')->with('msg', 'Berhasil menambah data');
     }
 
     /**
@@ -80,7 +81,7 @@ class SalaryPositionController extends Controller
         // ];
         $position->update($request->all());
 
-        return redirect()->route('position.index');
+        return redirect()->route('position.index')->with('msg', 'Berhasil mengubah data');;
     }
 
     /**

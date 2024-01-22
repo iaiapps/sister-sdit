@@ -29,14 +29,14 @@
                 // presensi
                 $kehadiran = $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin;
                 $telat = $presence->is_late;
-                
+
                 $total_tepat = $kehadiran - $telat;
                 $total_telat = $telat;
-                
+
                 //fee
                 $tot_kehadiran = $kehadiran * $fee_kehadiran;
                 $fee_telat = $telat * $potongan_late;
-                
+
                 $total_fee_kehadiran = $tot_kehadiran - $fee_telat;
             @endphp
             {{-- @dd($total_fee_kehadiran) --}}
@@ -48,8 +48,8 @@
                 <td>{{ $kehadiran }}</td>
                 <td>{{ $total_tepat }}</td>
                 <td>{{ $total_telat }}</td>
-                <td>{{ $presence->teacher->salary_basic->gaji_pokok }}</td>
-                <td>{{ $presence->teacher->salary_functional->gaji_fungsional }}</td>
+                <td>{{ $presence->teacher->salary_position->salary_pokok->besarnya }}</td>
+                <td>{{ $presence->teacher->salary_position->salary_fungsional->besarnya }}</td>
                 <td>{{ $total_fee_kehadiran }}</td>
                 <td>{{ $presence->ekskul }}</td>
                 <td>{{ $presence->istri_anak }}</td>

@@ -114,6 +114,7 @@ class PresenceController extends Controller
             'time_in' => $time_in,
             'time_out' => $time_out,
             'note' => $request->note,
+            'is_late' => $request->is_late,
             'description' => $request->description,
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,

@@ -98,6 +98,12 @@
             </div>
         </div> --}}
 
+        @if (session('msg'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ session('msg') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <div class="table-responsive">
             <table id="" class="table table-striped align-middle" style="width: 100%">

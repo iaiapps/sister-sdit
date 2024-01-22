@@ -164,8 +164,8 @@ class SalaryController extends Controller
     public function bulkcreate(Request $request)
     {
         $date = Carbon::parse($request->date)->format('Y-m-d');
-        // dd($date);
         $id = $request->id;
+
         //fee tepat waktu
         $fee_kehadiran = $this->_settingValue('fee_kehadiran');
         //potongan
