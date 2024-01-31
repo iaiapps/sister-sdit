@@ -25,11 +25,13 @@ use App\Http\Controllers\Finance\SalaryTypeController;
 use App\Http\Controllers\Student\StudentLoginController;
 use App\Http\Controllers\Student\StudentParentController;
 use App\Http\Controllers\Finance\SalaryPositionController;
+use App\Http\Controllers\Mutabaah\AnswerController;
+use App\Http\Controllers\Mutabaah\CategoryController;
+use App\Http\Controllers\Mutabaah\MutabaahController;
+use App\Http\Controllers\Mutabaah\OptionController;
 use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Presencekar\PresencekaryawanController;
-
-
-
+use App\Http\Controllers\Mutabaah\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,10 +111,17 @@ Route::middleware('auth')->group(function () {
             //gaji
             Route::resource('salary', SalaryController::class);
             Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
-
-            //data gaji
             Route::resource('type', SalaryTypeController::class);
             Route::resource('position', SalaryPositionController::class);
+
+            // mutabaah
+            Route::resource('mutabaah', MutabaahController::class);
+            Route::get('mutabaah-list', [MutabaahController::class, 'mutabaahList'])->name('mutabaah.list');
+            Route::get('mutabaah-show', [MutabaahController::class, 'mutabaahShow'])->name('mutabaah.show');
+            Route::resource('mutabaah-category', CategoryController::class);
+            Route::resource('mutabaah-question', QuestionController::class);
+            Route::resource('mutabaah-option', OptionController::class);
+            Route::resource('mutabaah-answer', AnswerController::class);
         });
     });
 

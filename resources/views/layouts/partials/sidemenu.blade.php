@@ -89,6 +89,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('mutabaah.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'mutabaah.index' ? 'activee' : '' }}">
+                        <i class="bi bi-list-check menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline">Mutabaah </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.user.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'user.index' ? 'activee' : '' }}">
                         <i class="bi bi-person menu-icon"></i>

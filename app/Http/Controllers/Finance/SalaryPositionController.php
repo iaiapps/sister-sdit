@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Finance;
 
-use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Models\Teacher;
 use App\Http\Controllers\Controller;
 use App\Models\SalaryPosition;
 use App\Models\SalaryType;
