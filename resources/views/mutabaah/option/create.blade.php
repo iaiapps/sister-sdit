@@ -10,11 +10,6 @@
                     @csrf
                     <fieldset>
                         <div class="mb-3">
-                            <label class="form-label" for="option_code">Kode Pilihan</label>
-                            <input class="form-control" type="text" id="option_code" name="option_code"
-                                placeholder="Kode Pilihan" />
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label" for="option_name">Pilihan</label>
                             <input class="form-control" type="text" id="option_name" name="option_name"
                                 placeholder="Pilihan" />

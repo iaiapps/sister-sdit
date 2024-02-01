@@ -19,7 +19,7 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="question">Nama Pertanyaan</label>
+                            <label class="form-label" for="question">Pertanyaan</label>
                             <input class="form-control" type="text" id="question" name="question"
                                 placeholder="tuliskan pertanyaan disini ..." />
                         </div>

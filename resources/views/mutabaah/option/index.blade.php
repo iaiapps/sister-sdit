@@ -27,7 +27,7 @@
                     @foreach ($options as $option)
                         <tr>
                             <td>{{ $option->id }}</td>
-                            <td>{{ $option->question->question }}</td>
+                            <td>{{ $option->question->question ?? 'belum ditentukan' }}</td>
                             <td>{{ $option->option_name }}</td>
                             <td>{{ $option->option_point }} </td>
 
