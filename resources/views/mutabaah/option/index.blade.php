@@ -17,7 +17,7 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Kode Pilihan</th>
+                        <th scope="col">Pertanyaan</th>
                         <th scope="col">Nama Pilihan</th>
                         <th scope="col">Point Pilihan</th>
                         <th scope="col">Action</th>
@@ -27,7 +27,7 @@
                     @foreach ($options as $option)
                         <tr>
                             <td>{{ $option->id }}</td>
-                            <td>{{ $option->option_code }}</td>
+                            <td>{{ $option->question->question }}</td>
                             <td>{{ $option->option_name }}</td>
                             <td>{{ $option->option_point }} </td>
 

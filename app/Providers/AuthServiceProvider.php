@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Teacher;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -23,6 +24,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Paginator::useBootstrap();
+
         // //$user adalah user yang login
         // //teacher diambil dari parameter controller TeacherController
         // Gate::define('teacher', function ($user, $teacher) {

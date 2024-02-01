@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('mutabaah_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('teacher_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('answer');
             $table->integer('point');

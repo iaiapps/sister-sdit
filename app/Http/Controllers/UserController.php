@@ -113,4 +113,13 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin.user.index');
     }
+
+    // helper
+    public function resetpass(Request $request)
+    {
+        $id = $request->id;
+        User::where('id', $id)->update(['password' => Hash::make('password')]);
+        // dd($id);
+        return redirect()->route('user.index');
+    }
 }

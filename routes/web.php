@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             //data user
             Route::resource('user', UserController::class);
+            Route::put('reset-pass', [UserController::class, 'resetpass'])->name('reset.pass');
+
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
             // Route::resource('student', StudentController::class);

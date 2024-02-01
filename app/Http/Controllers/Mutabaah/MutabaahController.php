@@ -76,8 +76,6 @@ class MutabaahController extends Controller
     {
         $mutabaah_id = $request->id;
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->select('teacher_id', DB::raw("SUM(point) as t_point"),)->groupBy('teacher_id')->get();
-        // $answers = Answer::where('mutabaah_id', $mutabaah_id)->get()->groupBy('teacher_id');
-        // dd($answers);
         return view('mutabaah.list', compact('answers'));
     }
 

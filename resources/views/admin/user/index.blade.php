@@ -39,9 +39,15 @@
                                     <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
                                         edit</a>
-                                    {{-- <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
-                                            class="bi bi-pencil-square"></i>
-                                        status</a> --}}
+                                    <form class="d-inline-block"
+                                        onsubmit="return confirm('Apakah anda yakin untuk mereset password ?');"
+                                        action="{{ route('admin.reset.pass', ['id' => $user->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-secondary btn-sm"><i
+                                                class="bi bi-arrow-clockwise"></i> reset
+                                        </button>
+                                    </form>
                                     <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                         action="{{ route('admin.user.destroy', $user->id) }}" method="post"
                                         class="d-inline">
