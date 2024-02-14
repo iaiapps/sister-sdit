@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mutabaah;
 
 use App\Models\Option;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,9 +21,11 @@ class OptionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $id = $request->id;
+        $question = Question::find($id);
+        return view('mutabaah.option.create', $question);
     }
 
     /**
@@ -37,7 +40,7 @@ class OptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Option $option)
+    public function show(Option $mutabaah_option)
     {
         //
     }
@@ -45,24 +48,39 @@ class OptionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Option $option)
+    public function edit(Option $mutabaah_option)
     {
-        //
+        $questions = Question::all();
+        return view('mutabaah.option.edit', compact('mutabaah_option', 'questions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Option $option)
+    public function update(Request $request, Option $mutabaah_option)
     {
-        //
+        $mutabaah_option->update($request->all());
+        return redirect()->route('mutabaah-option.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Option $option)
+    public function destroy(Option $mutabaah_option)
     {
-        //
+        $mutabaah_option->delete();
+        return redirect()->route('mutabaah-option.index');
     }
+
+    // public function createOption(Request $request)
+    // {
+    //     $id = $request->id;
+    //     $question = Question::find($id);
+    //     return view('mutabaah.question.create_option', $question);
+    // }
+    // public function storeOption(Request $request)
+    // {
+    //     Option::create($request->all());
+    //     return redirect()->route('mutabaah-option.index');
+    // }
 }

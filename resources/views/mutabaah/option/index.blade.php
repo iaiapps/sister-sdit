@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Data Pilihan')
+@section('title', 'Data Pertanyaan dan Pilihan')
 @section('content')
     <div class="card p-3">
         <div>
             <a href="{{ route('mutabaah-question.index') }}" class="btn btn-success me-2">
                 <i class="bi bi-arrow-left-circle"></i> kembali
             </a>
-            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pilihan">
+            {{-- <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#pilihan">
                 <i class="bi bi-plus-circle"></i> Buat Data Pilihan
-            </a>
+            </a> --}}
         </div>
 
         <div class="table-responsive mt-3">
@@ -24,9 +24,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($options as $option)
+                    {{-- @dd($options->sortBy('question_id')) --}}
+                    @foreach ($options->sortBy('question_id') as $option)
                         <tr>
-                            <td>{{ $option->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $option->question->question ?? 'belum ditentukan' }}</td>
                             <td>{{ $option->option_name }}</td>
                             <td>{{ $option->option_point }} </td>
@@ -50,10 +51,9 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 
-    @include('mutabaah.option.create')
+    {{-- @include('mutabaah.option.create') --}}
 @endsection
 
 @include('layouts.partials.allscripts')

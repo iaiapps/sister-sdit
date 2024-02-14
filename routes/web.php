@@ -123,7 +123,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('mutabaah-category', CategoryController::class);
             Route::resource('mutabaah-question', QuestionController::class);
             Route::resource('mutabaah-option', OptionController::class);
-            Route::resource('mutabaah-answer', AnswerController::class);
         });
     });
 
@@ -144,9 +143,14 @@ Route::middleware('auth')->group(function () {
             Route::resource('education', EducationController::class);
             Route::resource('child', ChildController::class);
             Route::resource('training', TrainingController::class);
-            // Route::resource('salary', SalaryController::class)->except('index');
+
+
             //teachersalary
+            // Route::resource('salary', SalaryController::class)->except('index');
             // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
+
+            // mutabaah
+            Route::resource('mutabaah', AnswerController::class);
         });
     });
 

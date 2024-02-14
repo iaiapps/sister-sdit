@@ -71,7 +71,7 @@ class TeacherController extends Controller
             'no_hp' => 'required',
         ]);
 
-        dd($request->all());
+        // dd($request->all());
         // $teacher->where('id', $teacher->id)->update($validate);
         $id =  $teacher->id;
         $teacher->update($request->all());

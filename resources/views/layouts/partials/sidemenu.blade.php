@@ -148,6 +148,13 @@
                         <span class="ms-2 d-none d-sm-inline"> Presensi </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('guru.mutabaah.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.mutabaah' ? 'activee' : '' }}">
+                        <i class="bi bi-list-check menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline"> Mutabaah </span>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('teacher.salary') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">

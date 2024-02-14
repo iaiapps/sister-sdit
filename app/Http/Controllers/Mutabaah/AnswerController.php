@@ -10,6 +10,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -20,19 +21,21 @@ class AnswerController extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         $mutabaahs = Mutabaah::all();
-        return view('mutabaah.answer.index', compact('mutabaahs', 'now'));
+        return view('mutabaah.teacheranswer.index', compact('mutabaahs', 'now'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        // $questions = Question::all();
-        // dd($questions);
-        $teachers = Teacher::all();
+        $mutabaah_id = $request->mutabaah;
+        $exist = Answer::where('mutabaah_id', $mutabaah_id)->exists();
+
+        $id = Auth::user()->id;
+        $teacher = Teacher::where('user_id', $id)->first();
         $categories = Category::all();
-        return view('mutabaah.answer.create', compact('teachers', 'categories'));
+        return view('mutabaah.teacheranswer.create', compact('teacher', 'categories', 'exist'));
     }
 
     /**
@@ -40,21 +43,16 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
         $teacher_id = $request->teacher_id;
         $mutabaah_id = $request->mutabaah_id;
         $question_id = $request->question_id;
-        // $category_id = $request->category_id;
         $option = $request->option;
-
-        // $point = $request->point;
-        // $point = 0;
         foreach ($question_id as $q) {
             $fields = explode(',', $option[$q]);
             $data = [
                 'teacher_id' => $teacher_id,
                 'mutabaah_id' => $mutabaah_id,
-                // 'category_id' => $category_id[$q],
                 'question_id' => $question_id[$q],
                 'option_id' => $option[$q],
                 'answer' => $fields[0],
@@ -62,13 +60,7 @@ class AnswerController extends Controller
             ];
             Answer::create($data);
         }
-
-        // total point
-        // foreach ($option as $o) {
-        //     $o;
-        //     $point += $o;
-        // }
-        return redirect()->route('mutabaah-answer.index');
+        return redirect()->route('guru.mutabaah.index');
     }
 
     /**

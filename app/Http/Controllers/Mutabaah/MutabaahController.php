@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Mutabaah;
 
 use App\Models\Answer;
+use App\Models\Teacher;
+use App\Models\Category;
 use App\Models\Mutabaah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class MutabaahController extends Controller
 {
@@ -52,7 +55,7 @@ class MutabaahController extends Controller
      */
     public function edit(Mutabaah $mutabaah)
     {
-        //
+        return view('mutabaah.edit', compact('mutabaah'));
     }
 
     /**
@@ -60,7 +63,9 @@ class MutabaahController extends Controller
      */
     public function update(Request $request, Mutabaah $mutabaah)
     {
-        //
+        $data = $request->all();
+        $mutabaah->update($data);
+        return redirect()->route('mutabaah.index');
     }
 
     /**
@@ -68,7 +73,8 @@ class MutabaahController extends Controller
      */
     public function destroy(Mutabaah $mutabaah)
     {
-        //
+        $mutabaah->delete();
+        return redirect()->route('mutabaah.index');
     }
 
     // lihat list guru masing-masing 
@@ -84,7 +90,6 @@ class MutabaahController extends Controller
         $mutabaah_id = $request->m_id;
         $teacher_id = $request->t_id;
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher_id)->get();
-        // dd($answers);
         return view('mutabaah.show', compact('answers'));
     }
 }

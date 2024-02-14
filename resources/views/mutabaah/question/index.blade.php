@@ -21,6 +21,7 @@
                         <th scope="col">No</th>
                         <th scope="col">Kategori</th>
                         <th scope="col">Pertanyaan</th>
+                        <th scope="col">Pilihan : Point</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -28,10 +29,21 @@
                     @foreach ($questions as $question)
                         <tr>
                             <td>{{ $question->id }}</td>
-                            <td>{{ $question->category->nama_kategori }}</td>
-                            <td>{{ $question->question }}</td>
+                            <td>{{ $question->category->nama_kategori }} </td>
+                            <td>{{ $question->question }} <br>
+                                <a href="{{ route('mutabaah-option.create', ['id' => $question->id]) }}"
+                                    class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-circle"></i> pilihan jawaban</a>
+                            </td>
+                            <td>
+                                @foreach ($question->option->sortByDesc('option_point') as $o)
+                                    <span class="badge bg-primary fw-normal">{{ $o->option_name }} :
+                                        {{ $o->option_point }}</span><br>
+                                @endforeach
 
-                            <td><a href="{{ route('mutabaah-question.edit', $question->id) }}"
+                            </td>
+                            <td>
+                                <a href="{{ route('mutabaah-question.edit', $question->id) }}"
                                     class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
                                 </a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
@@ -50,9 +62,7 @@
                 </tbody>
             </table>
         </div>
-
     </div>
-
     @include('mutabaah.question.create')
 @endsection
 
