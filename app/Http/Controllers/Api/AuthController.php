@@ -19,11 +19,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             // cek user dari email
             $user = User::where('email', $request['email'])->firstOrFail();
+
             //create token
             $token = $user->createToken('auth_token')->plainTextToken;
             // get teacher_id
-            $teacher_id = Teacher::where('email', $user->email)->first()->id;
+
+            $teacher_id = Teacher::where('user_id', $user->id)->first()->id;
             // get qrcode dari controller PresenceController
+
             $qr = new PresenceController();
             // return hasil
             return response()->json([

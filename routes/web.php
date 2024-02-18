@@ -26,6 +26,7 @@ use App\Http\Controllers\Student\StudentLoginController;
 use App\Http\Controllers\Student\StudentParentController;
 use App\Http\Controllers\Finance\SalaryPositionController;
 use App\Http\Controllers\Mutabaah\AnswerController;
+use App\Http\Controllers\Mutabaah\AnswerControllerM;
 use App\Http\Controllers\Mutabaah\CategoryController;
 use App\Http\Controllers\Mutabaah\MutabaahController;
 use App\Http\Controllers\Mutabaah\OptionController;
@@ -72,13 +73,13 @@ Route::middleware('auth')->group(function () {
             //data user
             Route::resource('user', UserController::class);
             Route::put('reset-pass', [UserController::class, 'resetpass'])->name('reset.pass');
-
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
             // Route::resource('student', StudentController::class);
 
             // setting
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+
             //presenceset
             Route::resource('presenceset', PresenceSettingController::class);
 
@@ -107,7 +108,7 @@ Route::middleware('auth')->group(function () {
             // export
             Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
-            // //setting 
+            // setting 
             // Route::resource('salaryset', SalarySettingController::class);
 
             //gaji
@@ -144,7 +145,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('child', ChildController::class);
             Route::resource('training', TrainingController::class);
 
-
             //teachersalary
             // Route::resource('salary', SalaryController::class)->except('index');
             // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
@@ -169,3 +169,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('document', DocumentController::class);
     });
 });
+
+
+// akses dari aplikasi
+Route::resource('mutabaah-mobile', AnswerControllerM::class)->middleware('auth.basic');
