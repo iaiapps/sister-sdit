@@ -22,12 +22,13 @@ class AuthController extends Controller
 
             //create token
             $token = $user->createToken('auth_token')->plainTextToken;
+
             // get teacher_id
-
             $teacher_id = Teacher::where('user_id', $user->id)->first()->id;
-            // get qrcode dari controller PresenceController
 
+            // get qrcode dari controller PresenceController
             $qr = new PresenceController();
+
             // return hasil
             return response()->json([
                 'access_token' => $token,
