@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Presencekar;
+namespace App\Http\Controllers\Presence;
 
 use App\Models\Teacher;
 use App\Models\Presence;

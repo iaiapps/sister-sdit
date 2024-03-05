@@ -21,7 +21,7 @@ class MutabaahController extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         $mutabaahs = Mutabaah::all();
-        return view('mutabaah.index', compact('mutabaahs', 'now'));
+        return view('mutabaah.admin.index', compact('mutabaahs', 'now'));
     }
 
     /**
@@ -29,7 +29,7 @@ class MutabaahController extends Controller
      */
     public function create()
     {
-        return view('mutabaah.create');
+        return view('mutabaah.admin.create');
     }
 
     /**

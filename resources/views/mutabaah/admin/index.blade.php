@@ -5,10 +5,11 @@
 @section('content')
     <div class="card p-3">
         <div class="d-inline-block">
-            <a href="{{ route('mutabaah.create') }}" class="btn btn-success">Tambah Mutabaah</a>
-            {{-- <a href="{{ route('mutabaah-answer.index') }}" class="btn btn-success">Jawaban Mutabaah</a> --}}
-            <a href="{{ route('mutabaah-category.index') }}" class="btn btn-success">Lihat Kategori</a>
-            <a href="{{ route('mutabaah-question.index') }}" class="btn btn-success">Pertanyaan</a>
+            <a href="{{ route('mutabaah.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Mutabaah</a>
+            <a href="{{ route('mutabaah-category.index') }}" class="btn btn-success"><i class="bi bi-list-task"></i>
+                Kategori</a>
+            <a href="{{ route('mutabaah-question.index') }}" class="btn btn-success"><i class="bi bi-question-circle"></i>
+                Pertanyaan</a>
         </div>
         <hr>
         <div class="table-responsive">

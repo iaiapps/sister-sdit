@@ -21,7 +21,7 @@ class AnswerControllerM extends Controller
     {
         $now = Carbon::now()->format('Y-m-d');
         $mutabaahs = Mutabaah::all();
-        return view('mutabaah.teacheranswerm.index', compact('mutabaahs', 'now'));
+        return view('mutabaah.mobile.index', compact('mutabaahs', 'now'));
     }
 
     /**
@@ -35,7 +35,7 @@ class AnswerControllerM extends Controller
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->first();
         $categories = Category::all();
-        return view('mutabaah.teacheranswerm.create', compact('teacher', 'categories', 'exist'));
+        return view('mutabaah.mobile.create', compact('teacher', 'categories', 'exist'));
     }
 
     /**

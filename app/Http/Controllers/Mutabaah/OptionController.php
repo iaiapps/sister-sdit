@@ -15,7 +15,7 @@ class OptionController extends Controller
     public function index()
     {
         $options = Option::all();
-        return view('mutabaah.option.index', compact('options'));
+        return view('mutabaah.admin.option.index', compact('options'));
     }
 
     /**
@@ -25,7 +25,7 @@ class OptionController extends Controller
     {
         $id = $request->id;
         $question = Question::find($id);
-        return view('mutabaah.option.create', $question);
+        return view('mutabaah.admin.option.create', $question);
     }
 
     /**
@@ -51,7 +51,7 @@ class OptionController extends Controller
     public function edit(Option $mutabaah_option)
     {
         $questions = Question::all();
-        return view('mutabaah.option.edit', compact('mutabaah_option', 'questions'));
+        return view('mutabaah.admin.option.edit', compact('mutabaah_option', 'questions'));
     }
 
     /**

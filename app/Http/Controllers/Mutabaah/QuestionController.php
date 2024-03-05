@@ -16,7 +16,7 @@ class QuestionController extends Controller
     {
         $questions = Question::all();
         $categories = Category::all();
-        return view('mutabaah.question.index', compact('questions', 'categories'));
+        return view('mutabaah.admin.question.index', compact('questions', 'categories'));
     }
 
     /**
@@ -49,7 +49,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $mutabaah_question)
     {
-        return view('mutabaah.question.edit', compact('mutabaah_question'));
+        return view('mutabaah.admin.question.edit', compact('mutabaah_question'));
     }
 
     /**

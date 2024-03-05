@@ -1,4 +1,4 @@
-@extends('mutabaah.teacheranswerm.app')
+@extends('layouts.appmobile')
 @inject('carbon', 'Carbon\Carbon')
 
 @section('title', 'List Mutabaah')

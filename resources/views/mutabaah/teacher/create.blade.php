@@ -7,11 +7,11 @@
             <div class="bg-white rounded text-center">
                 <div class="alert alert-success m-0" role="alert">
                     <p class="fw-light fs-4"> Mutabaah sudah diisi </p>
-                    <a href="{{ route('guru.mutabaah.index') }}" class="btn btn-success">kembali</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-success">kembali</a>
                 </div>
             </div>
         @else
-            <form action="{{ route('guru.mutabaah.store') }}" method="POST">
+            <form action="{{ route('guru.answer.store') }}" method="POST">
                 @csrf
                 <input value="{{ $teacher->id }}" name="teacher_id" readonly hidden>
 

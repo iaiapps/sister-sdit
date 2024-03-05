@@ -196,6 +196,6 @@ class PresenceController extends Controller
         } else {
             $presences  = $this->showDataByMonth($teacher_id, $date);
         }
-        return view('presence.show', compact('presences', 'teacher'));
+        return view('presence.teacher.show', compact('presences', 'teacher'));
     }
 }

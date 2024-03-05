@@ -18,7 +18,7 @@
                 <i class="bi bi-printer-fill fs-3 "></i>
             </button>
             <div id="filter">
-                <form action="{{ route('admin.presence.show', $presences->first()->teacher_id) }}">
+                <form action="{{ route('presence.show', $presences->first()->teacher_id) }}">
                     @php
                         $first = new Carbon\Carbon('first day of this month');
                         $end = Carbon\Carbon::now();

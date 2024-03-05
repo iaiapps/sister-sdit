@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Data Document')
+@section('title', 'Data Dokumen')
 @section('content')
 
     <div class="card p-3 rounded">
-        <div class="mb-3">
+        <div>
             <a href="{{ URL::previous() }}" class="btn btn-success"><i class="bi bi-arrow-left-circle"></i>
                 Kembali</a>
         </div>
-
+        <hr>
         @if (Auth::user()->hasRole('guru'))
             <div class="mb-3">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#document">

@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $kategori = Category::all();
-        return view('mutabaah.category.index', compact('kategori'));
+        return view('mutabaah.admin.category.index', compact('kategori'));
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function create()
     {
 
-        return view('mutabaah.category.create');
+        return view('mutabaah.admin.category.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function show(Category $mutabaah_category)
     {
-        return view('mutabaah.category.show', compact('mutabaah_category'));
+        return view('mutabaah.admin.category.show', compact('mutabaah_category'));
     }
 
     /**
@@ -48,7 +48,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $mutabaah_category)
     {
-        return view('mutabaah.category.edit', compact('mutabaah_category'));
+        return view('mutabaah.admin.category.edit', compact('mutabaah_category'));
     }
 
     /**

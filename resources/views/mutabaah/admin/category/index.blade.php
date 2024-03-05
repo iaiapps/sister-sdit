@@ -7,10 +7,9 @@
             <a href="{{ route('mutabaah.index') }}" class="btn btn-success me-2">
                 <i class="bi bi-arrow-left-circle"></i> kembali
             </a>
-            <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#question">
-                <i class="bi bi-plus-circle"></i> Buat Pertanyaan
+            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kategori">
+                <i class="bi bi-plus-circle"></i> Buat Data Kategori
             </a>
-            <a href="{{ route('mutabaah-option.index') }}" class="btn btn-success">Pilihan Pertanyaan</a>
 
         </div>
 
@@ -18,36 +17,27 @@
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Pertanyaan</th>
-                        <th scope="col">Pilihan : Point</th>
+                        <th scope="col">Id Kategori</th>
+                        <th scope="col">Nama Kategori</th>
+                        <th scope="col">Jumlah pertanyaan</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($questions as $question)
+                    @foreach ($kategori as $k)
                         <tr>
-                            <td>{{ $question->id }}</td>
-                            <td>{{ $question->category->nama_kategori }} </td>
-                            <td>{{ $question->question }} <br>
-                                <a href="{{ route('mutabaah-option.create', ['id' => $question->id]) }}"
-                                    class="btn btn-primary btn-sm">
-                                    <i class="bi bi-plus-circle"></i> pilihan jawaban</a>
+                            <td>{{ $k->id }}</td>
+                            <td>{{ $k->nama_kategori }}</td>
+                            <td>{{ $k->question->count() }}
+                                <a href="{{ route('mutabaah-category.show', $k->id) }}"
+                                    class="btn btn-primary btn-sm ms-2"><i class="bi bi-search"></i> lihat</a>
                             </td>
-                            <td>
-                                @foreach ($question->option->sortByDesc('option_point') as $o)
-                                    <span class="badge bg-primary fw-normal">{{ $o->option_name }} :
-                                        {{ $o->option_point }}</span><br>
-                                @endforeach
 
-                            </td>
-                            <td>
-                                <a href="{{ route('mutabaah-question.edit', $question->id) }}"
-                                    class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
+                            <td><a href="{{ route('mutabaah-category.edit', $k->id) }}" class="btn btn-warning btn-sm"><i
+                                        class="bi bi-pencil-square"></i>
                                 </a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                    action="{{ route('mutabaah-question.destroy', $question->id) }}" method="post"
+                                    action="{{ route('mutabaah-category.destroy', $k->id) }}" method="post"
                                     class="d-inline">
                                     @csrf
                                     @method('delete')
@@ -62,8 +52,10 @@
                 </tbody>
             </table>
         </div>
+
     </div>
-    @include('mutabaah.question.create')
+
+    @include('mutabaah.admin.category.create')
 @endsection
 
 @include('layouts.partials.allscripts')

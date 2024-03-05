@@ -1,4 +1,4 @@
-@extends('mutabaah.teacheranswerm.app')
+@extends('layouts.appmobile')
 
 @section('title', 'Buat Jawaban')
 @section('content')

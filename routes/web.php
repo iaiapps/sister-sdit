@@ -1,38 +1,40 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\Bpi\BpiController;
 
+use App\Http\Controllers\Bpi\BpiControllerM;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Teacher\ChildController;
 use App\Http\Controllers\Finance\SalaryController;
+
+use App\Http\Controllers\Mutabaah\AnswerController;
+use App\Http\Controllers\Mutabaah\OptionController;
+
 use App\Http\Controllers\Setting\SettingController;
-
 use App\Http\Controllers\Student\StudentController;
+
 use App\Http\Controllers\Teacher\TeacherController;
-
 use App\Http\Controllers\Finance\PositionController;
-use App\Http\Controllers\Teacher\TrainingController;
+use App\Http\Controllers\Mutabaah\AnswerControllerM;
 
+use App\Http\Controllers\Teacher\TrainingController;
+use App\Http\Controllers\Mutabaah\CategoryController;
+use App\Http\Controllers\Mutabaah\MutabaahController;
+use App\Http\Controllers\Mutabaah\QuestionController;
 use App\Http\Controllers\Presence\PresenceController;
 use App\Http\Controllers\Teacher\EducationController;
 use App\Http\Controllers\Finance\SalaryTypeController;
-
 use App\Http\Controllers\Student\StudentLoginController;
 use App\Http\Controllers\Student\StudentParentController;
 use App\Http\Controllers\Finance\SalaryPositionController;
-use App\Http\Controllers\Mutabaah\AnswerController;
-use App\Http\Controllers\Mutabaah\AnswerControllerM;
-use App\Http\Controllers\Mutabaah\CategoryController;
-use App\Http\Controllers\Mutabaah\MutabaahController;
-use App\Http\Controllers\Mutabaah\OptionController;
 use App\Http\Controllers\Setting\PresenceSettingController;
-use App\Http\Controllers\Presencekar\PresencekaryawanController;
-use App\Http\Controllers\Mutabaah\QuestionController;
+use App\Http\Controllers\Presence\PresencekaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +84,12 @@ Route::middleware('auth')->group(function () {
 
             //presenceset
             Route::resource('presenceset', PresenceSettingController::class);
+        });
+    });
+
+    //admin dan operator
+    Route::middleware('role:admin|operator')->group(function () {
+        Route::prefix('operator')->group(function () {
 
             // presence
             Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
@@ -94,28 +102,18 @@ Route::middleware('auth')->group(function () {
             Route::post('storepresencekar', [PresencekaryawanController::class, 'storepresence'])->name('store.presencekar');
             Route::resource('presencekaryawan', PresencekaryawanController::class);
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
-        });
-    });
-
-    //admin dan operator
-    Route::middleware('role:admin|operator')->group(function () {
-        Route::prefix('operator')->group(function () {
-            //import
-            Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
-            Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
-            Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
-
-            // export
-            Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
-
-            // setting 
-            // Route::resource('salaryset', SalarySettingController::class);
 
             //gaji
             Route::resource('salary', SalaryController::class);
             Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
             Route::resource('type', SalaryTypeController::class);
             Route::resource('position', SalaryPositionController::class);
+            Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
+            Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
+            //import
+            Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
+            // export
+            Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             // mutabaah
             Route::resource('mutabaah', MutabaahController::class);
@@ -124,6 +122,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('mutabaah-category', CategoryController::class);
             Route::resource('mutabaah-question', QuestionController::class);
             Route::resource('mutabaah-option', OptionController::class);
+
+            // BPI
+            Route::resource('bpi', BpiController::class);
         });
     });
 
@@ -150,7 +151,12 @@ Route::middleware('auth')->group(function () {
             // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
 
             // mutabaah
-            Route::resource('mutabaah', AnswerController::class);
+            Route::resource('answer', AnswerController::class);
+
+            // BPI
+            Route::get('bpi', [BpiController::class, 'list'])->name('bpi.list');
+            Route::get('bpi-create', [BpiController::class, 'bpiCreate'])->name('bpi.create');
+            Route::post('bpi-store', [BpiController::class, 'bpiStore'])->name('bpi.store');
         });
     });
 
@@ -171,5 +177,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// akses dari aplikasi
+// akses dari mobile app
 Route::resource('mutabaah-mobile', AnswerControllerM::class)->middleware('auth.basic');
+Route::resource('bpi-mobile', BpiControllerM::class)->middleware('auth.basic');

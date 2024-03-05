@@ -23,7 +23,7 @@
                             <td>{{ $carbon::parse($mutabaah->start)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                             <td>{{ $carbon::parse($mutabaah->end)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                             @if ($now >= $mutabaah->start && $now <= $mutabaah->end)
-                                <td><a href="{{ route('guru.mutabaah.create', ['mutabaah' => $mutabaah->id]) }}"
+                                <td><a href="{{ route('guru.answer.create', ['mutabaah' => $mutabaah->id]) }}"
                                         class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> tambah </a>
                                 </td>
                             @else

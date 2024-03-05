@@ -3,12 +3,14 @@
 @section('title', 'Buat Jawaban')
 @section('content')
     <div class="card p-3">
-        <form action="{{ route('mutabaah.store') }}" method="POST">
+        <form action="{{ route('mutabaah.update', $mutabaah->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <fieldset>
                 <div class="mb-3">
                     <label for="start" class="form-label">Nama Mutabaah</label>
-                    <input type="text" class="form-control" id="start" name="name">
+                    <input type="text" class="form-control bg-light" id="start" name="name"
+                        value="{{ $mutabaah->name }}" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="start" class="form-label">Tanggal Mulai</label>
