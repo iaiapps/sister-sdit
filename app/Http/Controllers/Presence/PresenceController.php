@@ -25,7 +25,7 @@ class PresenceController extends Controller
         }
         $presences = $this->groupTeacherFilterMonth($date);
         // $lateCat = Presence::get()->late_cat
-        return view('presence.index', compact('presences', 'date'));
+        return view('presence.admin.index', compact('presences', 'date'));
     }
 
     // ini fungsi untuk grouping teacher dan
@@ -67,7 +67,7 @@ class PresenceController extends Controller
         } else {
             $presences  = $this->showDataByMonth($id, $date);
         }
-        return view('presence.show', compact('presences', 'teacher'));
+        return view('presence.teacher.show', compact('presences', 'teacher'));
     }
 
     // fungsi show data by Month
@@ -99,7 +99,7 @@ class PresenceController extends Controller
         $date = $request->date;
         $tgl = Carbon::parse($presence->created_at)->isoFormat('YYYY-M-DD');
         // dd($tgl);
-        return view('presence.edit', compact('presence', 'date', 'tgl'));
+        return view('presence.admin.edit', compact('presence', 'date', 'tgl'));
     }
 
     /**
@@ -119,7 +119,7 @@ class PresenceController extends Controller
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
         ]);
-        return redirect()->route('admin.presence.show', [$presence->teacher_id, 'date' => $date]);
+        return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 
     public function teacherShow(Request $request)
@@ -136,7 +136,7 @@ class PresenceController extends Controller
             $presences  = $this->showDataByMonth($id, $date);
         }
 
-        return view('presence.show', compact('presences', 'teacher'));
+        return view('presence.admin.show', compact('presences', 'teacher'));
     }
 
     //export presence
@@ -153,7 +153,7 @@ class PresenceController extends Controller
     public function addpresence()
     {
         $teachers = Teacher::all();
-        return view('presence.create', compact('teachers'));
+        return view('presence.admin.create', compact('teachers'));
     }
     public function storepresence(Request $request)
     {
@@ -171,7 +171,7 @@ class PresenceController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
         ]);
-        return redirect()->route('admin.presence.index');
+        return redirect()->route('presence.index');
     }
 
     // .......................................//

@@ -19,10 +19,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        {{-- <th scope="col">Nama Guru</th> --}}
                         <th scope="col">Kehadiran BPI</th>
-                        {{-- <th scope="col">Action</th> --}}
-                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -30,23 +27,14 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $carbon::parse($bpi->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
-
-                            {{-- <td>{{ $carbon::parse($bpi->start)->isoFormat('dddd, DD MMMM YYYY') }}</td> --}}
-
-                            {{-- <td>
-                                <a href="{{ route('admin.bpi.show', $bpi->teacher_id) }}" class="btn btn-success btn-sm">
-                                    show all
-                                </a>
-                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
     </div>
+    @include('bpi.teacher.create')
 @endsection
-@include('bpi.teacher.create')
 
 @include('layouts.partials.allscripts')
 @push('scripts')

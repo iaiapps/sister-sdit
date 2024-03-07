@@ -11,51 +11,122 @@
     <title>Api Page</title>
 
     <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-        }
+        @import url("https://fonts.googleapis.com/css?family=Lato");
 
-        .bgimg {
-            height: 100%;
+        * {
             position: relative;
-            background-color: #f2f2f2;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 25px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Lato", sans-serif;
         }
 
-        .middle {
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom right, #EEE, #AAA);
+        }
+
+        .message {
+            text-align: center
+        }
+
+        h1 {
+            margin: 10px 0 20px;
+        }
+
+        .forbidden {
+            font-size: 7rem;
+            margin: 0px;
+            font-weight: 600;
+        }
+
+        .lock {
+            border-radius: 5px;
+            width: 55px;
+            height: 45px;
+            background-color: #333;
+            animation: dip 1s;
+            animation-delay: 1.5s;
+        }
+
+        .lock::before,
+        .lock::after {
+            content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            border-left: 5px solid #333;
+            height: 20px;
+            width: 15px;
+            left: calc(50% - 12.5px);
         }
 
-        hr {
-            margin: auto;
-            width: 50%;
+        .lock::before {
+            top: -30px;
+            border: 5px solid #333;
+            border-bottom-color: transparent;
+            border-radius: 15px 15px 0 0;
+            height: 30px;
+            animation: lock 2s, spin 2s;
         }
 
-        .card {
-            background-color: rgb(255, 255, 255);
-            padding: 20px;
-            box-shadow: 0px 0px 20px rgb(202, 202, 202);
-            border-radius: 10px
+        .lock::after {
+            top: -10px;
+            border-right: 5px solid transparent;
+            animation: spin 2s;
+        }
+
+
+        @keyframes lock {
+            0% {
+                top: -45px;
+            }
+
+            65% {
+                top: -45px;
+            }
+
+            100% {
+                top: -30px;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: scaleX(-1);
+                left: calc(50% - 30px);
+            }
+
+            65% {
+                transform: scaleX(1);
+                left: calc(50% - 12.5px);
+            }
+        }
+
+        @keyframes dip {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="bgimg">
-        <div class="middle">
-            <div class="card">
-                <p>restricted area</p>
-                <hr>
-                <h3>Anda tidak boleh mengakses halaman ini !</h3>
-            </div>
-        </div>
+    <div class="lock"></div>
+    <div class="message">
+        <p class="forbidden">403</p>
+        <h1>Access to this page is forbidden</h1>
+        <p>Please check with the site admin if you believe this is a mistake.</p>
     </div>
 </body>
 

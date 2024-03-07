@@ -14,9 +14,11 @@
                 </div>
             </div>
         @else
-            <button id="printbutton" class="btn btn-light rounded" onclick="print()">
-                <i class="bi bi-printer-fill fs-3 "></i>
-            </button>
+            @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
+                <button id="printbutton" class="btn btn-light rounded" onclick="print()">
+                    <i class="bi bi-printer-fill fs-3 "></i>
+                </button>
+            @endif
             <div id="filter">
                 <form action="{{ route('presence.show', $presences->first()->teacher_id) }}">
                     @php
@@ -77,7 +79,7 @@
 
                                 @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                     <td id="edit">
-                                        <a href="{{ route('admin.presence.edit', [$presence->id, 'date' => request('date')]) }}"
+                                        <a href="{{ route('presence.edit', [$presence->id, 'date' => request('date')]) }}"
                                             data-toggle="modal" data-id="{!! $presence->id !!}"
                                             class="btn btn-sm btn-success editModalBtn"><i
                                                 class="bi bi-pencil-square"></i></a>

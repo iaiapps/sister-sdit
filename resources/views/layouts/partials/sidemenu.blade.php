@@ -150,21 +150,21 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('guru.teacher.presence') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.presence' ? 'activee' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'guru.teacher.presence' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Presensi </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('guru.answer.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.mutabaah' ? 'activee' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'guru.answer.index' ? 'activee' : '' }}">
                         <i class="bi bi-list-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Mutabaah </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('guru.bpi.list') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.mutabaah' ? 'activee' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'guru.bpi.list' ? 'activee' : '' }}">
                         <i class="bi bi-bar-chart menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline"> Bpi </span>
                     </a>

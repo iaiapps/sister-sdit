@@ -178,5 +178,7 @@ Route::middleware('auth')->group(function () {
 
 
 // akses dari mobile app
-Route::resource('mutabaah-mobile', AnswerControllerM::class)->middleware('auth.basic');
-Route::resource('bpi-mobile', BpiControllerM::class)->middleware('auth.basic');
+Route::middleware('auth.basic')->group(function () {
+    Route::resource('mutabaah-mobile', AnswerControllerM::class);
+    Route::resource('bpi-mobile', BpiControllerM::class);
+});

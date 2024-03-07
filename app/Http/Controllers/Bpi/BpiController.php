@@ -43,7 +43,7 @@ class BpiController extends Controller
     {
         $data = $request->all();
         Bpi::create($data);
-        return redirect()->route('admin.bpi.index');
+        return redirect()->route('bpi.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class BpiController extends Controller
     public function destroy(Bpi $bpi)
     {
         $bpi->delete();
-        return redirect()->route('admin.bpi.index');
+        return redirect()->route('bpi.index');
     }
 
     // ------------------------------------- //

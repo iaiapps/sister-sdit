@@ -7,7 +7,7 @@
     <div class="card">
         {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body mt-3">
-            <form method="POST" action="{{ route('admin.store.presence') }}">
+            <form method="POST" action="{{ route('store.presence') }}">
                 @csrf
                 <table class="table table-bordered">
                     <tbody>
