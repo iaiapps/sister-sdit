@@ -23,21 +23,21 @@ class UserSeeder extends Seeder
         ]);
         $admin->assignRole('admin');
 
-        // $operator = User::create([
-        //     'name' => 'operator',
-        //     'email' => 'operator@gmail.com',
-        //     'password' => Hash::make('password'),
-        //     'active' => 1,
-        // ]);
-        // $operator->assignRole('operator');
-
-        $guru = User::create([
-            'name' => 'guru',
-            'email' => 'guru@gmail.com',
+        $operator = User::create([
+            'name' => 'operator',
+            'email' => 'operator@gmail.com',
             'password' => Hash::make('password'),
             'active' => 1,
         ]);
-        $guru->assignRole('guru');
+        $operator->assignRole('operator');
+
+        // $guru = User::create([
+        //     'name' => 'guru',
+        //     'email' => 'guru@gmail.com',
+        //     'password' => Hash::make('password'),
+        //     'active' => 1,
+        // ]);
+        // $guru->assignRole('guru');
 
         // $tendik = User::create([
         //     'name' => 'tendik',

@@ -13,11 +13,11 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        //student
-        Student::create([
-            'user_id' => 3,
-            'full_name' => 'student',
-            'nis' => '1234'
-        ]);
+        // //student
+        // Student::create([
+        //     'user_id' => 3,
+        //     'full_name' => 'student',
+        //     'nis' => '1234'
+        // ]);
     }
 }
