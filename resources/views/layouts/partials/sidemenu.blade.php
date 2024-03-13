@@ -97,9 +97,16 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('bpi.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'admin.bpi.index' ? 'activee' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'bpi.index' ? 'activee' : '' }}">
                         <i class="bi bi-bar-chart menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">BPI </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('replacement.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'replacement.index' ? 'activee' : '' }}">
+                        <i class="bi bi-people menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline">Guru Pengganti</span>
                     </a>
                 </li>
                 <li class="nav-item">

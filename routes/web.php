@@ -36,6 +36,8 @@ use App\Http\Controllers\Finance\SalaryPositionController;
 use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Presence\PresencekaryawanController;
 
+use App\Http\Controllers\Replacement\ReplacementController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,6 +127,9 @@ Route::middleware('auth')->group(function () {
 
             // BPI
             Route::resource('bpi', BpiController::class);
+
+            // guru pengganti
+            Route::resource('replacement', ReplacementController::class);
         });
     });
 
