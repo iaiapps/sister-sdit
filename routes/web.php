@@ -37,6 +37,7 @@ use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Presence\PresencekaryawanController;
 
 use App\Http\Controllers\Replacement\ReplacementController;
+use App\Http\Controllers\Replacement\ReplacementControllerM;
 
 /*
 |--------------------------------------------------------------------------
@@ -151,7 +152,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('child', ChildController::class);
             Route::resource('training', TrainingController::class);
 
-            //teachersalary
+            // teachersalary
             // Route::resource('salary', SalaryController::class)->except('index');
             // Route::get('teacher-salary', [SalaryController::class, 'teacherSalary'])->name('teacher.salary');
 
@@ -162,6 +163,11 @@ Route::middleware('auth')->group(function () {
             Route::get('bpi', [BpiController::class, 'list'])->name('bpi.list');
             Route::get('bpi-create', [BpiController::class, 'bpiCreate'])->name('bpi.create');
             Route::post('bpi-store', [BpiController::class, 'bpiStore'])->name('bpi.store');
+
+            // guru pengganti
+            Route::get('replacement', [ReplacementController::class, 'list'])->name('replacement.list');
+            Route::get('replacement-create', [ReplacementController::class, 'replacementCreate'])->name('replacement.create');
+            Route::post('replacement-store', [ReplacementController::class, 'replacementStore'])->name('replacement.store');
         });
     });
 
@@ -186,4 +192,5 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth.basic')->group(function () {
     Route::resource('mutabaah-mobile', AnswerControllerM::class);
     Route::resource('bpi-mobile', BpiControllerM::class);
+    Route::resource('pengganti-mobile', ReplacementControllerM::class);
 });

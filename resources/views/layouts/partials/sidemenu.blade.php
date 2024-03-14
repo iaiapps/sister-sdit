@@ -176,6 +176,13 @@
                         <span class="ms-2 d-none d-sm-inline"> Bpi </span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('guru.replacement.list') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'guru.replacement.list' ? 'activee' : '' }}">
+                        <i class="bi bi-people menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline">Guru Pengganti</span>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('teacher.salary') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'teacher.index' ? 'activee' : '' }}">

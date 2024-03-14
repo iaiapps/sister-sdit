@@ -58,7 +58,7 @@ class PresenceSettingController extends Controller
     {
         // dd($request);
         $presenceset->update($request->all());
-        return redirect()->route('presenceset.index');
+        return redirect()->route('admin.presenceset.index');
     }
 
     /**

@@ -23,27 +23,30 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="0.7674295"
-     inkscape:cx="378.5364"
-     inkscape:cy="327.06587"
+     inkscape:zoom="0.38371475"
+     inkscape:cx="-56.031205"
+     inkscape:cy="452.1588"
      inkscape:window-width="1366"
-     inkscape:window-height="732"
+     inkscape:window-height="704"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g293"
+     inkscape:current-layer="svg42"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0" />
   <rect
-     style="fill:none;stroke:#198754;stroke-width:22.5;stroke-linejoin:round;fill-opacity:1;stroke-opacity:1"
+     style="fill:#ffffff;stroke:#198754;stroke-width:22.5;stroke-linejoin:round;fill-opacity:1;stroke-opacity:1"
      id="rect317"
      width="519.80151"
      height="519.80151"
      x="11.25"
      y="11.25"
-     ry="130.81425" />
+     ry="130.81425"
+     inkscape:export-filename="/media/ikrom/Data/aprojectnew/sister-sdit/public/img/rect317.png"
+     inkscape:export-xdpi="24.960285"
+     inkscape:export-ydpi="24.960285" />
   <path
      d="m 962.02658,325.53899 h 392.00002 v 90 H 962.02658 Z m 0,0"
      fill="#47568c"
@@ -133,7 +136,10 @@
   </g>
   <g
      id="g293"
-     transform="matrix(1.1303505,0,0,1.1303505,178.36974,-60.766221)">
+     transform="matrix(1.1303505,0,0,1.1303505,178.36974,-60.766221)"
+     inkscape:export-filename="/media/ikrom/Data/aprojectnew/sister-sdit/public/img/rect317.png"
+     inkscape:export-xdpi="24.960285"
+     inkscape:export-ydpi="24.960285">
     <path
        style="fill:#198754;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.75487"
        d="M 228.82576,229.26926 H -64.662492 c -5.833571,-5.83357 -9.096532,-9.09653 -14.923247,-14.92325 V 146.8932 c 5.826715,-5.82671 9.089676,-9.09653 14.923247,-14.92323 H 228.82576 c 5.82671,5.8267 9.09652,9.09652 14.92326,14.92323 v 67.45281 c -5.82674,5.82672 -9.09655,9.08968 -14.92326,14.92325"

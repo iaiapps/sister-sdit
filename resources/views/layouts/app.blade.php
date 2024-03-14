@@ -10,6 +10,9 @@
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/iconn.png') }}">
+
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}

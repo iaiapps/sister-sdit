@@ -10,6 +10,9 @@
 
     <title> @yield('title') | {{ config('app.name') }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/iconn.png') }}">
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 

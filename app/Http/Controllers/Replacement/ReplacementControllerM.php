@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ReplacementController extends Controller
+class ReplacementControllerM extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ReplacementController extends Controller
     public function index()
     {
         $replacements = Replacement::all();
-        return view('replacement.admin.index', compact('replacements'));
+        return view('replacement.mobile.index', compact('replacements'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ReplacementController extends Controller
     public function create()
     {
         $teachers = Teacher::all();
-        return view('replacement.admin.create', compact('teachers'));
+        return view('replacement.mobile.create', compact('teachers'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ReplacementController extends Controller
     {
         $data = $request->all();
         Replacement::create($data);
-        return redirect()->route('replacement.index');
+        return redirect()->route('pengganti-mobile.index');
     }
 
     /**
@@ -71,31 +71,31 @@ class ReplacementController extends Controller
         return redirect()->route('replacement.index');
     }
 
-    // ------------------------------------- //
-    // handle dari user
-    public function list()
-    {
-        // $now = Carbon::now();
-        // $year = Carbon::parse($now)->year;
-        // $month = Carbon::parse($now)->month;
-        $uid = Auth::user()->id;
-        $tid = Teacher::where('user_id', $uid)->first()->id;
-        $replacements = Replacement::where('teacher_id', $tid)->get();
-
-        return view('replacement.teacher.index', compact('replacements', 'tid'));
-    }
-
-    // public function bpiCreate()
+    // // ------------------------------------- //
+    // // handle dari user
+    // public function list()
     // {
+    //     // $now = Carbon::now();
+    //     // $year = Carbon::parse($now)->year;
+    //     // $month = Carbon::parse($now)->month;
     //     $uid = Auth::user()->id;
     //     $tid = Teacher::where('user_id', $uid)->first()->id;
-    //     return view('bpi.teacher.create', compact('tid'));
+    //     $replacements = Replacement::where('teacher_id', $tid)->get();
+
+    //     return view('replacement.teacher.index', compact('replacements', 'tid'));
     // }
 
-    public function replacementStore(Request $request)
-    {
-        $data = $request->all();
-        Replacement::create($data);
-        return redirect()->route('guru.replacement.list');
-    }
+    // // public function bpiCreate()
+    // // {
+    // //     $uid = Auth::user()->id;
+    // //     $tid = Teacher::where('user_id', $uid)->first()->id;
+    // //     return view('bpi.teacher.create', compact('tid'));
+    // // }
+
+    // public function replacementStore(Request $request)
+    // {
+    //     $data = $request->all();
+    //     Replacement::create($data);
+    //     return redirect()->route('guru.replacement.list');
+    // }
 }

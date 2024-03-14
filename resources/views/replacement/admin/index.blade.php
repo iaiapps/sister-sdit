@@ -8,10 +8,10 @@
             <p class="m-0 fs-5">Data BPI bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
         </div>
         <hr> --}}
-        {{-- <div class="d-inline-block">
-            <a href="{{ route('bpi.create') }}" class="btn btn-warning btn-sm mb-3"><i class="bi bi-plus-circle"></i>
-                Data BPI</a>
-        </div> --}}
+        <div class="d-inline-block">
+            <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i class="bi bi-plus-circle"></i>
+                Data Pengganti</a>
+        </div>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
@@ -29,18 +29,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($bpis as $bpi)
+                    @foreach ($replacements as $replacement)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $bpi->teacher->full_name }}</td>
-                            <td>{{ $bpi->total }}</td>
+                            <td>{{ $replacement->teacher_id }}</td>
+                            <td>{{ $replacement->menggantikan }}</td>
+                            <td>{{ $replacement->tanggal }}</td>
+                            <td>{{ $replacement->jp }}</td>
+                            <td>{{ $replacement->mapel }}</td>
+                            <td>{{ $replacement->alasan }}</td>
+                            <td>{{ $replacement->bahan }}</td>
                             <td>
-                                <a href="{{ route('bpi.show', $bpi->teacher_id) }}" class="btn btn-success btn-sm">
-                                    show all
-                                </a>
+                                <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                    action="{{ route('replacement.destroy', $replacement->id) }}" method="post"
+                                    class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3"></i> del
+                                    </button>
+                                </form>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
