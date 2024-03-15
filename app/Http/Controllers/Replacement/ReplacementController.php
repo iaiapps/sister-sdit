@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Replacement;
 use App\Models\Teacher;
 use App\Models\Replacement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,22 +76,23 @@ class ReplacementController extends Controller
     // handle dari user
     public function list()
     {
-        // $now = Carbon::now();
-        // $year = Carbon::parse($now)->year;
+        $now = Carbon::now();
+        $year = Carbon::parse($now)->year;
         // $month = Carbon::parse($now)->month;
         $uid = Auth::user()->id;
         $tid = Teacher::where('user_id', $uid)->first()->id;
-        $replacements = Replacement::where('teacher_id', $tid)->get();
+        $replacements = Replacement::where('teacher_id', $tid)->whereYear('tanggal', $year)->get();
 
         return view('replacement.teacher.index', compact('replacements', 'tid'));
     }
 
-    // public function bpiCreate()
-    // {
-    //     $uid = Auth::user()->id;
-    //     $tid = Teacher::where('user_id', $uid)->first()->id;
-    //     return view('bpi.teacher.create', compact('tid'));
-    // }
+    public function replacementCreate()
+    {
+        $teachers = Teacher::all();
+        $uid = Auth::user()->id;
+        $tid = Teacher::where('user_id', $uid)->first()->id;
+        return view('replacement.teacher.create', compact('teachers', 'tid'));
+    }
 
     public function replacementStore(Request $request)
     {

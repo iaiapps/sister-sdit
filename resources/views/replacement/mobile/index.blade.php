@@ -1,23 +1,23 @@
 @extends('layouts.appmobile')
 @inject('carbon', 'Carbon\Carbon')
 
-@section('title', 'Data Guru Pengganti')
+@section('title', 'Data Penggantian Guru')
 @section('content')
     <div class="card p-3">
-        {{-- <div class="d-inline-block">
-            <p class="m-0 fs-5">Data BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
-        </div> --}}
+        <div class="d-inline-block">
+            <p class="m-0 fs-5 float-start">Guru pengganti : {{ $tid->full_name }}</p>
+            <p class="m-0 fs-5 float-sm-end float-start">Data menggantikan, tahun :
+                {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
+
+        </div>
         <hr>
-        <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Tambah Data Guru Pengganti
-        </button>
+        <a class="btn btn-success btn-sm" href="{{ route('pengganti-mobile.create') }}">Tambah data menggantikan guru</a>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Guru Pengganti</th>
-                        <th scope="col">Guru Yang Digantikan</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Menggantikan</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Jumlah JP</th>
                         <th scope="col">Mapel Yang Digantikan</th>
@@ -30,7 +30,6 @@
                     @foreach ($replacements as $replacement)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $replacement->teacher_id }}</td>
                             <td>{{ $replacement->menggantikan }}</td>
                             <td>{{ $replacement->tanggal }}</td>
                             <td>{{ $replacement->jp }}</td>
@@ -56,7 +55,6 @@
 
     </div>
 @endsection
-{{-- @include('bpi.mobile.create') --}}
 
 @include('layouts.partials.allscripts')
 @push('scripts')

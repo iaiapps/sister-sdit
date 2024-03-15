@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Replacement;
 use App\Models\Teacher;
 use App\Models\Replacement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +16,14 @@ class ReplacementControllerM extends Controller
      */
     public function index()
     {
-        $replacements = Replacement::all();
-        return view('replacement.mobile.index', compact('replacements'));
+        $now = Carbon::now();
+        $year = Carbon::parse($now)->year;
+        // dd($year);
+        $teachers = Teacher::all();
+        $uid = Auth::user()->id;
+        $tid = Teacher::where('user_id', $uid)->first();
+        $replacements = Replacement::where('teacher_id', $tid->id)->whereYear('tanggal', $year)->get();
+        return view('replacement.mobile.index', compact('replacements', 'teachers', 'tid', 'now'));
     }
 
     /**
@@ -25,7 +32,9 @@ class ReplacementControllerM extends Controller
     public function create()
     {
         $teachers = Teacher::all();
-        return view('replacement.mobile.create', compact('teachers'));
+        $uid = Auth::user()->id;
+        $tid = Teacher::where('user_id', $uid)->first()->id;
+        return view('replacement.mobile.create', compact('teachers', 'tid'));
     }
 
     /**

@@ -1,28 +1,62 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ route('bpi-mobile.store') }}" method="POST">
-                @csrf
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data Kehadiran</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+@extends('layouts.appmobile')
+@section('title', 'Buat Data Guru Pengganti')
+@section('content')
+    <div class="card p-3">
+        <form action="{{ route('pengganti-mobile.store') }}" method="POST">
+            @csrf
+            <fieldset>
+                <div class="mb-3 d-none">
+                    <label for="id" class="form-label">Guru Pengganti</label>
+                    <input type="input" class="form-control" id="id" name="teacher_id" value="{{ $tid }}"
+                        readonly>
                 </div>
-                <div class="modal-body">
-                    <fieldset>
-                        <div>
-                            <input type="text" value="{{ $tid }}" name="teacher_id" hidden>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date" class="form-label">Tanggal BPI</label>
-                            <input type="date" class="form-control" id="date" name="date">
-                        </div>
-                    </fieldset>
+                <div class="mb-3">
+                    <label for="menggantikan" class="form-label">Menggantikan Guru</label>
+                    <select class="form-select" name="menggantikan" id="menggantikan">
+                        <option disabled>---- pilih nama guru ---</option>
+                        @foreach ($teachers as $teacher)
+                            <option>{{ $teacher->full_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Simpan Data</button>
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Tanggal menggantikan</label>
+                    <input type="date" class="form-control" id="tanggal" name="tanggal">
                 </div>
-            </form>
-        </div>
+                <div class="mb-3">
+                    <label for="jp" class="form-label">Jumlah JP</label>
+                    <input type="input" class="form-control" id="jp" name="jp"
+                        placeholder="Total JP yang digantikan selama 1 hari">
+                </div>
+                <div class="mb-3">
+                    <label for="mapel" class="form-label">Mapel yang digantikan</label>
+                    <input type="input" class="form-control" id="mapel" name="mapel"
+                        placeholder="Tuliskan semua mapel yang digantikan">
+                </div>
+                <div class="mb-3">
+                    <label for="alasan" class="form-label">Alasan guru tidak hadir </label>
+                    <input type="input" class="form-control" id="alasan" name="alasan"
+                        placeholder="Alasan guru yang digantikan tidak masuk">
+                </div>
+                <div class="mb-3">
+                    <label for="bahan" class="form-label">Guru meninggalkan tugas?</label>
+                    <input type="input" class="form-control" id="bahan" name="bahan"
+                        placeholder="Bentuk tugas dari guru yang digantikan">
+                </div>
+
+            </fieldset>
+            <button type="submit" class="btn btn-success">Simpan Data</button>
+        </form>
     </div>
-</div>
+    </div>
+@endsection
+
+@include('layouts.partials.allscripts')
+
+@push('scripts')
+    <script>
+        $('#menggantikan').select2({
+            theme: 'bootstrap-5',
+        });
+    </script>
+@endpush
