@@ -11,12 +11,13 @@
                 <h2 class="display-6 d-inline-block fw-bold text-white">
                     PUSDATIN GURU SDIT
                 </h2>
-                <div class="card p-2 my-3 mb-4">
-                    <p class="mb-0 fs-4 fw-light">
-                        Pusat Data dan Informasi Guru SDIT Harapan Umat Jember </p>
-                </div>
                 <div class="row mt-3">
-                    <div class="col-md-6 col-12 mx-auto">
+                    <div class="col-md-8 col-12 mx-auto">
+                        <div class="card p-2 my-3 mb-4">
+                            <p class="mb-0 fs-4 fw-light">
+                                Pusat Data dan Informasi Guru SDIT Harapan Umat Jember </p>
+                        </div>
+
                         <a href="/login" class="btn btn-lg btn-warning mb-3 w-100">
                             Login
                         </a>
@@ -34,7 +35,7 @@
             <div class="py-5">
                 <h2 class="text-center fs-3 mb-3">DOWNLOAD APLIKASI</h2>
                 <div class="row justify-content-center">
-                    <div class="col-12 col-md-3 p-3">
+                    <div class="col-12 col-md-4 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/logofull.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
@@ -46,7 +47,7 @@
 
                         </div>
                     </div>
-                    <div class="col-12 col-md-3 p-3">
+                    <div class="col-12 col-md-4 p-3">
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/logofull.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
