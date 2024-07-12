@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @inject('carbon', 'Carbon\Carbon')
 
-@section('title', 'Data Jawaban BPI')
+@section('title', 'Data Presensi BPI')
 @section('content')
     <div class="card p-3">
         <div class="d-inline-block">
@@ -18,7 +18,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nama Guru</th>
-                        <th scope="col">Kehadiran BPI</th>
+                        <th scope="col">Presensi Mengajar BPI</th>
                         <th scope="col">Action</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>

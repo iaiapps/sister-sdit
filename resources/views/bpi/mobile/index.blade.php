@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Kehadiran BPI</th>
+                        <th scope="col">Presensi mengajar BPI</th>
                     </tr>
                 </thead>
                 <tbody>

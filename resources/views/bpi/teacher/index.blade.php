@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Presensi BPI</th>
+                        <th scope="col">Presensi Mengajar BPI</th>
                     </tr>
                 </thead>
                 <tbody>
