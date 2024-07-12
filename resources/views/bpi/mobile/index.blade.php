@@ -1,15 +1,15 @@
 @extends('layouts.appmobile')
 @inject('carbon', 'Carbon\Carbon')
 
-@section('title', 'Data Kehadiran BPI')
+@section('title', 'Presensi mengajar BPI')
 @section('content')
     <div class="card p-3">
         <div class="d-inline-block">
-            <p class="m-0 fs-5">Data BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
+            <p class="m-0 fs-5">Presensi BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
         </div>
         <hr>
         <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Tambah Data Kehadiran BPI
+            Tambah Data Presensi Mengajar BPI
         </button>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">

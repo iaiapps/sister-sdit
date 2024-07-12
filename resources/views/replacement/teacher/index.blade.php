@@ -7,17 +7,15 @@
         {{-- <div class="d-inline-block">
             <p class="m-0 fs-5">Data BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
         </div> --}}
-        <hr>
         <div class="d-inline-block">
             <a class="btn btn-success btn-sm mb-3" href="{{ route('guru.replacement.create') }}">Tambah data menggantikan
-                guru</a>
+                guru lain</a>
         </div>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-
                         <th scope="col">Guru Yang Digantikan</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Jumlah JP</th>
@@ -31,7 +29,6 @@
                     @foreach ($replacements as $replacement)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-
                             <td>{{ $replacement->menggantikan }}</td>
                             <td>{{ $replacement->tanggal }}</td>
                             <td>{{ $replacement->jp }}</td>

@@ -35,6 +35,7 @@ class ReplacementController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         Replacement::create($data);
         return redirect()->route('replacement.index');
     }
@@ -82,7 +83,7 @@ class ReplacementController extends Controller
         $uid = Auth::user()->id;
         $tid = Teacher::where('user_id', $uid)->first()->id;
         $replacements = Replacement::where('teacher_id', $tid)->whereYear('tanggal', $year)->get();
-
+        // dd($replacements);
         return view('replacement.teacher.index', compact('replacements', 'tid'));
     }
 
@@ -97,6 +98,7 @@ class ReplacementController extends Controller
     public function replacementStore(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         Replacement::create($data);
         return redirect()->route('guru.replacement.list');
     }

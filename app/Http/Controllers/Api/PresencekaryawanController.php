@@ -200,7 +200,7 @@ class PresencekaryawanController extends Controller
             'teacher_id' => $request->teacher_id,
             // 'date' => date("d/m/y"),
             'time_in' => $now->isoFormat('HH:mm:ss'),
-            'time_out' => '',
+            'time_out' => '-',
             // 'is_late' => $is_late,
             // 'note' => $note
         ]);

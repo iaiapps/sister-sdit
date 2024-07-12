@@ -11,7 +11,7 @@
 
         </div>
         <hr>
-        <a class="btn btn-success btn-sm" href="{{ route('pengganti-mobile.create') }}">Tambah data menggantikan guru</a>
+        <a class="btn btn-success btn-sm" href="{{ route('pengganti-mobile.create') }}">Tambah data menggantikan guru lain</a>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>

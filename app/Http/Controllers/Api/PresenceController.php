@@ -13,16 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PresenceController extends Controller
 {
-    // INI NORMAL
+    //get all data
     public function index()
     {
         $data = Presence::get();
+
         return response()->json([
             'pesan' => 'success',
             'data' => $data
         ], 200);
     }
 
+    // get data by id
     public function show($id)
     {
         $monthyear = Carbon::now();
@@ -54,7 +56,16 @@ class PresenceController extends Controller
         $now = Carbon::now()->isoFormat('HH:mm:ss');
 
         if ($request->has('note')) {
-            return $this->_note($request->teacher_id, $request->note, $request->description);
+            if ($this->_timeline() == true) {
+                if ($this->_scannable() == true) {
+                    return $this->_note($request->teacher_id, $request->note, $request->description);
+                } else {
+                    return response()->json(['pesan' => 'waktu tidak valid'], 404);
+                }
+            } else {
+                // return response()->json(['pesan' => 'waktu tidak valid'], 404);
+                return $this->_note($request->teacher_id, $request->note, $request->description);
+            }
         } else {
             if ($this->_timeline() == true) {
                 if ($this->_scannable() == true) {
@@ -142,13 +153,15 @@ class PresenceController extends Controller
     {
         $now = Carbon::now();
         $early_time_come = Carbon::createFromTimeString($this->_settingValue('early_time_come'));
-        $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'));
-        $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
+        // $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'));
+        // $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
         $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
-        if ($now->between($early_time_come, $end_time_come)) {
+        if ($now->between($early_time_come, $end_time_leave)) {
             return true;
-        } elseif ($now->between($early_time_leave, $end_time_leave)) {
-            return true;
+            // if ($now->between($early_time_come, $end_time_come)) {
+            //     return true;
+            // } elseif ($now->between($early_time_leave, $end_time_leave)) {
+            //     return true;
         } else {
             return false;
         }
@@ -230,7 +243,7 @@ class PresenceController extends Controller
             'teacher_id' => $request->teacher_id,
             // 'date' => date("d/m/y"),
             'time_in' => $now->isoFormat('HH:mm:ss'),
-            'time_out' => '',
+            'time_out' => '-',
             'is_late' => $is_late,
             'note' => $note
         ]);

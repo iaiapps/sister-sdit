@@ -25,7 +25,7 @@
 
 <body>
     <!-- header -->
-    @include('landing.layouts.header')
+    {{-- @include('landing.layouts.header') --}}
 
     <!-- content -->
     @yield('content')
