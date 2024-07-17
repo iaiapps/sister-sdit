@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 {{-- <li class="nav-item">
-                    <a href="{{ route('admin.tendik.index') }}"
+                    <a href="{{ route('tendik.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'tendik.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
@@ -132,7 +132,7 @@
                 </li>
             @break
 
-            @case('guru' or 'tendik')
+            @case('guru')
                 {{-- menu guru dan tendik --}}
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
@@ -190,6 +190,37 @@
                         <span class="ms-2 d-none d-sm-inline"> Gaji </span>
                     </a>
                 </li> --}}
+            @break
+
+            @case('tendik')
+                <li class="nav-item">
+                    <a href="{{ route('home') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} d-block">
+                        <i class="bi bi-activity menu-icon"></i>
+                        <span class="ms-md-2 d-none d-sm-inline"> Home </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('guru.profile') }}"
+                        class="nav-link hover d-block text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'profile' ? 'activee' : '' }} ">
+                        <i class="bi bi-person menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline"> Profil </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('document.index') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'document.index' ? 'activee' : '' }}">
+                        <i class="bi bi-card-image menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline"> Dokumen </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('guru.teacher.presence') }}"
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'guru.teacher.presence' ? 'activee' : '' }}">
+                        <i class="bi bi-calendar-check menu-icon"></i>
+                        <span class="ms-2 d-none d-sm-inline"> Presensi </span>
+                    </a>
+                </li>
             @break
 
             {{-- @case('siswa')
@@ -258,7 +289,7 @@
                     <a href="{{ route('home') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }}">
                         <i class="bi bi-house-door menu-icon"></i>
-                        <span class="ms-2 d-none d-sm-inline"> home </span>
+                        <span class="ms-2 d-none d-sm-inline"> Home </span>
                     </a>
                 </li>
         @endswitch

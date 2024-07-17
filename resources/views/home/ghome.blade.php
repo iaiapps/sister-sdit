@@ -5,16 +5,36 @@
 
     {{-- @dd(Auth::user()->role->name) --}}
     @if ($teacher->full_name == 'user')
-        <div class="alert alert-danger alert-dismissible fade show py-2 " role="alert">
+        <div class="alert alert-danger alert-dismissible fade show py-2 text-center" role="alert">
             <span class="m-0">Identitas anda belum lengkap!</span>
-            <a href="{{ route('guru.editTeacher', $teacher->id) }}" class="btn btn-dark btn-sm ms-1">clik
+            <a href="{{ route('guru.editTeacher', $teacher->id) }}" class="btn btn-dark btn-sm ms-md-2">klik
                 untuk mengisi</a>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade mt-5" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="myModalLabel">Lengkapi Data Identitas</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pb-5 text-center">
+                        <div class="alert alert-danger alert-dismissible fade show py-2 " role="alert">
+                            <span class="m-0 ">Identitas anda belum lengkap!</span>
+                        </div>
+                        <a href="{{ route('guru.editTeacher', $teacher->id) }}" class="btn btn-dark btn-sm ms-1">klik
+                            untuk mengisi</a>
+                    </div>
+                </div>
+            </div>
         </div>
     @endif
 
     <div class="card rounded p-3 mb-3">
         <p class="fs-4 text-center m-0">
-            Selamat Datang di Aplikasi Sistem Informasi Terpadu SDIT Harum
+            Selamat Datang di Pusat Data dan Informasi SDIT Harapan Umat Jember
         </p>
     </div>
 
@@ -97,6 +117,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 @push('css')
     <style>
@@ -104,4 +126,12 @@
             width: 170px;
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $("#myModal").modal('show');
+        });
+    </script>
 @endpush

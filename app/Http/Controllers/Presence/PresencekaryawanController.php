@@ -46,8 +46,8 @@ class PresencekaryawanController extends Controller
     public function show($id, Request $request)
     {
         $id = (int)$id;
-        // dd($id);
         $date = $request->date;
+        // dd($date);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $teacher = Teacher::where('id', $id)->get()->first();
@@ -149,7 +149,7 @@ class PresencekaryawanController extends Controller
         $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . " " . $time_in;
         // dd($date);
 
-        Presence::create([
+        Presencekaryawan::create([
             'teacher_id' => $id,
             'time_in' => $time_in,
             'time_out' => $time_out,
@@ -159,7 +159,7 @@ class PresencekaryawanController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
         ]);
-        return redirect()->route('admin.presencekaryawan.index');
+        return redirect()->route('presencekaryawan.index');
     }
 
     // .......................................//

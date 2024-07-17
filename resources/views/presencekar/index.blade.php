@@ -48,7 +48,6 @@
                             <td>{{ $presence->teacher_id }}</td>
                             <td>{{ $presence->teacher->full_name }}</td>
                             <td>{{ $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin }}</td>
-
                             <td>
                                 <a href="{{ route('presencekaryawan.show', [$presence->teacher->id, 'date' => $date]) }}"
                                     class="btn btn-success btn-sm">
