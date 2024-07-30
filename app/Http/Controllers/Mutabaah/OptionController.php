@@ -25,7 +25,7 @@ class OptionController extends Controller
     {
         $id = $request->id;
         $question = Question::find($id);
-        return view('mutabaah.admin.option.create', $question);
+        return view('mutabaah.admin.option.create', compact('question'));
     }
 
     /**

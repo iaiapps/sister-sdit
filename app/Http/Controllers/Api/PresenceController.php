@@ -216,7 +216,6 @@ class PresenceController extends Controller
 
 
         // comment dulu belum digunakan
-
         // $ontime = Carbon::createFromTimeString($this->_settingValue('ontime_until'));
         // $late_a = Carbon::createFromTimeString($this->_settingValue('late_a'));
         // $late_b = Carbon::createFromTimeString($this->_settingValue('late_b'));
@@ -287,7 +286,7 @@ class PresenceController extends Controller
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
             // 'date' => date("d/m/y"),
-            'time_in' => $end_time_come,
+            'time_in' => $jamNow,
             'time_out' => $jamNow,
             'is_late' => 1,
             'note' => 'Telat'

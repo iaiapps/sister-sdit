@@ -6,15 +6,11 @@
         <form action="{{ route('mutabaah-option.store') }}" method="POST">
             @csrf
             <fieldset>
-                {{-- <div class="mb-3">
-                    <label class="form-label" for="question">Pertanyaan</label>
-                    <input value="{{ $id }}" name="question_id" readonly hidden>
-                    <input class="form-control bg-light" type="text" id="question" name="question"
-                        value="{{ $question }}" readonly />
-                </div> --}}
+                <input type="text" readonly value="{{ $question->id }}" name="question_id">
                 <div class="mb-3">
                     <label class="form-label" for="option_name">Pilihan Jawaban</label>
-                    <input class="form-control" type="text" id="option_name" name="option_name" placeholder="Nama pilihan" />
+                    <input class="form-control" type="text" id="option_name" name="option_name"
+                        placeholder="Nama pilihan" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="option_point">Point Pilihan</label>

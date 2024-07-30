@@ -47,7 +47,7 @@ class MutabaahController extends Controller
     public function show(Mutabaah $mutabaah)
     {
 
-        return view('mutabaah.show');
+        return view('mutabaah.admin.show');
     }
 
     /**
@@ -55,7 +55,7 @@ class MutabaahController extends Controller
      */
     public function edit(Mutabaah $mutabaah)
     {
-        return view('mutabaah.edit', compact('mutabaah'));
+        return view('mutabaah.admin.edit', compact('mutabaah'));
     }
 
     /**
@@ -81,8 +81,15 @@ class MutabaahController extends Controller
     public function mutabaahList(Request $request)
     {
         $mutabaah_id = $request->id;
-        $answers = Answer::where('mutabaah_id', $mutabaah_id)->select('teacher_id', DB::raw("SUM(point) as t_point"),)->groupBy('teacher_id')->get();
-        return view('mutabaah.list', compact('answers'));
+        $answers = Answer::where('mutabaah_id', $mutabaah_id)
+        ->select(
+            'teacher_id',
+            DB::raw("SUM(point) AS t_point"),
+            DB::raw("DATE(created_at) AS tanggal")
+            )
+        ->groupBy('teacher_id', 'tanggal')->get();
+        // dd($answers);
+        return view('mutabaah.admin.list', compact('answers'));
     }
 
     public function mutabaahShow(Request $request)
@@ -90,6 +97,6 @@ class MutabaahController extends Controller
         $mutabaah_id = $request->m_id;
         $teacher_id = $request->t_id;
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher_id)->get();
-        return view('mutabaah.show', compact('answers'));
+        return view('mutabaah.admin.show', compact('answers'));
     }
 }

@@ -1,9 +1,8 @@
 @extends('layouts.app')
+@inject('carbon', 'Carbon\Carbon')
 
-@section('title', 'Detail Presensi')
-
+@section('title', 'List Mengisi Mutabaah')
 @section('content')
-
     <div class="card p-3">
         <div>
             <a href="{{ route('mutabaah.index') }}" class="btn btn-success me-2">
@@ -21,6 +20,7 @@
                         <th>No.</th>
                         <th>Nama Guru</th>
                         <th>Total Point</th>
+                        <th>Tanggal Pengisian</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -28,12 +28,14 @@
                     @foreach ($answers as $answer)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            </td>
                             <td>{{ $answer->teacher->full_name }}</td>
                             <td>{{ $answer->t_point }}</td>
-                            <td><a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
+                            <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
+                            <td>
+                                <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
                                     class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i> info
-                                </a> </td>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
