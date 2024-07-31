@@ -30,10 +30,10 @@ class AnswerControllerM extends Controller
     public function create(Request $request)
     {
         $mutabaah_id = $request->mutabaah;
-        $exist = Answer::where('mutabaah_id', $mutabaah_id)->exists();
-
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->first();
+        $exist = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher->id)->exists();
+
         $categories = Category::all();
         return view('mutabaah.mobile.create', compact('teacher', 'categories', 'exist'));
     }
