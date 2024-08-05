@@ -30,6 +30,7 @@ class PresenceController extends Controller
         $monthyear = Carbon::now();
         $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->get();
 
+        // dd($presence);
         if ($presence->count() == null) {
             return response()->json(['pesan' => 'Data tidak ditemukan'], 404);
         }
@@ -50,31 +51,35 @@ class PresenceController extends Controller
     // 4. is_late
     // 5. default leave
 
+    // ini coba edit baru
+    /*
+logikanya
+untuk normal
+$tanggalnow
+if (request punya note){
+    simpan data dengan note
+} else{
+simpan data sesuai jam sekarang menjadi tanggal masuk
+}
+
+
+*/
+
+
     public function store(Request $request)
     {
-        // parameter
         $now = Carbon::now()->isoFormat('HH:mm:ss');
-        $teacher_id = $request->teacher_id;
-        $note = $request->note;
-        $description = $request->description;
 
-        // dd($note);
         if ($request->has('note')) {
-            // dd($request->note);
-            if ($request->note == 'PAwal') {
-                $presence = Presence::where('teacher_id', $teacher_id)->orderBy('id', 'desc')->first();
-                $presence->time_out = $now;
-                $presence->description = 'pulang awal';
-                $presence->save();
-                return response()->json(['pesan' => 'berhasil pulang awal'], 404);
-            } elseif ($this->_timeline() == true) {
+            if ($this->_timeline() == true) {
                 if ($this->_scannable() == true) {
-                    return $this->_note($teacher_id, $note, $description);
+                    return $this->_note($request->teacher_id, $request->note, $request->description);
                 } else {
                     return response()->json(['pesan' => 'waktu tidak valid'], 404);
                 }
             } else {
-                return $this->_note($teacher_id, $note, $description);
+                // return response()->json(['pesan' => 'waktu tidak valid'], 404);
+                return $this->_note($request->teacher_id, $request->note, $request->description);
             }
         } else {
             if ($this->_timeline() == true) {
@@ -116,6 +121,7 @@ class PresenceController extends Controller
             if ($note == 'Tugas kedinasan') {
                 $presence = Presence::create([
                     'teacher_id' => $teacher_id,
+                    // 'date' => date("d/m/y"),
                     'time_in' => date('H:i:s'),
                     'time_out' => '-',
                     'is_late' => false,
@@ -125,6 +131,7 @@ class PresenceController extends Controller
             } else {
                 $presence = Presence::create([
                     'teacher_id' => $teacher_id,
+                    // 'date' => date("d/m/y"),
                     'time_in' => '-',
                     'time_out' => '-',
                     'is_late' => false,
@@ -146,7 +153,7 @@ class PresenceController extends Controller
         return PresenceSetting::where('name', $for)->first()->value;
     }
 
-    //fungsi timeline (pemabatasan waktu)
+    //fungsi timeline
     private function _timeline()
     {
         if ($this->_settingValue('timeline') == '1') {
@@ -156,7 +163,7 @@ class PresenceController extends Controller
         }
     }
 
-    //fungsi scannable, bisa absen ketika waktu ini
+    //fungsi scannable
     private function _scannable()
     {
         $now = Carbon::now();
@@ -248,6 +255,7 @@ class PresenceController extends Controller
 
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
+            // 'date' => date("d/m/y"),
             'time_in' => $now->isoFormat('HH:mm:ss'),
             'time_out' => '-',
             'is_late' => $is_late,
@@ -292,6 +300,7 @@ class PresenceController extends Controller
         $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'))->isoFormat('HH:mm:ss');
         $presence = Presence::create([
             'teacher_id' => $request->teacher_id,
+            // 'date' => date("d/m/y"),
             'time_in' => $jamNow,
             'time_out' => $jamNow,
             'is_late' => 1,

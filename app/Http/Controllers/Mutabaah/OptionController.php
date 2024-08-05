@@ -34,7 +34,7 @@ class OptionController extends Controller
     public function store(Request $request)
     {
         Option::create($request->all());
-        return redirect()->route('mutabaah-option.index');
+        return redirect()->route('mutabaah-question.index');
     }
 
     /**

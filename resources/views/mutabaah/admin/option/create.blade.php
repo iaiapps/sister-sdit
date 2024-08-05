@@ -6,7 +6,9 @@
         <form action="{{ route('mutabaah-option.store') }}" method="POST">
             @csrf
             <fieldset>
-                <input type="text" readonly value="{{ $question->id }}" name="question_id">
+                <p>Pertanyaan : {{$question->question}}</p>
+                <hr>
+                <input type="text" readonly value="{{ $question->id }}" name="question_id" hidden>
                 <div class="mb-3">
                     <label class="form-label" for="option_name">Pilihan Jawaban</label>
                     <input class="form-control" type="text" id="option_name" name="option_name"

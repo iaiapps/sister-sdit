@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="#menu" class="d-inline-block mt-2 btn btn-outline-light fs-1 border border-0"><i
+                    <a href="#menu" class="d-inline-block btn btn-outline-light fs-1 border border-0"><i
                             class="bi bi-arrow-down-circle "></i></a>
                 </div>
             </div>
