@@ -161,8 +161,6 @@ class PresenceController extends Controller
     {
         $now = Carbon::now();
         $early_time_come = Carbon::createFromTimeString($this->_settingValue('early_time_come'));
-        // $end_time_come = Carbon::createFromTimeString($this->_settingValue('end_time_come'));
-        // $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
         $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
         if ($now->between($early_time_come, $end_time_leave)) {
             return true;

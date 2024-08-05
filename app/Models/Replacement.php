@@ -16,9 +16,9 @@ class Replacement extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    // dengan spesifik kolom
-    public function menggantikann()
-    {
-        return $this->belongsTo(Teacher::class, 'menggantikan' );
-    }
+    // // dengan spesifik kolom
+    // public function menggantikann()
+    // {
+    //     return $this->belongsTo(Teacher::class, 'menggantikan');
+    // }
 }
