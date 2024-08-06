@@ -9,9 +9,9 @@
                     <a href="{{ route('admin.user.create') }}" class="btn btn-outline-success"><i
                             class="bi bi-plus-circle"></i>
                         Tambah Data</a>
-                    <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import Guru</a>
+                    {{-- <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import Guru</a>
                     <a href="#" class="btn btn-outline-success"><i class="bi bi-plus-circle"></i> Import
-                        Siswa</a>
+                        Siswa</a> --}}
                 </div>
             </div>
             <div class="table-responsive">

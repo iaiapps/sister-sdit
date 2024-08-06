@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -26,7 +28,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -34,7 +36,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //   
+        //
     }
 
     /**
@@ -124,5 +126,16 @@ class TeacherController extends Controller
         $teacher->update($request->all());
 
         return redirect()->route('guru.profile', $id);
+    }
+
+    // .......................................//
+    //handle tendik
+    public function tendik()
+    {
+        // ini jika ambil dari user->role lalu join dengan teacher
+        // $tendiks = User::role('tendik')->join('teachers', 'users.id', '=', 'teachers.user_id')->get();
+
+        $teachers = Teacher::all();
+        return view('admin.teacher.tendik', compact('teachers'));
     }
 }

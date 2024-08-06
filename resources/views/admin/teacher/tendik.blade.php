@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Guru')
+@section('title', 'Data Tendik')
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">
@@ -16,11 +16,13 @@
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
                             <th scope="col">actions</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($teachers as $teacher)
-                            @if ($teacher->user->roles->first()->name == 'guru')
+                            {{-- @dd($teacher->user->roles->first()->name) --}}
+                            @if ($teacher->user->roles->first()->name == 'tendik')
                                 @if (empty($teacher->full_name))
                                     <tr>
                                         <td colspan="4" class="text-center">data belum ada</td>

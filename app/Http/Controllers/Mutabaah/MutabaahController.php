@@ -77,19 +77,20 @@ class MutabaahController extends Controller
         return redirect()->route('mutabaah.index');
     }
 
-    // lihat list guru masing-masing 
+    // lihat list guru masing-masing
     public function mutabaahList(Request $request)
     {
         $mutabaah_id = $request->id;
+        $name_mutabaah = Mutabaah::where('id', $mutabaah_id)->first()->name;
         $answers = Answer::where('mutabaah_id', $mutabaah_id)
-        ->select(
-            'teacher_id',
-            DB::raw("SUM(point) AS t_point"),
-            DB::raw("DATE(created_at) AS tanggal")
+            ->select(
+                'teacher_id',
+                DB::raw("SUM(point) AS t_point"),
+                DB::raw("DATE(created_at) AS tanggal")
             )
-        ->groupBy('teacher_id', 'tanggal')->get();
+            ->groupBy('teacher_id', 'tanggal')->get();
         // dd($answers);
-        return view('mutabaah.admin.list', compact('answers'));
+        return view('mutabaah.admin.list', compact('answers', 'name_mutabaah'));
     }
 
     public function mutabaahShow(Request $request)

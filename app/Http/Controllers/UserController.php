@@ -99,7 +99,7 @@ class UserController extends Controller
         $user->update($validate);
 
         //tetapkan role setelah user dibuat
-        $user->assignRole($request->role);
+        $user->syncRoles($request->role);
 
         // return ke halaman user
         return redirect()->route('admin.user.index');

@@ -42,13 +42,13 @@
                         <span class="ms-2 d-none d-sm-inline">Data Guru</span>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('tendik.index') }}"
+                <li class="nav-item">
+                    <a href="{{ route('admin.tendik.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'tendik.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
                     </a>
-                </li> --}}
+                </li>
 
                 {{-- <li class="nav-item">
                     <a href="{{ route('student.index') }}"
@@ -81,13 +81,13 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('salary.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'salary.index' ? 'activee' : '' }}">
                         <i class="bi bi-coin menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Rekap Gaji </span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('mutabaah.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'mutabaah.index' ? 'activee' : '' }}">

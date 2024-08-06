@@ -9,8 +9,8 @@
                 <i class="bi bi-arrow-left-circle"></i> kembali
             </a>
         </div>
-        <p class="text-center fs-5 mb-0">Data Guru yang sudah mengisi Mutabaah, Bulan
-            <strong>{{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</strong>
+        <p class="text-center fs-5 mb-0">Data Guru yang sudah mengisi,
+            <strong>{{ $name_mutabaah }}</strong>
         </p>
         <hr>
         <div class="table-responsive">
@@ -19,8 +19,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Guru</th>
-                        <th>Total Point</th>
                         <th>Tanggal Pengisian</th>
+                        <th>Total Point</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -29,8 +29,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $answer->teacher->full_name }}</td>
-                            <td>{{ $answer->t_point }}</td>
                             <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
+                            <td>{{ $answer->t_point }}</td>
                             <td>
                                 <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
                                     class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i> info

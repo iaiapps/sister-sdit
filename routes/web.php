@@ -80,6 +80,8 @@ Route::middleware('auth')->group(function () {
             Route::put('reset-pass', [UserController::class, 'resetpass'])->name('reset.pass');
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
+            Route::get('tendik', [TeacherController::class, 'tendik'])->name('tendik.index');
+
             // Route::resource('student', StudentController::class);
 
             // setting

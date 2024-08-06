@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $replacement->teacher->full_name }}</td>
-                            <td>{{ $replacement->menggantikann->full_name }}</td>
+                            <td>{{ $replacement->menggantikan }}</td>
                             <td>{{ $replacement->tanggal }}</td>
                             <td>{{ $replacement->jp }}</td>
                             <td>{{ $replacement->mapel }}</td>
