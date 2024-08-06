@@ -20,11 +20,13 @@ class AnswerControllerM extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $name = Teacher::where('user_id', $user)->first()->full_name;
-        // dd($name);
+        $teacher = Teacher::where('user_id', $user)->first();
         $now = Carbon::now()->format('Y-m-d');
         $mutabaahs = Mutabaah::all();
-        return view('mutabaah.mobile.index', compact('mutabaahs', 'now', 'name'));
+        // $exist = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher->id)->exists();
+        // $answer = Answer::where('teacher_id', $teacher->id);
+        // dd($answer);
+        return view('mutabaah.mobile.index', compact('mutabaahs', 'now', 'teacher'));
     }
 
     /**
@@ -46,7 +48,6 @@ class AnswerControllerM extends Controller
      */
     public function store(Request $request)
     {
-
         $teacher_id = $request->teacher_id;
         $mutabaah_id = $request->mutabaah_id;
         $question_id = $request->question_id;
@@ -63,7 +64,8 @@ class AnswerControllerM extends Controller
             ];
             Answer::create($data);
         }
-        return redirect()->route('mutabaah-mobile.index');
+        // dd($request->all());
+        return redirect()->route('mutabaah-mobile.index')->with('msg', 'Berhasil menambahkan data!');
     }
 
     /**

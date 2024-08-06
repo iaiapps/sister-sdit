@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <fieldset>
                         <div>
-                            <input type="text" value="{{ $tid }}" name="teacher_id" hidden>
+                            <input type="text" value="{{ $teacher->id }}" name="teacher_id" hidden>
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Tanggal BPI</label>

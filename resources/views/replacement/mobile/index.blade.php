@@ -5,8 +5,8 @@
 @section('content')
     <div class="card p-3">
         <div class="d-inline-block">
-            <p class="m-0 fs-5 float-start">Guru pengganti : {{ $tid->full_name }}</p>
-            <p class="m-0 fs-5 float-sm-end float-start">Data menggantikan, tahun :
+            <p class="m-0 float-start">Guru pengganti : {{ $tid->full_name }}</p>
+            <p class="m-0 float-sm-end float-start">Data menggantikan, tahun :
                 {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
 
         </div>

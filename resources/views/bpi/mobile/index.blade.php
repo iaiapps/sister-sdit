@@ -3,9 +3,15 @@
 
 @section('title', 'Presensi mengajar BPI')
 @section('content')
+    @if (session('msg'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <p class="m-0">{{ session('msg') }} </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="card p-3">
         <div class="d-inline-block">
-            <p class="m-0 fs-5">Presensi BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
+            <p class="m-0">Presensi BPI Bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
         </div>
         <hr>
         <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -15,7 +21,7 @@
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col">No</th>
                         <th scope="col">Presensi mengajar BPI</th>
                     </tr>
                 </thead>
@@ -34,7 +40,7 @@
 @endsection
 @include('bpi.mobile.create')
 
-@include('layouts.partials.allscripts')
+{{-- @include('layouts.partials.allscripts') --}}
 @push('scripts')
     <script>
         $(document).ready(function() {

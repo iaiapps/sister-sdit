@@ -1,5 +1,5 @@
 @extends('layouts.appmobile')
-@section('title', 'Buat Data Guru Pengganti')
+@section('title', 'Buat Data Pengganti')
 @section('content')
     <div class="card p-3">
         <form action="{{ route('pengganti-mobile.store') }}" method="POST">
@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="tanggal" class="form-label">Tanggal menggantikan</label>
+                    <label for="tanggal" class="form-label">Pada tanggal</label>
                     <input type="date" class="form-control" id="tanggal" name="tanggal">
                 </div>
                 <div class="mb-3">
@@ -36,10 +36,10 @@
                 <div class="mb-3">
                     <label for="alasan" class="form-label">Alasan guru tidak hadir </label>
                     <input type="input" class="form-control" id="alasan" name="alasan"
-                        placeholder="Alasan guru yang digantikan tidak masuk">
+                        placeholder="Alasan guru yang digantikan tidak hadir">
                 </div>
                 <div class="mb-3">
-                    <label for="bahan" class="form-label">Guru meninggalkan tugas?</label>
+                    <label for="bahan" class="form-label">Tugas dari guru yang digantikan</label>
                     <input type="input" class="form-control" id="bahan" name="bahan"
                         placeholder="Bentuk tugas dari guru yang digantikan">
                 </div>

@@ -20,11 +20,10 @@ class BpiControllerM extends Controller
         // $year = Carbon::parse($now)->year;
         $month = Carbon::parse($now)->month;
         $uid = Auth::user()->id;
-        $tid = Teacher::where('user_id', $uid)->first()->id;
+        $teacher = Teacher::where('user_id', $uid)->first();
         $bpis = Bpi::whereMonth('date', $month)
-            ->where('teacher_id', $tid)->get();
-
-        return view('bpi.mobile.index', compact('now', 'bpis', 'tid'));
+            ->where('teacher_id', $teacher->id)->get();
+        return view('bpi.mobile.index', compact('now', 'bpis', 'teacher'));
     }
 
     /**
@@ -32,7 +31,7 @@ class BpiControllerM extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -42,7 +41,7 @@ class BpiControllerM extends Controller
     {
         $data = $request->all();
         Bpi::create($data);
-        return redirect()->route('bpi-mobile.index');
+        return redirect()->route('bpi-mobile.index')->with('msg', 'Berhasil menambahkan data !');
     }
 
     /**
@@ -50,7 +49,7 @@ class BpiControllerM extends Controller
      */
     public function show($id, Request $request)
     {
-        // 
+        //
     }
 
     /**
@@ -74,6 +73,6 @@ class BpiControllerM extends Controller
      */
     public function destroy(Bpi $bpi)
     {
-        // 
+        //
     }
 }

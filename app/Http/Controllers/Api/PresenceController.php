@@ -252,7 +252,7 @@ class PresenceController extends Controller
         }
     }
 
-    // untuk get qr
+    // untuk get qr code
     public function getQrCode()
     {
         $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
