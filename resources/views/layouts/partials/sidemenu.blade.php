@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.tendik.index') }}"
-                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'tendik.index' ? 'activee' : '' }}">
+                        class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'admin.tendik.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
                         <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
                     </a>
