@@ -4,7 +4,8 @@
 @section('title', 'List Mutabaah')
 @section('content')
     <div class="card p-3">
-        {{-- <div class="table-responsive"> --}}
+        <p class="text-center m-0">Nama Guru : {{ $name }}</p>
+        <hr class="pb-1">
         <table id="table" class="table align-middle" style="width: 100%">
             <thead>
                 <tr>
@@ -19,24 +20,26 @@
                 @foreach ($mutabaahs as $mutabaah)
                     <tr class="bg-light">
                         <td class="d-none">{{ $loop->iteration }}</td>
-                        <td class="pb-0"><small
-                                class="text-bg-light text-decoration-underline fw-normal">{{ $carbon::parse($mutabaah->start)->isoFormat('DD/MM/YY') }}
+                        <td class="pb-0">
+                            <small class="text-bg-light fw-normal text-decoration-underline">
+                                {{ $carbon::parse($mutabaah->start)->isoFormat('DD/MM/YY') }}
                                 - {{ $carbon::parse($mutabaah->end)->isoFormat('DD/MM/YY') }}</small>
                         </td>
-                        <td class="fs-5 py-0">{{ $loop->iteration }}. {{ $mutabaah->name }}</td>
+                        <td class="pt-2 pb-1">{{ $loop->iteration }}. {{ $mutabaah->name }}</td>
                         <td class="p-0">
                             <hr class="m-0 mx-2 pb-2">
                         </td>
                         @if ($now >= $mutabaah->start && $now <= $mutabaah->end)
-                            <td class="pt-2"><a
-                                    href="{{ route('mutabaah-mobile.create', ['mutabaah' => $mutabaah->id]) }}"
-                                    class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> Isi Mutabaah </a>
+                            <td class="pt-2">
+                                <a href="{{ route('mutabaah-mobile.create', ['mutabaah' => $mutabaah->id]) }}"
+                                    class="btn btn-success btn-sm">
+                                    <i class="bi bi-plus-circle"></i> Isi Mutabaah </a>
                             </td>
                         @else
-                            <td class="pt-2"><a href="#" class="btn btn-danger btn-sm"><i
-                                        class="bi bi-x-circle"></i> Melewati
-                                    Batas
-                                </a></td>
+                            <td class="pt-2">
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-circle"></i> Melewati Batas </a>
+                            </td>
                         @endif
                     </tr>
                 @endforeach
@@ -90,7 +93,8 @@
         $(document).ready(function() {
             $('#table').DataTable({
                 paging: true,
-                pageLength: 50
+                pageLength: 50,
+                // dom: 'lrtip'
             });
         });
     </script>

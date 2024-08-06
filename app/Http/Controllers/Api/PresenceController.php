@@ -123,7 +123,8 @@ class PresenceController extends Controller
     {
         // get data presensi
         $presence = Presence::where('teacher_id', $teacher_id)->whereDate('created_at', '=', Carbon::today())->first();
-        if ($presence != null) {
+
+        if ($presence != null) { // cek jika ada data
             if ($note == 'Pulang awal') {
                 $presence->time_out = $now;
                 if ($presence->note == 'Telat') {
@@ -140,7 +141,7 @@ class PresenceController extends Controller
             }
         }
 
-        if ($presence == null) {
+        if ($presence == null) { // cek jika tidak ada data
             if ($note == 'Tugas kedinasan') {
                 $presence = Presence::create([
                     'teacher_id' => $teacher_id,

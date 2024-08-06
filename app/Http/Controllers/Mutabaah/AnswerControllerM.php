@@ -19,9 +19,12 @@ class AnswerControllerM extends Controller
      */
     public function index()
     {
+        $user = Auth::user()->id;
+        $name = Teacher::where('user_id', $user)->first()->full_name;
+        // dd($name);
         $now = Carbon::now()->format('Y-m-d');
         $mutabaahs = Mutabaah::all();
-        return view('mutabaah.mobile.index', compact('mutabaahs', 'now'));
+        return view('mutabaah.mobile.index', compact('mutabaahs', 'now', 'name'));
     }
 
     /**
