@@ -33,7 +33,7 @@ class AnswerController extends Controller
         $id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $id)->first();
 
-        $exist = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id',$teacher->id)->exists();
+        $exist = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher->id)->exists();
         // dd($teacher->id);
         $categories = Category::all();
         return view('mutabaah.teacher.create', compact('teacher', 'categories', 'exist'));
@@ -61,7 +61,7 @@ class AnswerController extends Controller
             ];
             Answer::create($data);
         }
-        return redirect()->route('guru.mutabaah.index');
+        return redirect()->route('guru.answer.index');
     }
 
     /**

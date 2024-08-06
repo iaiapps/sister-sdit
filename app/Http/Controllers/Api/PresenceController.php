@@ -246,21 +246,30 @@ class PresenceController extends Controller
             Presence::where('teacher_id', $request->teacher_id)
                 ->whereDate('created_at', '=', Carbon::today()->toDateString())
                 ->update(['time_out' => Carbon::now()->isoFormat('HH:mm:ss')]);
-            return response()->json(['pesan' => 'Berhasil presensi pulangg', 'data' => Carbon::now()->isoFormat('HH:mm:ss')], 200);
+            return response()->json(['pesan' => 'Berhasil presensi pulang', 'data' => Carbon::now()->isoFormat('HH:mm:ss')], 200);
         } else {
             return response()->json(['pesan' => 'Belum saatnya presensi pulang'], 200);
         }
     }
 
-    // belum digunakann
+    // untuk get qr
     public function getQrCode()
     {
-        $qr = DB::table('presence_settings')->where('name', 'qrcode')->get();
-        return response()->json([
-            'pesan' => 'Berhasil mendapatkan data qr-code',
-            'data' => $qr
-        ], 200);
+        $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
+        return $qr->value;
     }
+
+    // Qr ini tidak digunakan
+    // public function getQrCode()
+    // {
+    //     $qr = DB::table('presence_settings')->where('name', 'qrcode')->get();
+    //     return response()->json([
+    //         'pesan' => 'Berhasil mendapatkan data qr-code',
+    //         'data' => $qr
+    //     ], 200);
+    // }
+
+    // belum digunakann
     public function getTimeSettings()
     {
         $qr = DB::table('presence_settings')->where('name', '!=', 'qrcode')->get();
