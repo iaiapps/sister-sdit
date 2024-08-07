@@ -34,10 +34,11 @@
                                     <div class="mt-0">
                                         <ul class="list-group">
                                             @foreach ($question->option as $option)
-                                                <li class="list-group-item py-1"> <input class="form-check-input"
-                                                        type="radio" name="option[{{ $question->id }}]"
-                                                        id="option{{ $option->id }}"
-                                                        value="{{ $option->option_name }}, {{ $option->option_point }}">
+                                                <li class="list-group-item py-1">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="option[{{ $question->id }}]" id="option{{ $option->id }}"
+                                                        value="{{ $option->option_name }}, {{ $option->option_point }}"
+                                                        required>
                                                     <label class="form-check-label ms-3"
                                                         for="option{{ $option->id }}">{{ $option->option_name }}</label>
                                                 </li>

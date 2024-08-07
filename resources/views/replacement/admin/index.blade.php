@@ -4,10 +4,10 @@
 @section('title', 'Data Guru Pengganti')
 @section('content')
     <div class="card p-3">
-        {{-- <div class="d-inline-block">
-            <p class="m-0 fs-5">Data BPI bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
+        <div class="d-inline-block">
+            <p class="m-0 fs-5">Data bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
         </div>
-        <hr> --}}
+        <hr>
         <div class="d-inline-block">
             <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i class="bi bi-plus-circle"></i>
                 Data Pengganti</a>
@@ -17,13 +17,13 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Guru Pengganti</th>
-                        <th scope="col">Guru Yang Digantikan</th>
+                        <th scope="col">Pengganti</th>
+                        <th scope="col">Menggantikan</th>
                         <th scope="col">Tanggal</th>
-                        <th scope="col">Jumlah JP</th>
-                        <th scope="col">Mapel Yang Digantikan</th>
+                        <th scope="col">Jam</th>
+                        <th scope="col">Mapel</th>
                         <th scope="col">Alasan</th>
-                        <th scope="col">Guru Mapel Meninggalkan</th>
+                        <th scope="col">Tugas</th>
                         <th scope="col">Action</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>

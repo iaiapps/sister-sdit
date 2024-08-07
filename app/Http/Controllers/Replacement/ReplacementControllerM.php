@@ -22,7 +22,7 @@ class ReplacementControllerM extends Controller
         $teachers = Teacher::all();
         $uid = Auth::user()->id;
         $tid = Teacher::where('user_id', $uid)->first();
-        $replacements = Replacement::where('teacher_id', $tid->id)->whereMOnth('tanggal', $month)->get();
+        $replacements = Replacement::where('teacher_id', $tid->id)->whereMonth('tanggal', $month)->get();
         return view('replacement.mobile.index', compact('replacements', 'teachers', 'tid', 'now'));
     }
 

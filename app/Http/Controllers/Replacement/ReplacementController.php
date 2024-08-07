@@ -16,8 +16,10 @@ class ReplacementController extends Controller
      */
     public function index()
     {
-        $replacements = Replacement::all();
-        return view('replacement.admin.index', compact('replacements'));
+        $now = Carbon::now();
+        $month = Carbon::parse($now)->month;
+        $replacements = Replacement::whereMonth('tanggal', $month)->get();
+        return view('replacement.admin.index', compact('replacements', 'now'));
     }
 
     /**
