@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class AnswerControllerM extends Controller
 {
@@ -52,6 +53,23 @@ class AnswerControllerM extends Controller
         $mutabaah_id = $request->mutabaah_id;
         $question_id = $request->question_id;
         $option = $request->option;
+
+        // ini untuk looping validasi input radio
+        foreach ($question_id as $q) {
+            // buatkan variabel untuk dimasukkan ke dalam array dari "name" di input radio
+            $validate_array['option.' . $q] = 'required';
+        };
+
+        // pesan error custom
+        $messages = [
+            'required' => 'Ada jawaban yang masih kosong.',
+        ];
+
+        // setelah di looping masukkan ke method validate()
+        $valid = $request->validate($validate_array, $messages);
+        // dd($valid);
+
+        // looping satu persatu untuk dimasukkan ke database
         foreach ($question_id as $q) {
             $fields = explode(',', $option[$q]);
             $data = [
@@ -64,7 +82,6 @@ class AnswerControllerM extends Controller
             ];
             Answer::create($data);
         }
-        // dd($request->all());
         return redirect()->route('mutabaah-mobile.index')->with('msg', 'Berhasil menambahkan data!');
     }
 

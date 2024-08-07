@@ -22,27 +22,40 @@
                             <p class="text-center m-0 fs-5 bg-success text-white rounded p-1 fs-5">Kategori:
                                 {{ $category->nama_kategori }}</p>
                             <hr>
+                            @if ($errors->any())
+                                <div class="alert alert-danger py-1 px-3">
+                                    {{-- @foreach ($errors->all() as $error) --}}
+                                    <span>Ada pertnyaan yang belum di jawab!</span>
+                                    {{-- @endforeach --}}
+                                </div>
+                            @endif
                             @foreach ($category->question as $question)
                                 <div class="mb-3">
                                     <div class="alert alert-secondary py-1 px-2 mb-2" role="alert">
-                                        <p class=" mb-0 "> {{ $loop->iteration }}. {{ $question->question }}</p>
+                                        <input
+                                            class="form-control bg-transparent border-0 p-0 mb-0 @error('option.' . $question->id)is-invalid @enderror"
+                                            value=" {{ $loop->iteration }}. {{ $question->question }}" readonly disabled>
                                     </div>
-                                    <div class="d-none">
-                                        <input type="text" name="question_id[{{ $question->id }}]"
-                                            value="{{ $question->id }}" readonly hidden>
-                                    </div>
+                                    {{-- @error('option.' . $question->id)
+                                        <small class="text-center text-danger d-block mt-0 mb-3">jawaban belum dipilih</small>
+                                    @enderror --}}
+
+                                    <input type="text" name="question_id[{{ $question->id }}]"
+                                        value="{{ $question->id }}" readonly hidden>
+
                                     <div class="mt-0">
                                         <ul class="list-group">
                                             @foreach ($question->option as $option)
                                                 <li class="list-group-item py-1">
                                                     <input class="form-check-input" type="radio"
                                                         name="option[{{ $question->id }}]" id="option{{ $option->id }}"
-                                                        value="{{ $option->option_name }}, {{ $option->option_point }}"
-                                                        required>
+                                                        value="{{ $option->option_name }},{{ $option->option_point }}"
+                                                        {{ old('option.' . $question->id) == $option->option_name . ',' . $option->option_point ? 'checked' : '' }}>
                                                     <label class="form-check-label ms-3"
                                                         for="option{{ $option->id }}">{{ $option->option_name }}</label>
                                                 </li>
                                             @endforeach
+
                                         </ul>
                                     </div>
                                 </div>
