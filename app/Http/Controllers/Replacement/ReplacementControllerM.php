@@ -17,12 +17,12 @@ class ReplacementControllerM extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $year = Carbon::parse($now)->year;
-        // dd($year);
+        $month = Carbon::parse($now)->month;
+        // $year = Carbon::parse($now)->year;
         $teachers = Teacher::all();
         $uid = Auth::user()->id;
         $tid = Teacher::where('user_id', $uid)->first();
-        $replacements = Replacement::where('teacher_id', $tid->id)->whereYear('tanggal', $year)->get();
+        $replacements = Replacement::where('teacher_id', $tid->id)->whereMOnth('tanggal', $month)->get();
         return view('replacement.mobile.index', compact('replacements', 'teachers', 'tid', 'now'));
     }
 
@@ -44,7 +44,7 @@ class ReplacementControllerM extends Controller
     {
         $data = $request->all();
         Replacement::create($data);
-        return redirect()->route('pengganti-mobile.index');
+        return redirect()->route('pengganti-mobile.index')->with('msg', 'Berhasil menambahkan data !');
     }
 
     /**

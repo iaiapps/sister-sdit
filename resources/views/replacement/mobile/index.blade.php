@@ -3,15 +3,21 @@
 
 @section('title', 'Data Penggantian Guru')
 @section('content')
+    @if (session('msg'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <p class="m-0">{{ session('msg') }} </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="card p-3">
         <div class="d-inline-block">
             <p class="m-0 float-start">Guru pengganti : {{ $tid->full_name }}</p>
-            <p class="m-0 float-sm-end float-start">Data menggantikan, tahun :
-                {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
-
+            <p class="m-0 float-sm-end float-start">Data bulan :
+                {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
         </div>
         <hr>
-        <a class="btn btn-success btn-sm" href="{{ route('pengganti-mobile.create') }}">Tambah data menggantikan guru lain</a>
+        <a class="btn btn-success btn-sm" href="{{ route('pengganti-mobile.create') }}">Tambah data menggantikan guru
+            lain</a>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
@@ -19,10 +25,10 @@
                         <th scope="col">No</th>
                         <th scope="col">Menggantikan</th>
                         <th scope="col">Tanggal</th>
-                        <th scope="col">Jumlah JP</th>
-                        <th scope="col">Mapel Yang Digantikan</th>
+                        <th scope="col">Jam</th>
+                        <th scope="col">Mapel</th>
                         <th scope="col">Alasan</th>
-                        <th scope="col">Guru Mapel Meninggalkan</th>
+                        <th scope="col">Tugas</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
@@ -56,7 +62,7 @@
     </div>
 @endsection
 
-@include('layouts.partials.allscripts')
+{{-- @include('layouts.partials.allscripts')
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -68,4 +74,4 @@
             });
         });
     </script>
-@endpush
+@endpush --}}
