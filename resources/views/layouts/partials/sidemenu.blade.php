@@ -297,5 +297,5 @@
     <hr class="m-0">
     <small class=" d-block p-1 my-1 text-center position-absolute bottom-0 start-50 translate-middle-x">App
         version
-        1.1.0</small>
+        1.3.0</small>
 </aside>

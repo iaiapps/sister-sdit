@@ -34,7 +34,7 @@ class PresenceExport implements FromView
 
         $presences = $data->groupTeacherFilterMonth($tanggal);
         // dd($presences);
-        return view('presence.export', [
+        return view('presence.admin.export', [
             'presences' => $presences,
             'date' => Carbon::parse($tanggal)->isoFormat('MMMM Y')
 

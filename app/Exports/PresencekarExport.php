@@ -7,7 +7,7 @@ use App\Models\Presence;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use App\Http\Controllers\Presencekar\PresencekaryawanController;
+use App\Http\Controllers\Presence\PresencekaryawanController;
 
 class PresencekarExport implements FromView
 {

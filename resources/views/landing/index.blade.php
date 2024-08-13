@@ -39,10 +39,14 @@
                         <div class="card shadow border-0 p-3 align-items-center text-center">
                             <img src="{{ asset('img/logofull.svg') }}" class="img-menu p-2 mb-2 bg-white rounded"
                                 alt="dbapps" />
-                            <h4>Untuk Guru</h4>
+                            <h4>Untuk Guru </h4>
                             <p>Aplikasi presensi SDIT Harum Jember </p>
-                            <a href="{{ asset('apk/sisterPresence.apk') }}" class="btn btn-success rounded mb-2 w-100">
+                            <a href="{{ asset('apk/sisterPresence.apk') }}"
+                                class="position-relative btn btn-success rounded mb-2 w-100">
                                 APK Guru
+                                <span class="badge rounded bg-danger">
+                                    new ver. 1.3.0
+                                </span>
                             </a>
 
                         </div>
