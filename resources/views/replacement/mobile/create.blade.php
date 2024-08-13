@@ -62,6 +62,7 @@
                         <option>SKI </option>
                         <option>Tematik </option>
                         <option>Proyek P5 </option>
+                        <option>Bina Kelas </option>
                         <option>Jaga PTS </option>
                         <option>Jaga PAS/PAT </option>
                     </select>

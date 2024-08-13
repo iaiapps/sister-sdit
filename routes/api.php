@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::resource('salary', SalaryController::class);
     // Route::get('jam', [PresenceController::class, 'jam']);
     // Route::get('qrcode', [PresenceController::class, 'getQrCode']);
+    Route::get('settinglist', [PresenceController::class, 'getSettings']);
 
     //presence karyawan
     Route::resource('presencekaryawan', PresencekaryawanController::class);

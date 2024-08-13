@@ -18,12 +18,12 @@ class PresenceSettingSeeder extends Seeder
         PresenceSetting::create([
             'name' => 'ontime_until',
             'value' => '07:16',
-            'desc' => 'Jam masuk'
+            'desc' => 'Jam masuk sekolah'
         ]);
         PresenceSetting::create([
             'name' => 'early_time_come',
-            'value' => '06:30',
-            'desc' => 'Awal jam presensi'
+            'value' => '06:00',
+            'desc' => 'Awal jam presensi '
         ]);
         PresenceSetting::create([
             'name' => 'end_time_come',
@@ -32,13 +32,13 @@ class PresenceSettingSeeder extends Seeder
         ]);
         PresenceSetting::create([
             'name' => 'early_time_leave',
-            'value' => '14:00',
-            'desc' => 'Awal jam pulang'
+            'value' => '15:15',
+            'desc' => 'Awal jam presensi pulang'
         ]);
         PresenceSetting::create([
             'name' => 'end_time_leave',
             'value' => '17:00',
-            'desc' => 'Akhir presensi jam pulang'
+            'desc' => 'Akhir jam presensi'
         ]);
         PresenceSetting::create([
             'name' => 'timeline',
@@ -64,16 +64,16 @@ class PresenceSettingSeeder extends Seeder
         // ]);
 
         //seeder fee dan potongan
-        PresenceSetting::create([
-            'name' => 'fee_kehadiran',
-            'value' => 25000,
-            'desc' => 'tepat waktu',
-        ]);
-        PresenceSetting::create([
-            'name' => 'potongan_late',
-            'value' => 6000,
-            'desc' => 'potongan keterlambatan',
-        ]);
+        // PresenceSetting::create([
+        //     'name' => 'fee_kehadiran',
+        //     'value' => 25000,
+        //     'desc' => 'tepat waktu',
+        // ]);
+        // PresenceSetting::create([
+        //     'name' => 'potongan_late',
+        //     'value' => 6000,
+        //     'desc' => 'potongan keterlambatan',
+        // ]);
         // PresenceSetting::create([
         //     'name' => 'potongan_late_b',
         //     'value' => 3000,

@@ -62,7 +62,7 @@ class PresenceController extends Controller
                 if ($this->_scannable() == true) {
                     return $this->_note($now, $teacher_id, $note, $description);
                 } else {
-                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 400);
+                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
                 }
             } else {
                 return $this->_note($now, $teacher_id, $note, $description);
@@ -76,7 +76,7 @@ class PresenceController extends Controller
                         return $this->absenPulang($request);
                     }
                 } else {
-                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 400);
+                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
                 }
             } else {
                 if ($this->validateAndCheck($request) == true) {
@@ -124,7 +124,9 @@ class PresenceController extends Controller
         // get data presensi
         $presence = Presence::where('teacher_id', $teacher_id)->whereDate('created_at', '=', Carbon::today())->first();
 
-        if ($presence != null) { // cek jika ada data
+        if ($presence == null) { // cek jika tidak ada data
+            return response()->json(['pesan' => 'Tidak diizinkan'], 200);
+        } else {
             if ($note == 'Pulang awal') {
                 $presence->time_out = $now;
                 if ($presence->note == 'Telat') {
@@ -132,12 +134,14 @@ class PresenceController extends Controller
                 } elseif ($presence->note == 'Tepat waktu') {
                     $presence->note = 'Tepat waktu, Pulang awal';
                 } else {
-                    return response()->json(['pesan' => 'Tidak bisa mengubah data'], 400);
+                    return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
                 }
                 $presence->description = $description;
                 $presence->save();
 
                 return response()->json(['pesan' => 'Berhasil presensi pulang awal'], 200);
+            } else {
+                return response()->json(['pesan' => 'Tidak diizinkan'], 200);
             }
         }
 
@@ -232,9 +236,9 @@ class PresenceController extends Controller
         // cek jika ada note sakit, ijin, dan tugas kedinasan
         $presence = Presence::where('teacher_id', $request->teacher_id)->orderBy('id', 'desc')->first();
         if ($presence->time_in == '-' && $presence->time_out = '-') {
-            return response()->json(['pesan' => 'tidak bisa mengubah data'], 400);
+            return response()->json(['pesan' => 'tidak bisa mengubah data'], 200);
         } elseif ($presence->note == 'Tugas kedinasan') {
-            return response()->json(['pesan' => 'Tidak bisa mengubah data'], 400);
+            return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
         }
 
         $now = Carbon::now();
@@ -269,15 +273,18 @@ class PresenceController extends Controller
     //     ], 200);
     // }
 
-    // belum digunakann
-    public function getTimeSettings()
+    public function getSettings()
     {
-        $qr = DB::table('presence_settings')->where('name', '!=', 'qrcode')->get();
+        $list = DB::table('presence_settings')->where(function ($query) {
+            $query->where('name', '!=', 'qrcode')->where('name', '!=', 'end_time_come')->where('name', '!=', 'timeline');
+        })->get();
         return response()->json([
             'pesan' => 'Berhasil mendapatkan data Settings',
-            'data' => $qr
+            'data' => $list
         ], 200);
     }
+
+    // belum digunakann
     public function jam()
     {
         $jam = Carbon::now()->isoFormat('HH:mm:ss');
