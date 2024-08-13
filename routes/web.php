@@ -170,6 +170,13 @@ Route::middleware('auth')->group(function () {
             Route::get('replacement', [ReplacementController::class, 'list'])->name('replacement.list');
             Route::get('replacement-create', [ReplacementController::class, 'replacementCreate'])->name('replacement.create');
             Route::post('replacement-store', [ReplacementController::class, 'replacementStore'])->name('replacement.store');
+
+            //fungsi logout
+            Route::get('basiclogout', function () {
+                auth()->logout();
+                Session()->flush();
+                return redirect()->to('/');
+            })->name('basiclogout');
         });
     });
 

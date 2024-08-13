@@ -32,6 +32,7 @@
         </div>
     @endif
 
+    {{-- <a href="{{route('guru.basiclogout')}} ">coba logout</a> --}}
     <div class="card rounded p-3 mb-3">
         <p class="fs-4 text-center m-0">
             Selamat Datang di Pusat Data dan Informasi SDIT Harapan Umat Jember
