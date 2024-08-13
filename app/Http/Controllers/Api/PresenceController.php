@@ -124,6 +124,9 @@ class PresenceController extends Controller
         // get data presensi
         $presence = Presence::where('teacher_id', $teacher_id)->whereDate('created_at', '=', Carbon::today())->first();
 
+        // $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
+        // $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
+
         if ($presence == null) { // cek jika tidak ada data
             return response()->json(['pesan' => 'Tidak diizinkan'], 200);
         } else {
