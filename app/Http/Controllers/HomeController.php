@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,10 +57,11 @@ class HomeController extends Controller
         $sumguru = User::role('guru')->count();
         $sumtendik = User::role('tendik')->count();
 
-
+        // get time
+        $now = Carbon::now()->isoFormat('HH:mm');
         switch ($role) {
             case 'admin':
-                return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools'));
+                return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools', 'now'));
                 break;
 
             case 'guru' || 'tendik':

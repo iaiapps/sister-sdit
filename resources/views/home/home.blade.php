@@ -4,6 +4,11 @@
 
 @section('content')
 
+    <div class="card rounded p-3 mb-3">
+        <p class="text-center m-0">
+            <span class="">Waktu Server {{ $now }}</span>
+        </p>
+    </div>
     <div class="card rounded p-3">
         <p class="fs-4 text-center m-0">
             Selamat Datang <span class="fw-bold text-uppercase">"{{ $name }}"</span> di di Pusat Data dan Informasi

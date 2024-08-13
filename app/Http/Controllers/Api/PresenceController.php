@@ -128,27 +128,6 @@ class PresenceController extends Controller
         // $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
 
         if ($presence == null) { // cek jika tidak ada data
-            return response()->json(['pesan' => 'Tidak diizinkan'], 200);
-        } else {
-            if ($note == 'Pulang awal') {
-                $presence->time_out = $now;
-                if ($presence->note == 'Telat') {
-                    $presence->note = 'Telat, Pulang awal';
-                } elseif ($presence->note == 'Tepat waktu') {
-                    $presence->note = 'Tepat waktu, Pulang awal';
-                } else {
-                    return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
-                }
-                $presence->description = $description;
-                $presence->save();
-
-                return response()->json(['pesan' => 'Berhasil presensi pulang awal'], 200);
-            } else {
-                return response()->json(['pesan' => 'Tidak diizinkan'], 200);
-            }
-        }
-
-        if ($presence == null) { // cek jika tidak ada data
             if ($note == 'Tugas kedinasan') {
                 $presence = Presence::create([
                     'teacher_id' => $teacher_id,
@@ -169,9 +148,22 @@ class PresenceController extends Controller
             }
             $pesan = 'Berhasil menambahkan catatan ' . $note;
             return response()->json(['pesan' => $pesan, 'data' => $presence], 200);
+        } elseif ($note == 'Pulang awal') {
+            $presence->time_out = $now;
+            if ($presence->note == 'Telat') {
+                $presence->note = 'Telat, Pulang awal';
+            } elseif ($presence->note == 'Tepat waktu') {
+                $presence->note = 'Tepat waktu, Pulang awal';
+            } else {
+                return response()->json(['pesan' => 'Tidak diijinkan mengubah data'], 200);
+            }
+            $presence->description = $description;
+            $presence->save();
+
+            return response()->json(['pesan' => 'Berhasil presensi pulang awal'], 200);
         } else {
             return response()->json([
-                'pesan' => 'Data sudah ada',
+                'pesan' => 'Data sudah ada, tidak diijinkan mengubah data',
             ], 200);
         }
     }
