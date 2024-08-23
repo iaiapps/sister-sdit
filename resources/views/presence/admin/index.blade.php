@@ -39,8 +39,8 @@
                         <th scope="col">Id</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Kehadiran</th>
-                        {{-- <th scope="col">Late_type</th> --}}
                         <th scope="col">Terlambat</th>
+                        <th scope="col">Tidak Presensi Pulang</th>
                         <th scope="col">Sakit</th>
                         <th scope="col">Ijin</th>
                         <th scope="col">Action</th>
@@ -49,7 +49,6 @@
                 <tbody>
                     @foreach ($presences as $presence)
                         <tr>
-                            {{-- <td>{{ $loop->iteration }}</td> --}}
                             <td>{{ $presence->teacher_id }}</td>
                             <td>{{ $presence->teacher->full_name }}</td>
                             <td>{{ $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin }}</td>
@@ -62,6 +61,7 @@
                                 {{-- {{ $presence->is_late_a + $presence->is_late_b + $presence->is_late_c }} --}}
                                 {{ $presence->is_late }}
                             </td>
+                            <td>{{ $presence->total_t_p_pulang }}</td>
                             <td>{{ $presence->total_sakit }}</td>
                             <td>{{ $presence->total_ijin }}</td>
                             <td>

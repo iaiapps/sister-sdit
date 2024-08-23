@@ -27,6 +27,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $carbon::parse($bpi->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                             <td>
+                                <a href="{{ route('bpi.edit', $bpi->id) }}" data-toggle="modal"
+                                    class="btn btn-sm btn-success "><i class="bi bi-pencil-square"></i></a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                     action="{{ route('bpi.destroy', $bpi->id) }}" method="post" class="d-inline">
                                     @csrf
@@ -43,7 +45,7 @@
         </div>
     </div>
 @endsection
-
+{{--
 @include('layouts.partials.allscripts')
 @push('scripts')
     <script>
@@ -54,4 +56,4 @@
             });
         });
     </script>
-@endpush
+@endpush --}}

@@ -15,7 +15,7 @@
     $avatar = Avatar::create(Str::upper($name))->toBase64();
     $date = \Carbon\Carbon::now()->format('d-m-Y');
 @endphp
-<aside id="sidebar" class="position-fixed mb-3 rounded bg-white d-none d-sm-block shadow m-3">
+<aside id="sidebar" class="position-fixed mb-3 rounded bg-white d-none d-sm-block shadow m-3 position-relative">
     <div id="avatar" class="text-center py-sm-2">
         <img src="{{ $avatar }}" class="my-2 border border-light border-5 rounded-circle" alt="avatar pic" />
         <p class="mb-0 d-none d-sm-block text-capitalize">
@@ -24,7 +24,7 @@
     </div>
     <hr class="m-0" />
 
-    <ul id="menu" class="nav flex-column px-2 mt-2 pb-2 navbar-nav-scroll bg-white">
+    <ul id="menu" class="nav flex-column px-2 mt-2 pb-2 navbar-nav-scroll bg-white pb-5">
 
         @switch($role)
             @case('admin')
@@ -294,8 +294,10 @@
                 </li>
         @endswitch
     </ul>
-    <hr class="m-0">
-    <small class=" d-block p-1 my-1 text-center position-absolute bottom-0 start-50 translate-middle-x">App
-        version
-        1.3.0</small>
+    <div class="w-100 bg-white py-1 position-absolute bottom-0 start-50 translate-middle-x rounded">
+        <hr class="my-1">
+        <small class="d-block text-center">App
+            version
+            1.3.0</small>
+    </div>
 </aside>

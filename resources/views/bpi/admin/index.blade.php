@@ -4,14 +4,33 @@
 @section('title', 'Data Presensi BPI')
 @section('content')
     <div class="card p-3">
-        <div class="d-inline-block">
-            <p class="m-0 fs-5">Data BPI bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
+        {{-- <div class="d-inline-block">
+            <p class="m-0 fs-5">Data BPI bulan : {{ $carbon::parse($date)->isoFormat('MMMM YYYY') }}</p>
         </div>
-        <hr>
+        <hr> --}}
         {{-- <div class="d-inline-block">
             <a href="{{ route('bpi.create') }}" class="btn btn-warning btn-sm mb-3"><i class="bi bi-plus-circle"></i>
                 Data BPI</a>
         </div> --}}
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 ">
+                <h6 class="d-inline border-bottom border-success pb-2 border-3"> Data BPI Bulan :
+                    {{ request('date') ? $carbon::parse($date)->isoFormat('MMMM Y') : $carbon::parse($date)->isoFormat('MMMM Y') }}
+                </h6>
+            </div>
+            <div class="col-12 col-md-6 mt-3 mt-md-0 ">
+                <form action="{{ route('bpi.index') }}" method="GET">
+                    {{-- @csrf --}}
+                    <div class="input-group">
+                        <button type="button" class="input-group-text btn btn-secondary" disabled>filter</button>
+                        <input type="month" id="start" name="date" class="form-control"
+                            value="{{ request('date') ? request('date') : $date }}">
+                        <button type="submit" class="input-group-text btn btn-success">Terapkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>

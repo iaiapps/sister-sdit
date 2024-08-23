@@ -38,13 +38,13 @@
                     </tr>
                 </thead>
 
-                <tr>
+                {{-- <tr>
                     <td>Type</td>
                     <td>Pengaturan Type Gaji </td>
                     <td>
                         <a href="{{ route('type.index') }}" class="btn btn-success btn-sm">lihat</a>
                     </td>
-                </tr>
+                </tr> --}}
                 {{-- <tr>
                         <td>Fungsional</td>
                         <td>Pengaturan Gaji Fungsional </td>

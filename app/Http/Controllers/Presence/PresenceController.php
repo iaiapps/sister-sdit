@@ -46,6 +46,7 @@ class PresenceController extends Controller
                 // DB::raw("SUM(is_late = 3) as is_late_c"),
                 DB::raw("SUM(note = 'Sakit') as total_sakit"),
                 DB::raw("SUM(note = 'Ijin') as total_ijin"),
+                DB::raw("SUM(time_out = '-') as total_t_p_pulang"),
             )
             ->groupBy('teacher_id')->get();
         return $presences;

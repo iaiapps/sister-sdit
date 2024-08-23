@@ -15,16 +15,19 @@ class BpiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $now = Carbon::now();
-        $year = Carbon::parse($now)->year;
-        $month = Carbon::parse($now)->month;
+        $date = Carbon::now()->isoFormat('Y-MM');
+        if ($request->date) {
+            $date = $request->date;
+        }
+        $year = Carbon::parse($date)->year;
+        $month = Carbon::parse($date)->month;
         $bpis = Bpi::whereYear('date', $year)
             ->whereMonth('date', $month)
             ->select('teacher_id', DB::raw("COUNT(*) as total"),)
             ->groupBy('teacher_id')->get();
-        return view('bpi.admin.index', compact('bpis', 'now'));
+        return view('bpi.admin.index', compact('bpis', 'date'));
     }
 
     /**
@@ -62,7 +65,7 @@ class BpiController extends Controller
      */
     public function edit(Bpi $bpi)
     {
-        //
+        return view('bpi.admin.edit', compact('bpi'));
     }
 
     /**
@@ -70,7 +73,11 @@ class BpiController extends Controller
      */
     public function update(Request $request, Bpi $bpi)
     {
-        //
+        $id = $request->teacher_id;
+        $data = $request->all();
+        // dd($data);
+        $bpi->update($data);
+        return redirect()->route('bpi.show', $id);
     }
 
     /**
