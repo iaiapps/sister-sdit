@@ -61,7 +61,8 @@
                                 {{-- {{ $presence->is_late_a + $presence->is_late_b + $presence->is_late_c }} --}}
                                 {{ $presence->is_late }}
                             </td>
-                            <td>{{ $presence->total_t_p_pulang }}</td>
+                            <td>{{ $presence->total_tidak_presensi_pulang - $presence->total_tugas_kedinasan - $presence->total_sakit - $presence->total_ijin }}
+                            </td>
                             <td>{{ $presence->total_sakit }}</td>
                             <td>{{ $presence->total_ijin }}</td>
                             <td>

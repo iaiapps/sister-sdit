@@ -3,7 +3,6 @@
 @section('title', 'Setting Aplikasi')
 @section('content')
     <div class="card p-3">
-
         <div class="row g-3">
             <div class="col-12 col-md-6 ">
                 <div class="card border">

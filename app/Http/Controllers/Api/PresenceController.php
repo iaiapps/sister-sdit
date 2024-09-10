@@ -26,6 +26,8 @@ class PresenceController extends Controller
     // get data by id
     public function show($id)
     {
+        // dd($userInstance->tokens);
+
         $monthyear = Carbon::now();
         $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->get();
 

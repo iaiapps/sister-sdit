@@ -15,7 +15,7 @@ class AuthController extends Controller
         // input dari user
         $credentials = $request->only('email', 'password');
 
-        // cek login dengan attempt 
+        // cek login dengan attempt
         if (Auth::attempt($credentials)) {
             // cek user dari email
             $user = User::where('email', $request['email'])->firstOrFail();
@@ -46,7 +46,9 @@ class AuthController extends Controller
     // method for user logout and delete token
     public function logout()
     {
+        // dd(auth()->user());
         auth()->user()->tokens()->delete();
+        auth()->user()->currentAccessToken()->delete();
         return [
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
