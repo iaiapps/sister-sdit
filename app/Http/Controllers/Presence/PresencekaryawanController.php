@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Presence;
 
 use App\Models\Teacher;
 use App\Models\Presence;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Exports\PresenceExport;
@@ -138,9 +139,9 @@ class PresencekaryawanController extends Controller
     // add presensi
     public function addpresence()
     {
-        $teachers = Teacher::all();
+        $users = User::role('tendik')->get();
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
-        return view('presencekar.create', compact('teachers', 'tgl'));
+        return view('presencekar.create', compact('users', 'tgl'));
     }
     public function storepresence(Request $request)
     {

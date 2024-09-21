@@ -21,8 +21,8 @@
                             <td>
                                 <select class="form-select" style="width: 100%" id="teacher" name="teacher_id">
                                     <option selected disabled>---</option>
-                                    @foreach ($teachers as $teacher)
-                                        <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->teacher->id }}">{{ $user->teacher->full_name }}</option>
                                     @endforeach
                                 </select>
                             </td>
