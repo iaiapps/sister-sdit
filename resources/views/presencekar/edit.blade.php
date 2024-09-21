@@ -6,8 +6,7 @@
 
     <div class="card">
         <div class="card-body mt-3">
-            <form method="POST"
-                action="{{ route('admin.presencekaryawan.update', [$presencekaryawan->id, 'date' => $date]) }}">
+            <form method="POST" action="{{ route('presencekaryawan.update', [$presencekaryawan->id, 'date' => $date]) }}">
                 @csrf
                 @method('put')
                 <table class="table table-bordered">
@@ -27,7 +26,7 @@
                                 <label for="jam_datang" class="form-label">{{ __('Jam Datang') }}</label>
                             </td>
                             <td>
-                                <input id="jam_datang" type="time"
+                                <input id="jam_datang" type="text"
                                     class="form-control @error('time_in') is-invalid @enderror" name="time_in"
                                     value="{{ $presencekaryawan->time_in }}" step="1">
                             </td>
@@ -37,7 +36,7 @@
                                 <label for="jam_pulang" class="form-label">{{ __('Jam Pulang') }}</label>
                             </td>
                             <td>
-                                <input id="jam_pulang" type="time"
+                                <input id="jam_pulang" type="text"
                                     class="form-control @error('time_out') is-invalid @enderror" name="time_out"
                                     value="{{ $presencekaryawan->time_out }}" step="1">
                             </td>

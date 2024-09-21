@@ -13,7 +13,8 @@
                     <tbody>
                         <tr>
                             <td>Tanggal</td>
-                            <td> <input id="name" type="date" class="form-control" name="date" required </td>
+                            <td> <input id="name" type="date" class="form-control" name="date"
+                                    value="{{ $tgl }}" required> </td>
                         </tr>
                         <tr>
                             <td>Nama Karyawan</td>
@@ -32,8 +33,7 @@
                         </tr>
                         <tr>
                             <td>Waktu Pulang</td>
-                            <td> <input id="name" type="time" class="form-control" name="time_out" required
-                                    step="1"> </td>
+                            <td> <input id="name" type="text" class="form-control" name="time_out" required> </td>
                         </tr>
                         {{-- <tr>
                             <td>Terlambat?</td>

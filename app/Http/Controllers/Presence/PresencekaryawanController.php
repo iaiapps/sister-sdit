@@ -86,7 +86,7 @@ class PresencekaryawanController extends Controller
     public function edit(Request $request, Presencekaryawan $presencekaryawan)
     {
         $date = $request->date;
-        $tgl = Carbon::parse($presencekaryawan->created_at)->isoFormat('YYYY-M-DD');
+        $tgl = Carbon::parse($presencekaryawan->created_at)->isoFormat('Y-MM-DD');
         // dd($tgl);
         return view('presencekar.edit', compact('presencekaryawan', 'date', 'tgl'));
     }
@@ -105,7 +105,7 @@ class PresencekaryawanController extends Controller
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
         ]);
-        return redirect()->route('admin.presencekaryawan.show', [$presencekaryawan->teacher_id, 'date' => $date]);
+        return redirect()->route('presencekaryawan.show', [$presencekaryawan->teacher_id, 'date' => $date]);
     }
 
     public function teacherShow(Request $request)
@@ -139,20 +139,21 @@ class PresencekaryawanController extends Controller
     public function addpresence()
     {
         $teachers = Teacher::all();
-        return view('presencekar.create', compact('teachers'));
+        $tgl = Carbon::now()->isoFormat('Y-MM-DD');
+        return view('presencekar.create', compact('teachers', 'tgl'));
     }
     public function storepresence(Request $request)
     {
         $id = $request->teacher_id;
         $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
-        $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
+        // $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
         $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . " " . $time_in;
         // dd($date);
 
         Presencekaryawan::create([
             'teacher_id' => $id,
             'time_in' => $time_in,
-            'time_out' => $time_out,
+            'time_out' => $request->time_out,
             // 'is_late' => $request->is_late,
             // 'note' => $request->note,
             // 'description' => $request->description,

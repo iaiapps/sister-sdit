@@ -58,7 +58,7 @@
                             <th>Pulang</th>
                             {{-- <th>Catatan</th>
                             <th>Keterangan</th> --}}
-                            @if (Auth::user()->role_id == 1)
+                            @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                 <th id="edit">Edit</th>
                             @endif
                         </tr>
@@ -76,7 +76,7 @@
                                 <td>{{ $presence->description }}</td> --}}
                                 {{-- @dd(request(date)) --}}
 
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                     <td id="edit">
                                         <a href="{{ route('presencekaryawan.edit', [$presence->id, 'date' => request('date')]) }}"
                                             data-toggle="modal" data-id="{!! $presence->id !!}"

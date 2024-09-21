@@ -29,7 +29,7 @@
         </div>
 
         <hr>
-        <div class="d-inline-block">
+        <div class="d-inline-block mb-3">
             <a href="{{ route('add.presencekar') }}" class="btn btn-warning">tambah data presensi</a>
         </div>
         <div class="table-responsive">

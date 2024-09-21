@@ -19,6 +19,7 @@
                                 <input id="tanggal" type="date"
                                     class="form-control @error('time_in') is-invalid @enderror" name="date"
                                     value="{{ $tgl }}">
+
                             </td>
                         </tr>
                         <tr>
@@ -36,9 +37,9 @@
                                 <label for="jam_pulang" class="form-label">{{ __('Jam Pulang') }}</label>
                             </td>
                             <td>
-                                <input id="jam_pulang" type="time"
+                                <input id="jam_pulang" type="text"
                                     class="form-control @error('time_out') is-invalid @enderror" name="time_out"
-                                    value="{{ $presence->time_out }}" step="1">
+                                    value="{{ $presence->time_out }}">
                             </td>
                         </tr>
                         <tr>

@@ -13,7 +13,8 @@
                     <tbody>
                         <tr>
                             <td>Tanggal</td>
-                            <td> <input id="name" type="date" class="form-control" name="date" required> </td>
+                            <td> <input id="name" type="date" class="form-control" name="date"
+                                    value="{{ $tgl }}" required> </td>
                         </tr>
                         <tr>
                             <td>Nama Guru</td>
@@ -33,13 +34,12 @@
                         </tr>
                         <tr>
                             <td>Waktu Pulang</td>
-                            <td> <input id="name" type="time" class="form-control" name="time_out" required
-                                    step="1"> </td>
+                            <td> <input id="name" type="text" class="form-control" name="time_out" required> </td>
                         </tr>
                         <tr>
                             <td>Terlambat?</td>
                             <td><select class="form-select" id="is_late" name="is_late">
-                                    <option selected disabled>---</option>
+                                    <option selected disabled>--- pilih ---</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                 </select>
@@ -48,17 +48,26 @@
                         <tr>
                             <td>Catatan</td>
                             <td><select class="form-select" id="note" name="note">
-                                    <option selected disabled>---</option>
+                                    <option selected disabled>--- pilih ---</option>
                                     <option value="Tepat waktu">Tepat waktu</option>
                                     <option value="Telat">Telat</option>
+                                    <option value="Ijin">Ijin</option>
+                                    <option value="Sakit">Sakit</option>
                                     <option value="Tugas kedinasan">Tugas kedinasan</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>Deskripsi ( jika "Tugas Kedinasan" )</td>
-                            <td> <input id="name" type="text" class="form-control" name="description">
-                            </td>
+                            <td><select class="form-select" id="description" name="description">
+                                    <option selected disabled>--- pilih ---</option>
+                                    <option>Mengerjakan tugas sekolah (4 jam efektif)</option>
+                                    <option>Paguyuban kelas</option>
+                                    <option>KKG</option>
+                                    <option>Pelatihan</option>
+                                    <option>Mendampingi lomba</option>
+                                    <option>Event sekolah</option>
+                                </select> </td>
                         </tr>
                     </tbody>
                 </table>
