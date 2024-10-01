@@ -28,30 +28,29 @@
                                     <td style="display: none;"></td>
                                     <td style="display: none;"></td>
                                 </tr>
-                            @else
-                                @if ($teacher->user->roles->isEmpty())
-                                    <div class="alert alert-danger">Ada data yang belum diaktifkan!</td>
-                                    @else
-                                        @if ($teacher->user->roles->first()->name == 'tendik')
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $teacher->full_name }}</td>
-                                                <td>{{ $teacher->user->email }}</td>
-                                                <td>{{ $teacher->user->roles->first()->name ?? 'belum ditentukan' }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.teacher.show', $teacher->id) }}"
-                                                        class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
-                                                        info</a>
-                                                    <a href="{{ route('admin.teacher.edit', $teacher->id) }}"
-                                                        class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
-                                                        edit</a>
+                            @elseif (
+                                $teacher->user->roles->isEmpty()
+                                    ? $teacher->user->roles->isEmpty()
+                                    : $teacher->user->roles->first()->name == 'tendik')
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $teacher->full_name }}</td>
+                                    <td>{{ $teacher->user->email }}</td>
+                                    <td>{{ $teacher->user->roles->first()->name ?? 'belum ditentukan' }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.teacher.show', $teacher->id) }}"
+                                            class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
+                                            info</a>
+                                        <a href="{{ route('admin.teacher.edit', $teacher->id) }}"
+                                            class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
+                                            edit</a>
 
-                                                    <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
-                                                        class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                @endif
+                                        <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
+                                            class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
+                                    </td>
+                                </tr>
+                            @else
+                                <div class="alert alert-danger">Ada data yang belum ditentukan rolenya!</div>
                             @endif
                         @endforeach
                     </tbody>
