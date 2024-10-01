@@ -29,10 +29,10 @@
                                     <td style="display: none;"></td>
                                 </tr>
                             @else
-                                @if (
-                                    $teacher->user->roles->isEmpty()
-                                        ? $teacher->user->roles->isEmpty()
-                                        : $teacher->user->roles->first()->name == 'tendik')
+                                {{-- @if ($teacher->user->roles->isEmpty() ? $teacher->user->roles->isEmpty() : $teacher->user->roles->first()->name == 'guru') --}}
+                                @if ($teacher->user->roles->isEmpty())
+                                    <div class="alert alert-danger">Ada data yang belum ditentukan rolenya!</div>
+                                @elseif($teacher->user->roles->first()->name == 'tendik')
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $teacher->full_name }}</td>
@@ -50,8 +50,6 @@
                                                 class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
                                         </td>
                                     </tr>
-                                @else
-                                    <div class="alert alert-danger">Ada data yang belum ditentukan rolenya!</div>
                                 @endif
                             @endif
                         @endforeach
