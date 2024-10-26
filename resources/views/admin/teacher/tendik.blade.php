@@ -4,9 +4,6 @@
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">
-            {{-- <div class="mb-3">
-                <a href="http://" class="btn btn-success"><i class="bi bi-arrow-down-circle"></i> Download Data</a>
-            </div> --}}
             <div class="table-responsive">
                 <table id="table" class="table table-striped align-middle" style="width: 100%">
                     <thead>
@@ -16,12 +13,11 @@
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
                             <th scope="col">actions</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($teachers as $teacher)
-                            @if (empty($teacher->full_name))
+                        @foreach ($users as $user)
+                            @if (empty($user->teacher->full_name))
                                 <tr>
                                     <td colspan="4" class="text-center">data belum ada</td>
                                     <td style="display: none;"></td>
@@ -29,28 +25,23 @@
                                     <td style="display: none;"></td>
                                 </tr>
                             @else
-                                {{-- @if ($teacher->user->roles->isEmpty() ? $teacher->user->roles->isEmpty() : $teacher->user->roles->first()->name == 'guru') --}}
-                                @if ($teacher->user->roles->isEmpty())
-                                    <div class="alert alert-danger">Ada data yang belum ditentukan rolenya!</div>
-                                @elseif($teacher->user->roles->first()->name == 'tendik')
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $teacher->full_name }}</td>
-                                        <td>{{ $teacher->user->email }}</td>
-                                        <td>{{ $teacher->user->roles->first()->name ?? 'belum ditentukan' }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.teacher.show', $teacher->id) }}"
-                                                class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
-                                                info</a>
-                                            <a href="{{ route('admin.teacher.edit', $teacher->id) }}"
-                                                class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
-                                                edit</a>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->teacher->full_name }}</td>
+                                    <td>{{ $user->teacher->user->email }}</td>
+                                    <td>{{ $user->teacher->user->roles->first()->name ?? 'belum ditentukan' }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.teacher.show', $user->teacher->id) }}"
+                                            class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
+                                            info</a>
+                                        <a href="{{ route('admin.teacher.edit', $user->teacher->id) }}"
+                                            class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
+                                            edit</a>
 
-                                            <a href="{{ route('document.index', ['id' => $teacher->id]) }}"
-                                                class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
-                                        </td>
-                                    </tr>
-                                @endif
+                                        <a href="{{ route('document.index', ['id' => $user->teacher->id]) }}"
+                                            class="btn btn-primary btn-sm"><i class="bi bi-image"></i> doc</a>
+                                    </td>
+                                </tr>
                             @endif
                         @endforeach
                     </tbody>

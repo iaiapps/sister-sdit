@@ -19,8 +19,10 @@ class TeacherController extends Controller
     public function index(Teacher $teacher)
     {
         // $this->authorize('teacher', $teacher);
-        $teachers = Teacher::all();
-        return view('admin.teacher.index', compact('teachers'));
+        $users = User::role('guru')->get();
+        // dd($user);
+        // $teachers = Teacher::all();
+        return view('admin.teacher.index', compact('users'));
     }
 
     /**
@@ -135,7 +137,8 @@ class TeacherController extends Controller
         // ini jika ambil dari user->role lalu join dengan teacher
         // $tendiks = User::role('tendik')->join('teachers', 'users.id', '=', 'teachers.user_id')->get();
 
-        $teachers = Teacher::all();
-        return view('admin.teacher.tendik', compact('teachers'));
+        $users = User::role('tendik')->get();
+        // $teachers = Teacher::all();
+        return view('admin.teacher.tendik', compact('users'));
     }
 }

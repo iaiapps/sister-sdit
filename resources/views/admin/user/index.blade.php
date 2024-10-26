@@ -3,6 +3,11 @@
 @section('title', 'Data Master User')
 @section('content')
     <div class="card p-3 rounded">
+        @if ($not_active == true)
+            <div class="alert alert-danger">Ada <span class="fw-bold">{{ $not_active->count() }}</span>
+                user
+                yang belum active!</div>
+        @endif
         <div class="table-responsive">
             <div class="mb-3">
                 <div class="btn-group">

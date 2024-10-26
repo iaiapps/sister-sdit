@@ -17,7 +17,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get()->all();
-        return view('admin.user.index', compact('users'));
+        $not_active = User::doesntHave('roles')->get();
+        // dd($not_active);
+        return view('admin.user.index', compact('users', 'not_active'));
     }
 
     /**
