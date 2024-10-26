@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="jam_datang" class="form-label">{{ __('Jam Datang') }}</label>
+                                <label for="jam_datang" class="form-label">{{ __('Waktu Datang') }}</label>
                             </td>
                             <td>
                                 <input id="jam_datang" type="time"
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="jam_pulang" class="form-label">{{ __('Jam Pulang') }}</label>
+                                <label for="jam_pulang" class="form-label">{{ __('Waktu Pulang') }}</label>
                             </td>
                             <td>
                                 <input id="jam_pulang" type="text"
@@ -48,7 +48,7 @@
                             </td>
                             <td>
                                 <select class="form-select" name="is_late">
-                                    <option selected disabled>---</option>
+                                    <option selected>{{ $presence->is_late }}</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                 </select>
@@ -56,25 +56,33 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="status" class="form-label">Status</label>
+                                <label for="status" class="form-label">Catatan</label>
                             </td>
                             <td>
                                 <select class="form-select" name="note">
-                                    <option selected disabled>---</option>
+                                    <option selected>{{ $presence->note }}</option>
                                     <option value="Tepat waktu">Tepat waktu</option>
                                     <option value="Telat">Telat</option>
+                                    <option value="Ijin">Ijin</option>
+                                    <option value="Sakit">Sakit</option>
                                     <option value="Tugas kedinasan">Tugas kedinasan</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label for="keterangan" class="form-label">Keterangan</label>
+                                <label for="keterangan" class="form-label">Deskripsi</label>
                             </td>
                             <td>
-                                <input id="keterangan" type="text"
-                                    class="form-control @error('description') is-invalid @enderror" name="description"
-                                    value="{{ $presence->description }}">
+                                <select class="form-select" name="description">
+                                    <option selected>{{ $presence->description }}</option>
+                                    <option>Mengerjakan tugas sekolah (4 jam efektif)</option>
+                                    <option>Paguyuban kelas</option>
+                                    <option>KKG</option>
+                                    <option>Pelatihan</option>
+                                    <option>Mendampingi lomba</option>
+                                    <option>Event sekolah</option>
+                                </select>
                             </td>
                         </tr>
                     </tbody>

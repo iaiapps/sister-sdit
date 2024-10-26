@@ -101,7 +101,7 @@ class PresenceController extends Controller
     {
         $date = $request->date;
         $tgl = Carbon::parse($presence->created_at)->isoFormat('Y-MM-DD');
-        // dd($tgl);
+        // dd($presence);
         return view('presence.admin.edit', compact('presence', 'date', 'tgl'));
     }
 
@@ -112,7 +112,13 @@ class PresenceController extends Controller
     {
         $date = $request->date;
         $time_in = Carbon::parse($request->time_in)->format('H:i:s');
-        $time_out = Carbon::parse($request->time_out)->format('H:i:s');
+
+        $time_out = $request->time_out;
+        if ($time_out != "-") {
+            $time_out = Carbon::parse($request->time_out)->format('H:i:s');
+        } else {
+            $time_out = '-';
+        }
         $presence->update([
             'time_in' => $time_in,
             'time_out' => $time_out,
