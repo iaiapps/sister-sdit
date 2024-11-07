@@ -29,7 +29,7 @@ class PresenceController extends Controller
         // dd($userInstance->tokens);
 
         $monthyear = Carbon::now();
-        $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->get();
+        $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->orderBy('created_at', 'desc')->get();
 
         if ($presence->count() == null) {
             return response()->json(['pesan' => 'Data tidak ditemukan'], 404);
