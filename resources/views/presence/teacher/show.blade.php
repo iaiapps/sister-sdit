@@ -67,7 +67,7 @@
                     </thead>
                     <tbody>
                         {{-- @dd($presences) --}}
-                        @foreach ($presences->sortBy('created_at') as $presence)
+                        @foreach ($presences->sortByDesc('created_at') as $presence)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ Carbon\Carbon::parse($presence->created_at)->isoFormat('dddd, D MMMM Y') }}

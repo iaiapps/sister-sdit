@@ -111,23 +111,33 @@ class PresenceController extends Controller
     public function update(Request $request, Presence $presence)
     {
         $date = $request->date;
-        $time_in = Carbon::parse($request->time_in)->format('H:i:s');
 
+        $time_in = Carbon::parse($request->time_in)->format('H:i:s');
         $time_out = $request->time_out;
+
         if ($time_out != "-") {
             $time_out = Carbon::parse($request->time_out)->format('H:i:s');
         } else {
             $time_out = '-';
         }
-        $presence->update([
+
+        $note = $request->note;
+        if ($note == 'Pulang awal') {
+            $note = $presence->note . ', ' . $request->note;
+        } else {
+            $note = $request->note;
+        }
+
+        $data = [
             'time_in' => $time_in,
             'time_out' => $time_out,
-            'note' => $request->note,
+            'note' => $note,
             'is_late' => $request->is_late,
             'description' => $request->description,
             'created_at' => $request->date . $request->time_in,
             'updated_at' => $request->date . $request->time_in,
-        ]);
+        ];
+        $presence->update($data);
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 

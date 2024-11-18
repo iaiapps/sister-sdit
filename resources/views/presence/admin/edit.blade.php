@@ -66,6 +66,7 @@
                                     <option value="Ijin">Ijin</option>
                                     <option value="Sakit">Sakit</option>
                                     <option value="Tugas kedinasan">Tugas kedinasan</option>
+                                    <option value="Pulang awal">Ijin pulang awal</option>
                                 </select>
                             </td>
                         </tr>
@@ -76,12 +77,18 @@
                             <td>
                                 <select class="form-select" name="description">
                                     <option selected>{{ $presence->description }}</option>
+                                    <hr>
+                                    <option value="">Null</option>
                                     <option>Mengerjakan tugas sekolah (4 jam efektif)</option>
                                     <option>Paguyuban kelas</option>
                                     <option>KKG</option>
                                     <option>Pelatihan</option>
                                     <option>Mendampingi lomba</option>
                                     <option>Event sekolah</option>
+                                    <hr>
+                                    <option>BPI di luar sekolah </option>
+                                    <option>Sakit/Anggota Keluarga Sakit</option>
+                                    <option>Utusan Sekolah/Tugas Kedinasan</option>
                                 </select>
                             </td>
                         </tr>

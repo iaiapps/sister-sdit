@@ -230,15 +230,16 @@ class PresenceController extends Controller
 
     public function absenPulang($request)
     {
+        $now = Carbon::now(); //tanggal sekarang
+
         // cek jika ada note sakit, ijin, dan tugas kedinasan
-        $presence = Presence::where('teacher_id', $request->teacher_id)->orderBy('id', 'desc')->first();
+        $presence = Presence::where('teacher_id', $request->teacher_id)->whereDate('created_at', $now)->first();
         if ($presence->time_in == '-' && $presence->time_out = '-') {
             return response()->json(['pesan' => 'tidak bisa mengubah data'], 200);
         } elseif ($presence->note == 'Tugas kedinasan') {
             return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
         }
 
-        $now = Carbon::now();
         $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
         $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
 
