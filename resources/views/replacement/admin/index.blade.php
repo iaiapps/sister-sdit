@@ -4,19 +4,36 @@
 @section('title', 'Data Guru Pengganti')
 @section('content')
     <div class="card p-3">
-        <div class="d-inline-block">
-            <p class="m-0 fs-5">Data bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
-        </div>
+        <form action="{{ route('replacement.index') }}" method="GET">
+            <div class="row">
+                <div class="col my-1">
+                    <input type="date" name="awal" id="awal" class="form-control">
+                </div>
+                <div class="col my-1">
+                    <input type="date" name="akhir" id="akhir" class="form-control">
+                </div>
+                <div class="col my-1">
+                    <button type="submit" class="btn btn-success w-100">filter data</button>
+                </div>
+            </div>
+        </form>
         <hr>
+        @if (isset($awal) && isset($akhir))
+            <p class="fs-5 text-center">Data bulan {{ $carbon::parse($awal)->isoFormat('MMMM YYYY') }} sampai
+                {{ $carbon::parse($akhir)->isoFormat('MMMM YYYY') }}</p>
+        @else
+            <p class="m-0 fs-5 text-center">Data bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
+        @endif
         <div class="d-inline-block">
-            <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i class="bi bi-plus-circle"></i>
+            <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i
+                    class="bi bi-plus-circle"></i>
                 Data Pengganti</a>
         </div>
         <div class="table-responsive">
-            <table id="table" class="table table-striped align-middle" style="width: 100%">
+            <table id="#" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col">No</th>
                         <th scope="col">Pengganti</th>
                         <th scope="col">Menggantikan</th>
                         <th scope="col">Tanggal</th>
@@ -25,7 +42,7 @@
                         <th scope="col">Alasan</th>
                         <th scope="col">Tugas</th>
                         <th scope="col">Action</th>
-                        {{-- <th scope="col">Action</th> --}}
+
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +63,7 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash3"></i> del
+                                        <i class="bi bi-trash3"></i>
                                     </button>
                                 </form>
                             </td>

@@ -27,13 +27,13 @@
                     @endphp
                     {{-- <input type="hidden" name="teacher_id" value="{{ $id }}"> --}}
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col my-1">
                             <input class="form-control" type="date" name="start_date" value="{{ date('Y-m-01') }}">
                         </div>
-                        <div class="col">
+                        <div class="col my-1">
                             <input class="form-control" type="date" name="end_date" value="{{ date('Y-m-d') }}">
                         </div>
-                        <div class="col">
+                        <div class="col my-1">
                             <button type="submit" class="btn btn-success w-100">
                                 Filter Data
                             </button>

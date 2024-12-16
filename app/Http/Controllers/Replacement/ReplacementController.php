@@ -14,12 +14,21 @@ class ReplacementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $now = Carbon::now();
         $month = Carbon::parse($now)->month;
-        $replacements = Replacement::whereMonth('tanggal', $month)->get();
-        return view('replacement.admin.index', compact('replacements', 'now'));
+
+        $awal = $request->awal;
+        $akhir = $request->akhir;
+
+        if (isset($awal) && isset($akhir)) {
+            $replacements = Replacement::whereBetween('tanggal', [$awal, $akhir])->get();
+        } else {
+            $replacements = Replacement::whereMonth('tanggal', $month)->get();
+        };
+        return view('replacement.admin.index', compact('replacements', 'now', 'awal', 'akhir'));
     }
 
     /**

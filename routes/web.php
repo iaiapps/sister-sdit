@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
 
             // guru pengganti
             Route::resource('replacement', ReplacementController::class);
+            // Route::get('mutabaah')
         });
     });
 

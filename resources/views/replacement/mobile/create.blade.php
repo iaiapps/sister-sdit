@@ -66,10 +66,7 @@
                         <option>Jaga PTS </option>
                         <option>Jaga PAS/PAT </option>
                     </select>
-                    {{-- <input type="input" class="form-control" id="mapel" name="mapel"
-                        placeholder="Tuliskan semua mapel yang digantikan"> --}}
                 </div>
-
 
                 <div class="mb-3">
                     <label for="alasan" class="form-label">Alasan guru tidak hadir </label>
@@ -80,8 +77,6 @@
                         <option>Tanpa Keterangan</option>
                         <option>Tugas Kedinasan</option>
                     </select>
-                    {{-- <input type="input" class="form-control" id="alasan" name="alasan"
-                        placeholder="Alasan guru yang digantikan tidak hadir"> --}}
                 </div>
                 <div class="mb-3">
                     <label for="bahan" class="form-label">Tugas dari guru yang digantikan</label>
@@ -91,8 +86,6 @@
                         <option>Arahan Saja</option>
                         <option>Tanpa Arahan</option>
                     </select>
-                    {{-- <input type="input" class="form-control" id="bahan" name="bahan"
-                        placeholder="Bentuk tugas dari guru yang digantikan"> --}}
                 </div>
             </fieldset>
             <button type="submit" class="btn btn-success w-100 mt-3">Simpan Data</button>
@@ -100,13 +93,3 @@
     </div>
     </div>
 @endsection
-
-{{-- @include('layouts.partials.allscripts')
-
-@push('scripts')
-    <script>
-        $('#menggantikan').select2({
-            theme: 'bootstrap-5',
-        });
-    </script>
-@endpush --}}

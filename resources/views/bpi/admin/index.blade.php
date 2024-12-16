@@ -51,7 +51,8 @@
                             {{-- <td>{{ $carbon::parse($bpi->start)->isoFormat('dddd, DD MMMM YYYY') }}</td> --}}
 
                             <td>
-                                <a href="{{ route('bpi.show', $bpi->teacher_id) }}" class="btn btn-success btn-sm">
+                                <a href="{{ route('bpi.show', [$bpi->teacher_id, 'date' => request('date')]) }}"
+                                    class="btn btn-success btn-sm">
                                     show all
                                 </a>
                             </td>
