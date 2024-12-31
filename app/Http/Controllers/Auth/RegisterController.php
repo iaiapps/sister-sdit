@@ -73,13 +73,13 @@ class RegisterController extends Controller
             'active' => 0
         ]);
 
-        //get id from user 
+        //get id from user
         $id = $create->id;
 
         //create teacher user
         $makeTeacher = [
             'user_id' => $id,
-            'full_name' => 'user',
+            'full_name' => $data['name'],
             // 'email' => $data['email'],
         ];
         Teacher::create($makeTeacher);

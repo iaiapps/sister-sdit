@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string('month_enter')->nullable();
             $table->string('year_enter')->nullable();
             $table->string('no_hp')->nullable();
+            $table->string('nik')->nullable();
             // $table->string('email');
 
             //second
-            $table->string('nik')->nullable();
             $table->string('npwp')->nullable();
             $table->string('address')->nullable();
             $table->string('rt')->nullable();

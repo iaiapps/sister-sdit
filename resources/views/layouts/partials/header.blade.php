@@ -24,12 +24,12 @@
                         <div class="text-center">
                             <i class="las la-paper-plane la-4x text-success"></i>
                             <p class="text-center mb-3">Pusat Informasi</p>
-                            <a href="https://wa.me/6287870783030" target="_blank"
-                                class="btn btn-outline-success w-100 mb-3">Call Center Humas</a>
-                            <a href="https://wa.me/6285746507030" target="_blank"
-                                class="btn btn-outline-success w-100 mb-3">Call Center Keuangan</a>
+                            {{-- <a href="https://wa.me/6287870783030" target="_blank"
+                                class="btn btn-outline-success w-100 mb-3">Call Center Humas</a> --}}
+                            {{-- <a href="https://wa.me/6285746507030" target="_blank"
+                                class="btn btn-outline-success w-100 mb-3">Call Center Keuangan</a> --}}
                             <a href="https://wa.me/6285232213939" target="_blank"
-                                class="btn btn-outline-success w-100 mb-3">Call Center Admin</a>
+                                class="btn btn-outline-success w-100 mb-3">Hubungi Admin</a>
                         </div>
                     </div>
                 </div>

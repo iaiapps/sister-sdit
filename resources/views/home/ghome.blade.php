@@ -47,7 +47,7 @@
                     <span class="d-block">Profil</span>
                 </a>
             </div>
-            <div class="col-12 col-md-4 bg-light p-2">
+            <div class="col-12 col-md-4 bg-warning p-2">
                 <a href="{{ route('document.index') }}" class="nav-link btn btn-outline text-dark">
                     <i class="bi bi-card-image fs-2"></i>
                     <span class="d-block">Dokumen</span>
@@ -93,23 +93,23 @@
                         <tbody>
                             {{-- <tr>
                                 <td class="widtht">Jabatan</td>
-                                <td>{{ $teacher->salary_basic->nama_jabatan ?? 'belum ditentukan' }}</td>
+                                <td>{{ $teacher->salary_basic->nama_jabatan ?? 'belum ada data' }}</td>
                             </tr> --}}
                             <tr>
                                 <td>Nomor Handphone</td>
-                                <td>{{ $teacher->no_hp ?? 'belum ditentukan' }}</td>
+                                <td>{{ $teacher->no_hp ?? 'belum ada data' }}</td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{{ $teacher->user->email ?? 'belum ditentukan' }}</td>
+                                <td>{{ $teacher->user->email ?? 'belum ada data' }}</td>
                             </tr>
                             <tr>
                                 <td>Pendidikan Terakhir</td>
-                                <td>{{ $teacher->last_education ?? 'belum ditentukan' }}</td>
+                                <td>{{ $teacher->last_education ?? 'belum ada data' }}</td>
                             </tr>
                             <tr>
                                 <td>Masuk SDIT sejak</td>
-                                <td>{{ $teacher->month_enter ?? 'belum ditentukan' }} {{ $teacher->year_enter }}</td>
+                                <td>{{ $teacher->month_enter ?? 'belum ada data' }} {{ $teacher->year_enter }}</td>
                             </tr>
                         </tbody>
                     </table>

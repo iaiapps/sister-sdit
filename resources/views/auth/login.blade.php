@@ -15,8 +15,6 @@
                     </div>
                 @endforeach
             @endif
-
-
             {{-- form --}}
             <div class="title text-center">
                 <img src="img/teacher.png" class="border border-3 bg-white rounded-circle p-1 avatar mb-3 mt-3"
@@ -58,12 +56,12 @@
         <div class="col-12 col-md-8 loginbackground d-sm-block d-none">
             <div class="d-flex vh-100 flex-column align-items-center justify-content-center px-5 text-center">
                 <img src="img/logo.svg" class="logo bg-white p-3 rounded mb-5" alt="logo nav" />
-                <h2 class="display-4 text-white fw-bold">SISTER SDIT</h2>
+                <h2 class="display-4 text-white fw-bold">PUSDATIN SDIT</h2>
                 <h3 class="fs-3 text-white fw-light">
-                    Sister Informasi Terpadu SDIT Harapan Umat Jember
+                    Pusat Data dan Informasi Guru SDIT Harapan Umat Jember
                 </h3>
                 <footer class="mt-5 p-2 text-center text-white">
-                    <small> SISTER SDIT by Tim IT SDIT Harum Jember with ❤️ </small>
+                    <small> Pusdatin @ SISTER SDIT by Tim IT SDIT Harum Jember ❤️ </small>
                 </footer>
             </div>
         </div>

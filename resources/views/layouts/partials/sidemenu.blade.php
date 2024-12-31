@@ -296,7 +296,7 @@
     </ul>
     <div class="w-100 bg-white py-1 position-absolute bottom-0 start-50 translate-middle-x rounded">
         <hr class="my-1">
-        <small class="d-block text-center">App
+        <small class="d-block text-center mb-1">App
             version
             1.3.0</small>
     </div>
