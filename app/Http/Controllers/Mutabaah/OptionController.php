@@ -69,7 +69,7 @@ class OptionController extends Controller
     public function destroy(Option $mutabaah_option)
     {
         $mutabaah_option->delete();
-        return redirect()->route('mutabaah-option.index');
+        return redirect()->route('mutabaah-question.index');
     }
 
     // public function createOption(Request $request)

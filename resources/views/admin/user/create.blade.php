@@ -4,15 +4,13 @@
 
 @section('content')
     <div class="card">
-        {{-- <div class="card-header bg-success">{{ __('Register') }}</div> --}}
         <div class="card-body p-md-4 px-3">
             <form method="POST" action="{{ route('admin.user.store') }}">
                 @csrf
                 <div class="row">
-
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="name" class="form-label text-md-end">{{ __('Nama User') }}</label>
+                            <label for="name" class="form-label text-md-end">{{ __('Nama Lengkap User') }}</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')

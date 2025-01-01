@@ -41,7 +41,7 @@
 
                             <td>
                                 <a href="{{ route('mutabaah.list', ['id' => $mutabaah->id]) }}"
-                                    class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i>
+                                    class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i> lihat
                                 </a>
                                 <a href="{{ route('mutabaah.edit', $mutabaah->id) }}" class="btn btn-warning btn-sm"><i
                                         class="bi bi-pencil-square"></i>

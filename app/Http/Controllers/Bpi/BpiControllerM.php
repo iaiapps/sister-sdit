@@ -71,8 +71,9 @@ class BpiControllerM extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bpi $bpi)
+    public function destroy(Bpi $bpiMobile)
     {
-        //
+        $bpiMobile->delete();
+        return redirect()->back();
     }
 }

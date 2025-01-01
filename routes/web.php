@@ -109,16 +109,16 @@ Route::middleware('auth')->group(function () {
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
 
             //gaji
-            Route::resource('salary', SalaryController::class);
-            Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
-            Route::resource('type', SalaryTypeController::class);
-            Route::resource('position', SalaryPositionController::class);
-            Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
-            Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
-            //import
-            Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
-            // export
-            Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
+            // Route::resource('salary', SalaryController::class);
+            // Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
+            // Route::resource('type', SalaryTypeController::class);
+            // Route::resource('position', SalaryPositionController::class);
+            // Route::get('bulk', [SalaryController::class, 'bulkcreate'])->name('bulk.create');
+            // Route::get('listmassal', [SalaryController::class, 'listmassal'])->name('listmassal');
+            // //import
+            // Route::post('salary-import', [SalaryController::class, 'salaryimport'])->name('salary.import');
+            // // export
+            // Route::get('salary-export', [SalaryController::class, 'salaryexport'])->name('salary.export');
 
             // mutabaah
             Route::resource('mutabaah', MutabaahController::class);
@@ -133,7 +133,6 @@ Route::middleware('auth')->group(function () {
 
             // guru pengganti
             Route::resource('replacement', ReplacementController::class);
-            // Route::get('mutabaah')
         });
     });
 
@@ -166,6 +165,7 @@ Route::middleware('auth')->group(function () {
             Route::get('bpi', [BpiController::class, 'list'])->name('bpi.list');
             Route::get('bpi-create', [BpiController::class, 'bpiCreate'])->name('bpi.create');
             Route::post('bpi-store', [BpiController::class, 'bpiStore'])->name('bpi.store');
+            Route::delete('bpi-destroy/{bpi}', [BpiController::class, 'bpiDestroy'])->name('bpi.destroy');
 
             // guru pengganti
             Route::get('replacement', [ReplacementController::class, 'list'])->name('replacement.list');

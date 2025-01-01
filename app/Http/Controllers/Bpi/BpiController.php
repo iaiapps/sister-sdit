@@ -117,4 +117,9 @@ class BpiController extends Controller
         Bpi::create($data);
         return redirect()->route('guru.bpi.list');
     }
+    public function bpiDestroy(Bpi $bpi)
+    {
+        $bpi->delete();
+        return redirect()->back();
+    }
 }

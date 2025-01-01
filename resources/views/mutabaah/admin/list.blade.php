@@ -20,6 +20,7 @@
                         <th>No.</th>
                         <th>Nama Guru</th>
                         <th>Tanggal Pengisian</th>
+                        {{-- <th>Point</th> --}}
                         <th>Total Point</th>
                         <th>Action</th>
                     </tr>
@@ -30,6 +31,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $answer->teacher->full_name }}</td>
                             <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
+                            {{-- <td>{{ $answer->category }}</td> --}}
                             <td>{{ $answer->t_point }}</td>
                             <td>
                                 <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"

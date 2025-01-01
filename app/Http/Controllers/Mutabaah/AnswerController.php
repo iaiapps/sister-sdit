@@ -44,9 +44,9 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-
         $teacher_id = $request->teacher_id;
         $mutabaah_id = $request->mutabaah_id;
+        $category_id = $request->category_id;
         $question_id = $request->question_id;
         $option = $request->option;
         foreach ($question_id as $q) {
@@ -54,11 +54,14 @@ class AnswerController extends Controller
             $data = [
                 'teacher_id' => $teacher_id,
                 'mutabaah_id' => $mutabaah_id,
+                'category_id' => $category_id[$q],
                 'question_id' => $question_id[$q],
                 'option_id' => $option[$q],
                 'answer' => $fields[0],
                 'point' => $fields[1],
             ];
+
+            // dd($data);
             Answer::create($data);
         }
         return redirect()->route('guru.answer.index');

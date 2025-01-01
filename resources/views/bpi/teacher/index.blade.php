@@ -20,6 +20,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Presensi Mengajar BPI</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,16 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $carbon::parse($bpi->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
+                            <td>
+                                <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                    action="{{ route('guru.bpi.destroy', $bpi->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

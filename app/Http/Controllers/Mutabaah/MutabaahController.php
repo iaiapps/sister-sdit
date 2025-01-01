@@ -82,11 +82,15 @@ class MutabaahController extends Controller
     {
         $mutabaah_id = $request->id;
         $name_mutabaah = Mutabaah::where('id', $mutabaah_id)->first()->name;
+        $categories = Category::all();
+        // dd($categories);
         $answers = Answer::where('mutabaah_id', $mutabaah_id)
             ->select(
                 'teacher_id',
                 DB::raw("SUM(point) AS t_point"),
-                DB::raw("DATE(created_at) AS tanggal")
+                DB::raw("DATE(created_at) AS tanggal"),
+                DB::raw("SUM(category_id) AS category"),
+
             )
             ->groupBy('teacher_id', 'tanggal')->get();
         // dd($answers);

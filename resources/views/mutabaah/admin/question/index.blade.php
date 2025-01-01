@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Kategori')
+@section('title', 'Data Pertanyaan')
 @section('content')
     <div class="card p-3">
         <div>
@@ -10,10 +10,8 @@
             <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#question">
                 <i class="bi bi-plus-circle"></i> Buat Pertanyaan
             </a>
-            <a href="{{ route('mutabaah-option.index') }}" class="btn btn-success">Pilihan Pertanyaan</a>
-
+            {{-- <a href="{{ route('mutabaah-option.index') }}" class="btn btn-success">Lihat Semua Pilihan Pertanyaan</a> --}}
         </div>
-
         <div class="table-responsive mt-3">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
@@ -37,8 +35,20 @@
                             </td>
                             <td>
                                 @foreach ($question->option->sortByDesc('option_point') as $o)
-                                    <span class="badge bg-primary fw-normal">{{ $o->option_name }} :
-                                        {{ $o->option_point }}</span><br>
+                                    <div class="mb-2">
+                                        <span class="btn btn-sm text-white bg-primary me-1">{{ $o->option_name }}
+                                            :
+                                            {{ $o->option_point }}</span> <a class="btn btn-sm btn-warning"
+                                            href="{{ route('mutabaah-option.edit', $o->id) }}">edit</a>
+                                        <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                            action="{{ route('mutabaah-option.destroy', $o->id) }}" method="post"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm"> del
+                                            </button>
+                                        </form>
+                                    </div>
                                 @endforeach
 
                             </td>
