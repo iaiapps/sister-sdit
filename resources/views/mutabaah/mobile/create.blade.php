@@ -29,6 +29,8 @@
                             </div>
                         @endif
                         @foreach ($category->question as $question)
+                            <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
+                                readonly hidden>
                             <div class="mb-3">
                                 <div class="alert alert-secondary py-1 px-2 mb-2" role="alert">
                                     <input

@@ -68,13 +68,14 @@ class AnswerControllerM extends Controller
         // setelah di looping masukkan ke method validate()
         $valid = $request->validate($validate_array, $messages);
         // dd($valid);
-
+        $category_id = $request->category_id;
         // looping satu persatu untuk dimasukkan ke database
         foreach ($question_id as $q) {
             $fields = explode(',', $option[$q]);
             $data = [
                 'teacher_id' => $teacher_id,
                 'mutabaah_id' => $mutabaah_id,
+                'category_id' => $category_id[$q],
                 'question_id' => $question_id[$q],
                 'option_id' => $option[$q],
                 'answer' => $fields[0],

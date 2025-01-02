@@ -7,15 +7,13 @@
             @csrf
             @method('put')
             <fieldset>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label" for="question">Pertanyaan </label>
-                            <input class="form-control bg-light" type="text" id="question" name="question"
-                                placeholder="question" value="{{ $mutabaah_question->question }}" />
-                        </div>
-                    </div>
+                <input type="text" value="{{ $mutabaah_question->category_id }}" name="category_id" hidden readonly>
+                <div class="mb-3">
+                    <label class="form-label" for="question">Pertanyaan </label>
+                    <input class="form-control bg-light" type="text" id="question" name="question" placeholder="question"
+                        value="{{ $mutabaah_question->question }}" />
                 </div>
+
             </fieldset>
             <button type="submit" class="btn btn-success">Simpan Data</button>
         </form>

@@ -9,7 +9,7 @@
             <a href="{{ route('mutabaah-category.index') }}" class="btn btn-success"><i class="bi bi-list-task"></i>
                 Kategori</a>
             <a href="{{ route('mutabaah-question.index') }}" class="btn btn-success"><i class="bi bi-question-circle"></i>
-                Pertanyaan</a>
+                Semua Pertanyaan</a>
         </div>
         <hr>
         <div class="table-responsive">

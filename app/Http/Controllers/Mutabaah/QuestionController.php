@@ -32,8 +32,13 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $category = $request->category;
         Question::create($request->all());
-        return redirect()->route('mutabaah-question.index');
+        if (isset($category)) {
+            return redirect()->route('mutabaah-category.show', $request->category_id);
+        } else {
+            return redirect()->route('mutabaah-question.index');
+        }
     }
 
     /**
@@ -58,7 +63,7 @@ class QuestionController extends Controller
     public function update(Request $request, Question $mutabaah_question)
     {
         $mutabaah_question->update($request->all());
-        return redirect()->route('mutabaah-question.index');
+        return redirect()->route('mutabaah-category.show', $request->category_id);
     }
 
     /**
@@ -67,6 +72,6 @@ class QuestionController extends Controller
     public function destroy(Question $mutabaah_question)
     {
         $mutabaah_question->delete();
-        return redirect()->route('mutabaah-question.index');
+        return redirect()->route('mutabaah-category.show', $mutabaah_question->category_id);
     }
 }

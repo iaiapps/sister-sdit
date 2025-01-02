@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Pertanyaan')
+@section('title', 'Daftar Semua Pertanyaan')
 @section('content')
     <div class="card p-3">
         <div>
@@ -13,27 +13,28 @@
             {{-- <a href="{{ route('mutabaah-option.index') }}" class="btn btn-success">Lihat Semua Pilihan Pertanyaan</a> --}}
         </div>
         <div class="table-responsive mt-3">
-            <table id="table" class="table table-striped align-middle" style="width: 100%">
+            <table class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Kategori</th>
                         <th scope="col">Pertanyaan</th>
-                        <th scope="col">Pilihan : Point</th>
+                        {{-- <th scope="col">Pilihan : Point</th> --}}
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($questions as $question)
+                    @foreach ($questions->sortBy('category_id') as $question)
                         <tr>
-                            <td>{{ $question->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $question->category->nama_kategori }} </td>
-                            <td>{{ $question->question }} <br>
+                            <td>{{ $question->question }}
+                                {{-- <br>
                                 <a href="{{ route('mutabaah-option.create', ['id' => $question->id]) }}"
                                     class="btn btn-primary btn-sm">
-                                    <i class="bi bi-plus-circle"></i> pilihan jawaban</a>
+                                    <i class="bi bi-plus-circle"></i> pilihan jawaban</a> --}}
                             </td>
-                            <td>
+                            {{-- <td>
                                 @foreach ($question->option->sortByDesc('option_point') as $o)
                                     <div class="mb-2">
                                         <span class="btn btn-sm text-white bg-primary me-1">{{ $o->option_name }}
@@ -50,8 +51,7 @@
                                         </form>
                                     </div>
                                 @endforeach
-
-                            </td>
+                            </td> --}}
                             <td>
                                 <a href="{{ route('mutabaah-question.edit', $question->id) }}"
                                     class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>

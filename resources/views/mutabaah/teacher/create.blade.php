@@ -25,7 +25,7 @@
                         <hr>
                         @foreach ($category->question as $question)
                             <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
-                                readonly>
+                                readonly hidden>
                             <div class="mb-3">
                                 <div class="alert alert-secondary p-1" role="alert">
                                     <p class=" mb-0 fs-5"> {{ $loop->iteration }}. {{ $question->question }}</p>

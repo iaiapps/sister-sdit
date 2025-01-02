@@ -34,7 +34,7 @@ class OptionController extends Controller
     public function store(Request $request)
     {
         Option::create($request->all());
-        return redirect()->route('mutabaah-question.index');
+        return redirect()->route('mutabaah-category.show', $request->category_id);
     }
 
     /**
@@ -60,7 +60,7 @@ class OptionController extends Controller
     public function update(Request $request, Option $mutabaah_option)
     {
         $mutabaah_option->update($request->all());
-        return redirect()->route('mutabaah-option.index');
+        return redirect()->route('mutabaah-category.show', $request->category_id);
     }
 
     /**
@@ -68,8 +68,9 @@ class OptionController extends Controller
      */
     public function destroy(Option $mutabaah_option)
     {
+        $category_id = $mutabaah_option->question->category_id;
         $mutabaah_option->delete();
-        return redirect()->route('mutabaah-question.index');
+        return redirect()->route('mutabaah-category.show', $category_id);
     }
 
     // public function createOption(Request $request)
