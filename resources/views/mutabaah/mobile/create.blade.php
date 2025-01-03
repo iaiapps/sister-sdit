@@ -32,27 +32,24 @@
                             <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
                                 readonly hidden>
                             <div class="mb-3">
-                                <div class="alert alert-secondary py-1 px-2 mb-2" role="alert">
-                                    <input
+                                <div class="alert alert-secondary py-1 px-2" role="alert">
+                                    {{-- <input
                                         class="form-control bg-transparent border-0 p-0 mb-0 @error('option.' . $question->id)is-invalid @enderror"
-                                        value=" {{ $loop->iteration }}. {{ $question->question }}" readonly disabled>
+                                        value=" {{ $loop->iteration }}. {{ $question->question }}" readonly disabled> --}}
+                                    <input type="text" name="question_id[{{ $question->id }}]"
+                                        value="{{ $question->id }}" readonly hidden>
+                                    <p class="mb-0 text-black">{{ $loop->iteration }}. {{ $question->question }}</p>
                                 </div>
-                                {{-- @error('option.' . $question->id)
-                                        <small class="text-center text-danger d-block mt-0 mb-3">jawaban belum dipilih</small>
-                                    @enderror --}}
-
-                                <input type="text" name="question_id[{{ $question->id }}]" value="{{ $question->id }}"
-                                    readonly hidden>
 
                                 <div class="mt-0">
                                     <ul class="list-group">
                                         @foreach ($question->option as $option)
-                                            <li class="list-group-item py-1">
-                                                <input class="form-check-input" type="radio"
+                                            <li class="list-group-item py-1 d-flex ">
+                                                <input class="form-check-input me-2" type="radio"
                                                     name="option[{{ $question->id }}]" id="option{{ $option->id }}"
                                                     value="{{ $option->option_name }},{{ $option->option_point }}"
                                                     {{ old('option.' . $question->id) == $option->option_name . ',' . $option->option_point ? 'checked' : '' }}>
-                                                <label class="form-check-label ms-3"
+                                                <label class="form-check-label"
                                                     for="option{{ $option->id }}">{{ $option->option_name }}</label>
                                             </li>
                                         @endforeach
@@ -87,6 +84,11 @@
             bottom: 20px;
             right: 20px;
             z-index: 99;
+        }
+
+        input[type="radio"] {
+            margin-right: 1em;
+            flex-shrink: 0;
         }
     </style>
 @endpush
