@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Tendik')
+@section('title', 'Data Karyawan')
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">

@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::put('reset-pass', [UserController::class, 'resetpass'])->name('reset.pass');
             Route::resource('school', SchoolController::class);
             Route::resource('teacher', TeacherController::class);
-            Route::get('tendik', [TeacherController::class, 'tendik'])->name('tendik.index');
+            Route::get('karyawan', [TeacherController::class, 'karyawan'])->name('karyawan.index');
 
             // Route::resource('student', StudentController::class);
 
@@ -137,7 +137,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //guru
-    Route::middleware('role:guru|tendik')->group(function () {
+    Route::middleware('role:guru|tendik|karyawan')->group(function () {
         Route::prefix('guru')->name('guru.')->group(function () {
             //profile
             Route::get('teacher-profile', [TeacherController::class, 'profile'])->name('profile');
@@ -191,7 +191,7 @@ Route::middleware('auth')->group(function () {
     // });
 
     // admin,guru,tendik
-    Route::middleware('role:admin|guru|tendik')->group(function () {
+    Route::middleware('role:admin|guru|tendik|karyawan')->group(function () {
         //dokumen
         Route::resource('document', DocumentController::class);
     });

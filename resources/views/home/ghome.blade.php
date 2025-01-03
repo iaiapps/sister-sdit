@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 @section('content')
 
-    {{-- @dd(Auth::user()->role->name) --}}
+    {{-- @dd(Auth::user()->getRoleNames()) --}}
     @if ($teacher->full_name == 'user')
         <div class="alert alert-danger alert-dismissible fade show py-2 text-center" role="alert">
             <span class="m-0">Identitas anda belum lengkap!</span>

@@ -23,9 +23,7 @@
         </p>
     </div>
     <hr class="m-0" />
-
     <ul id="menu" class="nav flex-column px-2 mt-2 pb-2 navbar-nav-scroll bg-white pb-5">
-
         @switch($role)
             @case('admin')
                 <li class="nav-item">
@@ -39,14 +37,14 @@
                     <a href="{{ route('admin.teacher.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'admin.teacher.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
-                        <span class="ms-2 d-none d-sm-inline">Data Guru</span>
+                        <span class="ms-2 d-none d-sm-inline">Data Guru/Tendik</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.tendik.index') }}"
+                    <a href="{{ route('admin.karyawan.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'admin.tendik.index' ? 'activee' : '' }}">
                         <i class="bi bi-person-check menu-icon"></i>
-                        <span class="ms-2 d-none d-sm-inline">Data Tendik</span>
+                        <span class="ms-2 d-none d-sm-inline">Data Karyawan</span>
                     </a>
                 </li>
 
@@ -77,7 +75,7 @@
                     <a href="{{ route('presencekaryawan.index') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'presencekaryawan.index' ? 'activee' : '' }}">
                         <i class="bi bi-calendar-check menu-icon"></i>
-                        <span class="ms-2 d-none d-sm-inline">Presensi Tendik </span>
+                        <span class="ms-2 d-none d-sm-inline">Presensi Karyawan </span>
                     </a>
                 </li>
 
@@ -133,7 +131,8 @@
             @break
 
             @case('guru')
-                {{-- menu guru dan tendik --}}
+            @case('tendik')
+                {{-- menu guru --}}
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} d-block">
@@ -192,7 +191,7 @@
                 </li> --}}
             @break
 
-            @case('tendik')
+            @case('karyawan')
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
                         class="nav-link hover text-success py-1 rounded-1 text-center text-sm-start {{ Route::currentRouteName() == 'home' ? 'activee' : '' }} d-block">
