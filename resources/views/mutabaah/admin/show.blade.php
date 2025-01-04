@@ -3,9 +3,13 @@
 @section('title', 'Detail Jawaban')
 
 @section('content')
+    @php
+        // $name = Auth::user()->teacher->full_name;
+        $role = $answers->first()->teacher->user->getRoleNames()->first();
+    @endphp
     <div class="card p-3">
         <div>
-            <a href="{{ url()->previous() }}" class="btn btn-success me-2">
+            <a href="{{ route('mutabaah.list', ['id' => $mutabaah_id]) }}" class="btn btn-success me-2">
                 <i class="bi bi-arrow-left-circle"></i> kembali
             </a>
         </div>
@@ -30,6 +34,17 @@
                             <td>{{ $answer->point }}</td>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="3" class="text-center">Total Point</td>
+
+                        <td>
+                            @if ($role == 'guru')
+                                {{ $answer->sum('point') }}/{{ $question->sum('max_point') }}
+                            @elseif ($role == 'tendik')
+                                {{ $answer->sum('point') }}/{{ $question->where('question_for', 'all')->sum('max_point') }}
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

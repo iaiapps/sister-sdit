@@ -18,8 +18,9 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Kategori</th>
+                        <th scope="col">Untuk</th>
                         <th scope="col">Pertanyaan</th>
-                        {{-- <th scope="col">Pilihan : Point</th> --}}
+                        <th scope="col">Maks Point</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -28,12 +29,15 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $question->category->nama_kategori }} </td>
+                            <td>{{ $question->question_for }}
                             <td>{{ $question->question }}
                                 {{-- <br>
                                 <a href="{{ route('mutabaah-option.create', ['id' => $question->id]) }}"
                                     class="btn btn-primary btn-sm">
                                     <i class="bi bi-plus-circle"></i> pilihan jawaban</a> --}}
                             </td>
+                            <td>{{ $question->max_point }}</td>
+
                             {{-- <td>
                                 @foreach ($question->option->sortByDesc('option_point') as $o)
                                     <div class="mb-2">

@@ -22,7 +22,8 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Pertanyaan</th>
+                        <th scope="col">Pertanyaan : Untuk</th>
+                        <th scope="col">Maksimal Point</th>
                         <th scope="col">Pilihan Jawaban : Point</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>
@@ -31,7 +32,7 @@
                     @foreach ($mutabaah_category->question as $q)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td style="width: 50%">{{ $q->question }} <br>
+                            <td style="width: 50%">{{ $q->question }} : untuk {{ $q->cat }}<br>
                                 <div class="btn-group">
                                     <a href="{{ route('mutabaah-option.create', ['id' => $q->id]) }}"
                                         class="btn btn-primary btn-sm">
@@ -50,11 +51,12 @@
                                     </button>
                                 </form>
                             </td>
+                            <td>{{ $q->max_point }}</td>
                             <td>
-                                <table class="table align-middle table-sm">
+                                <table id="table2" class="table align-middle table-sm mb-0">
                                     @foreach ($q->option->sortByDesc('option_point') as $o)
                                         <tr>
-                                            <td>{{ $o->option_name . ' : ' . $o->option_point }}</td>
+                                            <td> {{ $o->option_name . ' : ' . $o->option_point }}</td>
                                             <td>
                                                 <a class="btn btn-link p-1"
                                                     href="{{ route('mutabaah-option.edit', $o->id) }}">edit</a>
@@ -71,7 +73,6 @@
                                     @endforeach
                                 </table>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
@@ -98,9 +99,29 @@
                                 readonly hidden>
                             <input type="text" name="category" value="category" hidden readonly>
                             <div class="mb-3">
+                                <label class="form-label mb-0" for="question_for">Kategori pertanyaan untuk? </label>
+                                <br>
+                                <small>
+                                    (jika pertanyaan untuk semua isi dengan all)
+                                    <br>
+                                    (jika pertanyaan untuk guru isi dengan guru)
+                                    <br>
+                                    (jika pertanyaan untuk tendik isi dengan tendik)
+                                    <br>
+                                    (jika pertanyaan untuk karyawan isi dengan karyawan)
+                                </small>
+                                <input class="form-control bg-light" type="text" id="question_for" name="question_for"
+                                    placeholder="Untuk ?" />
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label" for="question">Pertanyaan</label>
                                 <input class="form-control" type="text" id="question" name="question"
                                     placeholder="tuliskan pertanyaan disini ..." />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="max_point">Maksimal Point </label>
+                                <input class="form-control bg-light" type="text" id="max_point" name="max_point"
+                                    placeholder="max_point" />
                             </div>
                         </fieldset>
                         <button type="submit" class="btn btn-success mt-3 float-end">Simpan Data Pertanyaan</button>
@@ -113,6 +134,13 @@
 @endsection
 
 @include('layouts.partials.allscripts')
+@push('css')
+    <style>
+        #table2 td {
+            padding: 0px !important;
+        }
+    </style>
+@endpush
 @push('scripts')
     <script>
         $(document).ready(function() {

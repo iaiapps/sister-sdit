@@ -2,6 +2,10 @@
 
 @section('title', 'Buat Jawaban')
 @section('content')
+    @php
+        $name = Auth::user()->teacher->full_name;
+        $role = Auth::user()->getRoleNames()->first();
+    @endphp
     <div class="card p-3">
         @if ($exist)
             <div class="bg-white rounded text-center">
@@ -23,31 +27,60 @@
                         <p class="text-center m-0 fs-5 bg-success text-white rounded p-2 fs-5">Kategori:
                             {{ $category->nama_kategori }}</p>
                         <hr>
-                        @foreach ($category->question as $question)
-                            <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
-                                readonly hidden>
-                            <div class="mb-3">
-                                <div class="alert alert-secondary p-1" role="alert">
-                                    <p class=" mb-0 fs-5"> {{ $loop->iteration }}. {{ $question->question }}</p>
+
+                        @if ($role == 'guru')
+                            @foreach ($category->question as $question)
+                                <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
+                                    readonly hidden>
+                                <div class="mb-3">
+                                    <div class="alert alert-secondary p-1" role="alert">
+                                        <p class=" mb-0 fs-5"> {{ $loop->iteration }}. {{ $question->question }}</p>
+                                    </div>
+                                    <div class="d-none">
+                                        <input type="text" name="question_id[{{ $question->id }}]"
+                                            value="{{ $question->id }}" readonly hidden>
+                                    </div>
+                                    <div class="mt-0">
+                                        <ul class="list-group">
+                                            @foreach ($question->option as $option)
+                                                <li class="list-group-item"> <input class="form-check-input" type="radio"
+                                                        name="option[{{ $question->id }}]" id="option{{ $option->id }}"
+                                                        value="{{ $option->option_name }}, {{ $option->option_point }}">
+                                                    <label class="form-check-label ms-3"
+                                                        for="option{{ $option->id }}">{{ $option->option_name }}</label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="d-none">
-                                    <input type="text" name="question_id[{{ $question->id }}]"
-                                        value="{{ $question->id }}" readonly hidden>
+                            @endforeach
+                        @elseif($role == 'tendik')
+                            @foreach ($category->question->where('question_for', '!=', 'guru') as $question)
+                                <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
+                                    readonly hidden>
+                                <div class="mb-3">
+                                    <div class="alert alert-secondary p-1" role="alert">
+                                        <p class=" mb-0 fs-5"> {{ $loop->iteration }}. {{ $question->question }}</p>
+                                    </div>
+                                    <div class="d-none">
+                                        <input type="text" name="question_id[{{ $question->id }}]"
+                                            value="{{ $question->id }}" readonly hidden>
+                                    </div>
+                                    <div class="mt-0">
+                                        <ul class="list-group">
+                                            @foreach ($question->option as $option)
+                                                <li class="list-group-item"> <input class="form-check-input" type="radio"
+                                                        name="option[{{ $question->id }}]" id="option{{ $option->id }}"
+                                                        value="{{ $option->option_name }}, {{ $option->option_point }}">
+                                                    <label class="form-check-label ms-3"
+                                                        for="option{{ $option->id }}">{{ $option->option_name }}</label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="mt-0">
-                                    <ul class="list-group">
-                                        @foreach ($question->option as $option)
-                                            <li class="list-group-item"> <input class="form-check-input" type="radio"
-                                                    name="option[{{ $question->id }}]" id="option{{ $option->id }}"
-                                                    value="{{ $option->option_name }}, {{ $option->option_point }}">
-                                                <label class="form-check-label ms-3"
-                                                    for="option{{ $option->id }}">{{ $option->option_name }}</label>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </fieldset>
                 @endforeach
 

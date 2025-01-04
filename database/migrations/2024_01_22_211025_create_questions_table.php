@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->string('question_for');
             $table->string('question');
+            $table->string('max_point');
             $table->timestamps();
         });
     }

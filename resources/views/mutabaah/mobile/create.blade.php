@@ -66,7 +66,7 @@
                                 </div>
                             @endforeach
                         @elseif($role == 'tendik')
-                            @foreach ($category->question->where('cat', '!=', 'guru') as $question)
+                            @foreach ($category->question->where('question_for', '!=', 'guru') as $question)
                                 <input type="text" value="{{ $category->id }}" name="category_id[{{ $question->id }}]"
                                     readonly hidden>
                                 <div class="mb-3">

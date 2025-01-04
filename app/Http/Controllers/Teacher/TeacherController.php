@@ -21,9 +21,9 @@ class TeacherController extends Controller
         // $this->authorize('teacher', $teacher);
         $guru = User::role('guru')->get();
         $tendik = User::role('tendik')->get();
+
+        // ini untuk merge array collection
         $users = $guru->merge($tendik);
-        //dd($tendik);
-        // $teachers = Teacher::all();
         return view('admin.teacher.index', compact('users'));
     }
 
@@ -133,7 +133,7 @@ class TeacherController extends Controller
     }
 
     // .......................................//
-    //handle tendik
+    //handle karyawan
     public function karyawan()
     {
         // ini jika ambil dari user->role lalu join dengan teacher

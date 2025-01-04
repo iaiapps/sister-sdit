@@ -3,6 +3,10 @@
 
 @section('title', 'List Mengisi Mutabaah')
 @section('content')
+    @php
+        // $name = Auth::user()->teacher->full_name;
+        $role = $answers->first()->teacher->user->getRoleNames()->first();
+    @endphp
     <div class="card p-3">
         <div>
             <a href="{{ route('mutabaah.index') }}" class="btn btn-success me-2">
@@ -14,14 +18,14 @@
         </p>
         <hr>
         <div class="table-responsive">
-            <table class="table align-middle" id="table">
+            <table class="table align-middle table-sm" id="table">
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>Nama Guru</th>
                         <th>Tanggal Pengisian</th>
-                        {{-- <th>Point</th> --}}
-                        <th>Total Point</th>
+                        <th>Capaian</th>
+                        {{-- <th>Total Point</th> --}}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -29,10 +33,33 @@
                     @foreach ($answers as $answer)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $answer->teacher->full_name }}</td>
+                            <td>{{ $answer->teacher->full_name }}, {{ $role }}</td>
                             <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
-                            {{-- <td>{{ $answer->category }}</td> --}}
-                            <td>{{ $answer->t_point }}</td>
+
+                            <td>
+                                <table class="table">
+                                    @foreach ($categories as $cat)
+                                        <tr>
+                                            <td>
+                                                @if ($role == 'guru')
+                                                    <small class="lh-1">
+                                                        Kategori = {{ $cat->nama_kategori }}, <br> </small>
+                                                    <small> capaian point =
+                                                        {{ ($answer_all->where('category_id', $cat->id)->sum('point') / $cat->question->sum('max_point')) * 100 . '%' }}
+                                                    </small>
+                                                @elseif ($role == 'tendik')
+                                                    <small class="lh-1">
+                                                        Kategori = {{ $cat->nama_kategori }}, <br> </small>
+                                                    <small> capaian point =
+                                                        {{ ($answer_all->where('category_id', $cat->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100 . '%' }}
+                                                    </small>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </td>
+                            {{-- <td>{{ $answer->sum('point') }}</td> --}}
                             <td>
                                 <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
                                     class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i> info
