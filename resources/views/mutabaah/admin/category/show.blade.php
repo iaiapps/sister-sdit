@@ -9,8 +9,8 @@
             </a>
         </div>
 
-        <p class="mt-3 mb-0 fs-5 text-center">Kategori <span class="fw-bold"> {{ $mutabaah_category->nama_kategori }}</span>
-        </p>
+        <p class="mt-3 mb-0 fs-5 text-center">Kategori <span class="fw-bold"> {{ $mutabaah_category->nama_kategori }}, </span>
+            total point {{ $mutabaah_category->question->sum('max_point') }}</p>
         <hr>
         <div>
             <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#question">
@@ -25,14 +25,13 @@
                         <th scope="col">Pertanyaan : Untuk</th>
                         <th scope="col">Maksimal Point</th>
                         <th scope="col">Pilihan Jawaban : Point</th>
-                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($mutabaah_category->question as $q)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td style="width: 50%">{{ $q->question }} : untuk {{ $q->question_for }}<br>
+                            <td style="width: 50%">{{ $q->question }} : untuk {{ $q->question_for }} <br>
                                 <div class="btn-group">
                                     <a href="{{ route('mutabaah-option.create', ['id' => $q->id]) }}"
                                         class="btn btn-primary btn-sm">

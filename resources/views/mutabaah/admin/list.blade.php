@@ -3,14 +3,7 @@
 
 @section('title', 'List Mengisi Mutabaah')
 @section('content')
-    @php
-        // $name = Auth::user()->teacher->full_name;
-        $answer = $answers->first();
-        if (!empty($answers->first())) {
-            $role = $answer->teacher->user->getRoleNames()->first();
-        }
 
-    @endphp
     <div class="card p-3">
         <div>
             <a href="{{ route('mutabaah.index') }}" class="btn btn-success me-2">
@@ -38,27 +31,36 @@
                             $role = $answer->teacher->user->getRoleNames()->first();
                         @endphp
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $answer->teacher->full_name }}, {{ $role }}</td>
+                            <td>{{ $answer->teacher->id }}</td>
+                            <td>{{ $answer->teacher->full_name }}</td>
                             <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
-
                             <td>
-                                <table class="table">
+                                <table class="table mb-0 table-sm" id="table2">
                                     @foreach ($categories as $cat)
                                         <tr>
                                             <td>
                                                 @if ($role == 'guru')
-                                                    <small class="lh-1">
-                                                        Kategori = {{ $cat->nama_kategori }}, <br> </small>
-                                                    <small> capaian point =
-                                                        {{ ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') /$cat->question->sum('max_point')) *100 .'%' }}
+                                                    <small>
+                                                        {{ $cat->nama_kategori }},
+                                                    </small>
+                                                    <br>
+                                                    <small> capaian =
+                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->sum('max_point') .'x 100%' }}
+                                                        =
+                                                        {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->sum('max_point')) * 100,2,'.','') }}%
                                                     </small>
                                                 @elseif ($role == 'tendik')
-                                                    <small class="lh-1">
-                                                        Kategori = {{ $cat->nama_kategori }}, <br> </small>
-                                                    <small> capaian point =
-                                                        {{ ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') /$cat->question->where('question_for', 'all')->sum('max_point')) *100 .'%' }}
-                                                    </small>
+                                                    @if ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point'))
+                                                        <small>
+                                                            {{ $cat->nama_kategori }},
+                                                        </small>
+                                                        <br>
+                                                        <small> capaian =
+                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->where('question_for', 'all')->sum('max_point') .'x 100%' }}
+                                                            =
+                                                            {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100,2,'.','') }}%
+                                                        </small>
+                                                    @endif
                                                 @endif
                                             </td>
                                         </tr>
@@ -79,6 +81,15 @@
 @endsection
 
 @include('layouts.partials.allscripts')
+
+@push('css')
+    <style>
+        #table2 td {
+            padding: 0px;
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <script>
         $(document).ready(function() {

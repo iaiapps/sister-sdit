@@ -20,22 +20,24 @@
                 <thead>
                     <tr>
                         <th>No.</th>
+                        <th>Kategori</th>
                         <th>Pertanyaan</th>
                         <th>Jawaban</th>
-                        <th>Point</th>
+                        <th class="text-center">Point</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($answers as $answer)
+                    @foreach ($answers->sortBy('category_id') as $answer)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $answer->question->category->nama_kategori }}</td>
                             <td>{{ $answer->question->question }}</td>
                             <td>{{ $answer->answer }}</td>
-                            <td>{{ $answer->point }}</td>
+                            <td class="text-center">{{ $answer->point }}</td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="3" class="text-center">Total Point</td>
+                        <td colspan="4" class="text-center">Total Point</td>
 
                         <td>
                             @if ($role == 'guru')
