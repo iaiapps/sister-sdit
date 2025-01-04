@@ -21,7 +21,7 @@
                         (jika pertanyaan untuk karyawan isi dengan karyawan)
                     </small>
                     <input class="form-control bg-light" type="text" id="question_for" name="question_for"
-                        placeholder="Untuk ?" value="{{ $mutabaah_question->cat }}" />
+                        placeholder="Untuk ?" value="{{ $mutabaah_question->question_for }}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="question">Pertanyaan </label>

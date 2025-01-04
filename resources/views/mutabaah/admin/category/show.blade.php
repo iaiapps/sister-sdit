@@ -32,7 +32,7 @@
                     @foreach ($mutabaah_category->question as $q)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td style="width: 50%">{{ $q->question }} : untuk {{ $q->cat }}<br>
+                            <td style="width: 50%">{{ $q->question }} : untuk {{ $q->question_for }}<br>
                                 <div class="btn-group">
                                     <a href="{{ route('mutabaah-option.create', ['id' => $q->id]) }}"
                                         class="btn btn-primary btn-sm">

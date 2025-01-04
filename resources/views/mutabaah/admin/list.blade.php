@@ -35,8 +35,7 @@
                 <tbody>
                     @foreach ($answers as $answer)
                         @php
-                            // $name = Auth::user()->teacher->full_name;
-                            $role = $answers->first()->teacher->user->getRoleNames()->first();
+                            $role = $answer->teacher->user->getRoleNames()->first();
                         @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
@@ -48,7 +47,6 @@
                                     @foreach ($categories as $cat)
                                         <tr>
                                             <td>
-                                                {{-- @dd($answer_all) --}}
                                                 @if ($role == 'guru')
                                                     <small class="lh-1">
                                                         Kategori = {{ $cat->nama_kategori }}, <br> </small>
@@ -85,7 +83,7 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
-                paging: '100'
+                paging: false
             });
         });
     </script>
