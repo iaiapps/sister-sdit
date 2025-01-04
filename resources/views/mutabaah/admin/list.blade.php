@@ -34,6 +34,10 @@
                 </thead>
                 <tbody>
                     @foreach ($answers as $answer)
+                        @php
+                            // $name = Auth::user()->teacher->full_name;
+                            $role = $answers->first()->teacher->user->getRoleNames()->first();
+                        @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $answer->teacher->full_name }}, {{ $role }}</td>

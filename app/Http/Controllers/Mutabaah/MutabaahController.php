@@ -106,7 +106,7 @@ class MutabaahController extends Controller
     {
         $mutabaah_id = $request->m_id;
         $teacher_id = $request->t_id;
-        // $teacher = Teacher::where()
+        // $teacher = Teacher::where('id', $teacher_id)->first();
         $question = Question::all();
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher_id)->get();
         return view('mutabaah.admin.show', compact('answers', 'mutabaah_id', 'question'));
