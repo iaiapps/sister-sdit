@@ -5,7 +5,11 @@
 @section('content')
     @php
         // $name = Auth::user()->teacher->full_name;
-        $role = $answers->first()->teacher->user->getRoleNames()->first();
+        $answer = $answers->first();
+        if (!empty($answers->first())) {
+            $role = $answer->teacher->user->getRoleNames()->first();
+        }
+
     @endphp
     <div class="card p-3">
         <div>
@@ -25,7 +29,6 @@
                         <th>Nama Guru</th>
                         <th>Tanggal Pengisian</th>
                         <th>Capaian</th>
-                        {{-- <th>Total Point</th> --}}
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -41,17 +44,18 @@
                                     @foreach ($categories as $cat)
                                         <tr>
                                             <td>
+                                                {{-- @dd($answer_all) --}}
                                                 @if ($role == 'guru')
                                                     <small class="lh-1">
                                                         Kategori = {{ $cat->nama_kategori }}, <br> </small>
                                                     <small> capaian point =
-                                                        {{ ($answer_all->where('category_id', $cat->id)->sum('point') / $cat->question->sum('max_point')) * 100 . '%' }}
+                                                        {{ ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') /$cat->question->sum('max_point')) *100 .'%' }}
                                                     </small>
                                                 @elseif ($role == 'tendik')
                                                     <small class="lh-1">
                                                         Kategori = {{ $cat->nama_kategori }}, <br> </small>
                                                     <small> capaian point =
-                                                        {{ ($answer_all->where('category_id', $cat->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100 . '%' }}
+                                                        {{ ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') /$cat->question->where('question_for', 'all')->sum('max_point')) *100 .'%' }}
                                                     </small>
                                                 @endif
                                             </td>
@@ -59,7 +63,6 @@
                                     @endforeach
                                 </table>
                             </td>
-                            {{-- <td>{{ $answer->sum('point') }}</td> --}}
                             <td>
                                 <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
                                     class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i> info
