@@ -3,7 +3,6 @@
 
 @section('title', 'List Mengisi Mutabaah')
 @section('content')
-
     <div class="card p-3">
         <div>
             <a href="{{ route('mutabaah.index') }}" class="btn btn-success me-2">
@@ -35,7 +34,7 @@
                             <td>{{ $answer->teacher->full_name }}</td>
                             <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
                             <td>
-                                <table class="table mb-0 table-sm" id="table2">
+                                <table class="table my-0 table-sm" id="table2">
                                     @foreach ($categories as $cat)
                                         <tr>
                                             <td>
@@ -45,7 +44,7 @@
                                                     </small>
                                                     <br>
                                                     <small> capaian =
-                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->sum('max_point') .'x 100%' }}
+                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .' / ' .$cat->question->sum('max_point') .' x 100%' }}
                                                         =
                                                         {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->sum('max_point')) * 100,2,'.','') }}%
                                                     </small>
@@ -56,7 +55,7 @@
                                                         </small>
                                                         <br>
                                                         <small> capaian =
-                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->where('question_for', 'all')->sum('max_point') .'x 100%' }}
+                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .' / ' .$cat->question->where('question_for', 'all')->sum('max_point') .' x 100%' }}
                                                             =
                                                             {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100,2,'.','') }}%
                                                         </small>
