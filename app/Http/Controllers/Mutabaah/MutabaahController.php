@@ -86,19 +86,14 @@ class MutabaahController extends Controller
         $categories = Category::all();
         $answer_all = Answer::where('mutabaah_id', $mutabaah_id)->get();
 
-        // ini untuk mencari total point
+        // ini untuk mencari tanggal dan total point
         $answers = Answer::where('mutabaah_id', $mutabaah_id)
             ->select(
                 'teacher_id',
+                DB::raw("SUM(point) AS t_point"),
+                DB::raw("DATE(created_at) AS tanggal"),
             )
-            ->groupBy('teacher_id')->get();
-        // $answers = Answer::where('mutabaah_id', $mutabaah_id)
-        //     ->select(
-        //         'teacher_id',
-        //         DB::raw("SUM(point) AS t_point"),
-        //         DB::raw("DATE(created_at) AS tanggal"),
-        //     )
-        //     ->groupBy('teacher_id', 'tanggal')->get();
+            ->groupBy('teacher_id', 'tanggal')->get();
         return view('mutabaah.admin.list', compact('answers', 'name_mutabaah', 'categories', 'answer_all'));
     }
 
@@ -106,7 +101,6 @@ class MutabaahController extends Controller
     {
         $mutabaah_id = $request->m_id;
         $teacher_id = $request->t_id;
-        // $teacher = Teacher::where('id', $teacher_id)->first();
         $question = Question::all();
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher_id)->get();
         return view('mutabaah.admin.show', compact('answers', 'mutabaah_id', 'question'));
