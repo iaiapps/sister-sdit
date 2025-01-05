@@ -37,9 +37,8 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="4" class="text-center">Total Point</td>
-
-                        <td>
+                        <td colspan="4" class="text-center fw-bold">Total Point</td>
+                        <td class="text-center fw-bold">
                             @if ($role == 'guru')
                                 {{ $answer->where('teacher_id', $answer->teacher->id)->sum('point') }}/{{ $question->sum('max_point') }}
                             @elseif ($role == 'tendik')

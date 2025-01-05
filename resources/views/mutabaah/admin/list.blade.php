@@ -14,14 +14,12 @@
         </p>
         <hr>
         <div class="table-responsive">
-            <table class="table align-middle table-sm" id="table">
+            <table class="table align-middle table-striped table-sm border border-dark" id="table">
                 <thead>
                     <tr>
-                        <th>No.</th>
+                        <th class="text-center">No.</th>
                         <th>Nama Guru</th>
-                        <th>Tanggal Pengisian</th>
                         <th>Capaian</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,46 +28,50 @@
                             $role = $answer->teacher->user->getRoleNames()->first();
                         @endphp
                         <tr>
-                            <td>{{ $answer->teacher->id }}</td>
-                            <td>{{ $answer->teacher->full_name }}</td>
-                            <td>{{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}</td>
+                            <td class="text-center">{{ $answer->teacher->id }}</td>
+                            <td>{{ $answer->teacher->full_name }} <br>
+                                Pengisian tanggal: {{ $carbon::parse($answer->tanggal)->isoFormat('DD MMMM Y') }}
+                                <br>
+                                <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
+                                    class="btn btn-success btn-sm mt-1"><i class="bi bi-info-circle-square"></i> detail
+                                    jawaban
+                                </a>
+                            </td>
                             <td>
                                 <table class="table my-0 table-sm" id="table2">
                                     @foreach ($categories as $cat)
                                         <tr>
-                                            <td>
-                                                @if ($role == 'guru')
+                                            @if ($role == 'guru')
+                                                <td>
                                                     <small>
-                                                        {{ $cat->nama_kategori }},
+                                                        Kategori: {{ $cat->nama_kategori }},
                                                     </small>
-                                                    <br>
-                                                    <small> capaian =
-                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .' / ' .$cat->question->sum('max_point') .' x 100%' }}
-                                                        =
+                                                </td>
+                                                <td>
+                                                    <small> Capaian:
+                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->sum('max_point') .' x 100% ' .'=' }}
                                                         {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->sum('max_point')) * 100,2,'.','') }}%
                                                     </small>
-                                                @elseif ($role == 'tendik')
-                                                    @if ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point'))
+                                                </td>
+                                            @elseif ($role == 'tendik')
+                                                @if ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point'))
+                                                    <td>
                                                         <small>
-                                                            {{ $cat->nama_kategori }},
+                                                            Kategori: {{ $cat->nama_kategori }},
                                                         </small>
-                                                        <br>
-                                                        <small> capaian =
-                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .' / ' .$cat->question->where('question_for', 'all')->sum('max_point') .' x 100%' }}
-                                                            =
+                                                    </td>
+                                                    <td>
+                                                        <small> Capaian:
+                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->where('question_for', 'all')->sum('max_point') .' x 100% ' .'=' }}
+
                                                             {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100,2,'.','') }}%
                                                         </small>
-                                                    @endif
+                                                    </td>
                                                 @endif
-                                            </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </table>
-                            </td>
-                            <td>
-                                <a href="{{ route('mutabaah.show', ['t_id' => $answer->teacher->id, 'm_id' => request()->get('id')]) }}"
-                                    class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i> info
-                                </a>
                             </td>
                         </tr>
                     @endforeach
