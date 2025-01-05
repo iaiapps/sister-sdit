@@ -41,12 +41,11 @@
                                 <table class="table my-0 table-sm" id="table2">
                                     @foreach ($categories as $cat)
                                         <tr>
+                                            <td> <small>
+                                                    Kategori: {{ $cat->nama_kategori }},
+                                                </small>
+                                            </td>
                                             @if ($role == 'guru')
-                                                <td>
-                                                    <small>
-                                                        Kategori: {{ $cat->nama_kategori }},
-                                                    </small>
-                                                </td>
                                                 <td>
                                                     <small> Capaian:
                                                         {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->sum('max_point') .' x 100% ' .'=' }}
@@ -56,14 +55,8 @@
                                             @elseif ($role == 'tendik')
                                                 @if ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point'))
                                                     <td>
-                                                        <small>
-                                                            Kategori: {{ $cat->nama_kategori }},
-                                                        </small>
-                                                    </td>
-                                                    <td>
                                                         <small> Capaian:
                                                             {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->where('question_for', 'all')->sum('max_point') .' x 100% ' .'=' }}
-
                                                             {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100,2,'.','') }}%
                                                         </small>
                                                     </td>
