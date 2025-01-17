@@ -120,7 +120,7 @@ class PresenceController extends Controller
         }
     }
 
-    // fungsi note
+    // fungsi catatan seperti sakit, ijin, tugas kedinasan, dan pulang awal
     private function _note($now, $teacher_id, $note, $description)
     {
         // get data presensi
@@ -205,7 +205,7 @@ class PresenceController extends Controller
         }
     }
 
-    // fungsi save data dan cek keterlambatan
+    // fungsi simpan data presensi (normal) dan cek keterlambatan
     public function saveData($request, $is_late)
     {
         if ($is_late == false) {
@@ -220,7 +220,8 @@ class PresenceController extends Controller
             'time_in' => $now->isoFormat('HH:mm:ss'),
             'time_out' => '-',
             'is_late' => $is_late,
-            'note' => $note
+            'note' => $note,
+
         ]);
         return response()->json([
             'pesan' => 'Berhasil presensi masuk',
@@ -260,16 +261,23 @@ class PresenceController extends Controller
         $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
         return $qr->value;
     }
+    // untuk latitude, longitude, dan radius
+    public function getLatitude()
+    {
+        $latitude = DB::table('presence_settings')->where('name', 'latitude')->first();
+        return $latitude->value;
+    }
 
-    // Qr ini tidak digunakan
-    // public function getQrCode()
-    // {
-    //     $qr = DB::table('presence_settings')->where('name', 'qrcode')->get();
-    //     return response()->json([
-    //         'pesan' => 'Berhasil mendapatkan data qr-code',
-    //         'data' => $qr
-    //     ], 200);
-    // }
+    public function getLongitude()
+    {
+        $longitude = DB::table('presence_settings')->where('name', 'longitude')->first();
+        return $longitude->value;
+    }
+    public function getRadius()
+    {
+        $radius = DB::table('presence_settings')->where('name', 'radius')->first();
+        return $radius->value;
+    }
 
     public function getSettings()
     {

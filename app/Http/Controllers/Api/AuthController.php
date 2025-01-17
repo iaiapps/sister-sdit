@@ -27,7 +27,8 @@ class AuthController extends Controller
             $teacher_id = Teacher::where('user_id', $user->id)->first()->id;
 
             // get qrcode dari controller PresenceController
-            $qr = new PresenceController();
+            // $qr = new PresenceController();
+            $setting_presence = new PresenceController();
 
             // return hasil
             return response()->json([
@@ -35,7 +36,10 @@ class AuthController extends Controller
                 'data' => $user,
                 'token_type' => 'Bearer',
                 'teacher_id' => $teacher_id,
-                'qrcode' => $qr->getQrCode()
+                'qrcode' => $setting_presence->getQrCode(),
+                'latitude' => $setting_presence->getLatitude(),
+                'longitude' => $setting_presence->getLongitude(),
+                'radius' => $setting_presence->getRadius(),
             ]);
         } else {
             // jika salah return ini

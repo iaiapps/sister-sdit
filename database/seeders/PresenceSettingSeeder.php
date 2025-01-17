@@ -91,5 +91,22 @@ class PresenceSettingSeeder extends Seeder
             'value' => 'SDITQR' . '-' . date('Ymd'),
             'desc' => 'data qr code',
         ]);
+
+        // koordinat milik SDIT Harum
+        PresenceSetting::create([
+            'name' => 'latitude',
+            'value' => '-8.154578',
+            'desc' => 'kooridnat latitude',
+        ]);
+        PresenceSetting::create([
+            'name' => 'longitude',
+            'value' => '113.71743',
+            'desc' => 'data qr code',
+        ]);
+        PresenceSetting::create([
+            'name' => 'radius',
+            'value' => '500',
+            'desc' => 'batas radius (m)',
+        ]);
     }
 }

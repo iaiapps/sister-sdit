@@ -118,8 +118,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @push('css')
     <style>

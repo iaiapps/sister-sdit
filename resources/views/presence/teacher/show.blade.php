@@ -63,6 +63,7 @@
                             @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                 <th id="edit">Edit</th>
                             @endif
+                            {{-- <th>Location</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -85,6 +86,11 @@
                                                 class="bi bi-pencil-square"></i></a>
                                     </td>
                                 @endif
+                                {{-- <td>{{ $latidude = -8.154578 }} <br>
+                                        {{ $longitude = 113.71743 }} <br>
+                                    <a href="http://maps.google.com/?q={{ $latidude }},{{ $longitude }}"
+                                        target="_blank">cek</a> --}}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
