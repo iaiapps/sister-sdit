@@ -27,6 +27,10 @@ Route::post('/login', [AuthController::class, 'login']);
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
+    //check token
+    Route::get('/verify-token', [AuthController::class, 'verifyToken']);
+
+
     //akses data presensi
     Route::resource('presence', PresenceController::class);
     // Route::resource('salary', SalaryController::class);

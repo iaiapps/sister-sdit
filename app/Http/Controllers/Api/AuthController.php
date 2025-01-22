@@ -20,6 +20,9 @@ class AuthController extends Controller
             // cek user dari email
             $user = User::where('email', $request['email'])->firstOrFail();
 
+            // Hapus semua token lama
+            $user->tokens()->delete();
+
             //create token
             $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -29,7 +32,7 @@ class AuthController extends Controller
             // get qrcode dari controller PresenceController
             // $qr = new PresenceController();
             $setting_presence = new PresenceController();
-
+            // dd($token);
             // return hasil
             return response()->json([
                 'access_token' => $token,
@@ -56,5 +59,22 @@ class AuthController extends Controller
         return [
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
+    }
+
+    public function verifyToken()
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Token tidak valid atau sesi telah berakhir.',
+            ], 403);
+        }
+
+        return response()->json([
+            'valid' => true,
+            'message' => 'Token valid.',
+        ]);
     }
 }

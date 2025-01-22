@@ -171,7 +171,10 @@ class PresenceController extends Controller
     // add presensi
     public function addpresence()
     {
-        $users = User::role('guru')->get();
+        $guru = User::role('guru')->get();
+        $tendik = User::role('tendik')->get();
+
+        $users = $guru->merge($tendik);
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
         return view('presence.admin.create', compact('tgl', 'users'));
     }

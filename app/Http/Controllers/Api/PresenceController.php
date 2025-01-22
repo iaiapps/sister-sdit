@@ -32,7 +32,7 @@ class PresenceController extends Controller
         $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->orderBy('created_at', 'desc')->get();
 
         if ($presence->count() == null) {
-            return response()->json(['pesan' => 'Data tidak ditemukan'], 404);
+            return response()->json(['pesan' => 'Data tidak ditemukan'], 200);
         }
         return response()->json(['pesan' => 'Data ditemukan', 'data' => $presence], 200);
     }
@@ -282,7 +282,7 @@ class PresenceController extends Controller
     public function getSettings()
     {
         $list = DB::table('presence_settings')->where(function ($query) {
-            $query->where('name', '!=', 'qrcode')->where('name', '!=', 'end_time_come')->where('name', '!=', 'timeline');
+            $query->where('name', '!=', 'qrcode')->where('name', '!=', 'end_time_come')->where('name', '!=', 'timeline')->where('name', '!=', 'latitude')->where('name', '!=', 'longitude')->where('name', '!=', 'radius');
         })->get();
         return response()->json([
             'pesan' => 'Berhasil mendapatkan data Settings',
