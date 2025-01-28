@@ -44,8 +44,8 @@
                             <a href="{{ asset('apk/sisterPresence.apk') }}"
                                 class="position-relative btn btn-success rounded mb-2 w-100">
                                 APK Guru
-                                <span class="badge rounded bg-danger">
-                                    new ver. 1.3.0
+                                <span class="badge rounded bg-warning">
+                                    new ver. 1.4.0
                                 </span>
                             </a>
 

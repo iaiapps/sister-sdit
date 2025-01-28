@@ -26,8 +26,6 @@ class PresenceController extends Controller
     // get data by id
     public function show($id)
     {
-        // dd($userInstance->tokens);
-
         $monthyear = Carbon::now();
         $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->orderBy('created_at', 'desc')->get();
 
@@ -255,48 +253,51 @@ class PresenceController extends Controller
         }
     }
 
-    // untuk get qr code
-    public function getQrCode()
-    {
-        $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
-        return $qr->value;
-    }
-    // untuk latitude, longitude, dan radius
-    public function getLatitude()
-    {
-        $latitude = DB::table('presence_settings')->where('name', 'latitude')->first();
-        return $latitude->value;
-    }
-
-    public function getLongitude()
-    {
-        $longitude = DB::table('presence_settings')->where('name', 'longitude')->first();
-        return $longitude->value;
-    }
-    public function getRadius()
-    {
-        $radius = DB::table('presence_settings')->where('name', 'radius')->first();
-        return $radius->value;
-    }
-
+    // get waktu presensi
     public function getSettings()
     {
         $list = DB::table('presence_settings')->where(function ($query) {
-            $query->where('name', '!=', 'qrcode')->where('name', '!=', 'end_time_come')->where('name', '!=', 'timeline')->where('name', '!=', 'latitude')->where('name', '!=', 'longitude')->where('name', '!=', 'radius');
+            $query->where('name', '!=', 'qrcode')
+                ->where('name', '!=', 'end_time_come')
+                ->where('name', '!=', 'timeline')
+                ->where('name', '!=', 'latitude')
+                ->where('name', '!=', 'longitude')
+                ->where('name', '!=', 'radius')
+                ->where('name', '!=', 'version');
         })->get();
         return response()->json([
             'pesan' => 'Berhasil mendapatkan data Settings',
             'data' => $list
         ], 200);
     }
-
-    // belum digunakann
-    public function jam()
+    // get qr code
+    public function getQrCode()
     {
-        $jam = Carbon::now()->isoFormat('HH:mm:ss');
-        return response()->json([
-            'pesan' => 'Berhasil mendapatkan data jam',
-            'data' => $jam
-        ]);
+        $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
+        return $qr->value;
+    }
+    // get latitude, 
+    public function getLatitude()
+    {
+        $latitude = DB::table('presence_settings')->where('name', 'latitude')->first();
+        return $latitude->value;
+    }
+    // get longitude, 
+    public function getLongitude()
+    {
+        $longitude = DB::table('presence_settings')->where('name', 'longitude')->first();
+        return $longitude->value;
+    }
+    // get radius
+    public function getRadius()
+    {
+        $radius = DB::table('presence_settings')->where('name', 'radius')->first();
+        return $radius->value;
+    }
+    // get versi aplikasi
+    public function getVersion()
+    {
+        $radius = DB::table('presence_settings')->where('name', 'version')->first();
+        return $radius->value;
     }
 }

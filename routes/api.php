@@ -30,9 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //check token
     Route::get('/verify-token', [AuthController::class, 'verifyToken']);
 
-
     //akses data presensi
-    Route::resource('presence', PresenceController::class);
+    Route::resource('presence', PresenceController::class)->middleware('check.version');
     // Route::resource('salary', SalaryController::class);
     // Route::get('jam', [PresenceController::class, 'jam']);
     // Route::get('qrcode', [PresenceController::class, 'getQrCode']);
