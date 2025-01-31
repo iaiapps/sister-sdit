@@ -27,7 +27,11 @@ class PresenceController extends Controller
     public function show($id)
     {
         $monthyear = Carbon::now();
-        $presence = Presence::where('teacher_id', $id)->whereYear('created_at', $monthyear)->whereMonth('created_at', $monthyear)->orderBy('created_at', 'desc')->get();
+        $presence = Presence::where('teacher_id', $id)
+            ->whereYear('created_at', $monthyear)
+            ->whereMonth('created_at', $monthyear)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         if ($presence->count() == null) {
             return response()->json(['pesan' => 'Data tidak ditemukan'], 200);
@@ -56,6 +60,28 @@ class PresenceController extends Controller
         $teacher_id = $request->teacher_id;
         $note = $request->note;
         $description = $request->description;
+
+        // // Jika ada catatan (note)
+        // if ($request->has('note')) {
+        //     // Jika timeline diaktifkan, pastikan scannable valid
+        //     if ($this->_timeline() && !$this->_scannable()) {
+        //         return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
+        //     }
+
+        //     return $this->_note($now, $teacher_id, $note, $description);
+        // }
+
+        // // Jika tidak ada note (presensi normal)
+        // if ($this->_timeline() && !$this->_scannable()) {
+        //     return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
+        // }
+
+        // // Validasi kehadiran sebelumnya
+        // if ($this->validateAndCheck($request)) {
+        //     return $this->saveData($request, $this->_isLate());
+        // } else {
+        //     return $this->absenPulang($request);
+        // }
 
         if ($request->has('note')) { // jika ada note
             if ($this->_timeline() == true) {
@@ -96,13 +122,12 @@ class PresenceController extends Controller
     }
 
     //fungsi timeline (pemabatasan waktu)
+    // mengembalikan true jika timeline == 1
+    // dan false jika timeline != 1
+    // lebih ringkas
     private function _timeline()
     {
-        if ($this->_settingValue('timeline') == '1') {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->_settingValue('timeline') == '1';
     }
 
     //fungsi scannable, bisa absen ketika waktu ini
@@ -119,53 +144,67 @@ class PresenceController extends Controller
     }
 
     // fungsi catatan seperti sakit, ijin, tugas kedinasan, dan pulang awal
-    private function _note($now, $teacher_id, $note, $description)
+    private function _note($now, $teacher_id, $note, $description = null)
     {
-        // get data presensi
+        // Cek jika note dikirimkan tetapi description kosong
+        // Jika note bukan "Sakit" atau "Ijin", tetapi description kosong, return error
+        if (!in_array($note, ['Sakit', 'Ijin']) && empty($description)) {
+            return response()->json([
+                'pesan' => 'Keterangan belum diisi'
+            ], 400);
+        }
+        // ambil data presensi saat ini
         $presence = Presence::where('teacher_id', $teacher_id)->whereDate('created_at', '=', Carbon::today())->first();
 
-        // $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
-        // $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
+        if (!$presence) { // Jika tidak ada data presensi
+            $data = [
+                'teacher_id' => $teacher_id,
+                'time_in' => ($note == 'Tugas kedinasan') ? $now : '-',
+                'time_out' => '-',
+                'is_late' => false,
+                'note' => $note,
+                'description' => $description
+            ];
 
-        if ($presence == null) { // cek jika tidak ada data
-            if ($note == 'Tugas kedinasan') {
-                $presence = Presence::create([
-                    'teacher_id' => $teacher_id,
-                    'time_in' => $now,
-                    'time_out' => '-',
-                    'is_late' => false,
-                    'note' => $note,
-                    'description' => $description
-                ]);
-            } else {
-                $presence = Presence::create([
-                    'teacher_id' => $teacher_id,
-                    'time_in' => '-',
-                    'time_out' => '-',
-                    'is_late' => false,
-                    'note' => $note,
-                ]);
+            $presence = Presence::create($data);
+            return response()->json([
+                'pesan' => "Berhasil menambahkan catatan $note",
+                'data' => $presence
+            ], 200);
+        }
+        // Jika catatan adalah "Pulang awal", perbarui time_out
+        if ($note == 'Pulang awal') {
+            if ($presence->time_out !== '-') {
+                return response()->json([
+                    'pesan' => 'Presensi pulang sudah dicatat sebelumnya'
+                ], 200);
             }
-            $pesan = 'Berhasil menambahkan catatan ' . $note;
-            return response()->json(['pesan' => $pesan, 'data' => $presence], 200);
-        } elseif ($note == 'Pulang awal') {
+
             $presence->time_out = $now;
+
+            // Perbarui catatan tanpa menghapus informasi sebelumnya
             if ($presence->note == 'Telat') {
                 $presence->note = 'Telat, Pulang awal';
             } elseif ($presence->note == 'Tepat waktu') {
                 $presence->note = 'Tepat waktu, Pulang awal';
             } else {
-                return response()->json(['pesan' => 'Tidak diijinkan mengubah data'], 200);
+                return response()->json([
+                    'pesan' => 'Tidak diizinkan mengubah data'
+                ], 200);
             }
+
             $presence->description = $description;
             $presence->save();
 
-            return response()->json(['pesan' => 'Berhasil presensi pulang awal'], 200);
-        } else {
             return response()->json([
-                'pesan' => 'Data sudah ada, tidak diijinkan mengubah data',
+                'pesan' => 'Berhasil mencatat presensi pulang awal',
+                'data' => $presence
             ], 200);
         }
+
+        return response()->json([
+            'pesan' => 'Data sudah ada, tidak diizinkan mengubah data'
+        ], 200);
     }
 
     // fungsi waktu terlambat
@@ -233,7 +272,7 @@ class PresenceController extends Controller
 
         // cek jika ada note sakit, ijin, dan tugas kedinasan
         $presence = Presence::where('teacher_id', $request->teacher_id)->whereDate('created_at', $now)->first();
-        if ($presence->time_in == '-' && $presence->time_out = '-') {
+        if ($presence->time_in == '-' && $presence->time_out == '-') {
             return response()->json(['pesan' => 'tidak bisa mengubah data'], 200);
         } elseif ($presence->note == 'Tugas kedinasan') {
             return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
@@ -258,7 +297,6 @@ class PresenceController extends Controller
     {
         $list = DB::table('presence_settings')->where(function ($query) {
             $query->where('name', '!=', 'qrcode')
-                ->where('name', '!=', 'end_time_come')
                 ->where('name', '!=', 'timeline')
                 ->where('name', '!=', 'latitude')
                 ->where('name', '!=', 'longitude')

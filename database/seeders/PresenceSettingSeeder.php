@@ -25,11 +25,11 @@ class PresenceSettingSeeder extends Seeder
             'value' => '06:00',
             'desc' => 'Awal jam presensi '
         ]);
-        PresenceSetting::create([
-            'name' => 'end_time_come',
-            'value' => '08:30',
-            'desc' => 'Akhir presensi jam datang'
-        ]);
+        // PresenceSetting::create([
+        //     'name' => 'end_time_come',
+        //     'value' => '08:30',
+        //     'desc' => 'Akhir presensi jam datang'
+        // ]);
         PresenceSetting::create([
             'name' => 'early_time_leave',
             'value' => '15:15',
@@ -37,7 +37,7 @@ class PresenceSettingSeeder extends Seeder
         ]);
         PresenceSetting::create([
             'name' => 'end_time_leave',
-            'value' => '17:00',
+            'value' => '18:00',
             'desc' => 'Akhir jam presensi'
         ]);
         PresenceSetting::create([
