@@ -42,7 +42,7 @@ class AuthController extends Controller
                 'latitude' => $setting_presence->getLatitude(),
                 'longitude' => $setting_presence->getLongitude(),
                 'radius' => $setting_presence->getRadius(),
-                'version' => $setting_presence->getVersion(),
+                // 'version' => $setting_presence->getVersion(),
             ]);
         } else {
             // jika salah return ini

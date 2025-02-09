@@ -314,13 +314,13 @@ class PresenceController extends Controller
         $qr = DB::table('presence_settings')->where('name', 'qrcode')->first();
         return $qr->value;
     }
-    // get latitude, 
+    // get latitude,
     public function getLatitude()
     {
         $latitude = DB::table('presence_settings')->where('name', 'latitude')->first();
         return $latitude->value;
     }
-    // get longitude, 
+    // get longitude,
     public function getLongitude()
     {
         $longitude = DB::table('presence_settings')->where('name', 'longitude')->first();
@@ -335,7 +335,7 @@ class PresenceController extends Controller
     // get versi aplikasi
     public function getVersion()
     {
-        $radius = DB::table('presence_settings')->where('name', 'version')->first();
-        return $radius->value;
+        $version = DB::table('presence_settings')->where('name', 'version')->first();
+        return $version->value;
     }
 }

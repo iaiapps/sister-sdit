@@ -59,6 +59,9 @@
                             <p>Aplikasi presensi SDIT Harum Jember </p>
                             <a href="{{ asset('apk/sisterPresenceK.apk') }}" class="btn btn-success rounded mb-2 w-100">
                                 APK Karyawan
+                                <span class="badge rounded bg-warning">
+                                    new ver. 1.1.0
+                                </span>
                             </a>
                         </div>
                     </div>
