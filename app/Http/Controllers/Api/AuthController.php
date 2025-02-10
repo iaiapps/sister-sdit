@@ -31,19 +31,34 @@ class AuthController extends Controller
 
             // get setting dari controller PresenceController
             $setting_presence = new PresenceController();
+            $setting_presence_k = new PresencekaryawanController();
 
             // return hasil
-            return response()->json([
-                'access_token' => $token,
-                'data' => $user,
-                'token_type' => 'Bearer',
-                'teacher_id' => $teacher_id,
-                'qrcode' => $setting_presence->getQrCode(),
-                'latitude' => $setting_presence->getLatitude(),
-                'longitude' => $setting_presence->getLongitude(),
-                'radius' => $setting_presence->getRadius(),
-                // 'version' => $setting_presence->getVersion(),
-            ]);
+            if ($user->hasRole(['guru', 'tendik'])) {
+                return response()->json([
+                    'access_token' => $token,
+                    'data' => $user,
+                    'token_type' => 'Bearer',
+                    'teacher_id' => $teacher_id,
+                    'qrcode' => $setting_presence->getQrCode(),
+                    'latitude' => $setting_presence->getLatitude(),
+                    'longitude' => $setting_presence->getLongitude(),
+                    'radius' => $setting_presence->getRadius(),
+                    'version' => $setting_presence->getVersion(),
+                ]);
+            } elseif ($user->hasRole('karyawan')) {
+                return response()->json([
+                    'access_token' => $token,
+                    'data' => $user,
+                    'token_type' => 'Bearer',
+                    'teacher_id' => $teacher_id,
+                    'qrcode' => $setting_presence->getQrCode(),
+                    'latitude' => $setting_presence->getLatitude(),
+                    'longitude' => $setting_presence->getLongitude(),
+                    'radius' => $setting_presence->getRadius(),
+                    'version' => $setting_presence_k->getVersionK(),
+                ]);
+            }
         } else {
             // jika salah return ini
             return response()->json(['message' => 'Email atau Password Salah!'], 401);

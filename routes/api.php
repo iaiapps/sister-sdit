@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('settinglist', [PresenceController::class, 'getSettings']);
 
     //presence karyawan
-    Route::resource('presencekaryawan', PresencekaryawanController::class);
+    // Route::resource('presencekaryawan', PresencekaryawanController::class);
+    Route::resource('presencekaryawan', PresencekaryawanController::class)->middleware('check.version_k');
 
     //route logout
     Route::post('/logout', [AuthController::class, 'logout']);
