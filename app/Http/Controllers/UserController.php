@@ -122,6 +122,6 @@ class UserController extends Controller
         $id = $request->id;
         User::where('id', $id)->update(['password' => Hash::make('password')]);
         // dd($id);
-        return redirect()->route('user.index');
+        return redirect()->route('admin.user.index');
     }
 }
