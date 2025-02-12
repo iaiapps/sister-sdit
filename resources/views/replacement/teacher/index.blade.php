@@ -22,6 +22,7 @@
                         <th scope="col">Mapel Yang Digantikan</th>
                         <th scope="col">Alasan</th>
                         <th scope="col">Guru Mapel Meninggalkan</th>
+                        <th scope="col">Diisi dengan</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
                             <td>{{ $replacement->mapel }}</td>
                             <td>{{ $replacement->alasan }}</td>
                             <td>{{ $replacement->bahan }}</td>
+                            <td>{{ $replacement->diisi_dengan }}</td>
                             {{-- <td>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                     action="{{ route('replacement.destroy', $replacement->id) }}" method="post"

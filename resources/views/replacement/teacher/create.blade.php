@@ -94,6 +94,11 @@
                     {{-- <input type="input" class="form-control" id="bahan" name="bahan"
                         placeholder="Bentuk tugas dari guru yang digantikan"> --}}
                 </div>
+
+                <div class="mb-3">
+                    <label for="diisi_dengan" class="form-label">Guru pengganti mengisi dengan</label>
+                    <input type="text" name="diisi_dengan" id="diisi_dengan" class="form-control">
+                </div>
             </fieldset>
             <button type="submit" class="btn btn-success">Simpan Data</button>
         </form>

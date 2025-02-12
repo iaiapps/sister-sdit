@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('mapel');
             $table->string('alasan');
             $table->string('bahan');
+            $table->string('diisi_dengan');
             $table->timestamps();
         });
     }
