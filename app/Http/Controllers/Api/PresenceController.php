@@ -301,7 +301,8 @@ class PresenceController extends Controller
                 ->where('name', '!=', 'latitude')
                 ->where('name', '!=', 'longitude')
                 ->where('name', '!=', 'radius')
-                ->where('name', '!=', 'version');
+                ->where('name', '!=', 'version')
+                ->where('name', '!=', 'versionK');
         })->get();
         return response()->json([
             'pesan' => 'Berhasil mendapatkan data Settings',

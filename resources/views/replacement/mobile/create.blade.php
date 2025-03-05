@@ -60,6 +60,7 @@
                         <option>B. Arab </option>
                         <option>Tahfidz </option>
                         <option>SKI </option>
+                        <option>Akhlak</option>
                         <option>Tematik </option>
                         <option>Proyek P5 </option>
                         <option>Bina Kelas </option>

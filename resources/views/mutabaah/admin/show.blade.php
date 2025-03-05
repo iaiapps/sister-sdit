@@ -40,9 +40,9 @@
                         <td colspan="4" class="text-center fw-bold">Total Point</td>
                         <td class="text-center fw-bold">
                             @if ($role == 'guru')
-                                {{ $answer->where('teacher_id', $answer->teacher->id)->sum('point') }}/{{ $question->sum('max_point') }}
+                                {{ $answer->where('mutabaah_id', $mutabaah_id)->where('teacher_id', $answer->teacher->id)->sum('point') }}/{{ $question->sum('max_point') }}
                             @elseif ($role == 'tendik')
-                                {{ $answer->where('teacher_id', $answer->teacher->id)->sum('point') }}/{{ $question->where('question_for', 'all')->sum('max_point') }}
+                                {{ $answer->where('mutabaah_id', $mutabaah_id)->where('teacher_id', $answer->teacher->id)->sum('point') }}/{{ $question->where('question_for', 'all')->sum('max_point') }}
                             @endif
                         </td>
                     </tr>
