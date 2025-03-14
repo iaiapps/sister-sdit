@@ -84,13 +84,24 @@
                                             data-toggle="modal" data-id="{!! $presence->id !!}"
                                             class="btn btn-sm btn-success editModalBtn"><i
                                                 class="bi bi-pencil-square"></i></a>
+
+                                        <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                            action="{{ route('presence.destroy', $presence->id) }}" method="post"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+
                                     </td>
                                 @endif
                                 {{-- <td>{{ $latidude = -8.154578 }} <br>
                                         {{ $longitude = 113.71743 }} <br>
                                     <a href="http://maps.google.com/?q={{ $latidude }},{{ $longitude }}"
-                                        target="_blank">cek</a> --}}
-                                </td>
+                                        target="_blank">cek</a>
+                                    </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

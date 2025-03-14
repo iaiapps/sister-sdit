@@ -141,6 +141,15 @@ class PresenceController extends Controller
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Presence $presence)
+    {
+        $presence->delete();
+        return redirect()->back();
+    }
+
     public function teacherShow(Request $request)
     {
         $id = $request->id;

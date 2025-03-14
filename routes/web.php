@@ -97,9 +97,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix('operator')->group(function () {
 
             // presence
+            Route::resource('presence', PresenceController::class);
             Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
             Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
-            Route::resource('presence', PresenceController::class);
             Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
 
             //presence karyawan
