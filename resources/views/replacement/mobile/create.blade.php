@@ -13,7 +13,7 @@
                 <div class="mb-3">
                     <label for="menggantikan" class="form-label">Menggantikan guru</label>
                     <select class="form-select" name="menggantikan" id="menggantikan">
-                        <option disabled>---- pilih nama guru ---</option>
+                        <option disabled selected>--- pilih nama guru yang digantikan ---</option>
                         @foreach ($teachers as $teacher)
                             <option>{{ $teacher->full_name }}</option>
                         @endforeach

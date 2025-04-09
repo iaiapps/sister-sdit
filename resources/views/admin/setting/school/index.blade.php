@@ -4,9 +4,9 @@
 @section('content')
     <div class="card p-3 rounded">
         <div class="table-responsive">
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <a href="/school/create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Tambah Data</a>
-            </div>
+            </div> --}}
             <div class="table-responsive">
                 <table id="table" class="table table-striped align-middle" style="width: 100%">
                     <thead>
@@ -31,14 +31,14 @@
                                     <a href="school/{{ $school->id }}/edit" class="btn btn-warning btn-sm"><i
                                             class="bi bi-pencil-square"></i>
                                         edit</a>
-                                    <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
+                                    {{-- <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                         action="school/{{ $school->id }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="bi bi-trash3"></i> del
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @empty

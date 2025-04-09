@@ -64,7 +64,8 @@ class ReplacementController extends Controller
      */
     public function edit(Replacement $replacement)
     {
-        //
+        $teachers = Teacher::all();
+        return view('replacement.admin.edit', compact('replacement', 'teachers'));
     }
 
     /**
@@ -72,7 +73,8 @@ class ReplacementController extends Controller
      */
     public function update(Request $request, Replacement $replacement)
     {
-        //
+        $replacement->update($request->all());
+        return redirect()->route('replacement.index');
     }
 
     /**

@@ -46,8 +46,18 @@
                 <img class="img-header" src="{{ asset('img/koptengah.svg') }}" alt="">
             </div>
             <hr>
+            @php
+                $first = request('start_date');
+                $end = request('end_date');
+                $date = request('date');
+
+            @endphp
             <p class="text-center fs-5 mb-0">Presensi <strong> {{ $presences->first()->teacher->full_name }}</strong>, Bulan
-                <strong>{{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</strong>
+                @if ($first != null && $end != null)
+                    <strong>{{ Carbon\Carbon::parse(request('start_date'))->isoFormat('MMMM Y') . ' - ' . Carbon\Carbon::parse($end)->isoFormat('MMMM Y') }}</strong>
+                @else
+                    <strong>{{ Carbon\Carbon::parse(request('date'))->isoFormat('MMMM Y') }}</strong>
+                @endif
             </p>
             <hr>
             <div id="table" class="table-responsive">
@@ -63,11 +73,9 @@
                             @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
                                 <th id="edit">Edit</th>
                             @endif
-                            {{-- <th>Location</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @dd($presences) --}}
                         @foreach ($presences->sortByDesc('created_at') as $presence)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>

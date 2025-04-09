@@ -19,10 +19,11 @@
         </form>
         <hr>
         @if (isset($awal) && isset($akhir))
-            <p class="fs-5 text-center">Data bulan {{ $carbon::parse($awal)->isoFormat('MMMM YYYY') }} sampai
-                {{ $carbon::parse($akhir)->isoFormat('MMMM YYYY') }}</p>
+            <p class="fs-5 text-center">Data bulan <strong>{{ $carbon::parse($awal)->isoFormat('MMMM YYYY') }} sampai
+                    {{ $carbon::parse($akhir)->isoFormat('MMMM YYYY') }}</strong></p>
         @else
-            <p class="m-0 fs-5 text-center">Data bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
+            <p class="m-0 fs-5 text-center">Data bulan : <strong>{{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</strong>
+            </p>
         @endif
         <div class="d-inline-block">
             <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i
@@ -46,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($replacements->sortByDesc('updated_at') as $replacement)
+                    @foreach ($replacements->sortByDesc('created_at') as $replacement)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $replacement->teacher->full_name }}</td>
@@ -58,6 +59,9 @@
                             <td>{{ $replacement->bahan }}</td>
                             <td>{{ $replacement->diisi_dengan }}</td>
                             <td>
+                                <a href="{{ route('replacement.edit', $replacement->id) }}"
+                                    class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i>
+                                </a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                     action="{{ route('replacement.destroy', $replacement->id) }}" method="post"
                                     class="d-inline">

@@ -45,7 +45,7 @@ class SchoolController extends Controller
      */
     public function edit(School $school)
     {
-        //
+        return view('admin.setting.school.edit', compact('school'));
     }
 
     /**
@@ -53,7 +53,8 @@ class SchoolController extends Controller
      */
     public function update(Request $request, School $school)
     {
-        //
+        $school->update($request->all());
+        return redirect()->route('admin.school.index');
     }
 
     /**

@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
             //data user
             Route::resource('user', UserController::class);
             Route::put('reset-pass', [UserController::class, 'resetpass'])->name('reset.pass');
-            Route::resource('school', SchoolController::class);
+            Route::resource('school', SchoolController::class)->only(['index', 'edit', 'update']);
             Route::resource('teacher', TeacherController::class);
             Route::get('karyawan', [TeacherController::class, 'karyawan'])->name('karyawan.index');
 
