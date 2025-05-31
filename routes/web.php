@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
             Route::get('addpresence', [PresenceController::class, 'addpresence'])->name('add.presence');
             Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
             Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
+            Route::get('todaypresence', [PresenceController::class, 'todaypresence'])->name('presence.today');
 
             //presence karyawan
             Route::get('addpresencekar', [PresencekaryawanController::class, 'addpresence'])->name('add.presencekar');

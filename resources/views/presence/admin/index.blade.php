@@ -31,6 +31,7 @@
         <hr>
         <div class="d-inline-block">
             <a href="{{ route('add.presence') }}" class="btn btn-warning mb-3">tambah data presensi</a>
+            <a href="{{ route('presence.today') }}" class="btn btn-secondary mb-3">presensi hari ini</a>
         </div>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">
