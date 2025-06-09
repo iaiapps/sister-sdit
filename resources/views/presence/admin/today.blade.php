@@ -23,7 +23,7 @@
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        {{-- <th scope="col">Id</th> --}}
+                        <th scope="col">No</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Datang</th>
                         <th scope="col">Pulang</th>
@@ -35,7 +35,7 @@
                 <tbody>
                     @foreach ($presences->sortByDesc('created_at') as $presence)
                         <tr>
-                            {{-- <td>{{ $presence->teacher_id }}</td> --}}
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $presence->teacher->full_name }}</td>
                             <td>{{ $presence->time_in }}</td>
                             <td> {{ $presence->time_out }}</td>
