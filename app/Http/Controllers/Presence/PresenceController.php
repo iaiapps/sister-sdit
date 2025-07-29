@@ -42,9 +42,6 @@ class PresenceController extends Controller
                 'teacher_id',
                 DB::raw("COUNT(*) as total_data_presensi"),
                 DB::raw("SUM(is_late = 1) as is_late"),
-                // DB::raw("SUM(is_late = 1) as is_late_a"),
-                // DB::raw("SUM(is_late = 2) as is_late_b"),
-                // DB::raw("SUM(is_late = 3) as is_late_c"),
                 DB::raw("SUM(note = 'Sakit') as total_sakit"),
                 DB::raw("SUM(note = 'Ijin') as total_ijin"),
                 DB::raw("SUM(note = 'Tugas kedinasan') as total_tugas_kedinasan"),
@@ -217,6 +214,29 @@ class PresenceController extends Controller
         return view('presence.admin.today', compact('presences', 'date'));
     }
 
+
+    // filter presence
+    public function filterpresence(Request $request)
+    {
+        $date = $request->date;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        // whereBetween('created_at', [$start_date, $end_date])
+        $presences = Presence::whereBetween('created_at', [$start_date, $end_date])
+            ->select(
+                'teacher_id',
+                DB::raw("COUNT(*) as total_data_presensi"),
+                DB::raw("SUM(is_late = 1) as is_late"),
+                DB::raw("SUM(note = 'Sakit') as total_sakit"),
+                DB::raw("SUM(note = 'Ijin') as total_ijin"),
+                DB::raw("SUM(note = 'Tugas kedinasan') as total_tugas_kedinasan"),
+                DB::raw("SUM(time_out = '-') as total_tidak_presensi_pulang"),
+            )
+            ->groupBy('teacher_id')->get();
+
+
+        return view('presence.admin.filter', compact('presences', 'date'));
+    }
 
     // .......................................//
     //handle dari user

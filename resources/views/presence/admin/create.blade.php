@@ -64,9 +64,9 @@
                                     <option>Mengerjakan tugas sekolah (4 jam efektif)</option>
                                     <option>Paguyuban kelas</option>
                                     <option>KKG</option>
-                                    <option>Pelatihan</option>
+                                    <option>Pelatihan/workshop/Webinar</option>
                                     <option>Mendampingi lomba</option>
-                                    <option>Event sekolah</option>
+                                    <option>Event sekolah/Yayasan</option>
                                 </select> </td>
                         </tr>
                     </tbody>

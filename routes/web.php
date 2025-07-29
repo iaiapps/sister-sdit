@@ -102,12 +102,16 @@ Route::middleware('auth')->group(function () {
             Route::post('storepresence', [PresenceController::class, 'storepresence'])->name('store.presence');
             Route::get('presence-export', [PresenceController::class, 'presenceexport'])->name('presence.export');
             Route::get('todaypresence', [PresenceController::class, 'todaypresence'])->name('presence.today');
+            Route::get('filterpresence', [PresenceController::class, 'filterpresence'])->name('presence.filter');
 
             //presence karyawan
             Route::get('addpresencekar', [PresencekaryawanController::class, 'addpresence'])->name('add.presencekar');
             Route::post('storepresencekar', [PresencekaryawanController::class, 'storepresence'])->name('store.presencekar');
             Route::resource('presencekaryawan', PresencekaryawanController::class);
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
+            Route::get('todaypresencekar', [PresencekaryawanController::class, 'todaypresencekar'])->name('presencekar.today');
+
+
 
             //gaji
             // Route::resource('salary', SalaryController::class);

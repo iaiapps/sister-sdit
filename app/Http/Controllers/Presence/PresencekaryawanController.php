@@ -164,6 +164,17 @@ class PresencekaryawanController extends Controller
         return redirect()->route('presencekaryawan.index');
     }
 
+    // today
+    public function todaypresencekar(Request $request)
+    {
+        $date = Carbon::now()->format('Y-m-d');
+        $year = Carbon::parse($date)->year;
+        $month = Carbon::parse($date)->month;
+        $day = Carbon::parse($date)->day;
+        $presences = Presencekaryawan::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
+        return view('presencekar.today', compact('presences', 'date'));
+    }
+
     // .......................................//
     //handle dari user
     //presence
