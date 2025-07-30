@@ -48,8 +48,8 @@
                                                 </td>
                                                 <td>
                                                     <small> Capaian:
-                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->sum('max_point') .' x 100% ' .'=' }}
-                                                        {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->sum('max_point')) * 100,2,'.','') }}%
+                                                        {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') . '/' . $cat->question->sum('max_point') . ' x 100% ' . '=' }}
+                                                        {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->sum('max_point')) * 100, 2, '.', '') }}%
                                                     </small>
                                                 </td>
                                             @elseif ($role == 'tendik')
@@ -60,8 +60,8 @@
                                                     </td>
                                                     <td>
                                                         <small> Capaian:
-                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') .'/' .$cat->question->where('question_for', 'all')->sum('max_point') .' x 100% ' .'=' }}
-                                                            {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100,2,'.','') }}%
+                                                            {{ $answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') . '/' . $cat->question->where('question_for', 'all')->sum('max_point') . ' x 100% ' . '=' }}
+                                                            {{ number_format((float) ($answer_all->where('category_id', $cat->id)->where('teacher_id', $answer->teacher->id)->sum('point') / $cat->question->where('question_for', 'all')->sum('max_point')) * 100, 2, '.', '') }}%
                                                         </small>
                                                     </td>
                                                 @endif

@@ -111,8 +111,6 @@ Route::middleware('auth')->group(function () {
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
             Route::get('todaypresencekar', [PresencekaryawanController::class, 'todaypresencekar'])->name('presencekar.today');
 
-
-
             //gaji
             // Route::resource('salary', SalaryController::class);
             // Route::get('list', [SalaryController::class, 'listsalary'])->name('list');
@@ -128,6 +126,8 @@ Route::middleware('auth')->group(function () {
             // mutabaah
             Route::resource('mutabaah', MutabaahController::class);
             Route::get('mutabaah-list', [MutabaahController::class, 'mutabaahList'])->name('mutabaah.list');
+            Route::get('mutabaah-list-all', [MutabaahController::class, 'mutabaahListall'])->name('mutabaah.list.all');
+
             Route::get('mutabaah-show', [MutabaahController::class, 'mutabaahShow'])->name('mutabaah.show');
             Route::resource('mutabaah-category', CategoryController::class);
             Route::resource('mutabaah-question', QuestionController::class);

@@ -16,11 +16,11 @@
             <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col">No</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Mulai Pengerjaan</th>
                         <th scope="col">Akhir Pengerjaan</th>
-                        {{-- <th scope="col">Pengisian</th> --}}
+                        <th scope="col">Lihat</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -31,23 +31,22 @@
                             <td>{{ $mutabaah->name }}</td>
                             <td>{{ $carbon::parse($mutabaah->start)->isoFormat('dddd, DD MMMM YYYY') }}</td>
                             <td>{{ $carbon::parse($mutabaah->end)->isoFormat('dddd, DD MMMM YYYY') }}</td>
-                            {{-- @if ($now >= $mutabaah->start && $now <= $mutabaah->end)
-                                <td><a href="{{ route('mutabaah-answer.create', ['mutabaah' => $mutabaah->id]) }}"
-                                        class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> tambah </a>
-                                </td>
-                            @else
-                                <td>melewati deadline</td>
-                            @endif --}}
-
                             <td>
                                 <a href="{{ route('mutabaah.list', ['id' => $mutabaah->id]) }}"
-                                    class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i> lihat
+                                    class="btn btn-success btn-sm me-2 mb-2"><i class="bi bi-info-circle"></i> lihat
+                                    presentase
                                 </a>
+                                <a href="{{ route('mutabaah.list.all', ['id' => $mutabaah->id]) }}"
+                                    class="btn btn-primary btn-sm"><i class="bi bi-info-circle"></i> semua jawaban
+                                </a>
+                            </td>
+                            <td>
                                 <a href="{{ route('mutabaah.edit', $mutabaah->id) }}" class="btn btn-warning btn-sm"><i
                                         class="bi bi-pencil-square"></i>
                                 </a>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                    action="{{ route('mutabaah.destroy', $mutabaah->id) }}" method="post" class="d-inline">
+                                    action="{{ route('mutabaah.destroy', $mutabaah->id) }}" method="post"
+                                    class="d-inline">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm">

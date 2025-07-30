@@ -97,6 +97,26 @@ class MutabaahController extends Controller
         return view('mutabaah.admin.list', compact('answers', 'name_mutabaah', 'categories', 'answer_all'));
     }
 
+    // lihat list all
+    public function mutabaahListall(Request $request)
+    {
+        $mutabaah_id = $request->id;
+        $name_mutabaah = Mutabaah::where('id', $mutabaah_id)->first()->name;
+        $categories = Category::all();
+        $answer_all = Answer::where('mutabaah_id', $mutabaah_id)->get();
+
+        // ini untuk mencari tanggal dan total point
+        $answers = Answer::where('mutabaah_id', $mutabaah_id)
+            ->select(
+                'teacher_id',
+                DB::raw("SUM(point) AS t_point"),
+                DB::raw("DATE(created_at) AS tanggal"),
+            )
+            ->groupBy('teacher_id', 'tanggal')->get();
+        return view('mutabaah.admin.listall', compact('answers', 'name_mutabaah', 'categories', 'answer_all'));
+    }
+
+
     public function mutabaahShow(Request $request)
     {
         $mutabaah_id = $request->m_id;
