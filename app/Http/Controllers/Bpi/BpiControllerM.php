@@ -17,11 +17,11 @@ class BpiControllerM extends Controller
     public function index()
     {
         $now = Carbon::now();
-        // $year = Carbon::parse($now)->year;
+        $year = Carbon::parse($now)->year;
         $month = Carbon::parse($now)->month;
         $uid = Auth::user()->id;
         $teacher = Teacher::where('user_id', $uid)->first();
-        $bpis = Bpi::whereMonth('date', $month)
+        $bpis = Bpi::whereYear('date', $year)->whereMonth('date', $month)
             ->where('teacher_id', $teacher->id)->get();
         return view('bpi.mobile.index', compact('now', 'bpis', 'teacher'));
     }

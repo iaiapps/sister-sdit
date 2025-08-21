@@ -94,11 +94,11 @@ class BpiController extends Controller
     public function list()
     {
         $now = Carbon::now();
-        // $year = Carbon::parse($now)->year;
+        $year = Carbon::parse($now)->year;
         $month = Carbon::parse($now)->month;
         $uid = Auth::user()->id;
         $tid = Teacher::where('user_id', $uid)->first()->id;
-        $bpis = Bpi::whereMonth('date', $month)
+        $bpis = Bpi::whereYear('date', $year)->whereMonth('date', $month)
             ->where('teacher_id', $tid)->get();
 
         return view('bpi.teacher.index', compact('now', 'bpis', 'tid'));
