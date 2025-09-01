@@ -14,16 +14,19 @@ class BpiControllerM extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $now = Carbon::now();
-        $year = Carbon::parse($now)->year;
-        $month = Carbon::parse($now)->month;
+        $date = Carbon::now()->isoFormat('Y-MM');
+        if ($request->date) {
+            $date = $request->date;
+        }
+        $year = Carbon::parse($date)->year;
+        $month = Carbon::parse($date)->month;
         $uid = Auth::user()->id;
         $teacher = Teacher::where('user_id', $uid)->first();
         $bpis = Bpi::whereYear('date', $year)->whereMonth('date', $month)
             ->where('teacher_id', $teacher->id)->get();
-        return view('bpi.mobile.index', compact('now', 'bpis', 'teacher'));
+        return view('bpi.mobile.index', compact('date', 'bpis', 'teacher'));
     }
 
     /**

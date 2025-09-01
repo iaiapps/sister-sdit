@@ -56,12 +56,13 @@ class HomeController extends Controller
         //get total user
         $sumguru = User::role('guru')->count();
         $sumtendik = User::role('tendik')->count();
+        $sumkaryawan = User::role('karyawan')->count();
 
         // get time
         $now = Carbon::now()->isoFormat('HH:mm');
         switch ($role) {
             case 'admin':
-                return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools', 'now'));
+                return view('home.home', compact('name', 'sumguru', 'sumtendik', 'schools', 'now', 'sumkaryawan'));
                 break;
 
             case 'guru' || 'tendik':

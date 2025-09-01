@@ -54,10 +54,11 @@ class BpiController extends Controller
      */
     public function show($id, Request $request)
     {
+        $date = $request->date;
         $year = Carbon::parse($request->date)->year;
         $month = Carbon::parse($request->date)->month;
         $idt = $id;
-        $bpis = Bpi::where('teacher_id', $idt)->whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
+        $bpis = Bpi::where('teacher_id', $idt)->whereYear('date', $year)->whereMonth('date', $month)->get();
         return view('bpi.admin.show', compact('bpis'));
     }
 

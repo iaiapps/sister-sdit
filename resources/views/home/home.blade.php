@@ -39,6 +39,28 @@
                 <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumtendik }}</button>
             </div>
         </div>
+        <div class="col-12 col-sm-6">
+            <div class="mt-3 card rounded p-3 flex-row justify-content-between align-items-center">
+                <div class="d-flex flex-row align-items-center">
+                    <span class="fs-4 py-0 px-2 btn btn-outline-success">
+                        <i class="bi bi-person-check"></i>
+                    </span>
+                    <span class="ms-2 fs-5 "> Total Karyawan </span>
+                </div>
+                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumkaryawan }}</button>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="mt-3 card rounded p-3 flex-row justify-content-between align-items-center">
+                <div class="d-flex flex-row align-items-center">
+                    <span class="fs-4 py-0 px-2 btn btn-outline-success">
+                        <i class="bi bi-person-check"></i>
+                    </span>
+                    <span class="ms-2 fs-5 "> Total Keluarga </span>
+                </div>
+                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumguru + $sumtendik + $sumkaryawan }}</button>
+            </div>
+        </div>
     </div>
     <div class="card mt-3 rounded p-3">
         <div class="table-responsive">

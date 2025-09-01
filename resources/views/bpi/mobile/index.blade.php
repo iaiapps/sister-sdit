@@ -11,7 +11,18 @@
     @endif
     <div class="card p-3">
         <div class="d-inline-block">
-            <p class="m-0">Presensi BPI Bulan : {{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</p>
+            <p class="m-0">Presensi BPI Bulan : {{ $carbon::parse($date)->isoFormat('MMMM YYYY') }}</p>
+        </div>
+        <hr>
+        <div class="col-12 col-md-6 ">
+            <form action="{{ route('bpi-mobile.index') }}" method="GET" class="mb-0">
+                {{-- @csrf --}}
+                <div class="input-group">
+                    <input type="month" id="start" name="date" class="form-control"
+                        value="{{ request('date') ? request('date') : $date }}">
+                    <button type="submit" class="input-group-text btn btn-success">Filter</button>
+                </div>
+            </form>
         </div>
         <hr>
         <button type="button" class="btn btn-success btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -41,27 +52,11 @@
                                     </button>
                                 </form>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
     </div>
 @endsection
 @include('bpi.mobile.create')
-
-{{-- @include('layouts.partials.allscripts') --}}
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable({
-                paging: true,
-                // pageLength: 50,
-                lengthChange: false,
-                searching: false
-            });
-        });
-    </script>
-@endpush
