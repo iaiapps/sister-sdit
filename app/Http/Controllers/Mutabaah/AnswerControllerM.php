@@ -9,9 +9,10 @@ use App\Models\Mutabaah;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use PhpParser\Node\Stmt\Foreach_;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Foreach_;
 
 class AnswerControllerM extends Controller
 {
@@ -51,41 +52,72 @@ class AnswerControllerM extends Controller
     {
         $teacher_id = $request->teacher_id;
         $mutabaah_id = $request->mutabaah_id;
+
+        // SOLUSI 1: Validasi di database - cek apakah sudah ada data
+        $existingAnswer = Answer::where('teacher_id', $teacher_id)
+            ->where('mutabaah_id', $mutabaah_id)
+            ->first();
+
+        if ($existingAnswer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data mutabaah sudah pernah disimpan sebelumnya.'
+            ], 422);
+
+            // Atau untuk redirect biasa:
+            // return redirect()->route('mutabaah-mobile.index')
+            //     ->with('error', 'Data mutabaah sudah pernah disimpan sebelumnya.');
+        }
+
         $question_id = $request->question_id;
         $option = $request->option;
 
-        // ini untuk looping validasi input radio
+        // Validasi input required
         foreach ($question_id as $q) {
-            // buatkan variabel untuk dimasukkan ke dalam array dari "name" di input radio
             $validate_array['option.' . $q] = 'required';
         };
 
-        // pesan error custom
         $messages = [
             'required' => 'Ada jawaban yang masih kosong.',
         ];
 
-        // setelah di looping masukkan ke method validate()
         $valid = $request->validate($validate_array, $messages);
-        // dd($valid);
-        $category_id = $request->category_id;
-        // looping satu persatu untuk dimasukkan ke database
-        foreach ($question_id as $q) {
-            $fields = explode(',', $option[$q]);
-            $data = [
-                'teacher_id' => $teacher_id,
-                'mutabaah_id' => $mutabaah_id,
-                'category_id' => $category_id[$q],
-                'question_id' => $question_id[$q],
-                'option_id' => $option[$q],
-                'answer' => $fields[0],
-                'point' => $fields[1],
-            ];
-            Answer::create($data);
-        }
-        return redirect()->route('mutabaah-mobile.index')->with('msg', 'Berhasil menambahkan data!');
-    }
 
+        $category_id = $request->category_id;
+
+        // Gunakan database transaction
+        DB::beginTransaction();
+        try {
+            foreach ($question_id as $q) {
+                $fields = explode(',', $option[$q]);
+                $data = [
+                    'teacher_id' => $teacher_id,
+                    'mutabaah_id' => $mutabaah_id,
+                    'category_id' => $category_id[$q],
+                    'question_id' => $question_id[$q],
+                    'option_id' => $option[$q],
+                    'answer' => $fields[0],
+                    'point' => $fields[1],
+                ];
+                Answer::create($data);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menambahkan data!',
+                'redirect' => route('mutabaah-mobile.index')
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
     /**
      * Display the specified resource.
      */

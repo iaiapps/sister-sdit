@@ -15,12 +15,11 @@
                 </div>
             </div>
         @else
-            <form action="{{ route('mutabaah-mobile.store') }}" method="POST">
+            <form action="{{ route('mutabaah-mobile.store') }}" method="POST" id="mutabaahForm">
                 @csrf
 
                 <p class="fs-5 mb-0">Nama: {{ $name }}</p>
                 <hr>
-                {{-- <p>Role: {{ $role }}</p> --}}
 
                 <input value="{{ $teacher->id }}" name="teacher_id" readonly hidden>
                 <input type="text" name="mutabaah_id" value="{{ request()->get('mutabaah') }}" readonly hidden>
@@ -29,9 +28,7 @@
                     <fieldset class="step">
                         @if ($errors->any())
                             <div class="alert alert-danger py-1 px-3">
-                                {{-- @foreach ($errors->all() as $error) --}}
                                 <span>Ada pertanyaan yang belum di jawab!</span>
-                                {{-- @endforeach --}}
                             </div>
                         @endif
                         <p class="text-center mb-3 fs-5 bg-success text-white rounded p-1 fs-5">Kategori:
@@ -60,7 +57,6 @@
                                                         for="option{{ $option->id }}">{{ $option->option_name }}</label>
                                                 </li>
                                             @endforeach
-
                                         </ul>
                                     </div>
                                 </div>
@@ -87,7 +83,6 @@
                                                         for="option{{ $option->id }}">{{ $option->option_name }}</label>
                                                 </li>
                                             @endforeach
-
                                         </ul>
                                     </div>
                                 </div>
@@ -102,39 +97,31 @@
                 <button class="action next btn btn-success float-end ">
                     Selanjutnya
                 </button>
-                <button type="submit" class="action submit btn btn-success float-end ">
-                    Simpan Data
+
+                <!-- Submit Button dengan loading state -->
+                <button type="submit" class="action submit btn btn-success float-end " id="submitBtn">
+                    <span id="submitText">Simpan Data</span>
+                    <div id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </button>
             </form>
+
+            <!-- Alert untuk menampilkan pesan -->
+            <div id="formAlert" class="alert d-none mt-3"></div>
         @endif
     </div>
     <a href="#judul" id="myBtn" class="totop btn btn-warning"><i class="bi bi-arrow-up"></i></a>
 @endsection
 
-@push('css')
-    <style>
-        .totop {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-        }
-
-        input[type="radio"] {
-            margin-right: 1em;
-            flex-shrink: 0;
-        }
-    </style>
-@endpush
-
 @push('scripts')
     <script src="{{ asset('js/form.js') }}"></script>
     <script>
-        // Get the button
         let mybutton = document.getElementById("myBtn");
+        let formSubmitted = false;
+        let isSubmitting = false;
 
-        // When the user scrolls down 50px from the top of the document, show the button
+        // Scroll function
         window.onscroll = function() {
             scrollFunction()
         };
@@ -146,5 +133,99 @@
                 mybutton.style.display = "none";
             }
         }
+
+        // SOLUSI 3: JavaScript untuk prevent multiple submission
+        document.getElementById('mutabaahForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const formAlert = document.getElementById('formAlert');
+
+            // Jika sedang proses submit, prevent duplicate
+            if (isSubmitting) {
+                showAlert('Data sedang disimpan, harap tunggu...', 'warning');
+                return false;
+            }
+
+            // Set state submitting
+            isSubmitting = true;
+            formSubmitted = true;
+            submitBtn.disabled = true;
+            submitText.textContent = 'Menyimpan...';
+            submitSpinner.classList.remove('d-none');
+            formAlert.classList.add('d-none');
+
+            try {
+                // Kirim data via AJAX
+                const response = await fetch('{{ route('mutabaah-mobile.store') }}', {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert(result.message, 'success');
+
+                    // Redirect setelah 2 detik
+                    setTimeout(() => {
+                        window.location.href = result.redirect;
+                    }, 2000);
+
+                } else {
+                    showAlert(result.message, 'danger');
+                    resetSubmitButton();
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Terjadi kesalahan jaringan. Silakan coba lagi.', 'danger');
+                resetSubmitButton();
+            }
+        });
+
+        // Fungsi untuk menampilkan alert
+        function showAlert(message, type) {
+            const formAlert = document.getElementById('formAlert');
+            formAlert.className = `alert alert-${type} mt-3`;
+            formAlert.innerHTML = message;
+            formAlert.classList.remove('d-none');
+
+            // Scroll ke alert
+            formAlert.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Fungsi reset button
+        function resetSubmitButton() {
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+
+            submitBtn.disabled = false;
+            submitText.textContent = 'Simpan Data';
+            submitSpinner.classList.add('d-none');
+            isSubmitting = false;
+            formSubmitted = false;
+        }
+
+        // Prevent form resubmission on page refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        // Warning ketika user mencoba meninggalkan halaman saat proses submit
+        window.addEventListener('beforeunload', function(e) {
+            if (isSubmitting) {
+                e.preventDefault();
+                e.returnValue = 'Data sedang disimpan. Yakin ingin meninggalkan halaman?';
+            }
+        });
     </script>
 @endpush
