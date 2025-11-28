@@ -114,6 +114,23 @@
     <a href="#judul" id="myBtn" class="totop btn btn-warning"><i class="bi bi-arrow-up"></i></a>
 @endsection
 
+@push('css')
+    <style>
+        .totop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+        }
+
+        input[type="radio"] {
+            margin-right: 1em;
+            flex-shrink: 0;
+        }
+    </style>
+@endpush
+
 @push('scripts')
     <script src="{{ asset('js/form.js') }}"></script>
     <script>
