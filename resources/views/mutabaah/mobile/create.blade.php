@@ -135,7 +135,6 @@
     <script src="{{ asset('js/form.js') }}"></script>
     <script>
         let mybutton = document.getElementById("myBtn");
-        let formSubmitted = false;
         let isSubmitting = false;
 
         // Scroll function
@@ -151,14 +150,9 @@
             }
         }
 
-        // SOLUSI 3: JavaScript untuk prevent multiple submission
+        // JavaScript untuk prevent multiple submission
         document.getElementById('mutabaahForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitSpinner = document.getElementById('submitSpinner');
-            const formAlert = document.getElementById('formAlert');
 
             // Jika sedang proses submit, prevent duplicate
             if (isSubmitting) {
@@ -167,12 +161,7 @@
             }
 
             // Set state submitting
-            isSubmitting = true;
-            formSubmitted = true;
-            submitBtn.disabled = true;
-            submitText.textContent = 'Menyimpan...';
-            submitSpinner.classList.remove('d-none');
-            formAlert.classList.add('d-none');
+            setSubmittingState(true);
 
             try {
                 // Kirim data via AJAX
@@ -180,6 +169,7 @@
                     method: 'POST',
                     body: new FormData(this),
                     headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
@@ -195,16 +185,34 @@
                     }, 2000);
 
                 } else {
-                    showAlert(result.message, 'danger');
-                    resetSubmitButton();
+                    showAlert(result.message || 'Terjadi kesalahan saat menyimpan data.', 'danger');
+                    setSubmittingState(false);
                 }
 
             } catch (error) {
                 console.error('Error:', error);
                 showAlert('Terjadi kesalahan jaringan. Silakan coba lagi.', 'danger');
-                resetSubmitButton();
+                setSubmittingState(false);
             }
         });
+
+        // Fungsi untuk mengatur state submitting
+        function setSubmittingState(submitting) {
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+
+            isSubmitting = submitting;
+            submitBtn.disabled = submitting;
+
+            if (submitting) {
+                submitText.textContent = 'Menyimpan...';
+                submitSpinner.classList.remove('d-none');
+            } else {
+                submitText.textContent = 'Simpan Data';
+                submitSpinner.classList.add('d-none');
+            }
+        }
 
         // Fungsi untuk menampilkan alert
         function showAlert(message, type) {
@@ -217,19 +225,13 @@
             formAlert.scrollIntoView({
                 behavior: 'smooth'
             });
-        }
 
-        // Fungsi reset button
-        function resetSubmitButton() {
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitSpinner = document.getElementById('submitSpinner');
-
-            submitBtn.disabled = false;
-            submitText.textContent = 'Simpan Data';
-            submitSpinner.classList.add('d-none');
-            isSubmitting = false;
-            formSubmitted = false;
+            // Auto hide alert setelah 5 detik untuk tipe success
+            if (type === 'success') {
+                setTimeout(() => {
+                    formAlert.classList.add('d-none');
+                }, 5000);
+            }
         }
 
         // Prevent form resubmission on page refresh
@@ -242,6 +244,7 @@
             if (isSubmitting) {
                 e.preventDefault();
                 e.returnValue = 'Data sedang disimpan. Yakin ingin meninggalkan halaman?';
+                return 'Data sedang disimpan. Yakin ingin meninggalkan halaman?';
             }
         });
     </script>
