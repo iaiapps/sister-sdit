@@ -37,17 +37,21 @@ class PresenceController extends Controller
     {
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
-        $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)
+        $presences = Presence::whereYear('presences.created_at', $year)->whereMonth('presences.created_at', $month)
+            ->join('teachers', 'presences.teacher_id', '=', 'teachers.id')
+            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
             ->select(
-                'teacher_id',
+                'presences.teacher_id',
                 DB::raw("COUNT(*) as total_data_presensi"),
-                DB::raw("SUM(is_late = 1) as is_late"),
-                DB::raw("SUM(note = 'Sakit') as total_sakit"),
-                DB::raw("SUM(note = 'Ijin') as total_ijin"),
-                DB::raw("SUM(note = 'Tugas kedinasan') as total_tugas_kedinasan"),
-                DB::raw("SUM(time_out = '-') as total_tidak_presensi_pulang"),
+                DB::raw("SUM(presences.is_late = 1) as is_late"),
+                DB::raw("SUM(presences.note = 'Sakit') as total_sakit"),
+                DB::raw("SUM(presences.note = 'Ijin') as total_ijin"),
+                DB::raw("SUM(presences.note = 'Tugas kedinasan') as total_tugas_kedinasan"),
+                DB::raw("SUM(presences.time_out = '-') as total_tidak_presensi_pulang"),
             )
-            ->groupBy('teacher_id')->get();
+            ->groupBy('presences.teacher_id')
+            ->orderBy('entity_orders.order')
+            ->get();
         return $presences;
     }
 
@@ -177,10 +181,14 @@ class PresenceController extends Controller
     // add presensi
     public function addpresence()
     {
-        $guru = User::role('guru')->get();
-        $tendik = User::role('tendik')->get();
+        $users = User::whereHas('entityOrder', function($q) {
+            $q->whereIn('role', ['guru', 'tendik']);
+        })
+        ->with(['entityOrder', 'teacher'])
+        ->join('entity_orders', 'users.id', '=', 'entity_orders.user_id')
+        ->orderBy('entity_orders.order')
+        ->get();
 
-        $users = $guru->merge($tendik);
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
         return view('presence.admin.create', compact('tgl', 'users'));
     }
@@ -222,17 +230,21 @@ class PresenceController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         // whereBetween('created_at', [$start_date, $end_date])
-        $presences = Presence::whereBetween('created_at', [$start_date, $end_date])
+        $presences = Presence::whereBetween('presences.created_at', [$start_date, $end_date])
+            ->join('teachers', 'presences.teacher_id', '=', 'teachers.id')
+            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
             ->select(
-                'teacher_id',
+                'presences.teacher_id',
                 DB::raw("COUNT(*) as total_data_presensi"),
-                DB::raw("SUM(is_late = 1) as is_late"),
-                DB::raw("SUM(note = 'Sakit') as total_sakit"),
-                DB::raw("SUM(note = 'Ijin') as total_ijin"),
-                DB::raw("SUM(note = 'Tugas kedinasan') as total_tugas_kedinasan"),
-                DB::raw("SUM(time_out = '-') as total_tidak_presensi_pulang"),
+                DB::raw("SUM(presences.is_late = 1) as is_late"),
+                DB::raw("SUM(presences.note = 'Sakit') as total_sakit"),
+                DB::raw("SUM(presences.note = 'Ijin') as total_ijin"),
+                DB::raw("SUM(presences.note = 'Tugas kedinasan') as total_tugas_kedinasan"),
+                DB::raw("SUM(presences.time_out = '-') as total_tidak_presensi_pulang"),
             )
-            ->groupBy('teacher_id')->get();
+            ->groupBy('presences.teacher_id')
+            ->orderBy('entity_orders.order')
+            ->get();
 
 
         return view('presence.admin.filter', compact('presences', 'date'));

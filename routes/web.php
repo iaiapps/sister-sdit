@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
 
             // setting
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+            Route::get('setting/entity-order', [SettingController::class, 'indexEntityOrder'])->name('setting.entity-order');
+            Route::post('setting/entity-order/bulk-update', [SettingController::class, 'bulkUpdateEntityOrder'])->name('setting.entity-order.bulk-update');
 
             //presenceset
             Route::resource('presenceset', PresenceSettingController::class);

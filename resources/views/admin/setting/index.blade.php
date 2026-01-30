@@ -3,8 +3,8 @@
 @section('title', 'Setting Aplikasi')
 @section('content')
     <div class="card p-3">
-        <div class="row g-3">
-            <div class="col-12 col-md-6 ">
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-4 ">
                 <div class="card border">
                     <div class="card-body text-center">
                         <i class="bi bi-calendar-check fs-2 "></i>
@@ -14,7 +14,7 @@
                             class="btn btn-success w-100">Lihat</a></div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 ">
+            <div class="col-12 col-md-4 ">
                 <div class="card border">
                     <div class="card-body text-center">
                         <i class="bi bi-buildings fs-2"></i>
@@ -24,7 +24,16 @@
                             class="btn btn-success w-100">Lihat</a></div>
                 </div>
             </div>
-
+            <div class="col-12 col-md-4 ">
+                <div class="card border">
+                    <div class="card-body text-center">
+                        <i class="bi bi-view-list fs-2"></i>
+                        <p class="mb-0">Urutan Pengguna</p>
+                    </div>
+                    <div class="card-footer"><a href="{{ route('admin.setting.entity-order') }}"
+                            class="btn btn-success w-100">Lihat</a></div>
+                </div>
+            </div>
         </div>
 
         <div class="table-responsive">

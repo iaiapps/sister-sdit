@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Teacher::class);
     }
+
+    public function entityOrder()
+    {
+        return $this->hasOne(EntityOrder::class);
+    }
 }

@@ -35,9 +35,16 @@ class PresencekaryawanController extends Controller
     {
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
-        $presences = Presencekaryawan::whereYear('created_at', $year)->whereMonth('created_at', $month)
-            ->select('teacher_id', DB::raw("COUNT(*) as total_data_presensi"),)
-            ->groupBy('teacher_id')->get();
+        $presences = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)->whereMonth('presencekaryawans.created_at', $month)
+            ->join('teachers', 'presencekaryawans.teacher_id', '=', 'teachers.id')
+            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
+            ->select(
+                'presencekaryawans.teacher_id',
+                DB::raw("COUNT(*) as total_data_presensi"),
+            )
+            ->groupBy('presencekaryawans.teacher_id')
+            ->orderBy('entity_orders.order')
+            ->get();
         return $presences;
     }
 
@@ -139,7 +146,14 @@ class PresencekaryawanController extends Controller
     // add presensi
     public function addpresence()
     {
-        $users = User::role('tendik')->get();
+        $users = User::whereHas('entityOrder', function($q) {
+            $q->where('role', 'karyawan');
+        })
+        ->with(['entityOrder', 'teacher'])
+        ->join('entity_orders', 'users.id', '=', 'entity_orders.user_id')
+        ->orderBy('entity_orders.order')
+        ->get();
+
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
         return view('presencekar.create', compact('users', 'tgl'));
     }

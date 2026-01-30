@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Models\Setting;
+use App\Models\EntityOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -62,5 +64,37 @@ class SettingController extends Controller
     public function destroy(Setting $setting)
     {
         //
+    }
+
+    public function indexEntityOrder(Request $request)
+    {
+        $role = $request->get('role', 'all');
+
+        $query = EntityOrder::with('user');
+
+        if ($role !== 'all') {
+            $query->where('role', $role);
+        }
+
+        $entityOrders = $query->orderBy('order')->get();
+
+        return view('admin.setting.entity-order.index', compact('entityOrders', 'role'));
+    }
+
+    public function bulkUpdateEntityOrder(Request $request)
+    {
+        $orders = $request->input('orders');
+
+        if ($orders && is_array($orders)) {
+            foreach ($orders as $item) {
+                if (isset($item['user_id']) && isset($item['order'])) {
+                    EntityOrder::where('user_id', $item['user_id'])->update([
+                        'order' => $item['order']
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('admin.setting.entity-order')->with('success', 'Urutan berhasil disimpan');
     }
 }
