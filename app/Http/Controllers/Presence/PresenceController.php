@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Exports\PresenceExport;
+use App\Http\Controllers\Controller;
+use App\Models\Presence;
 use App\Models\Teacher;
 use App\Models\User;
-use App\Models\Presence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Exports\PresenceExport;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
 
 class PresenceController extends Controller
 {
@@ -42,8 +42,8 @@ class PresenceController extends Controller
             ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
             ->select(
                 'presences.teacher_id',
-                DB::raw("COUNT(*) as total_data_presensi"),
-                DB::raw("SUM(presences.is_late = 1) as is_late"),
+                DB::raw('COUNT(*) as total_data_presensi'),
+                DB::raw('SUM(presences.is_late = 1) as is_late'),
                 DB::raw("SUM(presences.note = 'Sakit') as total_sakit"),
                 DB::raw("SUM(presences.note = 'Ijin') as total_ijin"),
                 DB::raw("SUM(presences.note = 'Tugas kedinasan') as total_tugas_kedinasan"),
@@ -52,6 +52,7 @@ class PresenceController extends Controller
             ->groupBy('presences.teacher_id')
             ->orderBy('entity_orders.order')
             ->get();
+
         return $presences;
     }
 
@@ -60,7 +61,7 @@ class PresenceController extends Controller
      */
     public function show($id, Request $request)
     {
-        $id = (int)$id;
+        $id = (int) $id;
         // dd($id);
         $date = $request->date;
         $start_date = $request->start_date;
@@ -69,8 +70,9 @@ class PresenceController extends Controller
         if ($request->start_date || $request->end_date) {
             $presences = $this->betweenDate($id, $start_date, $end_date);
         } else {
-            $presences  = $this->showDataByMonth($id, $date);
+            $presences = $this->showDataByMonth($id, $date);
         }
+
         return view('presence.teacher.show', compact('presences', 'teacher'));
     }
 
@@ -82,6 +84,7 @@ class PresenceController extends Controller
         $presences = Presence::where('teacher_id', $id)
             ->whereYear('created_at', $year)
             ->whereMonth('created_at', $month)->get();
+
         return $presences;
     }
 
@@ -116,7 +119,7 @@ class PresenceController extends Controller
         $time_in = Carbon::parse($request->time_in)->format('H:i:s');
         $time_out = $request->time_out;
 
-        if ($time_out != "-") {
+        if ($time_out != '-') {
             $time_out = Carbon::parse($request->time_out)->format('H:i:s');
         } else {
             $time_out = '-';
@@ -139,6 +142,7 @@ class PresenceController extends Controller
             'updated_at' => $request->date . $request->time_in,
         ];
         $presence->update($data);
+
         return redirect()->route('presence.show', [$presence->teacher_id, 'date' => $date]);
     }
 
@@ -148,6 +152,7 @@ class PresenceController extends Controller
     public function destroy(Presence $presence)
     {
         $presence->delete();
+
         return redirect()->back();
     }
 
@@ -162,7 +167,7 @@ class PresenceController extends Controller
         if ($request->start_date || $request->end_date) {
             $presences = $this->betweenDate($id, $start_date, $end_date);
         } else {
-            $presences  = $this->showDataByMonth($id, $date);
+            $presences = $this->showDataByMonth($id, $date);
         }
 
         return view('presence.admin.show', compact('presences', 'teacher'));
@@ -174,30 +179,30 @@ class PresenceController extends Controller
         $date = $request->date;
         $month = Carbon::parse($request->date)->isoFormat('MMMM Y');
         // dd($month);
-        return Excel::download(new PresenceExport($date),  'presensi' . '-' . $month . '.xlsx');
+        return Excel::download(new PresenceExport($date), 'presensi' . '-' . $month . '.xlsx');
     }
-
 
     // add presensi
     public function addpresence()
     {
-        $users = User::whereHas('entityOrder', function($q) {
+        $users = User::whereHas('entityOrder', function ($q) {
             $q->whereIn('role', ['guru', 'tendik']);
         })
-        ->with(['entityOrder', 'teacher'])
-        ->join('entity_orders', 'users.id', '=', 'entity_orders.user_id')
-        ->orderBy('entity_orders.order')
-        ->get();
+            ->with(['entityOrder', 'teacher'])
+            ->get()
+            ->sortBy('entityOrder.order');
 
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
+
         return view('presence.admin.create', compact('tgl', 'users'));
     }
+
     public function storepresence(Request $request)
     {
         $id = $request->teacher_id;
         $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
         // $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
-        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . " " . $time_in;
+        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . ' ' . $time_in;
         Presence::create([
             'teacher_id' => $id,
             'time_in' => $time_in,
@@ -208,6 +213,7 @@ class PresenceController extends Controller
             'created_at' => $date,
             'updated_at' => $date,
         ]);
+
         return redirect()->route('presence.index');
     }
 
@@ -219,9 +225,9 @@ class PresenceController extends Controller
         $month = Carbon::parse($date)->month;
         $day = Carbon::parse($date)->day;
         $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
+
         return view('presence.admin.today', compact('presences', 'date'));
     }
-
 
     // filter presence
     public function filterpresence(Request $request)
@@ -235,8 +241,8 @@ class PresenceController extends Controller
             ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
             ->select(
                 'presences.teacher_id',
-                DB::raw("COUNT(*) as total_data_presensi"),
-                DB::raw("SUM(presences.is_late = 1) as is_late"),
+                DB::raw('COUNT(*) as total_data_presensi'),
+                DB::raw('SUM(presences.is_late = 1) as is_late'),
                 DB::raw("SUM(presences.note = 'Sakit') as total_sakit"),
                 DB::raw("SUM(presences.note = 'Ijin') as total_ijin"),
                 DB::raw("SUM(presences.note = 'Tugas kedinasan') as total_tugas_kedinasan"),
@@ -245,7 +251,6 @@ class PresenceController extends Controller
             ->groupBy('presences.teacher_id')
             ->orderBy('entity_orders.order')
             ->get();
-
 
         return view('presence.admin.filter', compact('presences', 'date'));
     }
@@ -270,8 +275,9 @@ class PresenceController extends Controller
         if ($request->start_date || $request->end_date) {
             $presences = $this->betweenDate($teacher_id, $start_date, $end_date);
         } else {
-            $presences  = $this->showDataByMonth($teacher_id, $date);
+            $presences = $this->showDataByMonth($teacher_id, $date);
         }
+
         return view('presence.teacher.show', compact('presences', 'teacher'));
     }
 }
