@@ -6,32 +6,49 @@
     <div class="card p-3">
         <form action="{{ route('replacement.index') }}" method="GET">
             <div class="row">
-                <div class="col my-1">
-                    <input type="date" name="awal" id="awal" class="form-control">
+                <div class="col-md-4 my-1">
+                    <select name="tahun_akademik" id="tahun_akademik" class="form-select">
+                        <option value="2023-2024" {{ $tahunAkademik == '2023-2024' ? 'selected' : '' }}>2023-2024</option>
+                        <option value="2024-2025" {{ $tahunAkademik == '2024-2025' ? 'selected' : '' }}>2024-2025</option>
+                        <option value="2025-2026" {{ $tahunAkademik == '2025-2026' ? 'selected' : '' }}>2025-2026</option>
+                        <option value="2026-2027" {{ $tahunAkademik == '2026-2027' ? 'selected' : '' }}>2026-2027</option>
+                    </select>
                 </div>
-                <div class="col my-1">
-                    <input type="date" name="akhir" id="akhir" class="form-control">
+                <div class="col-md-4 my-1">
+                    <select name="semester" id="semester" class="form-select">
+                        <option value="ganjil" {{ $semester == 'ganjil' ? 'selected' : '' }}>Semester Ganjil</option>
+                        <option value="genap" {{ $semester == 'genap' ? 'selected' : '' }}>Semester Genap</option>
+                    </select>
                 </div>
-                <div class="col my-1">
-                    <button type="submit" class="btn btn-success w-100">filter data</button>
+                <div class="col-md-4 my-1">
+                    <button type="submit" class="btn btn-success w-100">Filter Data</button>
                 </div>
             </div>
         </form>
         <hr>
-        @if (isset($awal) && isset($akhir))
-            <p class="fs-5 text-center">Data bulan <strong>{{ $carbon::parse($awal)->isoFormat('MMMM YYYY') }} sampai
-                    {{ $carbon::parse($akhir)->isoFormat('MMMM YYYY') }}</strong></p>
-        @else
-            <p class="m-0 fs-5 text-center">Data bulan : <strong>{{ $carbon::parse($now)->isoFormat('MMMM YYYY') }}</strong>
+        <div class="text-center mb-3">
+            <p class="m-0 fs-5">
+                <strong>Semester {{ ucfirst($semester) }} Tahun Akademik {{ $tahunAkademik }}</strong>
             </p>
-        @endif
-        <div class="d-inline-block">
-            <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm mb-3"><i
-                    class="bi bi-plus-circle"></i>
-                Data Pengganti</a>
+            <p class="m-0 text-muted">
+                <small>{{ $carbon::parse($awal)->isoFormat('DD MMMM YYYY') }} - {{ $carbon::parse($akhir)->isoFormat('DD MMMM YYYY') }}</small>
+            </p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <a href="{{ route('replacement.create') }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-plus-circle"></i> Data Pengganti
+                </a>
+            </div>
+            <div>
+                <a href="{{ route('replacement.export', ['tahun_akademik' => $tahunAkademik, 'semester' => $semester]) }}" 
+                   class="btn btn-success btn-sm">
+                    <i class="bi bi-file-earmark-excel"></i> Export Excel
+                </a>
+            </div>
         </div>
         <div class="table-responsive">
-            <table id="#" class="table table-striped align-middle" style="width: 100%">
+            <table id="table" class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -52,7 +69,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $replacement->teacher->full_name }}</td>
                             <td>{{ $replacement->menggantikan }}</td>
-                            <td>{{ $replacement->tanggal }}</td>
+                            <td>{{ $carbon::parse($replacement->tanggal)->isoFormat('DD/MM/YYYY') }}</td>
                             <td>{{ $replacement->jp }}</td>
                             <td>{{ $replacement->mapel }}</td>
                             <td>{{ $replacement->alasan }}</td>

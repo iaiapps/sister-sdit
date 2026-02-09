@@ -4,9 +4,36 @@
 @section('title', 'Data Penggantian Guru')
 @section('content')
     <div class="card p-3">
-        {{-- <div class="d-inline-block">
-            <p class="m-0 fs-5">Data BPI Tahun : {{ $carbon::parse($now)->isoFormat('YYYY') }}</p>
-        </div> --}}
+        <form action="{{ route('guru.replacement.list') }}" method="GET">
+            <div class="row">
+                <div class="col-md-4 my-1">
+                    <select name="tahun_akademik" id="tahun_akademik" class="form-select">
+                        <option value="2023-2024" {{ $tahunAkademik == '2023-2024' ? 'selected' : '' }}>2023-2024</option>
+                        <option value="2024-2025" {{ $tahunAkademik == '2024-2025' ? 'selected' : '' }}>2024-2025</option>
+                        <option value="2025-2026" {{ $tahunAkademik == '2025-2026' ? 'selected' : '' }}>2025-2026</option>
+                        <option value="2026-2027" {{ $tahunAkademik == '2026-2027' ? 'selected' : '' }}>2026-2027</option>
+                    </select>
+                </div>
+                <div class="col-md-4 my-1">
+                    <select name="semester" id="semester" class="form-select">
+                        <option value="ganjil" {{ $semester == 'ganjil' ? 'selected' : '' }}>Semester Ganjil</option>
+                        <option value="genap" {{ $semester == 'genap' ? 'selected' : '' }}>Semester Genap</option>
+                    </select>
+                </div>
+                <div class="col-md-4 my-1">
+                    <button type="submit" class="btn btn-success w-100">Filter Data</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="text-center mb-3">
+            <p class="m-0 fs-5">
+                <strong>Semester {{ ucfirst($semester) }} Tahun Akademik {{ $tahunAkademik }}</strong>
+            </p>
+            <p class="m-0 text-muted">
+                <small>{{ $carbon::parse($awal)->isoFormat('DD MMMM YYYY') }} - {{ $carbon::parse($akhir)->isoFormat('DD MMMM YYYY') }}</small>
+            </p>
+        </div>
         <div class="d-inline-block">
             <a class="btn btn-success btn-sm mb-3" href="{{ route('guru.replacement.create') }}">Tambah data menggantikan
                 guru lain</a>
@@ -23,7 +50,7 @@
                         <th scope="col">Alasan</th>
                         <th scope="col">Guru Mapel Meninggalkan</th>
                         <th scope="col">Diisi dengan</th>
-                        {{-- <th scope="col">Action</th> --}}
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,30 +58,24 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $replacement->menggantikan }}</td>
-                            <td>{{ $replacement->tanggal }}</td>
+                            <td>{{ $carbon::parse($replacement->tanggal)->isoFormat('DD/MM/YYYY') }}</td>
                             <td>{{ $replacement->jp }}</td>
                             <td>{{ $replacement->mapel }}</td>
                             <td>{{ $replacement->alasan }}</td>
                             <td>{{ $replacement->bahan }}</td>
                             <td>{{ $replacement->diisi_dengan }}</td>
-                            {{-- <td>
-                                <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
-                                    action="{{ route('replacement.destroy', $replacement->id) }}" method="post"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash3"></i> del
-                                    </button>
-                                </form>
-                            </td> --}}
+                            <td>
+                                <a href="{{ route('guru.replacement.edit', $replacement->id) }}" 
+                                   class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    @include('bpi.teacher.create')
 @endsection
 
 @include('layouts.partials.allscripts')

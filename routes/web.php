@@ -1,43 +1,35 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\Bpi\BpiController;
-
 use App\Http\Controllers\Bpi\BpiControllerM;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\Teacher\ChildController;
 use App\Http\Controllers\Finance\SalaryController;
-
+use App\Http\Controllers\Finance\SalaryPositionController;
+use App\Http\Controllers\Finance\SalaryTypeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Mutabaah\AnswerController;
-use App\Http\Controllers\Mutabaah\OptionController;
-
-use App\Http\Controllers\Setting\SettingController;
-use App\Http\Controllers\Student\StudentController;
-
-use App\Http\Controllers\Teacher\TeacherController;
-use App\Http\Controllers\Finance\PositionController;
 use App\Http\Controllers\Mutabaah\AnswerControllerM;
-
-use App\Http\Controllers\Teacher\TrainingController;
 use App\Http\Controllers\Mutabaah\CategoryController;
 use App\Http\Controllers\Mutabaah\MutabaahController;
+use App\Http\Controllers\Mutabaah\OptionController;
 use App\Http\Controllers\Mutabaah\QuestionController;
 use App\Http\Controllers\Presence\PresenceController;
-use App\Http\Controllers\Teacher\EducationController;
-use App\Http\Controllers\Finance\SalaryTypeController;
-use App\Http\Controllers\Student\StudentLoginController;
-use App\Http\Controllers\Student\StudentParentController;
-use App\Http\Controllers\Finance\SalaryPositionController;
-use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Presence\PresencekaryawanController;
-
 use App\Http\Controllers\Replacement\ReplacementController;
 use App\Http\Controllers\Replacement\ReplacementControllerM;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\Setting\PresenceSettingController;
+use App\Http\Controllers\Setting\SettingController;
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Student\StudentLoginController;
+use App\Http\Controllers\Student\StudentParentController;
+use App\Http\Controllers\Teacher\ChildController;
+use App\Http\Controllers\Teacher\EducationController;
+use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Teacher\TrainingController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +45,6 @@ use App\Http\Controllers\Replacement\ReplacementControllerM;
 Route::get('/', function () {
     return view('landing.index');
 })->middleware('guest');
-
 
 //route login, register
 Auth::routes(['reset' => false]);
@@ -140,6 +131,7 @@ Route::middleware('auth')->group(function () {
 
             // guru pengganti
             Route::resource('replacement', ReplacementController::class);
+            Route::get('replacement-export', [ReplacementController::class, 'export'])->name('replacement.export');
         });
     });
 
@@ -178,11 +170,14 @@ Route::middleware('auth')->group(function () {
             Route::get('replacement', [ReplacementController::class, 'list'])->name('replacement.list');
             Route::get('replacement-create', [ReplacementController::class, 'replacementCreate'])->name('replacement.create');
             Route::post('replacement-store', [ReplacementController::class, 'replacementStore'])->name('replacement.store');
+            Route::get('replacement-edit/{replacement}', [ReplacementController::class, 'replacementEdit'])->name('replacement.edit');
+            Route::put('replacement-update/{replacement}', [ReplacementController::class, 'replacementUpdate'])->name('replacement.update');
 
             //fungsi logout
             Route::get('basiclogout', function () {
                 auth()->logout();
                 Session()->flush();
+
                 return redirect()->to('/');
             })->name('basiclogout');
         });
@@ -203,7 +198,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('document', DocumentController::class);
     });
 });
-
 
 // akses dari mobile app
 Route::middleware('auth.basic')->group(function () {
