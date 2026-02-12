@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Mutabaah;
 
+use App\Http\Controllers\Controller;
 use App\Models\Answer;
-use App\Models\Teacher;
 use App\Models\Category;
 use App\Models\Mutabaah;
 use App\Models\Question;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use PhpParser\Node\Stmt\Foreach_;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AnswerControllerM extends Controller
 {
@@ -42,6 +41,7 @@ class AnswerControllerM extends Controller
         $exist = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher->id)->exists();
 
         $categories = Category::all();
+
         return view('mutabaah.mobile.create', compact('teacher', 'categories', 'exist'));
     }
 
@@ -61,7 +61,7 @@ class AnswerControllerM extends Controller
         if ($existingAnswer) {
             return response()->json([
                 'success' => false,
-                'message' => 'Data mutabaah sudah pernah disimpan sebelumnya.'
+                'message' => 'Data mutabaah sudah pernah disimpan sebelumnya.',
             ], 422);
 
             // Atau untuk redirect biasa:
@@ -72,16 +72,32 @@ class AnswerControllerM extends Controller
         $question_id = $request->question_id;
         $option = $request->option;
 
+        // Validasi: pastikan question_id tidak kosong
+        if (! $question_id || ! is_array($question_id) || count($question_id) === 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak ada pertanyaan yang dijawab. Silakan isi minimal satu jawaban.',
+            ], 422);
+        }
+
         // Validasi input required
+        $validate_array = [];
         foreach ($question_id as $q) {
-            $validate_array['option.' . $q] = 'required';
-        };
+            $validate_array['option.'.$q] = 'required';
+        }
 
         $messages = [
             'required' => 'Ada jawaban yang masih kosong.',
         ];
 
-        $valid = $request->validate($validate_array, $messages);
+        try {
+            $request->validate($validate_array, $messages);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada jawaban yang masih kosong.',
+            ], 422);
+        }
 
         $category_id = $request->category_id;
 
@@ -107,17 +123,18 @@ class AnswerControllerM extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil menambahkan data!',
-                'redirect' => route('mutabaah-mobile.index')
+                'redirect' => route('mutabaah-mobile.index'),
             ]);
         } catch (\Exception $e) {
             DB::rollback();
 
             return response()->json([
                 'success' => false,
-                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()
+                'message' => 'Terjadi kesalahan saat menyimpan data: '.$e->getMessage(),
             ], 500);
         }
     }
+
     /**
      * Display the specified resource.
      */

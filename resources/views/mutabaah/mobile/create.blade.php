@@ -150,8 +150,8 @@
             }
         }
 
-        // JavaScript untuk prevent multiple submission
-        document.getElementById('mutabaahForm').addEventListener('submit', async function(e) {
+        // JavaScript untuk prevent multiple submission dengan XMLHttpRequest (lebih compatible webview)
+        document.getElementById('mutabaahForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Jika sedang proses submit, prevent duplicate
@@ -163,35 +163,90 @@
             // Set state submitting
             setSubmittingState(true);
 
-            try {
-                // Kirim data via AJAX
-                const response = await fetch('{{ route('mutabaah-mobile.store') }}', {
-                    method: 'POST',
-                    body: new FormData(this),
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'X-Requested-With': 'XMLHttpRequest'
+            var form = this;
+            var url = '{{ route('mutabaah-mobile.store') }}';
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            var timeoutId;
+
+            // Debug log
+            console.log('Starting submit to: ' + url);
+
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            // Timeout handler
+            timeoutId = setTimeout(function() {
+                xhr.abort();
+                showAlert('Koneksi timeout setelah 30 detik. Silakan cek koneksi internet Anda.', 'danger');
+                setSubmittingState(false);
+                console.log('Request timeout');
+            }, 30000);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    clearTimeout(timeoutId);
+                    console.log('Response received. Status: ' + xhr.status);
+
+                    if (xhr.status === 200) {
+                        try {
+                            var result = JSON.parse(xhr.responseText);
+                            console.log('Success:', result);
+
+                            if (result.success) {
+                                showAlert(result.message, 'success');
+                                setTimeout(function() {
+                                    window.location.href = result.redirect;
+                                }, 2000);
+                            } else {
+                                showAlert(result.message || 'Terjadi kesalahan.', 'danger');
+                                setSubmittingState(false);
+                            }
+                        } catch (e) {
+                            console.error('JSON parse error:', e);
+                            console.log('Response text:', xhr.responseText);
+                            showAlert('Format response tidak valid. Silakan coba lagi.', 'danger');
+                            setSubmittingState(false);
+                        }
+                    } else if (xhr.status === 422) {
+                        try {
+                            var result = JSON.parse(xhr.responseText);
+                            showAlert(result.message || 'Ada jawaban yang masih kosong atau data sudah ada.',
+                                'danger');
+                        } catch (e) {
+                            showAlert('Validasi gagal. Pastikan semua pertanyaan terjawab.', 'danger');
+                        }
+                        setSubmittingState(false);
+                    } else if (xhr.status === 0) {
+                        showAlert('Tidak dapat terhubung ke server. Cek koneksi internet atau URL.', 'danger');
+                        setSubmittingState(false);
+                    } else {
+                        showAlert('Server error: ' + xhr.status + '. Silakan coba lagi.', 'danger');
+                        setSubmittingState(false);
                     }
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    showAlert(result.message, 'success');
-
-                    // Redirect setelah 2 detik
-                    setTimeout(() => {
-                        window.location.href = result.redirect;
-                    }, 2000);
-
-                } else {
-                    showAlert(result.message || 'Terjadi kesalahan saat menyimpan data.', 'danger');
-                    setSubmittingState(false);
                 }
+            };
 
-            } catch (error) {
-                console.error('Error:', error);
-                showAlert('Terjadi kesalahan jaringan. Silakan coba lagi.', 'danger');
+            xhr.onerror = function() {
+                clearTimeout(timeoutId);
+                console.error('XHR Error');
+                showAlert('Error koneksi. Pastikan internet aktif dan coba lagi.', 'danger');
+                setSubmittingState(false);
+            };
+
+            xhr.onabort = function() {
+                clearTimeout(timeoutId);
+                console.log('Request aborted');
+            };
+
+            try {
+                xhr.send(formData);
+                console.log('Request sent');
+            } catch (e) {
+                clearTimeout(timeoutId);
+                console.error('Send error:', e);
+                showAlert('Gagal mengirim data. Error: ' + e.message, 'danger');
                 setSubmittingState(false);
             }
         });
@@ -243,8 +298,8 @@
         window.addEventListener('beforeunload', function(e) {
             if (isSubmitting) {
                 e.preventDefault();
-                e.returnValue = 'Data sedang disimpan. Yakin ingin meninggalkan halaman?';
-                return 'Data sedang disimpan. Yakin ingin meninggalkan halaman?';
+                e.returnValue = 'Data sedang disimpan. Tunggu bererapa detik, lalu OK';
+                return 'Data sedang disimpan. Tunggu bererapa detik!, lalu OK';
             }
         });
     </script>
