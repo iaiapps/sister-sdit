@@ -91,10 +91,10 @@
                     </fieldset>
                 @endforeach
 
-                <button class="action back btn btn-outline-success float-start ">
+                <button type="button" class="action back btn btn-outline-success float-start ">
                     Sebelumnya
                 </button>
-                <button class="action next btn btn-success float-end ">
+                <button type="button" class="action next btn btn-success float-end ">
                     Selanjutnya
                 </button>
 
@@ -134,173 +134,138 @@
 @push('scripts')
     <script src="{{ asset('js/form.js') }}"></script>
     <script>
-        let mybutton = document.getElementById("myBtn");
-        let isSubmitting = false;
+        (function($) {
+            const $form = $('#mutabaahForm');
+            const $formAlert = $('#formAlert');
+            const $submitBtn = $('#submitBtn');
+            const $submitText = $('#submitText');
+            const $submitSpinner = $('#submitSpinner');
+            const mybutton = document.getElementById('myBtn');
+            const redirectFallback = '{{ route('mutabaah-mobile.index') }}';
+            const submitUrl = '{{ route('mutabaah-mobile.store') }}';
+            const csrfToken = '{{ csrf_token() }}';
 
-        // Scroll function
-        window.onscroll = function() {
-            scrollFunction()
-        };
+            let isSubmitting = false;
+            let isRedirecting = false;
 
-        function scrollFunction() {
-            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        // JavaScript untuk prevent multiple submission dengan XMLHttpRequest (lebih compatible webview)
-        document.getElementById('mutabaahForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Jika sedang proses submit, prevent duplicate
-            if (isSubmitting) {
-                showAlert('Data sedang disimpan, harap tunggu...', 'warning');
-                return false;
+            function setSubmittingState(submitting) {
+                isSubmitting = submitting;
+                $submitBtn.prop('disabled', submitting);
+                $submitText.text(submitting ? 'Menyimpan...' : 'Simpan Data');
+                $submitSpinner.toggleClass('d-none', !submitting);
             }
 
-            // Set state submitting
-            setSubmittingState(true);
+            function showAlert(message, type) {
+                if (! $formAlert.length) {
+                    return;
+                }
 
-            var form = this;
-            var url = '{{ route('mutabaah-mobile.store') }}';
-            var formData = new FormData(form);
-            var xhr = new XMLHttpRequest();
-            var timeoutId;
+                $formAlert
+                    .removeClass('d-none')
+                    .attr('class', 'alert alert-' + type + ' mt-3')
+                    .html(message);
 
-            // Debug log
-            console.log('Starting submit to: ' + url);
+                $formAlert[0].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                });
 
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                if (type === 'success') {
+                    setTimeout(function() {
+                        $formAlert.addClass('d-none');
+                    }, 5000);
+                }
+            }
 
-            // Timeout handler
-            timeoutId = setTimeout(function() {
-                xhr.abort();
-                showAlert('Koneksi timeout setelah 30 detik. Silakan cek koneksi internet Anda.', 'danger');
-                setSubmittingState(false);
-                console.log('Request timeout');
-            }, 30000);
+            function scrollFunction() {
+                if (! mybutton) {
+                    return;
+                }
 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    clearTimeout(timeoutId);
-                    console.log('Response received. Status: ' + xhr.status);
+                const showButton = document.body.scrollTop > 50 || document.documentElement.scrollTop > 50;
+                mybutton.style.display = showButton ? 'block' : 'none';
+            }
 
-                    if (xhr.status === 200) {
-                        try {
-                            var result = JSON.parse(xhr.responseText);
-                            console.log('Success:', result);
+            window.onscroll = scrollFunction;
+            scrollFunction();
 
-                            if (result.success) {
-                                showAlert(result.message, 'success');
+            if ($form.length) {
+                $form.on('submit', function(e) {
+                    e.preventDefault();
+
+                    if (isSubmitting) {
+                        showAlert('Data sedang disimpan, harap tunggu...', 'warning');
+                        return;
+                    }
+
+                    setSubmittingState(true);
+
+                    $.ajax({
+                        url: submitUrl,
+                        type: 'POST',
+                        data: new FormData(this),
+                        processData: false,
+                        contentType: false,
+                        timeout: 30000,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        success: function(result) {
+                            if (result && result.success) {
+                                showAlert(result.message || 'Berhasil menambahkan data!', 'success');
+                                isRedirecting = true;
                                 setTimeout(function() {
-                                    window.location.href = result.redirect;
-                                }, 2000);
-                            } else {
-                                showAlert(result.message || 'Terjadi kesalahan.', 'danger');
+                                    window.location.href = result.redirect || redirectFallback;
+                                }, 1200);
+                                return;
+                            }
+
+                            showAlert((result && result.message) || 'Terjadi kesalahan.', 'danger');
+                        },
+                        error: function(xhr, textStatus) {
+                            if (textStatus === 'timeout') {
+                                showAlert('Koneksi timeout setelah 30 detik. Silakan cek koneksi internet Anda.',
+                                    'danger');
+                                return;
+                            }
+
+                            if (xhr.status === 422) {
+                                const message = xhr.responseJSON && xhr.responseJSON.message ?
+                                    xhr.responseJSON.message :
+                                    'Ada jawaban yang masih kosong atau data sudah ada.';
+                                showAlert(message, 'danger');
+                                return;
+                            }
+
+                            if (xhr.status === 0) {
+                                showAlert('Tidak dapat terhubung ke server. Cek koneksi internet atau URL.',
+                                    'danger');
+                                return;
+                            }
+
+                            showAlert('Server error: ' + xhr.status + '. Silakan coba lagi.', 'danger');
+                        },
+                        complete: function() {
+                            if (! isRedirecting) {
                                 setSubmittingState(false);
                             }
-                        } catch (e) {
-                            console.error('JSON parse error:', e);
-                            console.log('Response text:', xhr.responseText);
-                            showAlert('Format response tidak valid. Silakan coba lagi.', 'danger');
-                            setSubmittingState(false);
-                        }
-                    } else if (xhr.status === 422) {
-                        try {
-                            var result = JSON.parse(xhr.responseText);
-                            showAlert(result.message || 'Ada jawaban yang masih kosong atau data sudah ada.',
-                                'danger');
-                        } catch (e) {
-                            showAlert('Validasi gagal. Pastikan semua pertanyaan terjawab.', 'danger');
-                        }
-                        setSubmittingState(false);
-                    } else if (xhr.status === 0) {
-                        showAlert('Tidak dapat terhubung ke server. Cek koneksi internet atau URL.', 'danger');
-                        setSubmittingState(false);
-                    } else {
-                        showAlert('Server error: ' + xhr.status + '. Silakan coba lagi.', 'danger');
-                        setSubmittingState(false);
-                    }
+                        },
+                    });
+                });
+            }
+
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+
+            window.addEventListener('beforeunload', function(e) {
+                if (isSubmitting && ! isRedirecting) {
+                    e.preventDefault();
+                    e.returnValue = 'Data sedang disimpan. Tunggu bererapa detik, lalu OK';
+                    return 'Data sedang disimpan. Tunggu bererapa detik!, lalu OK';
                 }
-            };
-
-            xhr.onerror = function() {
-                clearTimeout(timeoutId);
-                console.error('XHR Error');
-                showAlert('Error koneksi. Pastikan internet aktif dan coba lagi.', 'danger');
-                setSubmittingState(false);
-            };
-
-            xhr.onabort = function() {
-                clearTimeout(timeoutId);
-                console.log('Request aborted');
-            };
-
-            try {
-                xhr.send(formData);
-                console.log('Request sent');
-            } catch (e) {
-                clearTimeout(timeoutId);
-                console.error('Send error:', e);
-                showAlert('Gagal mengirim data. Error: ' + e.message, 'danger');
-                setSubmittingState(false);
-            }
-        });
-
-        // Fungsi untuk mengatur state submitting
-        function setSubmittingState(submitting) {
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitSpinner = document.getElementById('submitSpinner');
-
-            isSubmitting = submitting;
-            submitBtn.disabled = submitting;
-
-            if (submitting) {
-                submitText.textContent = 'Menyimpan...';
-                submitSpinner.classList.remove('d-none');
-            } else {
-                submitText.textContent = 'Simpan Data';
-                submitSpinner.classList.add('d-none');
-            }
-        }
-
-        // Fungsi untuk menampilkan alert
-        function showAlert(message, type) {
-            const formAlert = document.getElementById('formAlert');
-            formAlert.className = `alert alert-${type} mt-3`;
-            formAlert.innerHTML = message;
-            formAlert.classList.remove('d-none');
-
-            // Scroll ke alert
-            formAlert.scrollIntoView({
-                behavior: 'smooth'
             });
-
-            // Auto hide alert setelah 5 detik untuk tipe success
-            if (type === 'success') {
-                setTimeout(() => {
-                    formAlert.classList.add('d-none');
-                }, 5000);
-            }
-        }
-
-        // Prevent form resubmission on page refresh
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-
-        // Warning ketika user mencoba meninggalkan halaman saat proses submit
-        window.addEventListener('beforeunload', function(e) {
-            if (isSubmitting) {
-                e.preventDefault();
-                e.returnValue = 'Data sedang disimpan. Tunggu bererapa detik, lalu OK';
-                return 'Data sedang disimpan. Tunggu bererapa detik!, lalu OK';
-            }
-        });
+        })(jQuery);
     </script>
 @endpush
