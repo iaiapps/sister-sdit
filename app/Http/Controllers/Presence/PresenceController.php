@@ -66,8 +66,28 @@ class PresenceController extends Controller
         $date = $request->date;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        $teacher = Teacher::where('id', $id)->get()->first();
-        if ($request->start_date || $request->end_date) {
+        $teacher = Teacher::where('id', $id)->first();
+
+        if (!$teacher) {
+            abort(404);
+        }
+
+        // If logged in user is a teacher, ensure they only view their own data
+        if (Auth::user()->hasAnyRole(['guru', 'tendik', 'karyawan'])) {
+            $userTeacher = Teacher::where('user_id', Auth::id())->first();
+            if (!$userTeacher || $userTeacher->id !== $teacher->id) {
+                abort(403);
+            }
+        }
+
+        // Fallback date to current month when not provided
+        if (!$date) {
+            $date = Carbon::now()->format('Y-m');
+        }
+
+        if ($start_date || $end_date) {
+            $start_date = $start_date ?? $end_date;
+            $end_date = $end_date ?? $start_date;
             $presences = $this->betweenDate($id, $start_date, $end_date);
         } else {
             $presences = $this->showDataByMonth($id, $date);
@@ -263,16 +283,22 @@ class PresenceController extends Controller
     {
         $user_id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $user_id)->get()->first();
+        if (!$teacher) {
+            abort(404);
+        }
+
         $teacher_id = $teacher->id;
 
-        $date = Carbon::now();
+        $date = $request->date ?? Carbon::now()->format('Y-m');
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         // $teacher = Teacher::where('id', $id)->get()->first();
 
         // dd($teacher->id);
 
-        if ($request->start_date || $request->end_date) {
+        if ($start_date || $end_date) {
+            $start_date = $start_date ?? $end_date;
+            $end_date = $end_date ?? $start_date;
             $presences = $this->betweenDate($teacher_id, $start_date, $end_date);
         } else {
             $presences = $this->showDataByMonth($teacher_id, $date);

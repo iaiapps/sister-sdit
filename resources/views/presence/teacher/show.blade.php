@@ -15,12 +15,13 @@
             </div>
         @else
             @if (Auth::user()->hasRole('admin') or Auth::user()->hasRole('operator'))
-                <button id="printbutton" class="btn btn-light rounded" onclick="print()">
+                <button id="printbutton" class="btn btn-light rounded" onclick="printPage()">
                     <i class="bi bi-printer-fill fs-3 "></i>
                 </button>
             @endif
             <div id="filter">
-                <form action="{{ route('presence.show', $presences->first()->teacher_id) }}">
+                <form
+                    action="{{ Auth::user()->hasAnyRole(['guru', 'tendik', 'karyawan']) ? route('guru.teacher.presence') : route('presence.show', $presences->first()->teacher_id) }}">
                     @php
                         $first = new Carbon\Carbon('first day of this month');
                         $end = Carbon\Carbon::now();
@@ -28,10 +29,12 @@
                     {{-- <input type="hidden" name="teacher_id" value="{{ $id }}"> --}}
                     <div class="row mb-3">
                         <div class="col my-1">
-                            <input class="form-control" type="date" name="start_date" value="{{ date('Y-m-01') }}">
+                            <input class="form-control" type="date" name="start_date"
+                                value="{{ request('start_date', date('Y-m-01')) }}">
                         </div>
                         <div class="col my-1">
-                            <input class="form-control" type="date" name="end_date" value="{{ date('Y-m-d') }}">
+                            <input class="form-control" type="date" name="end_date"
+                                value="{{ request('end_date', date('Y-m-d')) }}">
                         </div>
                         <div class="col my-1">
                             <button type="submit" class="btn btn-success w-100">
@@ -116,73 +119,72 @@
                 </table>
             </div>
         @endif
-    </div>
-@endsection
+        @endsection
 
-@push('css')
-    <style>
-        #printbutton {
-            position: absolute;
-            top: 80px;
-            right: 16px;
-        }
+        @push('css')
+            <style>
+                #printbutton {
+                    position: absolute;
+                    top: 80px;
+                    right: 16px;
+                }
 
-        .header {
-            text-align: center;
-            display: none;
-        }
+                .header {
+                    text-align: center;
+                    display: none;
+                }
 
-        .img-header {
-            text-align: center;
-            width: 85%;
-        }
+                .img-header {
+                    text-align: center;
+                    width: 85%;
+                }
 
-        @media print {
-            body {
-                visibility: hidden;
-                background-color: white !important
-            }
+                @media print {
+                    body {
+                        visibility: hidden;
+                        background-color: white !important
+                    }
 
-            #page {
-                margin-left: 0px !important;
-            }
+                    #page {
+                        margin-left: 0px !important;
+                    }
 
-            #printarea {
-                visibility: visible !important;
-                position: absolute !important;
-                left: 0;
-                right: 0;
-                top: 0;
-                /* border: 2px solid rgb(95, 222, 148); */
-            }
+                    #printarea {
+                        visibility: visible !important;
+                        position: absolute !important;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        /* border: 2px solid rgb(95, 222, 148); */
+                    }
 
-            #filter {
-                margin-top: -70px;
-                visibility: hidden;
-            }
+                    #filter {
+                        margin-top: -70px;
+                        visibility: hidden;
+                    }
 
-            #printbutton {
-                visibility: hidden;
-            }
+                    #printbutton {
+                        visibility: hidden;
+                    }
 
-            #table {
-                margin-top: -10px;
-            }
+                    #table {
+                        margin-top: -10px;
+                    }
 
-            #edit {
-                display: none;
-            }
+                    #edit {
+                        display: none;
+                    }
 
-            .header {
-                display: block;
-            }
-        }
-    </style>
-@endpush
-@push('scripts')
-    <script>
-        print() {
-            window.print();
-        },
-    </script>
-@endpush
+                    .header {
+                        display: block;
+                    }
+                }
+            </style>
+        @endpush
+        @push('scripts')
+            <script>
+                function printPage() {
+                    window.print();
+                }
+            </script>
+        @endpush
