@@ -34,9 +34,19 @@
                             class="btn btn-success w-100">Lihat</a></div>
                 </div>
             </div>
+            <div class="col-12 col-md-4 ">
+                <div class="card border">
+                    <div class="card-body text-center">
+                        <i class="bi bi-database-gear fs-2"></i>
+                        <p class="mb-0">Backup & Restore</p>
+                    </div>
+                    <div class="card-footer"><a href="{{ route('admin.setting.backup.index') }}"
+                            class="btn btn-success w-100">Lihat</a></div>
+                </div>
+            </div>
         </div>
 
-        <div class="table-responsive">
+        {{-- <div class="table-responsive">
             <table class="table align-middle">
                 <thead>
                     <tr>
@@ -46,27 +56,27 @@
                     </tr>
                 </thead>
 
-                {{-- <tr>
+                <tr>
                     <td>Type</td>
                     <td>Pengaturan Type Gaji </td>
                     <td>
                         <a href="{{ route('type.index') }}" class="btn btn-success btn-sm">lihat</a>
                     </td>
-                </tr> --}}
-                {{-- <tr>
+                </tr>
+                <tr>
                         <td>Fungsional</td>
                         <td>Pengaturan Gaji Fungsional </td>
                         <td>
                             <a href="{{ route('functional.index') }}" class="btn btn-success btn-sm">lihat</a>
                         </td>
-                    </tr> --}}
-                {{-- <tr>
+                    </tr>
+                <tr>
                     <td>Penambahan/Pengurangan</td>
                     <td>Pengaturan Penambahan dan Pengurangan </td>
                     <td>
                         <a href="{{ route('plusmin.index') }}" class="btn btn-success btn-sm">lihat</a>
                     </td>
-                </tr> --}}
+                </tr>
                 <tr>
                     <td>Kontak</td>
                     <td>Pusat Informasi</td>
@@ -76,7 +86,7 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </div> --}}
     </div>
 
 @endsection

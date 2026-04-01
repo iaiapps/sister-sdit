@@ -18,6 +18,7 @@ use App\Http\Controllers\Presence\PresencekaryawanController;
 use App\Http\Controllers\Replacement\ReplacementController;
 use App\Http\Controllers\Replacement\ReplacementControllerM;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\Setting\BackupController;
 use App\Http\Controllers\Setting\PresenceSettingController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Student\StudentController;
@@ -79,6 +80,15 @@ Route::middleware('auth')->group(function () {
             Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
             Route::get('setting/entity-order', [SettingController::class, 'indexEntityOrder'])->name('setting.entity-order');
             Route::post('setting/entity-order/bulk-update', [SettingController::class, 'bulkUpdateEntityOrder'])->name('setting.entity-order.bulk-update');
+
+            // backup
+            Route::prefix('setting/backup')->group(function () {
+                Route::get('/', [BackupController::class, 'index'])->name('setting.backup.index');
+                Route::post('/backup', [BackupController::class, 'backup'])->name('setting.backup.backup');
+                Route::post('/restore', [BackupController::class, 'restore'])->name('setting.backup.restore');
+                Route::delete('/delete/{filename}', [BackupController::class, 'delete'])->name('setting.backup.delete');
+                Route::get('/download/{filename}', [BackupController::class, 'download'])->name('setting.backup.download');
+            });
 
             //presenceset
             Route::resource('presenceset', PresenceSettingController::class);

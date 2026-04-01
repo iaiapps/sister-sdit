@@ -39,7 +39,7 @@ class PresenceController extends Controller
         $month = Carbon::parse($date)->month;
         $presences = Presence::whereYear('presences.created_at', $year)->whereMonth('presences.created_at', $month)
             ->join('teachers', 'presences.teacher_id', '=', 'teachers.id')
-            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
+            ->leftJoin('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
             ->select(
                 'presences.teacher_id',
                 DB::raw('COUNT(*) as total_data_presensi'),
@@ -68,20 +68,20 @@ class PresenceController extends Controller
         $end_date = $request->end_date;
         $teacher = Teacher::where('id', $id)->first();
 
-        if (!$teacher) {
+        if (! $teacher) {
             abort(404);
         }
 
         // If logged in user is a teacher, ensure they only view their own data
         if (Auth::user()->hasAnyRole(['guru', 'tendik', 'karyawan'])) {
             $userTeacher = Teacher::where('user_id', Auth::id())->first();
-            if (!$userTeacher || $userTeacher->id !== $teacher->id) {
+            if (! $userTeacher || $userTeacher->id !== $teacher->id) {
                 abort(403);
             }
         }
 
         // Fallback date to current month when not provided
-        if (!$date) {
+        if (! $date) {
             $date = Carbon::now()->format('Y-m');
         }
 
@@ -147,7 +147,7 @@ class PresenceController extends Controller
 
         $note = $request->note;
         if ($note == 'Pulang awal') {
-            $note = $presence->note . ', ' . $request->note;
+            $note = $presence->note.', '.$request->note;
         } else {
             $note = $request->note;
         }
@@ -158,8 +158,8 @@ class PresenceController extends Controller
             'note' => $note,
             'is_late' => $request->is_late,
             'description' => $request->description,
-            'created_at' => $request->date . $request->time_in,
-            'updated_at' => $request->date . $request->time_in,
+            'created_at' => $request->date.$request->time_in,
+            'updated_at' => $request->date.$request->time_in,
         ];
         $presence->update($data);
 
@@ -199,7 +199,7 @@ class PresenceController extends Controller
         $date = $request->date;
         $month = Carbon::parse($request->date)->isoFormat('MMMM Y');
         // dd($month);
-        return Excel::download(new PresenceExport($date), 'presensi' . '-' . $month . '.xlsx');
+        return Excel::download(new PresenceExport($date), 'presensi'.'-'.$month.'.xlsx');
     }
 
     // add presensi
@@ -222,7 +222,7 @@ class PresenceController extends Controller
         $id = $request->teacher_id;
         $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
         // $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
-        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . ' ' . $time_in;
+        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD').' '.$time_in;
         Presence::create([
             'teacher_id' => $id,
             'time_in' => $time_in,
@@ -283,7 +283,7 @@ class PresenceController extends Controller
     {
         $user_id = Auth::user()->id;
         $teacher = Teacher::where('user_id', $user_id)->get()->first();
-        if (!$teacher) {
+        if (! $teacher) {
             abort(404);
         }
 
