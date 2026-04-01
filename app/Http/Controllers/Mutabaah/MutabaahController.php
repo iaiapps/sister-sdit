@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Mutabaah;
 
+use App\Http\Controllers\Controller;
 use App\Models\Answer;
-use App\Models\Teacher;
 use App\Models\Category;
 use App\Models\Mutabaah;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class MutabaahController extends Controller
 {
@@ -21,7 +19,8 @@ class MutabaahController extends Controller
     public function index()
     {
         $now = Carbon::now()->format('Y-m-d');
-        $mutabaahs = Mutabaah::all();
+        $mutabaahs = Mutabaah::orderByRaw('YEAR(start) DESC, MONTH(start) DESC')->get();
+
         return view('mutabaah.admin.index', compact('mutabaahs', 'now'));
     }
 
@@ -39,6 +38,7 @@ class MutabaahController extends Controller
     public function store(Request $request)
     {
         Mutabaah::create($request->all());
+
         return redirect()->route('mutabaah.index');
     }
 
@@ -66,6 +66,7 @@ class MutabaahController extends Controller
     {
         $data = $request->all();
         $mutabaah->update($data);
+
         return redirect()->route('mutabaah.index');
     }
 
@@ -75,6 +76,7 @@ class MutabaahController extends Controller
     public function destroy(Mutabaah $mutabaah)
     {
         $mutabaah->delete();
+
         return redirect()->route('mutabaah.index');
     }
 
@@ -90,10 +92,11 @@ class MutabaahController extends Controller
         $answers = Answer::where('mutabaah_id', $mutabaah_id)
             ->select(
                 'teacher_id',
-                DB::raw("SUM(point) AS t_point"),
-                DB::raw("DATE(created_at) AS tanggal"),
+                DB::raw('SUM(point) AS t_point'),
+                DB::raw('DATE(created_at) AS tanggal'),
             )
             ->groupBy('teacher_id', 'tanggal')->get();
+
         return view('mutabaah.admin.list', compact('answers', 'name_mutabaah', 'categories', 'answer_all'));
     }
 
@@ -109,13 +112,13 @@ class MutabaahController extends Controller
         $answers = Answer::where('mutabaah_id', $mutabaah_id)
             ->select(
                 'teacher_id',
-                DB::raw("SUM(point) AS t_point"),
-                DB::raw("DATE(created_at) AS tanggal"),
+                DB::raw('SUM(point) AS t_point'),
+                DB::raw('DATE(created_at) AS tanggal'),
             )
             ->groupBy('teacher_id', 'tanggal')->get();
+
         return view('mutabaah.admin.listall', compact('answers', 'name_mutabaah', 'categories', 'answer_all'));
     }
-
 
     public function mutabaahShow(Request $request)
     {
@@ -123,6 +126,7 @@ class MutabaahController extends Controller
         $teacher_id = $request->t_id;
         $question = Question::all();
         $answers = Answer::where('mutabaah_id', $mutabaah_id)->where('teacher_id', $teacher_id)->get();
+
         return view('mutabaah.admin.show', compact('answers', 'mutabaah_id', 'question'));
     }
 }

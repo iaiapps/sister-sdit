@@ -13,7 +13,7 @@
         </div>
         <hr>
         <div class="table-responsive">
-            <table id="table" class="table table-striped align-middle" style="width: 100%">
+            <table class="table table-striped align-middle" style="width: 100%">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -64,13 +64,3 @@
 @endsection
 
 @include('layouts.partials.allscripts')
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable({
-                paging: true,
-                pageLength: 50
-            });
-        });
-    </script>
-@endpush
