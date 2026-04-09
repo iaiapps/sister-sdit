@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -18,12 +17,13 @@ class TeacherController extends Controller
     //  handle dari admin
     public function index(Teacher $teacher)
     {
-        // $this->authorize('teacher', $teacher);
-        $guru = User::role('guru')->get();
-        $tendik = User::role('tendik')->get();
+        $users = User::whereHas('entityOrder', function ($q) {
+            $q->whereIn('role', ['guru', 'tendik']);
+        })
+            ->with(['entityOrder', 'teacher'])
+            ->get()
+            ->sortBy('entityOrder.order');
 
-        // ini untuk merge array collection
-        $users = $guru->merge($tendik);
         return view('admin.teacher.index', compact('users'));
     }
 
@@ -50,6 +50,7 @@ class TeacherController extends Controller
     {
         // $this->authorize('teacher', $teacher);
         $id = Auth::user()->id;
+
         return view('admin.teacher.show', compact('teacher', 'id'));
     }
 
@@ -79,7 +80,7 @@ class TeacherController extends Controller
 
         // dd($request->all());
         // $teacher->where('id', $teacher->id)->update($validate);
-        $id =  $teacher->id;
+        $id = $teacher->id;
         $teacher->update($request->all());
 
         return redirect()->route('guru.teacher.show', $id);
@@ -126,7 +127,7 @@ class TeacherController extends Controller
 
         // dd($request->all());
         // $teacher->where('id', $teacher->id)->update($validate);
-        $id =  $teacher->id;
+        $id = $teacher->id;
         $teacher->update($request->all());
 
         return redirect()->route('guru.profile', $id);
@@ -136,11 +137,13 @@ class TeacherController extends Controller
     //handle karyawan
     public function karyawan()
     {
-        // ini jika ambil dari user->role lalu join dengan teacher
-        // $tendiks = User::role('tendik')->join('teachers', 'users.id', '=', 'teachers.user_id')->get();
+        $users = User::whereHas('entityOrder', function ($q) {
+            $q->where('role', 'karyawan');
+        })
+            ->with('entityOrder')
+            ->get()
+            ->sortBy('entityOrder.order');
 
-        $users = User::role('karyawan')->get();
-        // $teachers = Teacher::all();
         return view('admin.teacher.karyawan', compact('users'));
     }
 }
