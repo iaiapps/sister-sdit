@@ -249,6 +249,59 @@ class PresenceController extends Controller
         return view('presence.admin.today', compact('presences', 'date'));
     }
 
+    public function bulkUpdate(Request $request)
+    {
+        $request->validate([
+            'presences' => 'required|array',
+        ]);
+
+        $presences = $request->presences;
+        $presenceIds = array_column($presences, 'id');
+
+        $presencesModel = Presence::whereIn('id', $presenceIds)->get()->keyBy('id');
+
+        foreach ($presences as $presenceData) {
+            if (! isset($presenceData['id'])) {
+                continue;
+            }
+
+            $presence = $presencesModel->get($presenceData['id']);
+            if (! $presence) {
+                continue;
+            }
+
+            $time_in = $presenceData['time_in'] ?? null;
+            if ($time_in) {
+                try {
+                    $time_in = Carbon::parse($time_in)->format('H:i:s');
+                } catch (\Exception $e) {
+                    $time_in = $presence->time_in;
+                }
+            }
+
+            $time_out = $presenceData['time_out'] ?? null;
+            if ($time_out && $time_out !== '-') {
+                try {
+                    $time_out = Carbon::parse($time_out)->format('H:i:s');
+                } catch (\Exception $e) {
+                    $time_out = '-';
+                }
+            } else {
+                $time_out = '-';
+            }
+
+            $presence->update([
+                'time_in' => $time_in,
+                'time_out' => $time_out,
+                'is_late' => $presenceData['is_late'] ?? 0,
+                'note' => $presenceData['note'] ?? null,
+                'description' => $presenceData['description'] ?? null,
+            ]);
+        }
+
+        return redirect()->route('presence.today')->with('success', 'Data presensi berhasil diperbarui');
+    }
+
     // filter presence
     public function filterpresence(Request $request)
     {
