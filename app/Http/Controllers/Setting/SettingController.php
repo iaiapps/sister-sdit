@@ -70,7 +70,9 @@ class SettingController extends Controller
     {
         $role = $request->get('role', 'all');
 
-        $query = EntityOrder::with('user');
+        $query = EntityOrder::with('user')->whereHas('user', function ($q) {
+            $q->where('active', 1);
+        });
 
         if ($role !== 'all') {
             $query->where('role', $role);

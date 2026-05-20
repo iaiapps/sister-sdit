@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Presence;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Models\EntityOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,8 @@ class PresenceController extends Controller
         $month = Carbon::parse($date)->month;
         $presences = Presence::whereYear('presences.created_at', $year)->whereMonth('presences.created_at', $month)
             ->join('teachers', 'presences.teacher_id', '=', 'teachers.id')
-            ->leftJoin('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->where('users.active', 1)
             ->select(
                 'presences.teacher_id',
                 DB::raw('COUNT(*) as total_data_presensi'),
@@ -50,8 +52,24 @@ class PresenceController extends Controller
                 DB::raw("SUM(presences.time_out = '-') as total_tidak_presensi_pulang"),
             )
             ->groupBy('presences.teacher_id')
-            ->orderBy('entity_orders.order')
             ->get();
+
+        if ($presences->isEmpty()) {
+            return collect();
+        }
+
+        $teacherIds = $presences->pluck('teacher_id');
+        $teachers = Teacher::whereIn('id', $teacherIds)->get()->keyBy('id');
+        $userIds = $teachers->pluck('user_id');
+        $orders = EntityOrder::whereIn('role', ['guru', 'tendik'])
+            ->whereIn('user_id', $userIds)
+            ->pluck('order', 'user_id');
+
+        $presences = $presences->map(function($p) use ($teachers, $orders) {
+            $teacher = $teachers->get($p->teacher_id);
+            $p->order = $teacher ? $orders->get($teacher->user_id, 999) : 999;
+            return $p;
+        })->sortBy('order')->values();
 
         return $presences;
     }
@@ -208,6 +226,7 @@ class PresenceController extends Controller
         $users = User::whereHas('entityOrder', function ($q) {
             $q->whereIn('role', ['guru', 'tendik']);
         })
+            ->where('active', 1)
             ->with(['entityOrder', 'teacher'])
             ->get()
             ->sortBy('entityOrder.order');
@@ -219,20 +238,41 @@ class PresenceController extends Controller
 
     public function storepresence(Request $request)
     {
-        $id = $request->teacher_id;
-        $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
-        // $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
-        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD').' '.$time_in;
-        Presence::create([
-            'teacher_id' => $id,
-            'time_in' => $time_in,
-            'time_out' => $request->time_out,
-            'is_late' => $request->is_late,
-            'note' => $request->note,
-            'description' => $request->description,
-            'created_at' => $date,
-            'updated_at' => $date,
-        ]);
+        $teacher_ids = $request->teacher_ids;
+        $date = $request->date;
+        $time_in = Carbon::parse($request->time_in)->format('H:i:s');
+        $time_out = $request->time_out;
+        $is_late = $request->is_late;
+        $note = $request->note;
+        $description = $request->description;
+
+        foreach ($teacher_ids as $teacher_id) {
+            $presence = Presence::where('teacher_id', $teacher_id)
+                ->whereDate('created_at', $date)
+                ->first();
+
+            if ($presence) {
+                $presence->update([
+                    'time_in' => $time_in,
+                    'time_out' => $time_out,
+                    'is_late' => $is_late,
+                    'note' => $note,
+                    'description' => $description,
+                ]);
+            } else {
+                $datetime = $date . ' ' . $time_in;
+                Presence::create([
+                    'teacher_id' => $teacher_id,
+                    'time_in' => $time_in,
+                    'time_out' => $time_out,
+                    'is_late' => $is_late,
+                    'note' => $note,
+                    'description' => $description,
+                    'created_at' => $datetime,
+                    'updated_at' => $datetime,
+                ]);
+            }
+        }
 
         return redirect()->route('presence.index');
     }
@@ -244,7 +284,11 @@ class PresenceController extends Controller
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
         $day = Carbon::parse($date)->day;
-        $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
+        $presences = Presence::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)
+            ->whereHas('teacher.user', function ($q) {
+                $q->where('active', 1);
+            })
+            ->get();
 
         return view('presence.admin.today', compact('presences', 'date'));
     }
@@ -291,7 +335,7 @@ class PresenceController extends Controller
             }
 
             $presence->update([
-                'time_in' => $time_in,
+                'time_in' => $time_in ?? $presence->time_in,
                 'time_out' => $time_out,
                 'is_late' => $presenceData['is_late'] ?? 0,
                 'note' => $presenceData['note'] ?? null,
@@ -311,7 +355,8 @@ class PresenceController extends Controller
         // whereBetween('created_at', [$start_date, $end_date])
         $presences = Presence::whereBetween('presences.created_at', [$start_date, $end_date])
             ->join('teachers', 'presences.teacher_id', '=', 'teachers.id')
-            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->where('users.active', 1)
             ->select(
                 'presences.teacher_id',
                 DB::raw('COUNT(*) as total_data_presensi'),
@@ -322,8 +367,22 @@ class PresenceController extends Controller
                 DB::raw("SUM(presences.time_out = '-') as total_tidak_presensi_pulang"),
             )
             ->groupBy('presences.teacher_id')
-            ->orderBy('entity_orders.order')
             ->get();
+
+        if ($presences->isNotEmpty()) {
+            $teacherIds = $presences->pluck('teacher_id');
+            $teachers = Teacher::whereIn('id', $teacherIds)->get()->keyBy('id');
+            $userIds = $teachers->pluck('user_id');
+            $orders = EntityOrder::whereIn('role', ['guru', 'tendik'])
+                ->whereIn('user_id', $userIds)
+                ->pluck('order', 'user_id');
+
+            $presences = $presences->map(function($p) use ($teachers, $orders) {
+                $teacher = $teachers->get($p->teacher_id);
+                $p->order = $teacher ? $orders->get($teacher->user_id, 999) : 999;
+                return $p;
+            })->sortBy('order')->values();
+        }
 
         return view('presence.admin.filter', compact('presences', 'date'));
     }

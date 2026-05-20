@@ -56,9 +56,10 @@
                     <span class="fs-4 py-0 px-2 btn btn-outline-success">
                         <i class="bi bi-person-check"></i>
                     </span>
-                    <span class="ms-2 fs-5 "> Total Keluarga </span>
+                    <span class="ms-2 fs-5 "> Total Keseluruhan </span>
                 </div>
-                <button class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumguru + $sumtendik + $sumkaryawan }}</button>
+                <button
+                    class="bg-success btn btn-success p-1 px-2 fs-5 ">{{ $sumguru + $sumtendik + $sumkaryawan }}</button>
             </div>
         </div>
     </div>

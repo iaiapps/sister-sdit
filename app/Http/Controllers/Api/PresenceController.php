@@ -16,7 +16,9 @@ class PresenceController extends Controller
     //get all data
     public function index()
     {
-        $data = Presence::get();
+        $data = Presence::whereHas('teacher.user', function ($q) {
+            $q->where('active', 1);
+        })->get();
         return response()->json([
             'pesan' => 'success',
             'data' => $data

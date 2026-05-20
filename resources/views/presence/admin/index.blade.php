@@ -51,7 +51,7 @@
                 <tbody>
                     @foreach ($presences as $presence)
                         <tr>
-                            <td>{{ $presence->teacher_id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $presence->teacher->full_name }}</td>
                             <td>{{ $presence->total_data_presensi - $presence->total_sakit - $presence->total_ijin }}</td>
                             {{-- <td>
@@ -87,7 +87,8 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
-                paging: false
+                paging: false,
+                order: []
             });
         });
     </script>

@@ -43,24 +43,23 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-form-label text-md-end" for="role">Role</label>
                     <div class="col-md-6">
-                        <select class="form-select" id="role" name="role">
-                            <option>---</option>
-                            @foreach ($role as $r)
-                                <option value="{{ $r->name }}">{{ $r->name }}</option>
-                            @endforeach
-                        </select>
+                            <select class="form-select" id="role" name="role">
+                                <option>---</option>
+                                @foreach ($role as $r)
+                                    <option value="{{ $r->name }}" {{ $user->roles->first()->name == $r->name ? 'selected' : '' }}>{{ $r->name }}</option>
+                                @endforeach
+                            </select>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-md-4 col-form-label text-md-end" for="status">Status</label>
                     <div class="col-md-6">
-                        <select class="form-select" id="status" name="active">
-                            <option>---</option>
-                            <option value="0">tidak aktif</option>
-                            <option value="1">aktif</option>
-
-                        </select>
+                            <select class="form-select" id="status" name="active">
+                                <option value="0" {{ $user->active == 0 ? 'selected' : '' }}>pending</option>
+                                <option value="1" {{ $user->active == 1 ? 'selected' : '' }}>aktif</option>
+                                <option value="2" {{ $user->active == 2 ? 'selected' : '' }}>nonaktif/pindah</option>
+                            </select>
                     </div>
                 </div>
                 {{-- <div class="row mb-3" id="nis">

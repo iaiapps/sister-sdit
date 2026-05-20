@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Presence;
 use App\Models\Teacher;
 use App\Models\Presence;
 use App\Models\User;
+use App\Models\EntityOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Exports\PresenceExport;
@@ -37,14 +38,32 @@ class PresencekaryawanController extends Controller
         $month = Carbon::parse($date)->month;
         $presences = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)->whereMonth('presencekaryawans.created_at', $month)
             ->join('teachers', 'presencekaryawans.teacher_id', '=', 'teachers.id')
-            ->join('entity_orders', 'teachers.user_id', '=', 'entity_orders.user_id')
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->where('users.active', 1)
             ->select(
                 'presencekaryawans.teacher_id',
                 DB::raw("COUNT(*) as total_data_presensi"),
             )
             ->groupBy('presencekaryawans.teacher_id')
-            ->orderBy('entity_orders.order')
             ->get();
+
+        if ($presences->isEmpty()) {
+            return collect();
+        }
+
+        $teacherIds = $presences->pluck('teacher_id');
+        $teachers = Teacher::whereIn('id', $teacherIds)->get()->keyBy('id');
+        $userIds = $teachers->pluck('user_id');
+        $orders = EntityOrder::where('role', 'karyawan')
+            ->whereIn('user_id', $userIds)
+            ->pluck('order', 'user_id');
+
+        $presences = $presences->map(function($p) use ($teachers, $orders) {
+            $teacher = $teachers->get($p->teacher_id);
+            $p->order = $teacher ? $orders->get($teacher->user_id, 999) : 999;
+            return $p;
+        })->sortBy('order')->values();
+
         return $presences;
     }
 
@@ -149,32 +168,43 @@ class PresencekaryawanController extends Controller
         $users = User::whereHas('entityOrder', function($q) {
             $q->where('role', 'karyawan');
         })
+        ->where('active', 1)
         ->with(['entityOrder', 'teacher'])
-        ->join('entity_orders', 'users.id', '=', 'entity_orders.user_id')
-        ->orderBy('entity_orders.order')
-        ->get();
+        ->get()
+        ->sortBy('entityOrder.order');
 
         $tgl = Carbon::now()->isoFormat('Y-MM-DD');
         return view('presencekar.create', compact('users', 'tgl'));
     }
     public function storepresence(Request $request)
     {
-        $id = $request->teacher_id;
-        $time_in = Carbon::createFromTimeString($request->time_in)->isoFormat('HH:mm:ss');
-        // $time_out = Carbon::createFromTimeString($request->time_out)->isoFormat('HH:mm:ss');
-        $date = Carbon::createFromDate($request->date)->isoFormat('YYYY-MM-DD') . " " . $time_in;
-        // dd($date);
+        $teacher_ids = $request->teacher_ids;
+        $date = $request->date;
+        $time_in = Carbon::parse($request->time_in)->format('H:i:s');
+        $time_out = $request->time_out;
 
-        Presencekaryawan::create([
-            'teacher_id' => $id,
-            'time_in' => $time_in,
-            'time_out' => $request->time_out,
-            // 'is_late' => $request->is_late,
-            // 'note' => $request->note,
-            // 'description' => $request->description,
-            'created_at' => $date,
-            'updated_at' => $date,
-        ]);
+        foreach ($teacher_ids as $teacher_id) {
+            $presence = Presencekaryawan::where('teacher_id', $teacher_id)
+                ->whereDate('created_at', $date)
+                ->first();
+
+            if ($presence) {
+                $presence->update([
+                    'time_in' => $time_in,
+                    'time_out' => $time_out,
+                ]);
+            } else {
+                $datetime = $date . ' ' . $time_in;
+                Presencekaryawan::create([
+                    'teacher_id' => $teacher_id,
+                    'time_in' => $time_in,
+                    'time_out' => $time_out,
+                    'created_at' => $datetime,
+                    'updated_at' => $datetime,
+                ]);
+            }
+        }
+
         return redirect()->route('presencekaryawan.index');
     }
 
@@ -185,7 +215,11 @@ class PresencekaryawanController extends Controller
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
         $day = Carbon::parse($date)->day;
-        $presences = Presencekaryawan::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();
+        $presences = Presencekaryawan::whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)
+            ->whereHas('teacher.user', function ($q) {
+                $q->where('active', 1);
+            })
+            ->get();
         return view('presencekar.today', compact('presences', 'date'));
     }
 

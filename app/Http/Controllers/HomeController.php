@@ -54,9 +54,9 @@ class HomeController extends Controller
         $role = $user->getRoleNames()->first();
 
         //get total user
-        $sumguru = User::role('guru')->count();
-        $sumtendik = User::role('tendik')->count();
-        $sumkaryawan = User::role('karyawan')->count();
+        $sumguru = User::role('guru')->where('active', 1)->count();
+        $sumtendik = User::role('tendik')->where('active', 1)->count();
+        $sumkaryawan = User::role('karyawan')->where('active', 1)->count();
 
         // get time
         $now = Carbon::now()->isoFormat('HH:mm');

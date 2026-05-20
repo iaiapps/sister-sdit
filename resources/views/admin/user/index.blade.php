@@ -3,10 +3,40 @@
 @section('title', 'Data Master User')
 @section('content')
     <div class="card p-3 rounded">
-        @if (!$not_active->isEmpty())
-            <div class="alert alert-danger text-center">Ada <span class="fw-bold">{{ $not_active->count() }}</span>
-                user
-                yang belum active!</div>
+        @if (!$pending->isEmpty())
+            <div class="alert alert-warning text-center">Ada <span class="fw-bold">{{ $pending->count() }}</span>
+                user pending!
+            </div>
+            <div class="table-responsive mb-3">
+                <table class="table table-warning table-striped align-middle" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pending as $user)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->roles->first()->name ?? 'belum ditentukan' }}</td>
+                                <td><span class="badge bg-warning text-dark">pending</span></td>
+                                <td>
+                                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm"><i
+                                            class="bi bi-pencil-square"></i> edit</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <hr>
         @endif
         <div class="table-responsive">
             <div class="mb-3">
@@ -14,6 +44,11 @@
                     <a href="{{ route('admin.user.create') }}" class="btn btn-outline-success"><i
                             class="bi bi-plus-circle"></i>
                         Tambah Data</a>
+                    @if (!$pindah->isEmpty())
+                        <a href="{{ route('admin.pindah') }}" class="btn btn-outline-secondary"><i
+                                class="bi bi-person-x"></i>
+                            Pindah ({{ $pindah->count() }})</a>
+                    @endif
                 </div>
             </div>
             <div class="table-responsive">
@@ -30,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($aktif as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>

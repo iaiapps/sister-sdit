@@ -76,7 +76,8 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
-                paging: false
+                paging: false,
+                order: []
             });
         });
     </script>

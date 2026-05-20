@@ -20,6 +20,7 @@ class TeacherController extends Controller
         $users = User::whereHas('entityOrder', function ($q) {
             $q->whereIn('role', ['guru', 'tendik']);
         })
+            ->where('active', 1)
             ->with(['entityOrder', 'teacher'])
             ->get()
             ->sortBy('entityOrder.order');
@@ -140,6 +141,7 @@ class TeacherController extends Controller
         $users = User::whereHas('entityOrder', function ($q) {
             $q->where('role', 'karyawan');
         })
+            ->where('active', 1)
             ->with('entityOrder')
             ->get()
             ->sortBy('entityOrder.order');

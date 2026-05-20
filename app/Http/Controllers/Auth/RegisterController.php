@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Models\EntityOrder;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -80,9 +81,16 @@ class RegisterController extends Controller
         $makeTeacher = [
             'user_id' => $id,
             'full_name' => $data['name'],
-            // 'email' => $data['email'],
         ];
         Teacher::create($makeTeacher);
+
+        //create entity order dengan urutan otomatis
+        $maxOrder = EntityOrder::max('order') ?? 0;
+        EntityOrder::create([
+            'user_id' => $id,
+            'role' => 'guru',
+            'order' => $maxOrder + 1,
+        ]);
 
         return $create;
     }

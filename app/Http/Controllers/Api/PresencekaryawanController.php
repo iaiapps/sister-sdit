@@ -15,7 +15,9 @@ class PresencekaryawanController extends Controller
     // INI NORMAL
     public function index()
     {
-        $data = Presencekaryawan::get();
+        $data = Presencekaryawan::whereHas('teacher.user', function ($q) {
+            $q->where('active', 1);
+        })->get();
         return response()->json([
             'pesan' => 'success',
             'data' => $data

@@ -16,10 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '!=', 1)->get();
-        $not_active = User::doesntHave('roles')->get();
-        // dd($not_active);
-        return view('admin.user.index', compact('users', 'not_active'));
+        $aktif = User::where('id', '!=', 1)->where('active', 1)->get();
+        $pending = User::where('id', '!=', 1)->where('active', 0)->get();
+        $pindah = User::where('id', '!=', 1)->where('active', 2)->get();
+        return view('admin.user.index', compact('aktif', 'pending', 'pindah'));
     }
 
     /**
@@ -123,5 +123,19 @@ class UserController extends Controller
         User::where('id', $id)->update(['password' => Hash::make('password')]);
         // dd($id);
         return redirect()->route('admin.user.index');
+    }
+
+    // handle user nonaktif/pindah
+    public function pindah()
+    {
+        $users = User::whereHas('entityOrder', function ($q) {
+            $q->whereIn('role', ['guru', 'tendik']);
+        })
+            ->where('active', 2)
+            ->with(['entityOrder', 'teacher'])
+            ->get()
+            ->sortBy('entityOrder.order');
+
+        return view('admin.user.pindah', compact('users'));
     }
 }

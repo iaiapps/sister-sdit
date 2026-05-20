@@ -43,20 +43,20 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="name-cell">{{ $presence->teacher->full_name }}</td>
                                 <td>
+                                    <input type="hidden" name="presences[{{ $presence->id }}][id]"
+                                        value="{{ $presence->id }}">
                                     <span class="view-mode">{{ $presence->time_in }}</span>
-                                    <input type="time" class="edit-mode form-control form-control-sm d-none" 
-                                        name="presences[{{ $presence->id }}][time_in]" 
-                                        value="{{ $presence->time_in }}">
+                                    <input type="text" class="edit-mode form-control form-control-sm d-none"
+                                        name="presences[{{ $presence->id }}][time_in]" value="{{ $presence->time_in }}">
                                 </td>
                                 <td>
                                     <span class="view-mode">{{ $presence->time_out }}</span>
-                                    <input type="text" class="edit-mode form-control form-control-sm d-none" 
-                                        name="presences[{{ $presence->id }}][time_out]" 
-                                        value="{{ $presence->time_out }}">
+                                    <input type="text" class="edit-mode form-control form-control-sm d-none"
+                                        name="presences[{{ $presence->id }}][time_out]" value="{{ $presence->time_out }}">
                                 </td>
                                 <td>
                                     <span class="view-mode">{{ $presence->is_late }}</span>
-                                    <select class="edit-mode form-select form-select-sm d-none" 
+                                    <select class="edit-mode form-select form-select-sm d-none"
                                         name="presences[{{ $presence->id }}][is_late]">
                                         <option value="0" {{ $presence->is_late == 0 ? 'selected' : '' }}>0</option>
                                         <option value="1" {{ $presence->is_late == 1 ? 'selected' : '' }}>1</option>
@@ -64,30 +64,54 @@
                                 </td>
                                 <td>
                                     <span class="view-mode">{{ $presence->note }}</span>
-                                    <select class="edit-mode form-select form-select-sm d-none" 
+                                    <select class="edit-mode form-select form-select-sm d-none"
                                         name="presences[{{ $presence->id }}][note]">
-                                        <option value="Tepat waktu" {{ $presence->note == 'Tepat waktu' ? 'selected' : '' }}>Tepat waktu</option>
-                                        <option value="Telat" {{ $presence->note == 'Telat' ? 'selected' : '' }}>Telat</option>
-                                        <option value="Ijin" {{ $presence->note == 'Ijin' ? 'selected' : '' }}>Ijin</option>
-                                        <option value="Sakit" {{ $presence->note == 'Sakit' ? 'selected' : '' }}>Sakit</option>
-                                        <option value="Tugas kedinasan" {{ $presence->note == 'Tugas kedinasan' ? 'selected' : '' }}>Tugas kedinasan</option>
-                                        <option value="Pulang awal" {{ $presence->note == 'Pulang awal' ? 'selected' : '' }}>Pulang awal</option>
+                                        <option value="Tepat waktu"
+                                            {{ $presence->note == 'Tepat waktu' ? 'selected' : '' }}>Tepat waktu</option>
+                                        <option value="Telat" {{ $presence->note == 'Telat' ? 'selected' : '' }}>Telat
+                                        </option>
+                                        <option value="Ijin" {{ $presence->note == 'Ijin' ? 'selected' : '' }}>Ijin
+                                        </option>
+                                        <option value="Sakit" {{ $presence->note == 'Sakit' ? 'selected' : '' }}>Sakit
+                                        </option>
+                                        <option value="Tugas kedinasan"
+                                            {{ $presence->note == 'Tugas kedinasan' ? 'selected' : '' }}>Tugas kedinasan
+                                        </option>
+                                        <option value="Pulang awal"
+                                            {{ $presence->note == 'Pulang awal' ? 'selected' : '' }}>Pulang awal</option>
                                     </select>
                                 </td>
                                 <td>
                                     <span class="view-mode">{{ $presence->description }}</span>
-                                    <select class="edit-mode form-select form-select-sm d-none" 
+                                    <select class="edit-mode form-select form-select-sm d-none"
                                         name="presences[{{ $presence->id }}][description]">
                                         <option value="">Null</option>
-                                        <option value="Mengerjakan tugas sekolah (4 jam efektif)" {{ $presence->description == 'Mengerjakan tugas sekolah (4 jam efektif)' ? 'selected' : '' }}>Mengerjakan tugas sekolah (4 jam efektif)</option>
-                                        <option value="Paguyuban kelas" {{ $presence->description == 'Paguyuban kelas' ? 'selected' : '' }}>Paguyuban kelas</option>
-                                        <option value="KKG" {{ $presence->description == 'KKG' ? 'selected' : '' }}>KKG</option>
-                                        <option value="Pelatihan/Workshop/Webinar" {{ $presence->description == 'Pelatihan/Workshop/Webinar' ? 'selected' : '' }}>Pelatihan/Workshop/Webinar</option>
-                                        <option value="Mendampingi lomba" {{ $presence->description == 'Mendampingi lomba' ? 'selected' : '' }}>Mendampingi lomba</option>
-                                        <option value="Event sekolah/Yayasan" {{ $presence->description == 'Event sekolah/Yayasan' ? 'selected' : '' }}>Event sekolah/Yayasan</option>
-                                        <option value="BPI di luar sekolah" {{ $presence->description == 'BPI di luar sekolah' ? 'selected' : '' }}>BPI di luar sekolah</option>
-                                        <option value="Sakit/Anggota Keluarga Sakit" {{ $presence->description == 'Sakit/Anggota Keluarga Sakit' ? 'selected' : '' }}>Sakit/Anggota Keluarga Sick</option>
-                                        <option value="Utusan Sekolah/Tugas Kedinasan" {{ $presence->description == 'Utusan Sekolah/Tugas Kedinasan' ? 'selected' : '' }}>Utusan Sekolah/Tugas Kedinasan</option>
+                                        <option value="Mengerjakan tugas sekolah (4 jam efektif)"
+                                            {{ $presence->description == 'Mengerjakan tugas sekolah (4 jam efektif)' ? 'selected' : '' }}>
+                                            Mengerjakan tugas sekolah (4 jam efektif)</option>
+                                        <option value="Paguyuban kelas"
+                                            {{ $presence->description == 'Paguyuban kelas' ? 'selected' : '' }}>Paguyuban
+                                            kelas</option>
+                                        <option value="KKG" {{ $presence->description == 'KKG' ? 'selected' : '' }}>KKG
+                                        </option>
+                                        <option value="Pelatihan/Workshop/Webinar"
+                                            {{ $presence->description == 'Pelatihan/Workshop/Webinar' ? 'selected' : '' }}>
+                                            Pelatihan/Workshop/Webinar</option>
+                                        <option value="Mendampingi lomba"
+                                            {{ $presence->description == 'Mendampingi lomba' ? 'selected' : '' }}>
+                                            Mendampingi lomba</option>
+                                        <option value="Event sekolah/Yayasan"
+                                            {{ $presence->description == 'Event sekolah/Yayasan' ? 'selected' : '' }}>Event
+                                            sekolah/Yayasan</option>
+                                        <option value="BPI di luar sekolah"
+                                            {{ $presence->description == 'BPI di luar sekolah' ? 'selected' : '' }}>BPI di
+                                            luar sekolah</option>
+                                        <option value="Sakit/Anggota Keluarga Sakit"
+                                            {{ $presence->description == 'Sakit/Anggota Keluarga Sakit' ? 'selected' : '' }}>
+                                            Sakit/Anggota Keluarga Sick</option>
+                                        <option value="Utusan Sekolah/Tugas Kedinasan"
+                                            {{ $presence->description == 'Utusan Sekolah/Tugas Kedinasan' ? 'selected' : '' }}>
+                                            Utusan Sekolah/Tugas Kedinasan</option>
                                     </select>
                                 </td>
                             </tr>
@@ -96,7 +120,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div id="saveButtons" class="d-none mt-3">
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-check-circle"></i> Simpan Perubahan
@@ -135,10 +159,6 @@
             }
         }
 
-        $(document).ready(function() {
-            $('#table').DataTable({
-                paging: false
-            });
-        });
+        // DataTable disabled temporarily for debugging
     </script>
 @endpush

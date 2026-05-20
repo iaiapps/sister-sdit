@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('school', SchoolController::class)->only(['index', 'edit', 'update']);
             Route::resource('teacher', TeacherController::class);
             Route::get('karyawan', [TeacherController::class, 'karyawan'])->name('karyawan.index');
+            Route::get('user-pindah', [UserController::class, 'pindah'])->name('pindah');
 
             // Route::resource('student', StudentController::class);
 
