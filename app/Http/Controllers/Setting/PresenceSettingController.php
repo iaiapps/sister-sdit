@@ -13,10 +13,21 @@ class PresenceSettingController extends Controller
      */
     public function index()
     {
-        $presence_settings = PresenceSetting::where('name', '!=', 'qrcode')->get();
-        $qrcode = PresenceSetting::where('name', '=', 'qrcode')->get()->first();
+        $all = PresenceSetting::all();
 
-        return view('admin.setting.presence.index', compact('presence_settings', 'qrcode'));
+        $qrcode = $all->where('name', 'qrcode')->first();
+
+        $umum = $all->whereIn('name', ['latitude', 'longitude', 'radius', 'version', 'versionk', 'timeline']);
+
+        $grupA = $all->reject(fn ($s) =>
+            str_contains($s->name, ':') || in_array($s->name, ['qrcode', 'latitude', 'longitude', 'radius', 'version', 'versionk', 'timeline'])
+        );
+
+        $karyawan  = $all->filter(fn ($s) => str_ends_with($s->name, ':karyawan'));
+        $kasir     = $all->filter(fn ($s) => str_ends_with($s->name, ':kasir'));
+        $ibudapur  = $all->filter(fn ($s) => str_ends_with($s->name, ':ibudapur'));
+
+        return view('admin.setting.presence.index', compact('qrcode', 'umum', 'grupA', 'karyawan', 'kasir', 'ibudapur'));
     }
 
     /**

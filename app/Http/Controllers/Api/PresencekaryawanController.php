@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Presencekaryawan;
+use App\Models\PresenceSetting;
 use Illuminate\Support\Facades\Validator;
 
 class PresencekaryawanController extends Controller
@@ -114,6 +115,96 @@ class PresencekaryawanController extends Controller
                 ->update(['time_out' => Carbon::now()->isoFormat('HH:mm:ss')]);
             return response()->json(['pesan' => 'Berhasil absen pulang', 'data' => Carbon::now()->isoFormat('HH:mm:ss')], 200);
         }
+    }
+
+    // ========== HELPER METHODS (ditambahkan, belum dipakai) ==========
+
+    private function _settingValue($for)
+    {
+        return PresenceSetting::where('name', $for)->first()->value;
+    }
+
+    private function _timeline()
+    {
+        return $this->_settingValue('timeline') == '1';
+    }
+
+    private function _scannable()
+    {
+        $now = Carbon::now();
+        $early_time_come = Carbon::createFromTimeString($this->_settingValue('early_time_come'));
+        $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
+        return $now->between($early_time_come, $end_time_leave);
+    }
+
+    private function _isLate()
+    {
+        $now = Carbon::now();
+        $ontime = Carbon::createFromTimeString($this->_settingValue('ontime_until'));
+        $early_time_come = Carbon::createFromTimeString($this->_settingValue('early_time_come'));
+        return !$now->between($early_time_come, $ontime);
+    }
+
+    private function _note($now, $teacher_id, $note, $description = null)
+    {
+        if (!in_array($note, ['Sakit', 'Ijin']) && empty($description)) {
+            return response()->json([
+                'pesan' => 'Keterangan belum diisi'
+            ], 400);
+        }
+
+        $presence = Presencekaryawan::where('teacher_id', $teacher_id)
+            ->whereDate('created_at', '=', Carbon::today())
+            ->first();
+
+        if (!$presence) {
+            $data = [
+                'teacher_id' => $teacher_id,
+                'time_in' => ($note == 'Tugas kedinasan') ? $now : '-',
+                'time_out' => '-',
+                'is_late' => false,
+                'note' => $note,
+                'description' => $description,
+            ];
+
+            $presence = Presencekaryawan::create($data);
+            return response()->json([
+                'pesan' => "Berhasil menambahkan catatan $note",
+                'data' => $presence
+            ], 200);
+        }
+
+        if ($note == 'Pulang awal') {
+            if ($presence->time_out !== '-') {
+                return response()->json([
+                    'pesan' => 'Presensi pulang sudah dicatat sebelumnya'
+                ], 200);
+            }
+
+            $presence->time_out = $now;
+
+            if ($presence->note == 'Telat') {
+                $presence->note = 'Telat, Pulang awal';
+            } elseif ($presence->note == 'Tepat waktu') {
+                $presence->note = 'Tepat waktu, Pulang awal';
+            } else {
+                return response()->json([
+                    'pesan' => 'Tidak diizinkan mengubah data'
+                ], 200);
+            }
+
+            $presence->description = $description;
+            $presence->save();
+
+            return response()->json([
+                'pesan' => 'Berhasil mencatat presensi pulang awal',
+                'data' => $presence
+            ], 200);
+        }
+
+        return response()->json([
+            'pesan' => 'Data sudah ada, tidak diizinkan mengubah data'
+        ], 200);
     }
 
     public function getVersionK()

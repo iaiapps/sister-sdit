@@ -4,30 +4,23 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Controllers\Api\PresenceController;
 
 class CheckApp
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        $version = $request->header('version'); // Versi dari aplikasi frontend
+        $version = $request->header('version');
 
-        // Ambil versi minimum dari database
-        // get setting dari controller PresenceController
-        $setting_presence = new PresenceController();
-        $requiredVersion = $setting_presence->getVersion();
+        $row = DB::table('presence_settings')->where('name', 'version')->first();
+        $requiredVersion = $row?->value;
 
         if (!$requiredVersion || version_compare($version, $requiredVersion, '<')) {
             return response()->json([
                 'status' => 'error',
                 'pesan' => 'Mohon update aplikasi untuk melanjutkan!',
-            ], 426); // 426: Upgrade Required
+            ], 426);
         }
         return $next($request);
     }

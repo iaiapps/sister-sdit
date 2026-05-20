@@ -1,4 +1,4 @@
-<nav id="nav" class="position-fixed">
+<nav id="nav" class="position-fixed bg-white">
     <div class="d-flex mx-3 py-md-0 py-2 bg-white rounded align-items-center shadow">
         <div class="judull rounded text-uppercase d-sm-flex py-3 px-3 bg-light d-none">
             <img src="{{ asset('img/logo.svg') }}" class="dashboardlogo" alt="logo" />

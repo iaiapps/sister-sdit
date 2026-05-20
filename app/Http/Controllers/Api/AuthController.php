@@ -29,6 +29,8 @@ class AuthController extends Controller
             // get teacher_id
             $teacher_id = Teacher::where('user_id', $user->id)->first()->id;
 
+            $role = $user->getRoleNames()->first();
+
             // get setting dari controller PresenceController
             $setting_presence = new PresenceController();
             $setting_presence_k = new PresencekaryawanController();
@@ -38,6 +40,8 @@ class AuthController extends Controller
                 return response()->json([
                     'access_token' => $token,
                     'data' => $user,
+                    'role' => $role,
+                    'group' => 'A',
                     'token_type' => 'Bearer',
                     'teacher_id' => $teacher_id,
                     'qrcode' => $setting_presence->getQrCode(),
@@ -50,6 +54,8 @@ class AuthController extends Controller
                 return response()->json([
                     'access_token' => $token,
                     'data' => $user,
+                    'role' => $role,
+                    'group' => 'B',
                     'token_type' => 'Bearer',
                     'teacher_id' => $teacher_id,
                     'qrcode' => $setting_presence->getQrCode(),
