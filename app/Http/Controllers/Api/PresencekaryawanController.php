@@ -45,12 +45,39 @@ class PresencekaryawanController extends Controller
 
     public function store(Request $request)
     {
+        $now = Carbon::now()->isoFormat('HH:mm:ss');
+        $teacher_id = $request->teacher_id;
+        $note = $request->note;
+        $description = $request->description;
 
-        if ($this->validateAndCheck($request) == true) {
-
-            return $this->saveData($request);
+        if ($request->has('note')) {
+            if ($this->_timeline() == true) {
+                if ($this->_scannable() == true) {
+                    return $this->_note($now, $teacher_id, $note, $description);
+                } else {
+                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
+                }
+            } else {
+                return $this->_note($now, $teacher_id, $note, $description);
+            }
         } else {
-            return $this->absenPulang($request);
+            if ($this->_timeline() == true) {
+                if ($this->_scannable() == true) {
+                    if ($this->validateAndCheck($request) == true) {
+                        return $this->saveData($request, $this->_isLate());
+                    } else {
+                        return $this->absenPulang($request);
+                    }
+                } else {
+                    return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
+                }
+            } else {
+                if ($this->validateAndCheck($request) == true) {
+                    return $this->saveData($request, $this->_isLate());
+                } else {
+                    return $this->absenPulang($request);
+                }
+            }
         }
     }
 
@@ -80,17 +107,17 @@ class PresencekaryawanController extends Controller
     }
 
     // fungsi save data cek terlambat
-    // public function saveData($request, $is_late)
-    public function saveData($request)
+    public function saveData($request, $is_late)
     {
-
+        $note = $is_late == false ? 'Tepat waktu' : 'Telat';
         $now = Carbon::now();
 
         $presence = Presencekaryawan::create([
             'teacher_id' => $request->teacher_id,
             'time_in' => $now->isoFormat('HH:mm:ss'),
             'time_out' => '-',
-
+            'is_late' => $is_late,
+            'note' => $note,
         ]);
         return response()->json([
             'pesan' => 'Berhasil absen masuk',
@@ -100,20 +127,25 @@ class PresencekaryawanController extends Controller
 
     public function absenPulang($request)
     {
-        // cek dulu takut ada note nya
-        $presence = Presencekaryawan::where('teacher_id', $request->teacher_id)->orderBy('id', 'desc')->first();
-        if ($presence->time_in == '-') {
-            $presence->time_out = '-';
-            $presence->save();
-            return response()->json([
-                'pesan' => 'Berhasil absen pulang',
-                'data' => $presence
-            ], 200);
-        } else {
+        $now = Carbon::now();
+
+        $presence = Presencekaryawan::where('teacher_id', $request->teacher_id)->whereDate('created_at', $now)->first();
+        if ($presence->time_in == '-' && $presence->time_out == '-') {
+            return response()->json(['pesan' => 'tidak bisa mengubah data'], 200);
+        } elseif (optional($presence)->note == 'Tugas kedinasan') {
+            return response()->json(['pesan' => 'Tidak bisa mengubah data'], 200);
+        }
+
+        $early_time_leave = Carbon::createFromTimeString($this->_settingValue('early_time_leave'));
+        $end_time_leave = Carbon::createFromTimeString($this->_settingValue('end_time_leave'));
+
+        if ($now->between($early_time_leave, $end_time_leave)) {
             Presencekaryawan::where('teacher_id', $request->teacher_id)
                 ->whereDate('created_at', '=', Carbon::today()->toDateString())
                 ->update(['time_out' => Carbon::now()->isoFormat('HH:mm:ss')]);
             return response()->json(['pesan' => 'Berhasil absen pulang', 'data' => Carbon::now()->isoFormat('HH:mm:ss')], 200);
+        } else {
+            return response()->json(['pesan' => 'Belum saatnya presensi pulang'], 200);
         }
     }
 
@@ -121,11 +153,19 @@ class PresencekaryawanController extends Controller
 
     private function _settingValue($for)
     {
-        return PresenceSetting::where('name', $for)->first()->value;
+        $role = auth()->user()->getRoleNames()->first();
+        $setting = PresenceSetting::where('name', "$for:$role")->first()
+                ?? PresenceSetting::where('name', $for)->first();
+        return $setting ? $setting->value : null;
     }
 
     private function _timeline()
     {
+        // TODO: hapus 4 baris di bawah (if role) setelah semua user update APK
+        $role = auth()->user()->getRoleNames()->first();
+        if (in_array($role, ['karyawan', 'kasir', 'ibudapur'])) {
+            return false;
+        }
         return $this->_settingValue('timeline') == '1';
     }
 
