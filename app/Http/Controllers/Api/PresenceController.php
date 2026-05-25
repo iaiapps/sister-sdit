@@ -297,6 +297,8 @@ class PresenceController extends Controller
     // get waktu presensi
     public function getSettings()
     {
+        $role = auth()->user()->getRoleNames()->first();
+
         $list = DB::table('presence_settings')->where(function ($query) {
             $query->where('name', '!=', 'qrcode')
                 ->where('name', '!=', 'timeline')
@@ -305,7 +307,11 @@ class PresenceController extends Controller
                 ->where('name', '!=', 'radius')
                 ->where('name', '!=', 'version')
                 ->where('name', '!=', 'versionK');
-        })->get();
+        })->get()->filter(function ($s) use ($role) {
+            if (!str_contains($s->name, ':')) return true;
+            return str_ends_with($s->name, ":$role");
+        })->values();
+
         return response()->json([
             'pesan' => 'Berhasil mendapatkan data Settings',
             'data' => $list
