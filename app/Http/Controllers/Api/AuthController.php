@@ -50,7 +50,7 @@ class AuthController extends Controller
                     'radius' => $setting_presence->getRadius(),
                     'version' => $setting_presence->getVersion(),
                 ]);
-            } elseif ($user->hasRole('karyawan')) {
+            } elseif (in_array($role, ['karyawan', 'kasir', 'ibudapur'])) {
                 return response()->json([
                     'access_token' => $token,
                     'data' => $user,

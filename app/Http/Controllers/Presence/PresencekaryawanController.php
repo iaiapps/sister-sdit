@@ -24,19 +24,28 @@ class PresencekaryawanController extends Controller
         if ($request->date) {
             $date = $request->date;
         }
-        $presences = $this->groupTeacherFilterMonth($date);
-        return view('presencekar.index', compact('presences', 'date'));
+        $role = $request->role;
+        $presences = $this->groupTeacherFilterMonth($date, $role);
+        $roles = Presencekaryawan::whereNotNull('role')->distinct()->pluck('role');
+        return view('presencekar.index', compact('presences', 'date', 'roles', 'role'));
     }
 
     // ini fungsi untuk grouping teacher dan
     // fungsi filter bulan
     // sebelum group gunakan method select()
     // gunakan DB::raw untuk pilih colum lain
-    public function groupTeacherFilterMonth($date)
+    public function groupTeacherFilterMonth($date, $role = null)
     {
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
-        $presences = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)->whereMonth('presencekaryawans.created_at', $month)
+        $query = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)
+            ->whereMonth('presencekaryawans.created_at', $month);
+
+        if ($role) {
+            $query->where('presencekaryawans.role', $role);
+        }
+
+        $presences = $query
             ->join('teachers', 'presencekaryawans.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
             ->where('users.active', 1)
@@ -221,6 +230,55 @@ class PresencekaryawanController extends Controller
             })
             ->get();
         return view('presencekar.today', compact('presences', 'date'));
+    }
+
+    // bulk update
+    public function bulkUpdate(Request $request)
+    {
+        $presences = $request->presences;
+        $presenceIds = array_column($presences, 'id');
+
+        $presencesModel = Presencekaryawan::whereIn('id', $presenceIds)->get()->keyBy('id');
+
+        foreach ($presences as $presenceData) {
+            if (! isset($presenceData['id'])) {
+                continue;
+            }
+
+            $presence = $presencesModel->get($presenceData['id']);
+            if (! $presence) {
+                continue;
+            }
+
+            $time_in = $presenceData['time_in'] ?? null;
+            if ($time_in) {
+                try {
+                    $time_in = Carbon::parse($time_in)->format('H:i:s');
+                } catch (\Exception $e) {
+                    $time_in = $presence->time_in;
+                }
+            }
+
+            $time_out = $presenceData['time_out'] ?? null;
+            if ($time_out && $time_out !== '-') {
+                try {
+                    $time_out = Carbon::parse($time_out)->format('H:i:s');
+                } catch (\Exception $e) {
+                    $time_out = '-';
+                }
+            } else {
+                $time_out = '-';
+            }
+
+            $presence->update([
+                'time_in' => $time_in ?? $presence->time_in,
+                'time_out' => $time_out,
+                'is_late' => $presenceData['is_late'] ?? '0',
+                'note' => $presenceData['note'] ?? null,
+            ]);
+        }
+
+        return redirect()->route('presencekar.today')->with('success', 'Data presensi berhasil diperbarui');
     }
 
     // .......................................//

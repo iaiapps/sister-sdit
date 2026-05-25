@@ -29,10 +29,21 @@
         </div>
 
         <hr>
-        <div class="d-inline-block mb-3">
-            <a href="{{ route('add.presencekar') }}" class="btn btn-warning">tambah data presensi</a>
-            <a href="{{ route('presencekar.today') }}" class="btn btn-secondary">presensi hari ini</a>
-
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <a href="{{ route('add.presencekar') }}" class="btn btn-warning">tambah data presensi</a>
+                <a href="{{ route('presencekar.today') }}" class="btn btn-secondary">presensi hari ini</a>
+            </div>
+            <div>
+                <div class="btn-group" role="group">
+                    <a href="{{ route('presencekaryawan.index', ['date' => $date]) }}"
+                        class="btn btn-sm {{ !$role ? 'btn-success' : 'btn-outline-success' }}">Semua</a>
+                    @foreach ($roles as $r)
+                        <a href="{{ route('presencekaryawan.index', ['date' => $date, 'role' => $r]) }}"
+                            class="btn btn-sm {{ $role == $r ? 'btn-success' : 'btn-outline-success' }}">{{ ucfirst($r) }}</a>
+                    @endforeach
+                </div>
+            </div>
         </div>
         <div class="table-responsive">
             <table id="table" class="table table-striped align-middle" style="width: 100%">

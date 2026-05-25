@@ -48,17 +48,16 @@ class PresencekaryawanController extends Controller
         $now = Carbon::now()->isoFormat('HH:mm:ss');
         $teacher_id = $request->teacher_id;
         $note = $request->note;
-        $description = $request->description;
 
         if ($request->has('note')) {
             if ($this->_timeline() == true) {
                 if ($this->_scannable() == true) {
-                    return $this->_note($now, $teacher_id, $note, $description);
+                    return $this->_note($now, $teacher_id, $note);
                 } else {
                     return response()->json(['pesan' => 'Waktu presensi tidak valid'], 200);
                 }
             } else {
-                return $this->_note($now, $teacher_id, $note, $description);
+                return $this->_note($now, $teacher_id, $note);
             }
         } else {
             if ($this->_timeline() == true) {
@@ -185,14 +184,8 @@ class PresencekaryawanController extends Controller
         return !$now->between($early_time_come, $ontime);
     }
 
-    private function _note($now, $teacher_id, $note, $description = null)
+    private function _note($now, $teacher_id, $note)
     {
-        if (!in_array($note, ['Sakit', 'Ijin']) && empty($description)) {
-            return response()->json([
-                'pesan' => 'Keterangan belum diisi'
-            ], 400);
-        }
-
         $presence = Presencekaryawan::where('teacher_id', $teacher_id)
             ->whereDate('created_at', '=', Carbon::today())
             ->first();
@@ -200,44 +193,15 @@ class PresencekaryawanController extends Controller
         if (!$presence) {
             $data = [
                 'teacher_id' => $teacher_id,
-                'time_in' => ($note == 'Tugas kedinasan') ? $now : '-',
+                'time_in' => '-',
                 'time_out' => '-',
                 'is_late' => false,
                 'note' => $note,
-                'description' => $description,
             ];
 
             $presence = Presencekaryawan::create($data);
             return response()->json([
                 'pesan' => "Berhasil menambahkan catatan $note",
-                'data' => $presence
-            ], 200);
-        }
-
-        if ($note == 'Pulang awal') {
-            if ($presence->time_out !== '-') {
-                return response()->json([
-                    'pesan' => 'Presensi pulang sudah dicatat sebelumnya'
-                ], 200);
-            }
-
-            $presence->time_out = $now;
-
-            if ($presence->note == 'Telat') {
-                $presence->note = 'Telat, Pulang awal';
-            } elseif ($presence->note == 'Tepat waktu') {
-                $presence->note = 'Tepat waktu, Pulang awal';
-            } else {
-                return response()->json([
-                    'pesan' => 'Tidak diizinkan mengubah data'
-                ], 200);
-            }
-
-            $presence->description = $description;
-            $presence->save();
-
-            return response()->json([
-                'pesan' => 'Berhasil mencatat presensi pulang awal',
                 'data' => $presence
             ], 200);
         }

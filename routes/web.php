@@ -115,6 +115,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('presencekaryawan', PresencekaryawanController::class);
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
             Route::get('todaypresencekar', [PresencekaryawanController::class, 'todaypresencekar'])->name('presencekar.today');
+            Route::put('bulkupdatepresencekar', [PresencekaryawanController::class, 'bulkUpdate'])->name('presencekar.bulk-update');
 
             //gaji
             // Route::resource('salary', SalaryController::class);

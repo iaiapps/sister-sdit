@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('time_out');
             $table->string('is_late')->nullable();
             $table->string('note')->nullable();
-            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
