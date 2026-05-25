@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('presencekaryawans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('role', 20)->nullable();
             $table->string('time_in');
             $table->string('time_out');
             $table->string('is_late')->nullable();

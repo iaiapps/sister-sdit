@@ -24,28 +24,20 @@ class PresencekaryawanController extends Controller
         if ($request->date) {
             $date = $request->date;
         }
-        $role = $request->role;
-        $presences = $this->groupTeacherFilterMonth($date, $role);
-        $roles = Presencekaryawan::whereNotNull('role')->distinct()->pluck('role');
-        return view('presencekar.index', compact('presences', 'date', 'roles', 'role'));
+        $presences = $this->groupTeacherFilterMonth($date);
+        return view('presencekar.index', compact('presences', 'date'));
     }
 
     // ini fungsi untuk grouping teacher dan
     // fungsi filter bulan
     // sebelum group gunakan method select()
     // gunakan DB::raw untuk pilih colum lain
-    public function groupTeacherFilterMonth($date, $role = null)
+    public function groupTeacherFilterMonth($date)
     {
         $year = Carbon::parse($date)->year;
         $month = Carbon::parse($date)->month;
-        $query = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)
-            ->whereMonth('presencekaryawans.created_at', $month);
-
-        if ($role) {
-            $query->where('presencekaryawans.role', $role);
-        }
-
-        $presences = $query
+        $presences = Presencekaryawan::whereYear('presencekaryawans.created_at', $year)
+            ->whereMonth('presencekaryawans.created_at', $month)
             ->join('teachers', 'presencekaryawans.teacher_id', '=', 'teachers.id')
             ->join('users', 'teachers.user_id', '=', 'users.id')
             ->where('users.active', 1)
