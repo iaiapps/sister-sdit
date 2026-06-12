@@ -108,6 +108,9 @@ Route::middleware('auth')->group(function () {
             Route::get('todaypresence', [PresenceController::class, 'todaypresence'])->name('presence.today');
             Route::get('filterpresence', [PresenceController::class, 'filterpresence'])->name('presence.filter');
             Route::put('bulkupdatepresence', [PresenceController::class, 'bulkUpdate'])->name('presence.bulk-update');
+            Route::get('presence-bulk-add', [PresenceController::class, 'bulkAdd'])->name('presence.bulk-add');
+            Route::post('presence-bulk-preview', [PresenceController::class, 'bulkPreview'])->name('presence.bulk-preview');
+            Route::post('presence-bulk-store', [PresenceController::class, 'bulkStore'])->name('presence.bulk-store');
 
             //presence karyawan
             Route::get('addpresencekar', [PresencekaryawanController::class, 'addpresence'])->name('add.presencekar');
@@ -116,6 +119,9 @@ Route::middleware('auth')->group(function () {
             Route::get('presencekar-export', [PresencekaryawanController::class, 'presenceexport'])->name('presencekar.export');
             Route::get('todaypresencekar', [PresencekaryawanController::class, 'todaypresencekar'])->name('presencekar.today');
             Route::put('bulkupdatepresencekar', [PresencekaryawanController::class, 'bulkUpdate'])->name('presencekar.bulk-update');
+            Route::get('presencekar-bulk-add', [PresencekaryawanController::class, 'bulkAdd'])->name('presencekar.bulk-add');
+            Route::post('presencekar-bulk-preview', [PresencekaryawanController::class, 'bulkPreview'])->name('presencekar.bulk-preview');
+            Route::post('presencekar-bulk-store', [PresencekaryawanController::class, 'bulkStore'])->name('presencekar.bulk-store');
 
             //gaji
             // Route::resource('salary', SalaryController::class);

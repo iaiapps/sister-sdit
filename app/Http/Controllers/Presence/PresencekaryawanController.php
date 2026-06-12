@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Presence;
 
+use App\Models\PresenceSetting;
 use App\Models\Teacher;
 use App\Models\Presence;
 use App\Models\User;
@@ -271,6 +272,200 @@ class PresencekaryawanController extends Controller
         }
 
         return redirect()->route('presencekar.today')->with('success', 'Data presensi berhasil diperbarui');
+    }
+
+    public function bulkAdd()
+    {
+        return view('presencekar.bulk');
+    }
+
+    public function bulkPreview(Request $request)
+    {
+        $request->validate([
+            'data' => 'required|string',
+            'date' => 'required|date',
+        ]);
+
+        $rawData = $request->data;
+        $date = $request->date;
+        $rows = $this->parseBulkData($rawData, $date);
+
+        return view('presencekar.preview', compact('rows', 'rawData', 'date'));
+    }
+
+    public function bulkStore(Request $request)
+    {
+        $request->validate([
+            'data' => 'required|string',
+            'date' => 'required|date',
+            'confirmed' => 'required|accepted',
+        ]);
+
+        $rows = $this->parseBulkData($request->data, $request->date);
+        $success = 0;
+        $errors = [];
+
+        foreach ($rows as $row) {
+            if ($row['status'] !== 'OK') {
+                $errors[] = $row['status'] . ' (teacher_id: ' . $row['teacher_id'] . ')';
+                continue;
+            }
+
+            $datetime = $row['date'] . ' ' . $row['time_in'];
+
+            $presence = Presencekaryawan::where('teacher_id', $row['teacher_id'])
+                ->whereDate('created_at', $row['date'])
+                ->first();
+
+            if ($presence) {
+                $presence->update([
+                    'time_in' => $row['time_in'],
+                    'time_out' => $row['time_out'],
+                    'is_late' => $row['is_late'],
+                    'note' => $row['note'],
+                    'updated_at' => $datetime,
+                ]);
+            } else {
+                Presencekaryawan::create([
+                    'teacher_id' => $row['teacher_id'],
+                    'time_in' => $row['time_in'],
+                    'time_out' => $row['time_out'],
+                    'is_late' => $row['is_late'],
+                    'note' => $row['note'],
+                    'created_at' => $datetime,
+                    'updated_at' => $datetime,
+                ]);
+            }
+
+            $success++;
+        }
+
+        if ($errors) {
+            $errorMsg = implode('<br>', array_slice($errors, 0, 20));
+            if (count($errors) > 20) {
+                $errorMsg .= '<br>... dan ' . (count($errors) - 20) . ' error lainnya';
+            }
+            $msg = "Berhasil: $success, Gagal: " . count($errors);
+            if ($success > 0) {
+                return redirect()->route('presencekaryawan.index')->with('success', $msg)->with('warning', $errorMsg);
+            }
+            return redirect()->route('presencekar.bulk-add')->with('warning', $msg)->with('errorDetails', $errorMsg);
+        }
+
+        return redirect()->route('presencekaryawan.index')
+            ->with('success', "Berhasil menambahkan $success data presensi");
+    }
+
+    private function parseBulkData($rawData, $formDate)
+    {
+        $formDateParsed = Carbon::parse($formDate)->format('Y-m-d');
+        $lines = explode("\n", trim($rawData));
+        $rows = [];
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line)) continue;
+
+            $cols = explode("\t", $line);
+            $cols = array_map('trim', $cols);
+
+            $row = [
+                'teacher_id' => $cols[0] ?? '',
+                'teacher_name' => null,
+                'date' => $formDateParsed,
+                'time_in' => '',
+                'time_out' => '-',
+                'is_late' => '0',
+                'note' => 'Tepat waktu',
+                'status' => 'OK',
+            ];
+
+            if (count($cols) < 2) {
+                $row['status'] = 'Baris tidak lengkap';
+                $rows[] = $row;
+                continue;
+            }
+
+            $secondCol = $cols[1];
+            $isDate = preg_match('/[\-\/]/', $secondCol) && !preg_match('/^\d{1,2}:\d{2}/', $secondCol);
+
+            if ($isDate) {
+                $tanggal = $secondCol;
+                $row['time_in'] = $cols[2] ?? '';
+                $row['time_out'] = $cols[3] ?? '-';
+                $row['is_late'] = $cols[4] ?? null;
+                $row['note'] = $cols[5] ?? null;
+
+                try {
+                    $parsedDate = Carbon::createFromFormat('Y-m-d', $tanggal);
+                } catch (\Exception $e) {
+                    try {
+                        $parsedDate = Carbon::createFromFormat('d/m/Y', $tanggal);
+                    } catch (\Exception $e2) {
+                        try {
+                            $parsedDate = Carbon::parse($tanggal);
+                        } catch (\Exception $e3) {
+                            $row['status'] = "Tanggal invalid: $tanggal";
+                            $rows[] = $row;
+                            continue;
+                        }
+                    }
+                }
+                $row['date'] = $parsedDate->format('Y-m-d');
+            } else {
+                $row['time_in'] = $secondCol;
+                $row['time_out'] = $cols[2] ?? '-';
+                $row['is_late'] = $cols[3] ?? null;
+                $row['note'] = $cols[4] ?? null;
+            }
+
+            if (empty($row['time_in'])) {
+                $row['status'] = 'time_in tidak ditemukan';
+                $rows[] = $row;
+                continue;
+            }
+
+            $teacher = Teacher::find($row['teacher_id']);
+            if (!$teacher) {
+                $row['status'] = 'Teacher ID tidak ditemukan';
+                $rows[] = $row;
+                continue;
+            }
+            $row['teacher_name'] = $teacher->full_name;
+
+            try {
+                $row['time_in'] = Carbon::parse($row['time_in'])->format('H:i:s');
+            } catch (\Exception $e) {
+                $row['status'] = 'Format time_in invalid';
+                $rows[] = $row;
+                continue;
+            }
+
+            if ($row['time_out'] !== '-' && $row['time_out'] !== '') {
+                try {
+                    $row['time_out'] = Carbon::parse($row['time_out'])->format('H:i:s');
+                } catch (\Exception $e) {
+                    $row['time_out'] = '-';
+                }
+            } else {
+                $row['time_out'] = '-';
+            }
+
+            if ($row['note'] === null || $row['is_late'] === null) {
+                $ontimeUntil = PresenceSetting::where('name', 'ontime_until:karyawan')->value('value') ?? '07:00';
+                $isLateAuto = $row['time_in'] > $ontimeUntil ? '1' : '0';
+                $row['note'] = $row['note'] ?? ($isLateAuto === '1' ? 'Telat' : 'Tepat waktu');
+                $row['is_late'] = $row['is_late'] ?? $isLateAuto;
+            } elseif ($row['note'] === null) {
+                $row['note'] = $row['is_late'] === '1' ? 'Telat' : 'Tepat waktu';
+            } elseif ($row['is_late'] === null) {
+                $row['is_late'] = in_array($row['note'], ['Telat', 'Pulang awal']) ? '1' : '0';
+            }
+
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 
     // .......................................//
