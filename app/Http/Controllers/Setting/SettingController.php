@@ -68,7 +68,7 @@ class SettingController extends Controller
 
     public function indexEntityOrder(Request $request)
     {
-        $role = $request->get('role', 'all');
+        $role = $request->input('role', 'all');
 
         $query = EntityOrder::with('user')->whereHas('user', function ($q) {
             $q->where('active', 1);
