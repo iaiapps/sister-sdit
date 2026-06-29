@@ -1,64 +1,328 @@
-/* .landingbackground {
-    background: linear-gradient(
-            180deg,
-            rgba(7, 121, 68, 1) 15%,
-            transparent,
-            rgba(255, 255, 255, 0.8) 100%
-        ),
-        url("../img/bgedu.svg");
-} */
+/* ========== LANDING PAGE (Mobile First) ========== */
 
-.landingbackground {
-    background: url("../img/bgedu.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
+html {
+    scroll-behavior: smooth;
 }
 
-.logoonly {
-    width: 38px;
-}
+/* --- Navbar --- */
 #nav {
-    z-index: 1;
+    z-index: 1030;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.95) !important;
+    transition: box-shadow 0.3s;
 }
 
-#beranda {
-    padding-top: 70px;
+.nav-logo {
+    width: 28px;
+    height: 28px;
 }
 
-.landinglogo {
-    width: 110px;
+.navbar-brand {
+    font-size: 0.95rem;
 }
 
-.img-login {
+/* --- Hero --- */
+.hero {
+    min-height: 100dvh;
+    background: linear-gradient(135deg, #077944 0%, #0ba360 50%, #1ddb73 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../img/bgedu.svg") center/cover no-repeat;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.hero-logo {
     width: 100px;
 }
 
-.img-menu {
-    width: 70px;
-    height: 70px;
+.hero-title {
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
-@media (max-width: 600px) {
-    .textalign {
-        text-align: center;
-    }
-    .landinglogo {
-        width: 90px;
-    }
-    .logo {
-        width: 190px;
-    }
-    .img-soon {
-        width: 80%;
-    }
-    .menu {
-        text-decoration: none;
+.hero-sub {
+    font-size: 0.95rem;
+    opacity: 0.92;
+    line-height: 1.6;
+}
+
+.hero-illustration {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- Sections --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #077944;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 0;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #077944, #1ddb73);
+    margin: 6px auto 0;
+    border-radius: 2px;
+}
+
+.section-sub {
+    color: #6c757d;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* --- Feature card text --- */
+.feature-card-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+}
+
+.feature-card-text {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #6c757d;
+}
+
+/* --- Features --- */
+.feature-card {
+    border: none;
+    border-radius: 14px;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    cursor: default;
+    padding: 1rem !important;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(7, 121, 68, 0.1) !important;
+}
+
+.feature-icon {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.feature-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+}
+
+/* --- Download --- */
+.download-card {
+    border: none;
+    border-radius: 18px;
+}
+
+.download-icon-lg {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.download-btn {
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.old-apk-link {
+    font-size: 0.85rem;
+}
+
+/* --- Contact --- */
+.contact-card {
+    border: none;
+    border-radius: 16px;
+}
+
+/* --- Footer --- */
+.footer-landing {
+    background: #065f36;
+}
+
+/* --- Download Page --- */
+.download-hero {
+    background: linear-gradient(135deg, #077944 0%, #0ba360 100%);
+    padding-top: 72px !important;
+}
+
+.app-icon-lg {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 18px;
+}
+
+.changelog-item {
+    border-left: 3px solid #198754;
+    padding-left: 14px;
+    margin-bottom: 10px;
+}
+
+.qr-code {
+    width: 140px;
+    height: 140px;
+}
+
+/* --- Utility --- */
+.bg-green-soft {
+    background-color: #f0faf4;
+}
+
+.text-green {
+    color: #077944;
+}
+
+/* ========== TABLET (≥576px) ========== */
+@media (min-width: 576px) {
+    .hero-logo {
         width: 120px;
-        height: 120px;
     }
-    .img-menu {
-        width: 65px;
-        height: 65px;
-        padding: 10px !important;
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-sub {
+        font-size: 1.05rem;
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .feature-icon-wrapper {
+        width: 66px;
+        height: 66px;
+    }
+
+    .download-icon-lg {
+        width: 86px;
+        height: 86px;
+    }
+}
+
+/* ========== DESKTOP (≥768px) ========== */
+@media (min-width: 768px) {
+    .nav-logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .hero {
+        min-height: 100vh;
+    }
+
+    .hero-logo {
+        width: 140px;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .hero-sub {
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+    }
+
+    .section-title::after {
+        width: 60px;
+    }
+
+    .section-sub {
+        font-size: 1.05rem;
+    }
+
+    .feature-card-title {
+        font-size: 1rem;
+    }
+
+    .feature-card-text {
+        font-size: 0.85rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem !important;
+    }
+
+    .feature-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .feature-icon-wrapper {
+        width: 72px;
+        height: 72px;
+    }
+
+    .download-icon-lg {
+        width: 96px;
+        height: 96px;
+    }
+
+    .download-btn {
+        font-size: 1.1rem;
+    }
+
+    .app-icon-lg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .download-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .contact-card {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .download-hero {
+        padding-top: 0 !important;
     }
 }

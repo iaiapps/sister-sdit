@@ -45,7 +45,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing.index');
-})->middleware('guest');
+})->name('landing')->middleware('guest');
+
+Route::get('/download', function () {
+    return view('landing.download');
+})->name('download');
 
 //route login, register
 Auth::routes(['reset' => false]);
@@ -218,8 +222,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-// akses dari mobile app
-Route::middleware('auth.basic')->group(function () {
+// akses dari mobile app via Sanctum token
+Route::middleware('auth.token')->group(function () {
     Route::resource('mutabaah-mobile', AnswerControllerM::class);
     Route::resource('bpi-mobile', BpiControllerM::class);
     Route::resource('pengganti-mobile', ReplacementControllerM::class);
