@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview UI Mobile</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8ecf1;font-family:'Inter',system-ui,sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center}
+h2.section-title{margin:30px 0 15px;font-weight:700;color:#1a1a2e}
+
+:root{
+  --green:#077944;
+  --green-dark:#055a33;
+  --green-light:#0ba360;
+  --green-soft:#ecfdf5;
+  --dark:#1a1a2e;
+  --gray:#64748b;
+  --border:#e2e8f0;
+  --bg:#f0f2f5;
+}
+
+.phone{width:375px;min-height:780px;background:var(--bg);border-radius:40px;box-shadow:0 20px 60px rgba(0,0,0,0.2);overflow:hidden;position:relative;margin:0 15px 20px;display:inline-block;vertical-align:top}
+.phone-status{background:var(--green-dark);color:white;padding:8px 20px 4px;font-size:12px;display:flex;justify-content:space-between}
+.phone-screen{min-height:700px;position:relative;padding:0 0 70px}
+.phone-label{text-align:center;font-size:13px;color:#6c757d;margin-bottom:5px;font-weight:600;letter-spacing:1px}
+
+/* LOGIN */
+.login-screen{min-height:700px;background:white;display:flex;flex-direction:column}
+.login-top{background:linear-gradient(135deg,var(--green) 0%,var(--green-light) 100%);padding:60px 28px 40px;text-align:center}
+.login-logo{width:80px;height:80px;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:14px;margin:0 auto 16px}
+.login-logo img{width:100%;height:100%}
+.login-top h1{font-size:26px;font-weight:800;color:white;letter-spacing:-0.5px;margin-bottom:4px}
+.login-top p{font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:0}
+.login-form{padding:28px;flex:1;display:flex;flex-direction:column}
+.form-label-custom{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:6px;display:block}
+.input-wrap{background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;padding:0 14px;display:flex;align-items:center;margin-bottom:16px;transition:border-color 0.2s}
+.input-wrap:focus-within{border-color:var(--green)}
+.input-wrap input{background:transparent;border:none;outline:none;font-size:15px;padding:14px 0;width:100%;color:var(--dark)}
+.input-wrap input::placeholder{color:#94a3b8}
+.input-wrap .icon{color:#94a3b8;font-size:18px;margin-right:10px}
+.btn-login{background:var(--green);color:white;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;width:100%;margin-top:auto;transition:transform 0.15s}
+.btn-login:hover{transform:translateY(-1px)}
+.login-version{text-align:center;margin-top:16px;color:#94a3b8;font-size:12px}
+
+/* HOME */
+.home-screen{background:var(--bg);padding:0}
+.app-bar{background:white;padding:14px 16px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f0f0}
+.app-bar-left{display:flex;align-items:center;gap:10px}
+.app-bar-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--green-light));border-radius:10px;padding:7px}
+.app-bar-logo img{width:100%;height:100%}
+.app-bar-left h2{font-size:16px;font-weight:700;margin:0;color:var(--dark)}
+.app-bar .online-badge{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--green);background:var(--green-soft);padding:5px 10px;border-radius:20px}
+.app-bar .online-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+
+.home-content{padding:16px 16px 0}
+
+.greeting-card{background:linear-gradient(135deg,var(--green),var(--green-light));border-radius:16px;padding:20px;margin-bottom:14px}
+.greeting-card .assalam{font-size:14px;color:rgba(255,255,255,0.8);font-weight:400;margin-bottom:4px}
+.greeting-card .name{font-size:18px;font-weight:700;color:white;margin-bottom:10px}
+.greeting-card .gps-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px}
+.greeting-card .gps-row i{color:white;font-size:16px}
+.greeting-card .gps-row .gps-text{font-size:12px;color:rgba(255,255,255,0.8)}
+.greeting-card .gps-row .gps-text strong{color:white}
+.greeting-card .gps-row .gps-dist{font-size:12px;font-weight:600;color:#fbbf24;margin-left:auto}
+
+.radius-bar{background:rgba(255,255,255,0.15);height:4px;border-radius:2px;margin-top:8px;overflow:hidden}
+.radius-bar .fill{height:100%;width:78%;background:linear-gradient(90deg,#fbbf24,white);border-radius:2px}
+.radius-labels{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px}
+
+.scan-card{background:white;border-radius:16px;padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.scan-card .scan-icon{width:52px;height:52px;background:var(--green-soft);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.scan-card .scan-icon i{font-size:26px;color:var(--green)}
+.scan-card .scan-text{flex:1}
+.scan-card .scan-text p{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:2px}
+.scan-card .scan-text small{font-size:12px;color:var(--gray)}
+.btn-scan-now{background:var(--green);color:white;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;white-space:nowrap}
+.btn-scan-now:hover{transform:translateY(-1px)}
+
+.absence-card{background:white;border-radius:16px;padding:20px;margin-bottom:14px}
+.absence-card .title{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:12px}
+.absence-card .title i{color:var(--green);margin-right:6px}
+.absence-select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:#f8fafc;margin-bottom:10px;outline:none;color:var(--dark);transition:border-color 0.2s}
+.absence-select:focus{border-color:var(--green)}
+.absence-card .catatan-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;background:#f8fafc;margin-bottom:10px;outline:none;color:var(--dark)}
+.absence-card .catatan-input:focus{border-color:var(--green)}
+.absence-card .catatan-input::placeholder{color:#94a3b8}
+.btn-kirim-data{background:#f59e0b;color:var(--dark);border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;width:100%;transition:transform 0.15s}
+.btn-kirim-data:hover{transform:translateY(-1px)}
+
+/* BOTTOM NAV */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;background:white;display:flex;padding:6px 0 calc(6px + env(safe-area-inset-bottom));border-top:1px solid #f0f0f0}
+.nav-item{flex:1;text-align:center;padding:6px 0;cursor:pointer;color:#94a3b8;text-decoration:none;transition:color 0.2s}
+.nav-item.active{color:var(--green)}
+.nav-item i{font-size:20px;display:block;margin-bottom:2px}
+.nav-item span{font-size:10px;font-weight:500}
+
+/* PRESENCE */
+.presence-screen{background:var(--bg);padding:0}
+.page-header{background:white;padding:16px;border-bottom:1px solid #f0f0f0}
+.page-header h1{font-size:16px;font-weight:700;margin:0;color:var(--dark);text-align:center}
+.presence-content{padding:16px}
+.table-wrap{background:white;border-radius:14px;overflow:hidden;border:1px solid #f0f0f0}
+.table-wrap table{margin:0;font-size:13px}
+.table-wrap th{background:#f8fafc;color:var(--gray);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:12px 10px;border-bottom:1px solid var(--border)}
+.table-wrap td{padding:12px 10px;vertical-align:middle;border-bottom:1px solid #f0f0f0;color:var(--dark)}
+.table-wrap tr:last-child td{border-bottom:none}
+.table-wrap .badge-catatan{font-size:11px;background:var(--green-soft);color:var(--green);padding:2px 8px;border-radius:6px}
+
+/* APPS */
+.apps-screen{background:var(--bg);padding:0}
+.apps-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.app-card{background:white;border-radius:14px;overflow:hidden;border:1px solid #f0f0f0;transition:transform 0.15s}
+.app-card:hover{transform:translateY(-2px)}
+.app-card .card-body{padding:20px 14px 12px;text-align:center}
+.app-card .card-body i{font-size:2rem;display:block;margin-bottom:8px;color:var(--green)}
+.app-card .card-body p{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:0;line-height:1.4}
+.app-card .card-footer{padding:0 12px 12px;background:transparent;border-top:none}
+.app-card .btn-pilih{background:var(--green);color:white;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;width:100%}
+
+/* INFO */
+.info-screen{background:var(--bg);padding:0}
+.info-content{padding:16px}
+.info-card{background:white;border-radius:14px;padding:20px 16px;text-align:center;border:1px solid #f0f0f0;margin-bottom:12px}
+.info-card p{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:0}
+.info-list{background:white;border-radius:14px;overflow:hidden;border:1px solid #f0f0f0}
+.info-item{padding:14px 16px;display:flex;justify-content:space-between;border-bottom:1px solid #f0f0f0;font-size:13px}
+.info-item:last-child{border-bottom:none}
+.info-item .label{color:var(--gray)}
+.info-item .value{font-weight:600;color:var(--dark)}
+
+.mockup-row{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+</style>
+</head>
+<body>
+
+<h2 class="section-title">Redesign UI Mobile SISTER SDIT</h2>
+<p style="color:#6c757d;margin-bottom:10px;">Warna hijau original — layout & komponen dimodernisasi — semua konten tetap</p>
+
+<div class="mockup-row">
+
+<!-- LOGIN -->
+<div>
+    <div class="phone-label">LOGIN</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen">
+            <div class="login-screen">
+                <div class="login-top">
+                    <div class="login-logo"><img src="img/logo.svg" alt="logo"></div>
+                    <h1>SISTER SDIT</h1>
+                    <p>Presensi & Informasi SDIT Harapan Umat Jember</p>
+                </div>
+                <div class="login-form">
+                    <label class="form-label-custom">Email</label>
+                    <div class="input-wrap">
+                        <i class="bi bi-envelope icon"></i>
+                        <input type="email" placeholder="email@email.com" value="guru@sditharum.sch.id">
+                    </div>
+                    <label class="form-label-custom">Password</label>
+                    <div class="input-wrap">
+                        <i class="bi bi-lock icon"></i>
+                        <input type="password" placeholder="Password" value="••••••••">
+                    </div>
+                    <button class="btn-login">MASUK</button>
+                    <div class="login-version">Sister Mobile v1.5.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HOME -->
+<div>
+    <div class="phone-label">HOME</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen home-screen">
+            <div class="app-bar">
+                <div class="app-bar-left">
+                    <div class="app-bar-logo"><img src="img/logo.svg" alt="logo" style="width:100%;height:100%"></div>
+                    <h2>SISTER</h2>
+                </div>
+                <div class="online-badge"><span class="dot"></span> Online</div>
+            </div>
+
+            <div class="home-content">
+                <div class="greeting-card">
+                    <p class="assalam">Assalamualaikum Wr. Wb.</p>
+                    <p class="name">Ahmad Fauzi, S.Pd.</p>
+                    <div class="gps-row">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <div class="gps-text">
+                            Titik koordinat <strong>-8.1234, 113.5678</strong> &middot;
+                            <span class="gps-dist">45.2 m dari titik</span>
+                        </div>
+                    </div>
+                    <div class="radius-bar"><div class="fill"></div></div>
+                    <div class="radius-labels"><span>0 m</span><span>100 m</span></div>
+                </div>
+
+                <div class="scan-card">
+                    <div class="scan-icon"><i class="bi bi-qr-code-scan"></i></div>
+                    <div class="scan-text">
+                        <p>Scan untuk mengisi presensi</p>
+                        <small>Arahkan kamera ke QR Code yang tersedia</small>
+                    </div>
+                    <button class="btn-scan-now">SCAN QR</button>
+                </div>
+
+                <div class="absence-card">
+                    <p class="title"><i class="bi bi-journal-text"></i>Catatan: Ijin, Sakit, atau Tugas Kedinasan, Pulang Awal</p>
+                    <select class="absence-select">
+                        <option disabled selected>Pilih salah satu</option>
+                        <option value="Sakit">Sakit</option>
+                        <option value="Ijin">Ijin</option>
+                        <option value="Tugas Kedinasan">Tugas Kedinasan</option>
+                        <option value="Pulang Awal">Ijin Pulang Awal</option>
+                    </select>
+                    <input class="catatan-input" placeholder="Isi keterangan tugas kedinasannya">
+                    <button class="btn-kirim-data">KIRIM DATA</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <a class="nav-item active" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DATA PRESENSI -->
+<div>
+    <div class="phone-label">DATA PRESENSI</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen presence-screen">
+            <div class="page-header"><h1>REKAP DATA PRESENSI</h1></div>
+            <div class="presence-content">
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead><tr><th>Tgl</th><th>Datang</th><th>Pulang</th><th>Ket</th></tr></thead>
+                        <tbody>
+                            <tr><td>1/7/26</td><td>06:55</td><td>14:00</td><td><span class="badge-catatan">-</span></td></tr>
+                            <tr><td>30/6/26</td><td>07:00</td><td>13:30</td><td><span class="badge-catatan">-</span></td></tr>
+                            <tr><td>29/6/26</td><td>06:48</td><td>15:00</td><td><span class="badge-catatan">-</span></td></tr>
+                            <tr><td>28/6/26</td><td>06:50</td><td>14:15</td><td><span class="badge-catatan">-</span></td></tr>
+                            <tr><td>27/6/26</td><td>07:05</td><td>13:45</td><td><span class="badge-catatan">Paguyuban kelas</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <a class="nav-item" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item active" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- APPS -->
+<div>
+    <div class="phone-label">APPS</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen apps-screen">
+            <div class="page-header"><h1>Menu Lain</h1></div>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-check"></i>
+                        <p>Presensi<br>Manual</p>
+                    </div>
+                    <div class="card-footer"><button class="btn-pilih">pilih</button></div>
+                </div>
+                <div class="app-card">
+                    <div class="card-body">
+                        <i class="bi bi-list-check"></i>
+                        <p>Mutabaah<br>Bulanan</p>
+                    </div>
+                    <div class="card-footer"><button class="btn-pilih">pilih</button></div>
+                </div>
+                <div class="app-card">
+                    <div class="card-body">
+                        <i class="bi bi-bar-chart"></i>
+                        <p>Bina Pribadi<br>Islami (BPI)</p>
+                    </div>
+                    <div class="card-footer"><button class="btn-pilih">pilih</button></div>
+                </div>
+                <div class="app-card">
+                    <div class="card-body">
+                        <i class="bi bi-people"></i>
+                        <p>Guru<br>Pengganti</p>
+                    </div>
+                    <div class="card-footer"><button class="btn-pilih">pilih</button></div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <a class="nav-item" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item active" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- INFO -->
+<div>
+    <div class="phone-label">INFO</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen info-screen">
+            <div class="page-header"><h1>Informasi</h1></div>
+            <div class="info-content">
+                <div class="info-card"><p>SISTER SDIT — Sistem Informasi Terpadu SDIT Harapan Umat Jember. Aplikasi presensi digital, mutabaah bulanan, BPI, dan manajemen guru pengganti.</p></div>
+                <div class="info-list">
+                    <div class="info-item"><span class="label">Nama</span><span class="value">Ahmad Fauzi, S.Pd.</span></div>
+                    <div class="info-item"><span class="label">Role</span><span class="value">Guru</span></div>
+                    <div class="info-item"><span class="label">Group</span><span class="value">A</span></div>
+                    <div class="info-item"><span class="label">Versi APK</span><span class="value">1.5.0</span></div>
+                </div>
+            </div>
+            <div class="bottom-nav">
+                <a class="nav-item" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item active" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<p style="margin-top:30px;color:#6c757d;text-align:center;">
+    Buka <code>http://sister.sditharum.id/preview-mobile.html</code> — warna hijau original, layout modern, konten utuh
+</p>
+
+</body>
+</html>

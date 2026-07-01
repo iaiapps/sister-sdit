@@ -77,17 +77,6 @@
                             <li><i class="bi bi-camera me-2 text-success"></i>Izin kamera untuk scan QR code</li>
                         </ul>
 
-                        <hr>
-
-                        <h5 class="fw-bold text-green">Versi Sebelumnya</h5>
-                        <div class="d-flex justify-content-center gap-2 flex-wrap">
-                            <a href="{{ asset('apk/sisterPresence.apk') }}" class="btn btn-outline-success">
-                                v1.4.0 (Guru)
-                            </a>
-                            <a href="{{ asset('apk/sisterPresenceK.apk') }}" class="btn btn-outline-success">
-                                v1.1.0 (Karyawan)
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

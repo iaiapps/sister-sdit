@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview 2 - Material You Style</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e8ecf1;font-family:'Inter',system-ui,sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center}
+h2.section-title{margin:30px 0 15px;font-weight:700;color:#1a1a2e}
+
+:root{
+  --green:#077944;
+  --green-dark:#055a33;
+  --green-light:#0ba360;
+  --green-soft:#e8f5e9;
+  --green-surface:#e0f2e0;
+  --green-container:#c8e6c9;
+  --on-green:#ffffff;
+  --dark:#1b1b1f;
+  --on-surface:#1b1b1f;
+  --on-surface-variant:#44464f;
+  --outline:#c4c6d0;
+  --outline-variant:#e0e2ec;
+  --surface:#f6f8fa;
+  --surface-container:#eef0f4;
+  --surface-container-high:#e4e6ec;
+}
+
+.phone{width:375px;min-height:780px;background:var(--surface);border-radius:44px;box-shadow:0 20px 60px rgba(0,0,0,0.2);overflow:hidden;position:relative;margin:0 15px 20px;display:inline-block;vertical-align:top;border:1px solid var(--outline-variant)}
+.phone-status{background:var(--dark);color:white;padding:10px 24px 6px;font-size:12px;display:flex;justify-content:space-between}
+.phone-screen{min-height:700px;position:relative;padding:0 0 80px}
+.phone-label{text-align:center;font-size:13px;color:#6c757d;margin-bottom:5px;font-weight:600;letter-spacing:1px}
+
+/* LOGIN - M3 style */
+.login-screen{min-height:700px;background:var(--surface);display:flex;flex-direction:column}
+.login-header{background:var(--green);padding:48px 24px 32px}
+.login-header .logo-wrap{width:72px;height:72px;background:rgba(255,255,255,0.2);border-radius:20px;padding:14px;margin-bottom:12px}
+.login-header .logo-wrap img{width:100%;height:100%}
+.login-header h1{font-size:28px;font-weight:700;color:white;margin-bottom:4px;letter-spacing:-0.3px}
+.login-header p{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:0}
+.login-body{padding:24px;flex:1;display:flex;flex-direction:column;gap:4px}
+.m3-field{}
+.m3-field label{font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-bottom:4px;display:block;letter-spacing:0.3px;text-transform:uppercase}
+.m3-field .input-wrap{background:var(--surface-container-high);border-radius:16px;padding:0 16px;display:flex;align-items:center;transition:all 0.2s}
+.m3-field .input-wrap:focus-within{background:white;outline:2px solid var(--green)}
+.m3-field .input-wrap input{background:transparent;border:none;outline:none;font-size:16px;padding:16px 0;width:100%;color:var(--on-surface)}
+.m3-field .input-wrap input::placeholder{color:#9a9ca6}
+.m3-field .input-wrap i{color:var(--on-surface-variant);font-size:20px;margin-right:12px}
+.btn-login-m3{background:var(--green);color:white;border:none;border-radius:20px;padding:18px;font-size:16px;font-weight:600;width:100%;margin-top:auto;transition:all 0.2s}
+.btn-login-m3:active{transform:scale(0.98)}
+.login-footer-m3{text-align:center;margin-top:12px;color:var(--on-surface-variant);font-size:12px}
+
+/* HOME - M3 style */
+.home-screen{background:var(--surface);padding:0}
+.m3-topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 8px;background:var(--surface)}
+.m3-topbar-left{display:flex;align-items:center;gap:12px}
+.m3-topbar-left .logo-sm{width:40px;height:40px;background:var(--green);border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center}
+.m3-topbar-left .logo-sm img{width:100%;height:100%}
+.m3-topbar-left h2{font-size:22px;font-weight:700;color:var(--on-surface);margin:0;letter-spacing:-0.3px}
+.m3-chip{display:flex;align-items:center;gap:6px;background:var(--green-soft);color:var(--green);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px}
+.m3-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+.content{padding:8px 16px 0}
+
+/* greeting card - elevated */
+.m3-elevated{background:white;border-radius:20px;padding:20px;margin-bottom:12px}
+.m3-greeting .assalam{font-size:15px;color:var(--on-surface-variant);font-weight:500;margin-bottom:4px}
+.m3-greeting .name{font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px}
+.m3-greeting .nip{font-size:13px;color:var(--on-surface-variant);margin-bottom:12px}
+.m3-greeting .gps-info{background:var(--green-soft);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.m3-greeting .gps-info i{color:var(--green);font-size:18px}
+.m3-greeting .gps-info .gps-text{font-size:13px;color:var(--on-surface-variant)}
+.m3-greeting .gps-info .gps-text strong{color:var(--on-surface)}
+.m3-greeting .gps-info .distance{font-size:12px;font-weight:600;color:var(--green);margin-left:auto;white-space:nowrap}
+.m3-slider{background:#e0e2ec;height:4px;border-radius:2px;margin-top:10px;overflow:hidden}
+.m3-slider .fill{height:100%;width:78%;background:var(--green);border-radius:2px}
+.m3-slider-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--on-surface-variant);margin-top:3px}
+
+/* scan card - tonal */
+.m3-tonal{background:var(--green-soft);border-radius:20px;padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.m3-tonal .icon-wrap{width:48px;height:48px;background:white;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.m3-tonal .icon-wrap i{font-size:24px;color:var(--green)}
+.m3-tonal .text{flex:1}
+.m3-tonal .text p{font-size:15px;font-weight:600;color:var(--on-surface);margin-bottom:1px}
+.m3-tonal .text small{font-size:12px;color:var(--on-surface-variant)}
+.btn-m3-scan{background:var(--green);color:white;border:none;border-radius:16px;padding:12px 28px;font-size:14px;font-weight:600;white-space:nowrap;transition:all 0.15s}
+.btn-m3-scan:active{transform:scale(0.96)}
+
+/* absence card */
+.m3-outlined{background:white;border-radius:20px;padding:20px;margin-bottom:12px}
+.m3-outlined .title{font-size:14px;font-weight:600;color:var(--on-surface);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.m3-outlined .title i{color:var(--green);font-size:18px}
+.m3-select{width:100%;padding:14px 16px;border:1px solid var(--outline);border-radius:14px;font-size:15px;background:var(--surface-container-high);margin-bottom:10px;outline:none;color:var(--on-surface);transition:all 0.15s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2344464f' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.m3-select:focus{border-color:var(--green);background:white}
+.m3-input{width:100%;padding:14px 16px;border:1px solid var(--outline);border-radius:14px;font-size:14px;background:var(--surface-container-high);margin-bottom:10px;outline:none;color:var(--on-surface);transition:all 0.15s}
+.m3-input:focus{border-color:var(--green);background:white}
+.m3-input::placeholder{color:#9a9ca6}
+.btn-m3-amber{background:#ffb300;color:var(--dark);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:600;width:100%;transition:all 0.15s}
+.btn-m3-amber:active{transform:scale(0.98)}
+
+/* BOTTOM NAV M3 */
+.bottom-nav-m3{position:absolute;bottom:0;left:0;right:0;background:white;display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--outline-variant)}
+.nav-item-m3{flex:1;text-align:center;padding:4px 0;cursor:pointer;color:var(--on-surface-variant);text-decoration:none;transition:all 0.2s;position:relative}
+.nav-item-m3.active{color:var(--green)}
+.nav-item-m3 i{font-size:22px;display:block;margin-bottom:1px}
+.nav-item-m3 span{font-size:11px;font-weight:500}
+.nav-item-m3.active::after{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--green);border-radius:0 0 3px 3px}
+
+/* PRESENCE */
+.presence-screen{background:var(--surface);padding:0}
+.presence-header{background:white;padding:14px 16px}
+.presence-header h1{font-size:18px;font-weight:700;margin:0;color:var(--on-surface);text-align:center}
+.presence-content{padding:12px 16px}
+.table-m3{border-radius:16px;overflow:hidden;border:1px solid var(--outline-variant)}
+.table-m3 table{margin:0;font-size:14px}
+.table-m3 th{background:var(--surface-container);color:var(--on-surface-variant);font-weight:600;font-size:12px;padding:14px 12px;border-bottom:1px solid var(--outline-variant)}
+.table-m3 td{padding:14px 12px;border-bottom:1px solid var(--outline-variant);color:var(--on-surface)}
+.table-m3 tr:last-child td{border-bottom:none}
+.table-m3 .ket{font-size:12px;color:var(--green);background:var(--green-soft);padding:2px 10px;border-radius:8px;display:inline-block}
+
+/* APPS */
+.apps-screen{background:var(--surface);padding:0}
+.apps-content{padding:12px 16px}
+.apps-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.app-card-m3{background:white;border-radius:20px;overflow:hidden;transition:all 0.15s}
+.app-card-m3 .body{padding:24px 16px 12px;text-align:center}
+.app-card-m3 .body i{font-size:2.2rem;display:block;margin-bottom:8px}
+.app-card-m3 .body p{font-size:13px;font-weight:600;color:var(--on-surface);margin-bottom:0;line-height:1.4}
+.app-card-m3 .foot{padding:0 12px 14px;text-align:center}
+.app-card-m3 .btn-pilih-m3{background:var(--surface-container-high);color:var(--on-surface);border:none;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600;width:100%;transition:all 0.15s}
+.app-card-m3 .btn-pilih-m3:active{background:var(--green);color:white}
+
+/* INFO */
+.info-screen{background:var(--surface);padding:0}
+.info-content{padding:12px 16px}
+.info-card-m3{background:white;border-radius:20px;padding:20px;text-align:center;margin-bottom:12px}
+.info-card-m3 p{font-size:13px;color:var(--on-surface-variant);line-height:1.6;margin-bottom:0}
+.info-list-m3{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--outline-variant)}
+.info-item-m3{padding:16px;display:flex;justify-content:space-between;border-bottom:1px solid var(--outline-variant);font-size:14px}
+.info-item-m3:last-child{border-bottom:none}
+.info-item-m3 .label{color:var(--on-surface-variant)}
+.info-item-m3 .value{font-weight:600;color:var(--on-surface)}
+
+.mockup-row{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+</style>
+</head>
+<body>
+
+<h2 class="section-title">Preview 2 — Material You Style</h2>
+<p style="color:#6c757d;margin-bottom:10px;">Referensi 2026: tonal elevation, chip, outlined/tonal cards, border-radius 20px, surface color system</p>
+
+<div class="mockup-row">
+
+<!-- LOGIN -->
+<div>
+    <div class="phone-label">LOGIN</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen">
+            <div class="login-screen">
+                <div class="login-header">
+                    <div class="logo-wrap"><img src="img/logo.svg" alt="logo"></div>
+                    <h1>SISTER SDIT</h1>
+                    <p>Presensi &amp; Informasi SDIT Harapan Umat Jember</p>
+                </div>
+                <div class="login-body">
+                    <div class="m3-field">
+                        <label>Email</label>
+                        <div class="input-wrap"><i class="bi bi-envelope"></i><input type="email" placeholder="email@email.com" value="guru@sditharum.sch.id"></div>
+                    </div>
+                    <div class="m3-field">
+                        <label>Password</label>
+                        <div class="input-wrap"><i class="bi bi-lock"></i><input type="password" placeholder="Password" value="••••••••"></div>
+                    </div>
+                    <button class="btn-login-m3">MASUK</button>
+                    <div class="login-footer-m3">Sister Mobile v1.5.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HOME -->
+<div>
+    <div class="phone-label">HOME</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen home-screen">
+            <div class="m3-topbar">
+                <div class="m3-topbar-left">
+                    <div class="logo-sm"><img src="img/logo.svg" alt="logo"></div>
+                    <h2>SISTER</h2>
+                </div>
+                <div class="m3-chip"><span class="dot"></span> Online</div>
+            </div>
+
+            <div class="content">
+                <div class="m3-elevated m3-greeting">
+                    <p class="assalam">Assalamualaikum Wr. Wb.</p>
+                    <p class="name">Ahmad Fauzi, S.Pd.</p>
+                    <p class="nip">NIP/Guru Kelas &middot; Grup A</p>
+                    <div class="gps-info">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <div class="gps-text">Titik koordinat <strong>-8.1234, 113.5678</strong></div>
+                        <div class="distance">45.2 m</div>
+                    </div>
+                    <div class="m3-slider"><div class="fill"></div></div>
+                    <div class="m3-slider-labels"><span>0 m</span><span>100 m</span></div>
+                </div>
+
+                <div class="m3-tonal">
+                    <div class="icon-wrap"><i class="bi bi-qr-code-scan"></i></div>
+                    <div class="text">
+                        <p>Scan untuk mengisi presensi</p>
+                        <small>Arahkan kamera ke QR Code yang tersedia</small>
+                    </div>
+                    <button class="btn-m3-scan">SCAN QR</button>
+                </div>
+
+                <div class="m3-outlined">
+                    <p class="title"><i class="bi bi-pencil"></i> Catatan: Ijin, Sakit, Tugas Kedinasan, Pulang Awal</p>
+                    <select class="m3-select">
+                        <option disabled selected>Pilih salah satu</option>
+                        <option>Sakit</option>
+                        <option>Ijin</option>
+                        <option>Tugas Kedinasan</option>
+                        <option>Pulang Awal</option>
+                    </select>
+                    <input class="m3-input" placeholder="Isi keterangan tugas kedinasannya">
+                    <button class="btn-m3-amber">KIRIM DATA</button>
+                </div>
+            </div>
+
+            <div class="bottom-nav-m3">
+                <a class="nav-item-m3 active" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DATA -->
+<div>
+    <div class="phone-label">DATA PRESENSI</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen presence-screen">
+            <div class="presence-header"><h1>REKAP DATA PRESENSI</h1></div>
+            <div class="presence-content">
+                <div class="table-m3">
+                    <table class="table">
+                        <thead><tr><th>Tgl</th><th>Datang</th><th>Pulang</th><th>Ket</th></tr></thead>
+                        <tbody>
+                            <tr><td>1/7/26</td><td>06:55</td><td>14:00</td><td><span class="ket">-</span></td></tr>
+                            <tr><td>30/6/26</td><td>07:00</td><td>13:30</td><td><span class="ket">-</span></td></tr>
+                            <tr><td>29/6/26</td><td>06:48</td><td>15:00</td><td><span class="ket">-</span></td></tr>
+                            <tr><td>28/6/26</td><td>06:50</td><td>14:15</td><td><span class="ket">-</span></td></tr>
+                            <tr><td>27/6/26</td><td>07:05</td><td>13:45</td><td><span class="ket">Paguyuban</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bottom-nav-m3">
+                <a class="nav-item-m3" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item-m3 active" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- APPS -->
+<div>
+    <div class="phone-label">APPS</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen apps-screen">
+            <div class="presence-header"><h1>Menu Lain</h1></div>
+            <div class="apps-content">
+                <div class="apps-grid">
+                    <div class="app-card-m3">
+                        <div class="body">
+                            <i class="bi bi-calendar-check" style="color:var(--green)"></i>
+                            <p>Presensi<br>Manual</p>
+                        </div>
+                        <div class="foot"><button class="btn-pilih-m3">pilih</button></div>
+                    </div>
+                    <div class="app-card-m3">
+                        <div class="body">
+                            <i class="bi bi-list-check" style="color:var(--green)"></i>
+                            <p>Mutabaah<br>Bulanan</p>
+                        </div>
+                        <div class="foot"><button class="btn-pilih-m3">pilih</button></div>
+                    </div>
+                    <div class="app-card-m3">
+                        <div class="body">
+                            <i class="bi bi-bar-chart" style="color:var(--green)"></i>
+                            <p>Bina Pribadi<br>Islami (BPI)</p>
+                        </div>
+                        <div class="foot"><button class="btn-pilih-m3">pilih</button></div>
+                    </div>
+                    <div class="app-card-m3">
+                        <div class="body">
+                            <i class="bi bi-people" style="color:var(--green)"></i>
+                            <p>Guru<br>Pengganti</p>
+                        </div>
+                        <div class="foot"><button class="btn-pilih-m3">pilih</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-nav-m3">
+                <a class="nav-item-m3" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item-m3 active" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- INFO -->
+<div>
+    <div class="phone-label">INFO</div>
+    <div class="phone">
+        <div class="phone-status"><span>09:41</span><span><i class="bi bi-signal"></i> <i class="bi bi-wifi"></i> <i class="bi bi-battery-full"></i></span></div>
+        <div class="phone-screen info-screen">
+            <div class="presence-header"><h1>Informasi</h1></div>
+            <div class="info-content">
+                <div class="info-card-m3">
+                    <p>SISTER SDIT — Sistem Informasi Terpadu SDIT Harapan Umat Jember. Presensi digital, mutabaah bulanan, BPI, dan manajemen guru pengganti dalam satu aplikasi.</p>
+                </div>
+                <div class="info-list-m3">
+                    <div class="info-item-m3"><span class="label">Nama</span><span class="value">Ahmad Fauzi, S.Pd.</span></div>
+                    <div class="info-item-m3"><span class="label">Role</span><span class="value">Guru</span></div>
+                    <div class="info-item-m3"><span class="label">Group</span><span class="value">A</span></div>
+                    <div class="info-item-m3"><span class="label">Versi APK</span><span class="value">1.5.0</span></div>
+                </div>
+            </div>
+            <div class="bottom-nav-m3">
+                <a class="nav-item-m3" href="#"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-bar-chart-line-fill"></i><span>Data</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-grid-fill"></i><span>Apps</span></a>
+                <a class="nav-item-m3 active" href="#"><i class="bi bi-info-circle-fill"></i><span>Info</span></a>
+                <a class="nav-item-m3" href="#"><i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<p style="margin-top:30px;color:#6c757d;text-align:center;">
+    <strong>Preview 1:</strong> <code>preview-mobile.html</code> &nbsp;|&nbsp; <strong>Preview 2 (M3):</strong> <code>preview2-mobile.html</code>
+</p>
+
+</body>
+</html>

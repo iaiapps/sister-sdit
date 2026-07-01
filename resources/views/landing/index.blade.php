@@ -35,9 +35,9 @@
                     <img src="{{ asset('img/illustration.svg') }}" alt="Ilustrasi" class="hero-illustration img-fluid">
                 </div>
             </div>
-
+            <br>
             <div class="text-center pb-4 position-absolute bottom-0 start-50 translate-middle-x">
-                <a href="#fitur" class="text-white fs-2 opacity-75">
+                <a href="#fitur" class="text-white fs-2">
                     <i class="bi bi-chevron-down"></i>
                 </a>
             </div>
@@ -116,9 +116,8 @@
                 <p class="section-sub">Satu aplikasi untuk semua peran — Guru, Tendik, Karyawan, Kasir, dan Ibu Dapur</p>
             </div>
 
-            <div class="row justify-content-center g-4">
-                {{-- APK Unified --}}
-                <div class="col-md-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
                     <div class="card download-card shadow text-center p-4">
                         <img src="{{ asset('img/logo.svg') }}"
                             class="download-icon-lg mx-auto mb-3 bg-success p-3 rounded-4" alt="SISTER SDIT">
@@ -137,40 +136,6 @@
                         <small class="text-muted">
                             <i class="bi bi-shield-check me-1"></i>Aplikasi internal SDIT Harapan Umat Jember
                         </small>
-                    </div>
-                </div>
-
-                {{-- Versi lama --}}
-                <div class="col-md-5">
-                    <div class="card download-card shadow text-center p-4">
-                        <h5 class="fw-semibold mb-3">Unduh Versi Terdahulu</h5>
-
-                        <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-2">
-                            <div class="text-start">
-                                <small class="fw-semibold">SISTER SDIT Guru</small>
-                                <br><small class="text-muted">v1.4.0 &middot; 5.4 MB</small>
-                            </div>
-                            <a href="{{ asset('apk/sisterPresence.apk') }}"
-                                class="btn btn-outline-success btn-sm rounded-pill">
-                                <i class="bi bi-download"></i>
-                            </a>
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-2">
-                            <div class="text-start">
-                                <small class="fw-semibold">SISTER SDIT Karyawan</small>
-                                <br><small class="text-muted">v1.1.0 &middot; 5.1 MB</small>
-                            </div>
-                            <a href="{{ asset('apk/sisterPresenceK.apk') }}"
-                                class="btn btn-outline-success btn-sm rounded-pill">
-                                <i class="bi bi-download"></i>
-                            </a>
-                        </div>
-
-                        <p class="small text-muted mt-3 mb-0 old-apk-link">
-                            <i class="bi bi-info-circle me-1"></i>
-                            Upgrade ke v1.5.0 untuk pengalaman terbaru dengan semua fitur dalam satu aplikasi.
-                        </p>
                     </div>
                 </div>
             </div>
