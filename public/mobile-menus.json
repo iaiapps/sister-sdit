@@ -1,0 +1,18 @@
+[
+    {
+        "id": 5,
+        "name": "Nextcloud",
+        "icon": "bi-cloud",
+        "type": "inapp",
+        "url": "http://sister.sditharum.id/nextcloud/",
+        "relative": false
+    },
+    {
+        "id": 6,
+        "name": "SimWafa",
+        "icon": "bi-journals",
+        "type": "inapp",
+        "url": "http://sister.sditharum.id/simwafa/",
+        "relative": false
+    }
+]

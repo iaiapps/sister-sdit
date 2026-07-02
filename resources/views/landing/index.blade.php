@@ -124,7 +124,7 @@
                         <h4 class="fw-bold">SISTER SDIT</h4>
                         <br>
                         <p class="text-muted small mb-2">
-                            Versi <span class="badge bg-warning text-dark">1.5.0</span> &middot;
+                            Aplikasi Android <span class="badge bg-warning text-dark">1.5.0</span> &middot;
                             Android 13+ (Tiramisu) &middot; 5.4 MB
                         </p>
                         <p class="small text-muted mb-3">

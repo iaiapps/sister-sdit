@@ -8,7 +8,7 @@
             Sistem Presensi dan Informasi Guru SDIT Harapan Umat Jember
         </p>
         <p class="small mb-0 opacity-50">
-            &copy; {{ date('Y') }} Tim IT SDIT Harum Jember
+            &copy; {{ date('Y') }} Tim IT SDIT Harum Jember &middot; v{{ config('app.version') }}
         </p>
     </div>
 </footer>

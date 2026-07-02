@@ -297,6 +297,6 @@
         <hr class="my-1">
         <small class="d-block text-center mb-1">App
             version
-            1.3.0</small>
+            {{ config('app.version') }}</small>
     </div>
 </aside>

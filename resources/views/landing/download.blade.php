@@ -9,7 +9,7 @@
             <img src="{{ asset('img/logo.svg') }}" class="app-icon-lg bg-white p-3 shadow mb-3" alt="SISTER SDIT">
             <h1 class="fw-bold fs-2 mb-1">Download SISTER SDIT</h1>
             <p class="opacity-75 mb-0">
-                Versi <span class="badge bg-warning text-dark">1.5.0</span> &middot;
+                Aplikasi Android <span class="badge bg-warning text-dark">1.5.0</span> &middot;
                 Android 13 (Tiramisu)+
             </p>
         </div>
