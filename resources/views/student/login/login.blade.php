@@ -23,7 +23,7 @@
                 <p class="text-success display-6">Login Siswa</p>
             </div>
             <div class="p-3">
-                <form class="form mb-3" method="POST" action="/student-login">
+                <form class="form mb-3" method="POST" action="{{ url('/student-login') }}">
                     @csrf
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="nis" placeholder="NIS" name="nis" />

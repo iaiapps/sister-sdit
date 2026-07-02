@@ -43,7 +43,7 @@
                         <div class="text-center">
                             <i class="las la-user-circle la-4x text-success"></i>
                             <p class="text-center mb-3">Pengaturan Akun</p>
-                            <a href="/change-password" class="btn btn-outline-success mb-3 w-100">
+                            <a href="{{ url('/change-password') }}" class="btn btn-outline-success mb-3 w-100">
                                 Ganti Password
                             </a>
                         </div>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <form action="/logout" method="post">
+        <form action="{{ url('/logout') }}" method="post">
             @csrf
             <button type="submit" class="btn btn-danger me-3">logout</button>
         </form>

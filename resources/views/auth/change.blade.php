@@ -8,7 +8,7 @@
 
 
         <div class="card-body mt-3">
-            <form method="POST" action="/change-password">
+            <form method="POST" action="{{ url('/change-password') }}">
                 @csrf
 
                 @if (session('status'))

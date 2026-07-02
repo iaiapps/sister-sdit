@@ -22,7 +22,7 @@
                 <p class="text-success display-6">Login Guru / Tendik</p>
             </div>
             <div class="p-3">
-                <form class="form mb-3" method="POST" action="/login">
+                <form class="form mb-3" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
@@ -42,7 +42,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="m-0">belum punya akun?</p>
-                    <a href="/register" class="btn btn-success btn-sm" type="submit">
+                    <a href="{{ route('register') }}" class="btn btn-success btn-sm" type="submit">
                         Daftar disini!
                     </a>
                 </div>
