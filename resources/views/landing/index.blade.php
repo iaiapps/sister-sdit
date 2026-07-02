@@ -117,14 +117,15 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-5">
-                    <div class="card download-card shadow text-center p-4">
+                <div class="col-8">
+                    <div class="card download-card shadow text-center p-5">
                         <img src="{{ asset('img/logo.svg') }}"
                             class="download-icon-lg mx-auto mb-3 bg-success p-3 rounded-4" alt="SISTER SDIT">
                         <h4 class="fw-bold">SISTER SDIT</h4>
+                        <br>
                         <p class="text-muted small mb-2">
                             Versi <span class="badge bg-warning text-dark">1.5.0</span> &middot;
-                            Android 5.0+ &middot; 5.4 MB
+                            Android 13+ (Tiramisu) &middot; 5.4 MB
                         </p>
                         <p class="small text-muted mb-3">
                             Login dengan akun Email & Password yang sudah terdaftar. <br>
@@ -160,7 +161,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                        <a href="https://wa.me/6285232213939" class="btn btn-success btn-lg rounded-pill px-4"
+                        <a href="https://wa.me/6285232213939" class="btn btn-success btn-lg rounded-pill px-4 fs-6"
                             target="_blank" rel="noopener">
                             <i class="bi bi-whatsapp me-2"></i>Hubungi via WhatsApp
                         </a>

@@ -47,9 +47,9 @@ Route::get('/', function () {
     return view('landing.index');
 })->name('landing')->middleware('guest');
 
-Route::get('/download', function () {
-    return view('landing.download');
-})->name('download');
+// Route::get('/download', function () {
+//     return view('landing.download');
+// })->name('download');
 
 //route login, register
 Auth::routes(['reset' => false]);

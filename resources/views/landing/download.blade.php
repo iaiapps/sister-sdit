@@ -4,7 +4,7 @@
 @section('content')
 
     {{-- Hero Download --}}
-    <section class="download-hero text-white py-5">
+    <section class="download-hero text-white pt-5 pb-0 mt-5">
         <div class="container text-center py-5">
             <img src="{{ asset('img/logo.svg') }}" class="app-icon-lg bg-white p-3 shadow mb-3" alt="SISTER SDIT">
             <h1 class="fw-bold fs-2 mb-1">Download SISTER SDIT</h1>
@@ -70,7 +70,8 @@
 
                         <h5 class="fw-bold text-green">Persyaratan Sistem</h5>
                         <ul class="list-unstyled small text-muted text-start">
-                            <li><i class="bi bi-android2 me-2 text-success"></i>Android 5.0 (Lollipop) atau lebih baru</li>
+                            <li><i class="bi bi-android2 me-2 text-success"></i>Android 13.0+ (Tiramisu) atau lebih baru
+                            </li>
                             <li><i class="bi bi-wifi me-2 text-success"></i>Koneksi internet untuk presensi dan sinkronisasi
                             </li>
                             <li><i class="bi bi-geo-alt me-2 text-success"></i>GPS/Lokasi harus aktif untuk presensi</li>
