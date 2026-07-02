@@ -117,25 +117,25 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-8">
-                    <div class="card download-card shadow text-center p-5">
+                <div class="col-md-8 col-12">
+                    <div class="card download-card shadow text-center p-5 px-md-5 px-3">
                         <img src="{{ asset('img/logo.svg') }}"
                             class="download-icon-lg mx-auto mb-3 bg-success p-3 rounded-4" alt="SISTER SDIT">
                         <h4 class="fw-bold">SISTER SDIT</h4>
                         <br>
                         <p class="text-muted small mb-2">
-                            Aplikasi Android <span class="badge bg-warning text-dark">1.5.0</span> &middot;
-                            Android 13+ (Tiramisu) &middot; 5.4 MB
+                            Aplikasi versi <span class="badge bg-warning text-dark">1.5.0</span> &middot;
+                            Android 13+ (Tiramisu) &middot; 5MB
                         </p>
                         <p class="small text-muted mb-3">
                             Login dengan akun Email & Password yang sudah terdaftar. <br>
-                            Role (Guru, Karyawan, dll) otomatis terdeteksi.
                         </p>
-                        <a href="{{ asset('apk/sisterPresence.apk') }}" class="btn btn-success download-btn w-100 mb-2">
+                        <a href="{{ asset('apk/sisterPresence_v1.5.0.apk') }}"
+                            class="btn btn-success download-btn w-100 mb-2">
                             <i class="bi bi-google-play me-2"></i>Download APK v1.5.0
                         </a>
                         <small class="text-muted">
-                            <i class="bi bi-shield-check me-1"></i>Aplikasi internal SDIT Harapan Umat Jember
+                            <i class="bi bi-shield-check me-1 mt-2"></i>Aplikasi internal SDIT Harapan Umat Jember
                         </small>
                     </div>
                 </div>
