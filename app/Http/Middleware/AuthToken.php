@@ -14,6 +14,12 @@ class AuthToken
     {
         $token = $request->query('token');
 
+        if ($token) {
+            session()->put('auth_token', $token);
+        } else {
+            $token = session()->get('auth_token');
+        }
+
         if (!$token) {
             return response('Unauthorized. Silakan login terlebih dahulu.', 401);
         }
@@ -21,6 +27,7 @@ class AuthToken
         $accessToken = PersonalAccessToken::findToken($token);
 
         if (!$accessToken || !$accessToken->tokenable) {
+            session()->forget('auth_token');
             return response('Token tidak valid. Silakan login ulang.', 401);
         }
 
