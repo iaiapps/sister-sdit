@@ -29,7 +29,7 @@
                             v1.5.0 &middot; 5.4 MB &middot; APK
                         </p>
 
-                        <a href="{{ asset('apk/sisterPresence.apk') }}"
+                        <a href="{{ asset('apk/download.php') }}"
                             class="btn btn-success btn-lg download-btn w-100 mb-3">
                             <i class="bi bi-google-play me-2"></i>Download APK (5.4 MB)
                         </a>

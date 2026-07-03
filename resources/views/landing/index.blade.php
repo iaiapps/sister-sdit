@@ -130,7 +130,7 @@
                         <p class="small text-muted mb-3">
                             Login dengan akun Email & Password yang sudah terdaftar. <br>
                         </p>
-                        <a href="{{ asset('apk/sisterPresence_v1.5.0.apk') }}"
+                        <a href="{{ asset('apk/download.php') }}"
                             class="btn btn-success download-btn w-100 mb-2">
                             <i class="bi bi-google-play me-2"></i>Download APK v1.5.0
                         </a>
