@@ -47,6 +47,10 @@ Route::get('/', function () {
     return view('landing.index');
 })->name('landing')->middleware('guest');
 
+Route::get('/onconstruction', function () {
+    return view('onconstruction');
+})->name('onconstruction');
+
 // Route::get('/download', function () {
 //     return view('landing.download');
 // })->name('download');

@@ -26,7 +26,8 @@ class BpiControllerM extends Controller
         $teacher = Teacher::where('user_id', $uid)->first();
         $bpis = Bpi::whereYear('date', $year)->whereMonth('date', $month)
             ->where('teacher_id', $teacher->id)->get();
-        return view('bpi.mobile.index', compact('date', 'bpis', 'teacher'));
+        // return view('bpi.mobile.index', compact('date', 'bpis', 'teacher'));
+        return redirect()->route('onconstruction');
     }
 
     /**
