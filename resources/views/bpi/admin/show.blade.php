@@ -18,6 +18,9 @@
                     <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
+                        <th>Hadir</th>
+                        <th>Tidak Hadir</th>
+                        <th>Materi</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -26,6 +29,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $carbon::parse($bpi->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
+                            <td>{{ $bpi->presence_count ?? '-' }}</td>
+                            <td>{{ $bpi->absence_info ?? '-' }}</td>
+                            <td>{{ $bpi->material ?? '-' }}</td>
                             <td>
                                 <a href="{{ route('bpi.edit', $bpi->id) }}" data-toggle="modal"
                                     class="btn btn-sm btn-success "><i class="bi bi-pencil-square"></i></a>

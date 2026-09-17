@@ -19,7 +19,10 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Presensi Mengajar BPI</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Hadir</th>
+                        <th scope="col">Tidak Hadir</th>
+                        <th scope="col">Materi</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -28,6 +31,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $carbon::parse($bpi->date)->isoFormat('dddd, DD MMMM YYYY') }}</td>
+                            <td>{{ $bpi->presence_count ?? '-' }}</td>
+                            <td>{{ $bpi->absence_info ?? '-' }}</td>
+                            <td>{{ $bpi->material ?? '-' }}</td>
                             <td>
                                 <form onsubmit="return confirm('Apakah anda yakin untuk menghapus data ?');"
                                     action="{{ route('guru.bpi.destroy', $bpi->id) }}" method="post" class="d-inline">

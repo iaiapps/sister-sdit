@@ -37,6 +37,18 @@
                             <label for="date" class="form-label">Tanggal BPI</label>
                             <input type="date" class="form-control" id="date" name="date">
                         </div>
+                        <div class="mb-3">
+                            <label for="presence_count" class="form-label">Jumlah Anak Hadir</label>
+                            <input type="number" class="form-control" id="presence_count" name="presence_count" min="0" placeholder="Contoh: 25">
+                        </div>
+                        <div class="mb-3">
+                            <label for="absence_info" class="form-label">Absensi (Tidak Hadir)</label>
+                            <textarea class="form-control" id="absence_info" name="absence_info" rows="2" placeholder="Contoh: Adib (sakit), Budi (izin)"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="material" class="form-label">Materi yang Disampaikan</label>
+                            <textarea class="form-control" id="material" name="material" rows="2" placeholder="Materi pembelajaran hari ini"></textarea>
+                        </div>
                     </fieldset>
                 </div>
                 <div class="modal-footer">
